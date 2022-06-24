@@ -3,11 +3,11 @@
   <title>echaser</title>
   
   <subtitle>迷途知返</subtitle>
-  <link href="https://echaser.github.io/atom.xml" rel="self"/>
+  <link href="https://www.echaser.cn/atom.xml" rel="self"/>
   
-  <link href="https://echaser.github.io/"/>
+  <link href="https://www.echaser.cn/"/>
   <updated>2022-06-24T08:05:46.740Z</updated>
-  <id>https://echaser.github.io/</id>
+  <id>https://www.echaser.cn/</id>
   
   <author>
     <name>Jack Li</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="https://echaser.github.io/2022/06/24/hello-world/"/>
-    <id>https://echaser.github.io/2022/06/24/hello-world/</id>
+    <link href="https://www.echaser.cn/2022/06/24/hello-world/"/>
+    <id>https://www.echaser.cn/2022/06/24/hello-world/</id>
     <published>2022-06-24T08:05:46.740Z</published>
     <updated>2022-06-24T08:05:46.740Z</updated>
     
