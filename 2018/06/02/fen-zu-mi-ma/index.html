@@ -528,7 +528,7 @@
 </ul>
 <h2 id="ECB模式"><a href="#ECB模式" class="headerlink" title="ECB模式"></a>ECB模式</h2><p>在ECB模式中，将明文分组加密之后的结果直接成为密文分组。当最后一个明文分组的内容小于分组长度时，需要用一些特定的数据进行填充（padding）。</p>
 <p><strong>明文分组</strong>：是指分组密码算法中作为加密对象的明文。<br><strong>密文分组</strong>：是指使用分组密码算法中将明文分组加密之后所生成的密文。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/11383699-2341de5bf3dffe95.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/11383699-2341de5bf3dffe95.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="ECB模式"></p>
 <p>使用 ECB 模式加密时，相同的明文分组会转换为相同的密文分组，也就是说，我们可以将其理解为是一个巨大的“明文分组-&gt;密文分组”的对应表，因此 ECB 模式也称为 <strong>电子密码本模式</strong>。</p>
 <h3 id="ECB模式的特点"><a href="#ECB模式的特点" class="headerlink" title="ECB模式的特点"></a>ECB模式的特点</h3><p>ECB模式是所有模式中最简单的一种。ECB的明文分组与密文分组是一一对应的关系，因此，如果明文中存在多个相同的明文分组，则这些明文分组最终都会将被转换为相同的密文分组。这样一来，只要观察一下密文，就可以知道明文中存在怎样的重复组合，并可以以此为线索来破译密码，因此ECB模式是存在风险的。</p>
 <h3 id="对ECB模式的攻击"><a href="#对ECB模式的攻击" class="headerlink" title="对ECB模式的攻击"></a>对ECB模式的攻击</h3><p>假如存在主动攻击者Mallory，它能够改变密文分组的顺序。当接收者对密文进行解密时，由于密文分组的顺序被改变了，因此相应的明文分组的顺序也会改变。也就是说，攻击者Mallory无需破译密码就能够操纵明文。</p>
@@ -574,18 +574,18 @@
 </li>
 </ul>
 <h3 id="对CBC模式的攻击"><a href="#对CBC模式的攻击" class="headerlink" title="对CBC模式的攻击"></a>对CBC模式的攻击</h3><p>假设主动攻击者Mallory的目的是通过修改密文来操纵解密后的明文。如果Mallory能够对初始化向量中任意比特进行反转，则解密后得到的明文分组中相应的比特也会被反转。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/11383699-30fc1ff1ca7b47b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/11383699-30fc1ff1ca7b47b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="CBC模式"></p>
 <h2 id="CFB模式"><a href="#CFB模式" class="headerlink" title="CFB模式"></a>CFB模式</h2><p>CFB模式，全称Cipher FeedBack模式，译为密文反馈模式，即上一个密文分组作为加密算法的输入，输出与明文异或作为下一个分组的密文。在CFB模式中，明文分组和密文分组之间只有一次异或。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/11383699-88bbc4f109b05b8a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/11383699-88bbc4f109b05b8a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="CFB"></p>
 <p>CFB模式与一次性密码本相似，都是通过将明文与随机比特序列进行异或运算来生成密文。但由于CFB模式中密码算法的输出是通过计算得到的，并非真正的随机数，因此不具备一次性密码本那样理论上不可破译的性质。CFB模式可以看做使用分组方式实现流密码的方式。</p>
 <h3 id="对CFB模式的攻击"><a href="#对CFB模式的攻击" class="headerlink" title="对CFB模式的攻击"></a>对CFB模式的攻击</h3><p>对CFB模式可以实施 <strong>重放攻击（replay attack）</strong></p>
 <p>有一天 A 向 B 发送了一条消息，这条消息由4个密文分组组成，攻击者将后3个密文分组保存下来，第二天，A又向 B 发送内容不同的4个密文分组，攻击者将后3个密文分组进行替换。解密的时候就会发现第一个可以解密正确，第2个会出现错误，而第3个和第4个则变成攻击者替换的内容。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/11383699-b557579925f50970.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/11383699-b557579925f50970.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="CFB模式"></p>
 <h2 id="OFB模式"><a href="#OFB模式" class="headerlink" title="OFB模式"></a>OFB模式</h2><p>OFB模式，全称Output Feedback模式，译为输出反馈模式。OFB模式与CFB模式类似，只是加密算法的输入是上一次加密的输出。</p>
 <p>OFB模式不是通过密码算法对明文直接进行加密的，而是通过将“<strong>明文分组</strong>”和“<strong>密码算法的输出</strong>”进行XOR来产生“密文分组”的。</p>
-<p>OFB模式加密和处理解密逻辑相同，明文与密钥流异或生成密文，密文与密钥流异或生成明文。<br>　　<br><img src="http://upload-images.jianshu.io/upload_images/11383699-20da7de11b97cbd5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"><br>　　<br><img src="http://upload-images.jianshu.io/upload_images/11383699-0d05040f97a3b0e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p>OFB模式加密和处理解密逻辑相同，明文与密钥流异或生成密文，密文与密钥流异或生成明文。<br>　　<br><img src="http://upload-images.jianshu.io/upload_images/11383699-20da7de11b97cbd5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="OFB加密"><br>　　<br><img src="http://upload-images.jianshu.io/upload_images/11383699-0d05040f97a3b0e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="OFB解密"></p>
 <h2 id="CTR模式"><a href="#CTR模式" class="headerlink" title="CTR模式"></a>CTR模式</h2><p>CTR模式，全称Counter模式，译为计数器模式。CTR模式中，每个分组对应一个逐次累加的计数器，并通过对计数器进行加密来生成密钥流。也即最终的密文分组是通过将计数器加密得到的比特序列，与明文分组进行异或运算得到的。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/11383699-8cc386719b3b3502.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/11383699-8cc386719b3b3502.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="CTR模式"></p>
 <h3 id="CTR模式的特点"><a href="#CTR模式的特点" class="headerlink" title="CTR模式的特点"></a>CTR模式的特点</h3><ul>
 <li><p>CTR模式的加密和解密使用了完全相同的结构，因此在程序实现上比较容易。这一特点和同为流密码的OFB模式是一样的。</p>
 </li>
@@ -609,153 +609,33 @@
 </thead>
 <tbody><tr>
 <td>ECB模式</td>
-<td>简单</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>快速</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>支持并行运算</td>
-<td>明文中的重复排列反映在密文中</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>通过删除、替换密文分组可以对明文进行操作</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>对包含某些比特错误的密文进行解密时对应的分组会出错</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>不能抵御重放攻击</td>
+<td>简单<br> 快速<br> 支持并行运算</td>
+<td>明文中的重复排列反映在密文中<br> 通过删除、替换密文分组可以对明文进行操作 <br> 对包含某些比特错误的密文进行解密时对应的分组会出错 <br> 不能抵御重放攻击</td>
 <td>不应使用</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td>CBC模式</td>
-<td>明文的重复排列不会反映在密文中</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>支持并行运算（仅解密）</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>能够解密任意密文分组</td>
-<td>对包含某些错误比特的密文进行解密时，第一个分组的全部比特以及后一个分组的相应比特会出错</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>加密不支持并行运算</td>
+<td>明文的重复排列不会反映在密文中<br> 支持并行运算（仅解密）<br> 能够解密任意密文分组</td>
+<td>对包含某些错误比特的密文进行解密时，第一个分组的全部比特以及后一个分组的相应比特会出错<br> 加密不支持并行运算</td>
 <td>CRYPRTREC推荐 《应用密码学》推荐</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td>CFB模式</td>
-<td>不需要填充</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>支持并行计算（仅解密）</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>能够解密任意密文分组</td>
-<td>加密不支持并行计算</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>对包含某些错误比特的密文进行解密时，第一个分组的全部比特以及后一个分组的相应比特会出错</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>不能抵御重放攻击</td>
+<td>不需要填充<br> 支持并行计算（仅解密）<br> 能够解密任意密文分组</td>
+<td>加密不支持并行计算<br> 对包含某些错误比特的密文进行解密时，第一个分组的全部比特以及后一个分组的相应比特会出错<br> 不能抵御重放攻击</td>
 <td>CRYPRTREC推荐</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td>OFB模式</td>
-<td>不需要填充</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>可事先进行加密、解密的准备</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>加密、解密使用相同结构</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>对包含某些错误比特的密文进行解密时，只有明文中相对应的比特会出错</td>
-<td>不支持并行计算</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>主动攻击者反转密文分组中的某些比特时，明文分组中相对应的比特也会被反转</td>
+<td>不需要填充<br> 可事先进行加密、解密的准备 <br> 加密、解密使用相同结构 <br> 对包含某些错误比特的密文进行解密时，只有明文中相对应的比特会出错</td>
+<td>不支持并行计算 <br> 主动攻击者反转密文分组中的某些比特时，明文分组中相对应的比特也会被反转</td>
 <td>CRYPRTREC推荐</td>
-<td></td>
-<td></td>
 </tr>
 <tr>
 <td>CTR模式</td>
-<td>不需要填充</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>可事先进行加密、解密的准备</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>加密、解密使用相同结构</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>对包含某些错误比特的密文进行解密时，只有明文中相对应的比特会出错</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>支持并行计算（加密、解密）</td>
+<td>不需要填充<br> 可事先进行加密、解密的准备 <br> 加密、解密使用相同结构 <br> 对包含某些错误比特的密文进行解密时，只有明文中相对应的比特会出错 <br> 支持并行计算（加密、解密）</td>
 <td>主动攻击者反转密文分组中的某些比特时，明文分组中相对应的比特也会被反转</td>
 <td>CRYPRTREC推荐 《应用密码学》推荐</td>
-<td></td>
 </tr>
 </tbody></table>
 
