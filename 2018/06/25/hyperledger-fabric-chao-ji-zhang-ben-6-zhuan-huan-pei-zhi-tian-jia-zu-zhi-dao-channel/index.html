@@ -508,225 +508,224 @@ $ cd $HOME/">
                 <span id="more"></span>
 
 <h2 id="configtxlator转换配置-x2F-添加Org组织到channel"><a href="#configtxlator转换配置-x2F-添加Org组织到channel" class="headerlink" title="configtxlator转换配置/添加Org组织到channel"></a>configtxlator转换配置/添加Org组织到channel</h2><h3 id="设置环境"><a href="#设置环境" class="headerlink" title="设置环境"></a>设置环境</h3><p>进入到<code>fabric-samples/first-network</code>目录中, 执行<code>.byfn.sh \-m down</code>关闭网络,清理之前的任何环境</p>
-<pre class="language-none"><code class="language-none">$ cd $HOME/hyfa/fabric-samples/first-network/
-$ sudo ./byfn.sh -m down</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> <span class="token environment constant">$HOME</span>/hyfa/fabric-samples/first-network/
+$ <span class="token function">sudo</span> ./byfn.sh -m down</code></pre>
 
 <p>重新生成默认的BYFN构件</p>
-<pre class="language-none"><code class="language-none">$ sudo ./byfn.sh -m generate</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> ./byfn.sh -m generate</code></pre>
 
 <p>启用网络</p>
-<pre class="language-none"><code class="language-none">$ sudo ./byfn.sh -m up</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> ./byfn.sh -m up</code></pre>
 
 <h3 id="添加组织Org3"><a href="#添加组织Org3" class="headerlink" title="添加组织Org3"></a>添加组织Org3</h3><p>使用<code>eyfn.sh</code>脚本将Org3引入网络</p>
-<pre class="language-none"><code class="language-none">$ sudo ./eyfn.sh up</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> ./eyfn.sh up</code></pre>
 
 <p>从输出中可以看到添加的Org3加密资料，配置更新正在创建和签名，然后链接代码被安装以允许Org3执行分类账查询</p>
 <p>如果执行成功, 会有如下输出</p>
-<pre class="language-none"><code class="language-none">========= All GOOD, EYFN test execution completed =========== 
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span> All GOOD, EYFN <span class="token builtin class-name">test</span> execution completed <span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span> 
 
  _____   _   _   ____   
-| ____| | \ | | |  _ \  
-|  _|   |  \| | | | | | 
-| |___  | |\  | | |_| | 
-|_____| |_| \_| |____/  </code></pre>
+<span class="token operator">|</span> ____<span class="token operator">|</span> <span class="token operator">|</span> <span class="token punctuation">\</span> <span class="token operator">|</span> <span class="token operator">|</span> <span class="token operator">|</span>  _ <span class="token punctuation">\</span>  
+<span class="token operator">|</span>  _<span class="token operator">|</span>   <span class="token operator">|</span>  <span class="token punctuation">\</span><span class="token operator">|</span> <span class="token operator">|</span> <span class="token operator">|</span> <span class="token operator">|</span> <span class="token operator">|</span> <span class="token operator">|</span> 
+<span class="token operator">|</span> <span class="token operator">|</span>___  <span class="token operator">|</span> <span class="token operator">|</span><span class="token punctuation">\</span>  <span class="token operator">|</span> <span class="token operator">|</span> <span class="token operator">|</span>_<span class="token operator">|</span> <span class="token operator">|</span> 
+<span class="token operator">|</span>_____<span class="token operator">|</span> <span class="token operator">|</span>_<span class="token operator">|</span> <span class="token punctuation">\</span>_<span class="token operator">|</span> <span class="token operator">|</span>____/  </code></pre>
 
-<h3 id="进入CLI容器"><a href="#进入CLI容器" class="headerlink" title="进入CLI容器"></a>进入CLI容器</h3><pre class="language-none"><code class="language-none">$ sudo docker exec -it cli bash</code></pre>
+<h3 id="进入CLI容器"><a href="#进入CLI容器" class="headerlink" title="进入CLI容器"></a>进入CLI容器</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">docker</span> <span class="token builtin class-name">exec</span> -it cli <span class="token function">bash</span></code></pre>
 
 <p>导出 <code>ORDERER_CA</code> 与 <code>CHANNEL_NAME</code> 变量:</p>
-<pre class="language-none"><code class="language-none">export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem  &amp;&amp; export CHANNEL_NAME=mychannel</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">ORDERER_CA</span><span class="token operator">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem  <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">export</span> <span class="token assign-left variable">CHANNEL_NAME</span><span class="token operator">=</span>mychannel</code></pre>
 
 <p>检查环境变量是否正确设置:</p>
-<pre class="language-none"><code class="language-none">echo $ORDERER_CA &amp;&amp; echo $CHANNEL_NAME</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token variable">$ORDERER_CA</span> <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">echo</span> <span class="token variable">$CHANNEL_NAME</span></code></pre>
 
 <blockquote>
 <p><strong>如果重新启动了CLI容器，则必须重新导出两个环境变量</strong></p>
 </blockquote>
-<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><pre class="language-none"><code class="language-none">peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'</code></pre>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><pre class="language-bash" data-language="bash"><code class="language-bash">peer chaincode query -C <span class="token variable">$CHANNEL_NAME</span> -n mycc -c <span class="token string">'{"Args":["query","a"]}'</span></code></pre>
 
 <p>查询结果: <code>Query Result: 80</code></p>
-<h3 id="调用-实现从a到b转账"><a href="#调用-实现从a到b转账" class="headerlink" title="调用,实现从a到b转账"></a>调用,实现从a到b转账</h3><pre class="language-none"><code class="language-none">peer chaincode invoke -o orderer.example.com:7050  --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n mycc -c '{"Args":["invoke","a","b","10"]}'</code></pre>
+<h3 id="调用-实现从a到b转账"><a href="#调用-实现从a到b转账" class="headerlink" title="调用,实现从a到b转账"></a>调用,实现从a到b转账</h3><pre class="language-bash" data-language="bash"><code class="language-bash">peer chaincode invoke -o orderer.example.com:7050  --tls <span class="token variable">$CORE_PEER_TLS_ENABLED</span> --cafile <span class="token variable">$ORDERER_CA</span> -C <span class="token variable">$CHANNEL_NAME</span> -n mycc -c <span class="token string">'{"Args":["invoke","a","b","10"]}'</span></code></pre>
 
-<h3 id="查询-1"><a href="#查询-1" class="headerlink" title="查询"></a>查询</h3><pre class="language-none"><code class="language-none">peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'</code></pre>
+<h3 id="查询-1"><a href="#查询-1" class="headerlink" title="查询"></a>查询</h3><pre class="language-bash" data-language="bash"><code class="language-bash">peer chaincode query -C <span class="token variable">$CHANNEL_NAME</span> -n mycc -c <span class="token string">'{"Args":["query","a"]}'</span></code></pre>
 
 <p>查询结果: <code>Query Result: 70</code></p>
 <hr>
 <h2 id="手动实现配置"><a href="#手动实现配置" class="headerlink" title="手动实现配置:"></a>手动实现配置:</h2><p>如果使用了<code>eyfn.sh</code>脚本，则需要将网络关闭.删除所有容器并撤销添加Org3所做的操作</p>
 <p>在 <code>fabric-samples/first-network/</code>目录中执行如下命令:</p>
-<pre class="language-none"><code class="language-none">$ sudo ./eyfn.sh down
-$ sudo ./byfn.sh -m down</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> ./eyfn.sh down
+$ <span class="token function">sudo</span> ./byfn.sh -m down</code></pre>
 
-<pre class="language-none"><code class="language-none">$ sudo ./byfn.sh -m generate
-$ sudo ./byfn.sh -m up</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> ./byfn.sh -m generate
+$ <span class="token function">sudo</span> ./byfn.sh -m up</code></pre>
 
 <h3 id="生成Org3加密材料"><a href="#生成Org3加密材料" class="headerlink" title="生成Org3加密材料"></a>生成Org3加密材料</h3><p>从 <code>frist-network</code> 目录转至 <code>org3-artifacts</code> 目录中</p>
-<pre class="language-none"><code class="language-none">% cd org3-artifacts</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">% <span class="token builtin class-name">cd</span> org3-artifacts</code></pre>
 
 <p>生成加密材料</p>
-<pre class="language-none"><code class="language-none">$ sudo ../../bin/cryptogen generate --config=./org3-crypto.yaml</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token punctuation">..</span>/<span class="token punctuation">..</span>/bin/cryptogen generate --config<span class="token operator">=</span>./org3-crypto.yaml</code></pre>
 
 <p>为Org3 CA以及与此新Org绑定的两个对等生成密钥和证书</p>
 <p>新生成的文件被保存在当前目录下新生成的文件夹 <code>crypto-config</code> 中</p>
 <p>使用 <code>configtxgen</code> 工具以JSON输出Org3特定的配置材料到指定的文件中</p>
-<pre class="language-none"><code class="language-none">$ export FABRIC_CFG_PATH=$PWD 
-$ sudo ../../bin/configtxgen -printOrg Org3MSP &gt; ../channel-artifacts/org3.json</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">export</span> <span class="token assign-left variable">FABRIC_CFG_PATH</span><span class="token operator">=</span><span class="token environment constant">$PWD</span> 
+$ <span class="token function">sudo</span> <span class="token punctuation">..</span>/<span class="token punctuation">..</span>/bin/configtxgen -printOrg Org3MSP <span class="token operator">&gt;</span> <span class="token punctuation">..</span>/channel-artifacts/org3.json</code></pre>
 
 <p>该文件包含Org3的策略定义，以及以Base 64格式提供的三个重要证书：admin用户证书（稍后将用作Org3的管理员），CA根证书和TLS根证书证书</p>
 <p>后面会将这个JSON文件附加到通道配置中</p>
-<pre class="language-none"><code class="language-none">$ cd ../ 
-$ sudo cp -r crypto-config/ordererOrganizations org3-artifacts/crypto-config/</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>/ 
+$ <span class="token function">sudo</span> <span class="token function">cp</span> -r crypto-config/ordererOrganizations org3-artifacts/crypto-config/</code></pre>
 
 <p>将Orderer Org的MSP材料移植到Org3 <code>crypto-config</code>目录中</p>
 <h3 id="更新通道配置"><a href="#更新通道配置" class="headerlink" title="更新通道配置"></a>更新通道配置</h3><p>进入CLI容器</p>
-<pre class="language-none"><code class="language-none">$ sudo docker exec -it cli bash</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">docker</span> <span class="token builtin class-name">exec</span> -it cli <span class="token function">bash</span></code></pre>
 
 <p>安装jq工具</p>
 <p>jq可以将所需要的数据格式转换成任意的数据格式</p>
 <blockquote>
 <p>jq工具允许脚本与<code>configtxlator</code>工具返回的JSON文件进行交互</p>
 </blockquote>
-<pre class="language-none"><code class="language-none">apt update &amp;&amp; apt install -y jq</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">apt</span> update <span class="token operator">&amp;&amp;</span> <span class="token function">apt</span> <span class="token function">install</span> -y jq</code></pre>
 
 <p>参数说明:</p>
 <p>-y: 忽略安装时的提示</p>
 <p>导出 <code>ORDERER_CA</code> 与 <code>CHANNEL_NAME</code> 变量:</p>
-<pre class="language-none"><code class="language-none">export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem  &amp;&amp; export CHANNEL_NAME=mychannel</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">ORDERER_CA</span><span class="token operator">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem  <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">export</span> <span class="token assign-left variable">CHANNEL_NAME</span><span class="token operator">=</span>mychannel</code></pre>
 
 <p>检查环境变量是否正确设置:</p>
-<pre class="language-none"><code class="language-none">echo $ORDERER_CA &amp;&amp; echo $CHANNEL_NAME</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token variable">$ORDERER_CA</span> <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">echo</span> <span class="token variable">$CHANNEL_NAME</span></code></pre>
 
 <blockquote>
 <p><strong>如果重新启动了CLI容器，则必须重新导出两个环境变量</strong></p>
 </blockquote>
 <p>获取配置</p>
 <p>获取 <code>mychannel</code> 通道的最新配置块, 可以防止重复或替换配置更改, 有助于确保并发性, 防止删除两个组织</p>
-<pre class="language-none"><code class="language-none">peer channel fetch config config_block.pb -o orderer.example.com:7050 -c $CHANNEL_NAME --tls --cafile $ORDERER_CA</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">peer channel fetch config config_block.pb -o orderer.example.com:7050 -c <span class="token variable">$CHANNEL_NAME</span> --tls --cafile <span class="token variable">$ORDERER_CA</span></code></pre>
 
 <p>上述命令将二进制protobuf通道配置块保存到 <code>config_block.pb</code> , (文件名及扩展名命名无限制)</p>
-<p>​</p>
 <p>转换配置为JSON</p>
 <p>利用 <code>configtxlator</code> 工具将此通道配置块解码为JSON格式, 删除所有与想要改变的内容无关的标题，元数据，创建者签名等等</p>
 <p>通过 <code>jq</code> 工具来完成</p>
-<pre class="language-none"><code class="language-none">configtxlator proto_decode --input config_block.pb --type common.Block | jq .data.data[0].payload.data.config &gt; config.json</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">configtxlator proto_decode --input config_block.pb --type common.Block <span class="token operator">|</span> jq .data.data<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>.payload.data.config <span class="token operator">&gt;</span> config.json</code></pre>
 
 <blockquote>
 <p>.data.data[0],payload.data.config域内数据代表了完整的通道配置信息</p>
 </blockquote>
 <p>查看<code>config.json</code>文件中的内容</p>
-<pre class="language-none"><code class="language-none">more config.json</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">more</span> config.json</code></pre>
 
 <p>使用jq将Org3配置定义追加<code>org3.json</code>到通道的应用程序组字段，并命名输出<code>modified_config.json</code></p>
-<pre class="language-none"><code class="language-none">jq -s '.[0] * {"channel_group":{"groups":{"Application":{"groups": {"Org3MSP":.[1]}}}}}' config.json ./channel-artifacts/org3.json &gt; modified_config.json</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">jq -s <span class="token string">'.[0] * {"channel_group":{"groups":{"Application":{"groups": {"Org3MSP":.[1]}}}}}'</span> config.json ./channel-artifacts/org3.json <span class="token operator">&gt;</span> modified_config.json</code></pre>
 
 <p>将 <code>config.json</code> 中的内容输出为 <code>config.pb</code></p>
-<pre class="language-none"><code class="language-none">configtxlator proto_encode --input config.json --type common.Config --output config.pb</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">configtxlator proto_encode --input config.json --type common.Config --output config.pb</code></pre>
 
 <p>将 <code>modified_config.json</code> 中的内容输出为 <code>modified_config.pb</code></p>
-<pre class="language-none"><code class="language-none">configtxlator proto_encode --input modified_config.json --type common.Config --output modified_config.pb</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">configtxlator proto_encode --input modified_config.json --type common.Config --output modified_config.pb</code></pre>
 
 <p>利用这两个配置文件, 使用<code>configtxlator</code>计算出更新配置时的更新量信息。该命令将输出一个新的二进制文件，命名为<code>org3_update.pb</code>：</p>
-<pre class="language-none"><code class="language-none">configtxlator compute_update --channel_id $CHANNEL_NAME --original config.pb --updated modified_config.pb --output org3_update.pb</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">configtxlator compute_update --channel_id <span class="token variable">$CHANNEL_NAME</span> --original config.pb --updated modified_config.pb --output org3_update.pb</code></pre>
 
 <p>将 <code>org3_update.pb</code> 中的内容解码为可编辑的JSON格式并将其称为<code>org3_update.json</code></p>
-<pre class="language-none"><code class="language-none">configtxlator proto_decode --input org3_update.pb --type common.ConfigUpdate | jq . &gt; org3_update.json</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">configtxlator proto_decode --input org3_update.pb --type common.ConfigUpdate <span class="token operator">|</span> jq <span class="token builtin class-name">.</span> <span class="token operator">&gt;</span> org3_update.json</code></pre>
 
 <p>对通道配置进行更新时, 还需要封装为 <code>org3_update_in_envelope</code> 结构的配置更新交易. 因此, 需要将 <code>org3_update</code> 结构数据进行补全</p>
-<pre class="language-none"><code class="language-none">echo '{"payload":{"header":{"channel_header":{"channel_id":"mychannel", "type":2}},"data":{"config_update":'$(cat org3_update.json)'}}}' | jq . &gt; org3_update_in_envelope.json</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token string">'{"payload":{"header":{"channel_header":{"channel_id":"mychannel", "type":2}},"data":{"config_update":'</span><span class="token variable"><span class="token variable">$(</span><span class="token function">cat</span> org3_update.json<span class="token variable">)</span></span><span class="token string">'}}}'</span> <span class="token operator">|</span> jq <span class="token builtin class-name">.</span> <span class="token operator">&gt;</span> org3_update_in_envelope.json</code></pre>
 
 <p>将其转换为Fabric所需的二进制交易配置文件。命名为最终更新对象<code>org3_update_in_envelope.pb</code></p>
-<pre class="language-none"><code class="language-none">configtxlator proto_encode --input org3_update_in_envelope.json --type common.Envelope --output org3_update_in_envelope.pb</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">configtxlator proto_encode --input org3_update_in_envelope.json --type common.Envelope --output org3_update_in_envelope.pb</code></pre>
 
-<h3 id="签署并提交配置更新"><a href="#签署并提交配置更新" class="headerlink" title="签署并提交配置更新"></a>签署并提交配置更新</h3><pre class="language-none"><code class="language-none">peer channel signconfigtx -f org3_update_in_envelope.pb</code></pre>
+<h3 id="签署并提交配置更新"><a href="#签署并提交配置更新" class="headerlink" title="签署并提交配置更新"></a>签署并提交配置更新</h3><pre class="language-bash" data-language="bash"><code class="language-bash">peer channel signconfigtx -f org3_update_in_envelope.pb</code></pre>
 
 <p>导出Org2环境变量:</p>
-<pre class="language-none"><code class="language-none">export CORE_PEER_LOCALMSPID="Org2MSP"
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">CORE_PEER_LOCALMSPID</span><span class="token operator">=</span><span class="token string">"Org2MSP"</span>
 
-export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">CORE_PEER_TLS_ROOTCERT_FILE</span><span class="token operator">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
 
-export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">CORE_PEER_MSPCONFIGPATH</span><span class="token operator">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
 
-export CORE_PEER_ADDRESS=peer0.org2.example.com:7051</code></pre>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">CORE_PEER_ADDRESS</span><span class="token operator">=</span>peer0.org2.example.com:7051</code></pre>
 
 <p>更新通道</p>
-<pre class="language-none"><code class="language-none">peer channel update -f org3_update_in_envelope.pb -c $CHANNEL_NAME -o orderer.example.com:7050 --tls --cafile $ORDERER_CA</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">peer channel update -f org3_update_in_envelope.pb -c <span class="token variable">$CHANNEL_NAME</span> -o orderer.example.com:7050 --tls --cafile <span class="token variable">$ORDERER_CA</span></code></pre>
 
 <p>命令执行后会有如下输出: <code>Successfully submitted channel update</code></p>
 <p>新终端中(终端2)中输出日志</p>
 <p>打开一个新的终端(<strong>终端2</strong>)执行如下命令:</p>
-<pre class="language-none"><code class="language-none">$ sudo docker logs -f peer0.org1.example.com</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">docker</span> logs -f peer0.org1.example.com</code></pre>
 
 <h3 id="将Org3加入到通道"><a href="#将Org3加入到通道" class="headerlink" title="将Org3加入到通道"></a>将Org3加入到通道</h3><p><strong>打开一个新的终端(终端3)</strong>, 从 <code>first-network</code> 中启动Org3 docker compose</p>
-<pre class="language-none"><code class="language-none">$ cd hyfa/fabric-samples/first-network/
-$ sudo docker-compose -f docker-compose-org3.yaml up -d</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> hyfa/fabric-samples/first-network/
+$ <span class="token function">sudo</span> <span class="token function">docker-compose</span> -f docker-compose-org3.yaml up -d</code></pre>
 
 <p>进入Org3特定的CLI容器中:</p>
-<pre class="language-none"><code class="language-none">$ sudo docker exec -it Org3cli bash</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">docker</span> <span class="token builtin class-name">exec</span> -it Org3cli <span class="token function">bash</span></code></pre>
 
 <p>导出环境变量:</p>
-<pre class="language-none"><code class="language-none">export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem &amp;&amp; export CHANNEL_NAME=mychannel</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">ORDERER_CA</span><span class="token operator">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">export</span> <span class="token assign-left variable">CHANNEL_NAME</span><span class="token operator">=</span>mychannel</code></pre>
 
 <p>检查变量 :</p>
-<pre class="language-none"><code class="language-none">echo $ORDERER_CA &amp;&amp; echo $CHANNEL_NAME</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token variable">$ORDERER_CA</span> <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">echo</span> <span class="token variable">$CHANNEL_NAME</span></code></pre>
 
 <p>检索该块:</p>
-<pre class="language-none"><code class="language-none">peer channel fetch 0 mychannel.block -o orderer.example.com:7050 -c $CHANNEL_NAME --tls --cafile $ORDERER_CA</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">peer channel fetch <span class="token number">0</span> mychannel.block -o orderer.example.com:7050 -c <span class="token variable">$CHANNEL_NAME</span> --tls --cafile <span class="token variable">$ORDERER_CA</span></code></pre>
 
 <p>发出命令并通过创世区块:</p>
-<pre class="language-none"><code class="language-none">peer channel join -b mychannel.block</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">peer channel <span class="token function">join</span> -b mychannel.block</code></pre>
 
 <p>导出TLS与ADDRESS变量并重新发布</p>
-<pre class="language-none"><code class="language-none">export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org3.example.com/peers/peer1.org3.example.com/tls/ca.crt &amp;&amp; export CORE_PEER_ADDRESS=peer1.org3.example.com:7051
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">CORE_PEER_TLS_ROOTCERT_FILE</span><span class="token operator">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org3.example.com/peers/peer1.org3.example.com/tls/ca.crt <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">export</span> <span class="token assign-left variable">CORE_PEER_ADDRESS</span><span class="token operator">=</span>peer1.org3.example.com:7051
 
-peer channel join -b mychannel.block</code></pre>
+peer channel <span class="token function">join</span> -b mychannel.block</code></pre>
 
 <h3 id="升级并调用Chaincode"><a href="#升级并调用Chaincode" class="headerlink" title="升级并调用Chaincode"></a>升级并调用Chaincode</h3><p>在Org3的CLI中执行(<strong>终端3</strong>):</p>
-<pre class="language-none"><code class="language-none">peer chaincode install -n mycc -v 2.0 -p github.com/chaincode/chaincode_example02/go/</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">peer chaincode <span class="token function">install</span> -n mycc -v <span class="token number">2.0</span> -p github.com/chaincode/chaincode_example02/go/</code></pre>
 
 <p><strong>终端1中执行</strong></p>
 <p>使用Org2管理员身份提交了频道更新通话(<strong>在终端1中执行</strong>):</p>
-<pre class="language-none"><code class="language-none">export CORE_PEER_LOCALMSPID="Org2MSP"
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">CORE_PEER_LOCALMSPID</span><span class="token operator">=</span><span class="token string">"Org2MSP"</span>
 
-export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">CORE_PEER_TLS_ROOTCERT_FILE</span><span class="token operator">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
 
-export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">CORE_PEER_MSPCONFIGPATH</span><span class="token operator">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
 
-export CORE_PEER_ADDRESS=peer0.org2.example.com:7051</code></pre>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">CORE_PEER_ADDRESS</span><span class="token operator">=</span>peer0.org2.example.com:7051</code></pre>
 
 <p>安装</p>
-<pre class="language-none"><code class="language-none">peer chaincode install -n mycc -v 2.0 -p github.com/chaincode/chaincode_example02/go/</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">peer chaincode <span class="token function">install</span> -n mycc -v <span class="token number">2.0</span> -p github.com/chaincode/chaincode_example02/go/</code></pre>
 
 <p>切换为Org1身份:</p>
-<pre class="language-none"><code class="language-none">export CORE_PEER_LOCALMSPID="Org1MSP"
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">CORE_PEER_LOCALMSPID</span><span class="token operator">=</span><span class="token string">"Org1MSP"</span>
 
-export CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">CORE_PEER_TLS_ROOTCERT_FILE</span><span class="token operator">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
 
-export CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">CORE_PEER_MSPCONFIGPATH</span><span class="token operator">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
 
-export CORE_PEER_ADDRESS=peer0.org1.example.com:7051</code></pre>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">CORE_PEER_ADDRESS</span><span class="token operator">=</span>peer0.org1.example.com:7051</code></pre>
 
 <p>再次安装：</p>
-<pre class="language-none"><code class="language-none">peer chaincode install -n mycc -v 2.0 -p github.com/chaincode/chaincode_example02/go/</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">peer chaincode <span class="token function">install</span> -n mycc -v <span class="token number">2.0</span> -p github.com/chaincode/chaincode_example02/go/</code></pre>
 
 <p>发送电话：</p>
-<pre class="language-none"><code class="language-none">peer chaincode upgrade -o orderer.example.com:7050 --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n mycc -v 2.0 -c '{"Args":["init","a","90","b","210"]}' -P "OR ('Org1MSP.peer','Org2MSP.peer','Org3MSP.peer')"</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">peer chaincode upgrade -o orderer.example.com:7050 --tls <span class="token variable">$CORE_PEER_TLS_ENABLED</span> --cafile <span class="token variable">$ORDERER_CA</span> -C <span class="token variable">$CHANNEL_NAME</span> -n mycc -v <span class="token number">2.0</span> -c <span class="token string">'{"Args":["init","a","90","b","210"]}'</span> -P <span class="token string">"OR ('Org1MSP.peer','Org2MSP.peer','Org3MSP.peer')"</span></code></pre>
 
 <p>如果报如下错误:</p>
-<pre class="language-none"><code class="language-none">Error: Error getting broadcast client: failed to load config for OrdererClient: unable to load orderer.tls.rootcert.file: open /etc/hyperledger/fabric/-C: no such file or directory
-则需要检查  echo $ORDERER_CA &amp;&amp; echo $CHANNEL_NAME  变量是否正确设置
+<pre class="language-bash" data-language="bash"><code class="language-bash">Error: Error getting broadcast client: failed to load config <span class="token keyword">for</span> OrdererClient: unable to load orderer.tls.rootcert.file: <span class="token function">open</span> /etc/hyperledger/fabric/-C: no such <span class="token function">file</span> or directory
+则需要检查  <span class="token builtin class-name">echo</span> <span class="token variable">$ORDERER_CA</span> <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">echo</span> <span class="token variable">$CHANNEL_NAME</span>  变量是否正确设置
 
-export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem &amp;&amp; export CHANNEL_NAME=mychannel</code></pre>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">ORDERER_CA</span><span class="token operator">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem <span class="token operator">&amp;&amp;</span> <span class="token builtin class-name">export</span> <span class="token assign-left variable">CHANNEL_NAME</span><span class="token operator">=</span>mychannel</code></pre>
 
 <p>通过<code>v</code>标志指定新版本。可以看到Org3添加到背书政策中</p>
 <p>与实例化调用一样，链式代码升级需要使用该<code>init</code> 方法</p>
 <p><strong>终端3中执行</strong></p>
 <p>升级调用将新的块 - 块6 - 添加到频道的分类账中，并允许Org3同行在认可阶段执行交易。跳回Org3 CLI容器(<strong>终端3</strong>)并发出一个查询值<code>a</code>：</p>
-<pre class="language-none"><code class="language-none">peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">peer chaincode query -C <span class="token variable">$CHANNEL_NAME</span> -n mycc -c <span class="token string">'{"Args":["query","a"]}'</span></code></pre>
 
 <p>在终端1与终端3中通过,正确显示查询结果: <code>Query Result: 90</code></p>
 <p>调用,实现从a到b转账(<strong>终端3</strong>):</p>
-<pre class="language-none"><code class="language-none">peer chaincode invoke -o orderer.example.com:7050  --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n mycc -c '{"Args":["invoke","a","b","10"]}'</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">peer chaincode invoke -o orderer.example.com:7050  --tls <span class="token variable">$CORE_PEER_TLS_ENABLED</span> --cafile <span class="token variable">$ORDERER_CA</span> -C <span class="token variable">$CHANNEL_NAME</span> -n mycc -c <span class="token string">'{"Args":["invoke","a","b","10"]}'</span></code></pre>
 
 <p>查询:</p>
-<pre class="language-none"><code class="language-none">peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">peer chaincode query -C <span class="token variable">$CHANNEL_NAME</span> -n mycc -c <span class="token string">'{"Args":["query","a"]}'</span></code></pre>
 
 <p>在终端1与终端3中通过,正确显示查询结果: <code>Query Result: 80</code></p>
 
@@ -1501,7 +1500,7 @@ export ORDERER_CA=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/orde
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92.1k</span>
+                        class="white-color">92.2k</span>
             
             
             

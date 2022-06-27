@@ -553,12 +553,19 @@ $ sudo docker-compose -f docker-compose-simple.yaml down
 
 概念:Chaincode: 链上代码, 简称链码, 一般是指用户编写的应用代码
 链码被部署在Fabric网络节点上,
-​ Peer 节点
-​ – 背书节点
-​ – commit节点
-​ – Leader节点
-​ – 锚节点
-运行在隔离沙
+
+Peer 节点
+
+背书节点
+
+commit节点
+
+Leader节点
+
+锚节点
+
+
+运行在隔离沙盒(当前为Docker
                                 
                             </div>
                             <div class="publish-info">
@@ -876,10 +883,10 @@ $ sudo
                                     
 
 创建P2P serverfunc (n *Node) Start() error {
-    ...
-
-    // Initialize the p2p server. This creates the node key and
-  
+	...
+	
+	// Initialize the p2p server. This creates the node key and
+	// dis
                                 
                             </div>
                             <div class="publish-info">
@@ -1292,7 +1299,7 @@ openssl生成公钥openssl rsa -in rsa_private_key.pem -pubout -out
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92.1k</span>
+                        class="white-color">92.2k</span>
             
             
             

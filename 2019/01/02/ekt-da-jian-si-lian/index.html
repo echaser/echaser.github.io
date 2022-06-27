@@ -534,10 +534,10 @@
 <h5 id="4-我们会发现bin目录下还有两个文件，一个是ecli，另外一个是enode，这两个都是可执行文件，可以用-ecli-account-new命令来创建账号"><a href="#4-我们会发现bin目录下还有两个文件，一个是ecli，另外一个是enode，这两个都是可执行文件，可以用-ecli-account-new命令来创建账号" class="headerlink" title="4.我们会发现bin目录下还有两个文件，一个是ecli，另外一个是enode，这两个都是可执行文件，可以用./ecli account new命令来创建账号"></a>4.我们会发现<code>bin</code>目录下还有两个文件，一个是<code>ecli</code>，另外一个是<code>enode</code>，这两个都是可执行文件，可以用<code>./ecli account new</code>命令来创建账号</h5><p><img src="https://img-blog.csdnimg.cn/20181221193946715.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1Y2t5ZG9nNjEy,size_16,color_FFFFFF,t_70" alt="创建账号"></p>
 <h5 id="5-接下来启动EKT：在终端输入-enode，EKT私链搭建完成-当前窗口不要关闭，进行转账等其他命令时，要新建一个终端"><a href="#5-接下来启动EKT：在终端输入-enode，EKT私链搭建完成-当前窗口不要关闭，进行转账等其他命令时，要新建一个终端" class="headerlink" title="5.接下来启动EKT：在终端输入./enode，EKT私链搭建完成(当前窗口不要关闭，进行转账等其他命令时，要新建一个终端)"></a>5.接下来启动<code>EKT</code>：在终端输入<code>./enode</code>，<code>EKT</code>私链搭建完成(当前窗口不要关闭，进行转账等其他命令时，要新建一个终端)</h5><p><img src="https://img-blog.csdnimg.cn/20181221194028266.png" alt="启动EKT"><br>EKT还有一些命令：</p>
 <h4 id="ecli相关"><a href="#ecli相关" class="headerlink" title="ecli相关"></a>ecli相关</h4><p>转账交易：<code>./ecli transaction send</code><br>1.输入私钥<br>2.输入币种，可不输入，默认<code>EKT</code><br>3.输入转账金额，注意这里说的金额以最小值为单位的，比如你要转<code>10</code>个<code>EKT</code>，需要输入1000000000(后面有<code>8</code>个<code>0</code>)<br>4.输入收款方地址<br>5.输入转账备注内容<br>终端会输出一个<code>json</code>字符串，复制<code>result</code>后面的字符串(交易地址)，打开浏览器，输入<code>http://localhost:19951/db/api/getByHex?hash=txId(刚才复制的内容)</code>即可查询交易详情<br><img src="https://img-blog.csdnimg.cn/20181221194558492.png" alt="转账"><br><img src="https://img-blog.csdnimg.cn/20181221194058732.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1Y2t5ZG9nNjEy,size_16,color_FFFFFF,t_70" alt="交易详情"></p>
-<h4 id="enode相关"><a href="#enode相关" class="headerlink" title="enode相关"></a>enode相关</h4><pre class="language-none"><code class="language-none">./enode -h	 	帮助
+<h4 id="enode相关"><a href="#enode相关" class="headerlink" title="enode相关"></a>enode相关</h4><pre class="language-bash" data-language="bash"><code class="language-bash">./enode -h	 	帮助
 ./enode -v 	输出版本并退出
-./enode -m 	同步模式：`full sync`,`fast sync`或者`delegate`，默认`adaptive`
-./enode -c 	设置`genesis.json`并启动，默认当前目录下的`genesis.json`</code></pre>
+./enode -m 	同步模式：<span class="token variable"><span class="token variable">`</span>full <span class="token function">sync</span><span class="token variable">`</span></span>,<span class="token variable"><span class="token variable">`</span>fast <span class="token function">sync</span><span class="token variable">`</span></span>或者<span class="token variable"><span class="token variable">`</span>delegate<span class="token variable">`</span></span>，默认<span class="token variable"><span class="token variable">`</span>adaptive<span class="token variable">`</span></span>
+./enode -c 	设置<span class="token variable"><span class="token variable">`</span>genesis.json<span class="token variable">`</span></span>并启动，默认当前目录下的<span class="token variable"><span class="token variable">`</span>genesis.json<span class="token variable">`</span></span></code></pre>
 
 <p>EKT官网：<a target="_blank" rel="noopener" href="https://ekt8.io/">https://ekt8.io/</a><br>源码地址：<a target="_blank" rel="noopener" href="https://github.com/EducationEKT/EKT">https://github.com/EducationEKT/EKT</a></p>
 
@@ -1296,7 +1296,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92.1k</span>
+                        class="white-color">92.2k</span>
             
             
             

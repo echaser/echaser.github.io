@@ -527,57 +527,57 @@ etcd是一个分布式一致性键值存储系统，用于共享配置和服务�
 </ul>
 <p>etcd是Go编写，并使用Raft一致性算法来管理高可用复制日志：</p>
 <h1 id="单服务器版"><a href="#单服务器版" class="headerlink" title="单服务器版"></a>单服务器版</h1><hr>
-<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><pre class="language-none"><code class="language-none">$ mkdir -p $GOPATH/src/github.com/coreos
-$ cd !$
-$ git clone https://github.com/coreos/etcd.git
-$ cd etcd
+<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">mkdir</span> -p <span class="token variable">$GOPATH</span>/src/github.com/coreos
+$ <span class="token builtin class-name">cd</span> <span class="token operator">!</span>$
+$ <span class="token function">git</span> clone https://github.com/coreos/etcd.git
+$ <span class="token builtin class-name">cd</span> etcd
 $ ./build
 $ ./bin/etcd</code></pre>
 
 <p>另外一种下载安装的方法：</p>
 <p>直接下载etcd二进制 （包含etcd、etcdctl）<br><a target="_blank" rel="noopener" href="https://github.com/coreos/etcd/releases">https://github.com/coreos/etcd/releases</a></p>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><pre class="language-none"><code class="language-none">$ cd $GOPATH
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> <span class="token variable">$GOPATH</span>
 $ ./bin/etcd
 
-$ cd $GOPATH
-$ ETCDCTL_API=3 ./bin/etcdctl put foo bar
+$ <span class="token builtin class-name">cd</span> <span class="token variable">$GOPATH</span>
+$ <span class="token assign-left variable">ETCDCTL_API</span><span class="token operator">=</span><span class="token number">3</span> ./bin/etcdctl put foo bar
 
-# 输出结果显示OK，表示安装成功
+<span class="token comment"># 输出结果显示OK，表示安装成功</span>
 OK</code></pre>
 
-<h2 id="搭建本地集群"><a href="#搭建本地集群" class="headerlink" title="搭建本地集群"></a>搭建本地集群</h2><pre class="language-none"><code class="language-none">$ go get github.com/mattn/goreman
+<h2 id="搭建本地集群"><a href="#搭建本地集群" class="headerlink" title="搭建本地集群"></a>搭建本地集群</h2><pre class="language-bash" data-language="bash"><code class="language-bash">$ go get github.com/mattn/goreman
 
-$ cd $GOPATH/src/github.com/coreos/etcd
+$ <span class="token builtin class-name">cd</span> <span class="token variable">$GOPATH</span>/src/github.com/coreos/etcd
 $ goreman -f Procfile start</code></pre>
 
 <p>查看本地集群的服务器列表</p>
-<pre class="language-none"><code class="language-none">$ cd $GOPATH/src/github.com/coreos/etcd
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> <span class="token variable">$GOPATH</span>/src/github.com/coreos/etcd
 
 $ ./bin/etcdctl member list
 
-# 显示结果
+<span class="token comment"># 显示结果</span>
 
-8211f1d0f64f3269: name=infra1 peerURLs=http://127.0.0.1:12380 clientURLs=http://127.0.0.1:2379 isLeader=false
-91bc3c398fb3c146: name=infra2 peerURLs=http://127.0.0.1:22380 clientURLs=http://127.0.0.1:22379 isLeader=true
-fd422379fda50e48: name=infra3 peerURLs=http://127.0.0.1:32380 clientURLs=http://127.0.0.1:32379 isLeader=false</code></pre>
+8211f1d0f64f3269: <span class="token assign-left variable">name</span><span class="token operator">=</span>infra1 <span class="token assign-left variable">peerURLs</span><span class="token operator">=</span>http://127.0.0.1:12380 <span class="token assign-left variable">clientURLs</span><span class="token operator">=</span>http://127.0.0.1:2379 <span class="token assign-left variable">isLeader</span><span class="token operator">=</span>false
+91bc3c398fb3c146: <span class="token assign-left variable">name</span><span class="token operator">=</span>infra2 <span class="token assign-left variable">peerURLs</span><span class="token operator">=</span>http://127.0.0.1:22380 <span class="token assign-left variable">clientURLs</span><span class="token operator">=</span>http://127.0.0.1:22379 <span class="token assign-left variable">isLeader</span><span class="token operator">=</span>true
+fd422379fda50e48: <span class="token assign-left variable">name</span><span class="token operator">=</span>infra3 <span class="token assign-left variable">peerURLs</span><span class="token operator">=</span>http://127.0.0.1:32380 <span class="token assign-left variable">clientURLs</span><span class="token operator">=</span>http://127.0.0.1:32379 <span class="token assign-left variable">isLeader</span><span class="token operator">=</span>false</code></pre>
 
-<h3 id="存储数据"><a href="#存储数据" class="headerlink" title="存储数据"></a>存储数据</h3><pre class="language-none"><code class="language-none">export ETCDCTL_API=3
+<h3 id="存储数据"><a href="#存储数据" class="headerlink" title="存储数据"></a>存储数据</h3><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">ETCDCTL_API</span><span class="token operator">=</span><span class="token number">3</span>
 
-$ ./bin/etcdctl put foo "Hello World!"
+$ ./bin/etcdctl put foo <span class="token string">"Hello World!"</span>
 
 OK
 
 $ ./bin/etcdctl get foo
 
 foo
-Hello World!
+Hello World<span class="token operator">!</span>
 
 
-$ ./bin/etcdctl  --write-out="json" get foo
+$ ./bin/etcdctl  --write-out<span class="token operator">=</span><span class="token string">"json"</span> get foo
 
-{"header":{"cluster_id":17237436991929493444,"member_id":9372538179322589801,"revision":2,"raft_term":2},"kvs":[{"key":"Zm9v","create_revision":2,"mod_revision":2,"version":1,"value":"SGVsbG8gV29ybGQh"}],"count":1}</code></pre>
+<span class="token punctuation">{</span><span class="token string">"header"</span>:<span class="token punctuation">{</span><span class="token string">"cluster_id"</span>:17237436991929493444,<span class="token string">"member_id"</span>:9372538179322589801,<span class="token string">"revision"</span>:2,<span class="token string">"raft_term"</span>:2<span class="token punctuation">}</span>,<span class="token string">"kvs"</span>:<span class="token punctuation">[</span><span class="token punctuation">{</span><span class="token string">"key"</span><span class="token builtin class-name">:</span><span class="token string">"Zm9v"</span>,<span class="token string">"create_revision"</span>:2,<span class="token string">"mod_revision"</span>:2,<span class="token string">"version"</span>:1,<span class="token string">"value"</span><span class="token builtin class-name">:</span><span class="token string">"SGVsbG8gV29ybGQh"</span><span class="token punctuation">}</span><span class="token punctuation">]</span>,<span class="token string">"count"</span>:1<span class="token punctuation">}</span></code></pre>
 
-<h3 id="根据前缀查询"><a href="#根据前缀查询" class="headerlink" title="根据前缀查询"></a>根据前缀查询</h3><pre class="language-none"><code class="language-none">
+<h3 id="根据前缀查询"><a href="#根据前缀查询" class="headerlink" title="根据前缀查询"></a>根据前缀查询</h3><pre class="language-bash" data-language="bash"><code class="language-bash">
 $ ./bin/etcdctl put web1 value1
 $ ./bin/etcdctl put web2 value2
 $ ./bin/etcdctl put web3 value3
@@ -591,33 +591,33 @@ value2
 web3
 value3</code></pre>
 
-<h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><pre class="language-none"><code class="language-none">$ ./bin/etcdctl put key myvalue
+<h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ ./bin/etcdctl put key myvalue
 $ ./bin/etcdctl del key
-1
+<span class="token number">1</span>
 $ ./bin/etcdctl get key
 // 查询结果为空
 
 $ ./bin/etcdctl put k1 value1
 $ ./bin/etcdctl put k2 value2
 $ ./bin/etcdctl del k --prefix
-2
+<span class="token number">2</span>
 $ ./bin/etcdctl get k --prefix
 // 查询结果为空</code></pre>
 
-<h3 id="事务写入"><a href="#事务写入" class="headerlink" title="事务写入"></a>事务写入</h3><pre class="language-none"><code class="language-none">$ ./bin/etcdctl put user1 bad
+<h3 id="事务写入"><a href="#事务写入" class="headerlink" title="事务写入"></a>事务写入</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ ./bin/etcdctl put user1 bad
 OK
 $ ./bin/etcdctl txn --interactive
 
 compares:
 // 输入以下内容，输入结束按 两次回车
-value("user1") = "bad"      
+value<span class="token punctuation">(</span><span class="token string">"user1"</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token string">"bad"</span>      
 
-//如果 user1 = bad，则执行 get user1 
-success requests (get, put, del):
+//如果 user1 <span class="token operator">=</span> bad，则执行 get user1 
+success requests <span class="token punctuation">(</span>get, put, del<span class="token punctuation">)</span>:
 get user1
 
-//如果 user1 != bad，则执行 put user1 good
-failure requests (get, put, del):
+//如果 user1 <span class="token operator">!=</span> bad，则执行 put user1 good
+failure requests <span class="token punctuation">(</span>get, put, del<span class="token punctuation">)</span>:
 put user1 good
 
 // 运行结果，执行 success
@@ -630,15 +630,15 @@ bad
 
 $ ./bin/etcdctl txn --interactive
 compares:
-value("user1") = "111"  
+value<span class="token punctuation">(</span><span class="token string">"user1"</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token string">"111"</span>  
 
-// 如果 user1 = 111，则执行 get user1 
-success requests (get, put, del):
+// 如果 user1 <span class="token operator">=</span> <span class="token number">111</span>，则执行 get user1 
+success requests <span class="token punctuation">(</span>get, put, del<span class="token punctuation">)</span>:
 get user1
 
-//如果 user1 != 111，则执行 put user1 2222
-failure requests (get, put, del):
-put user1 2222
+//如果 user1 <span class="token operator">!=</span> <span class="token number">111</span>，则执行 put user1 <span class="token number">2222</span>
+failure requests <span class="token punctuation">(</span>get, put, del<span class="token punctuation">)</span>:
+put user1 <span class="token number">2222</span>
 
 // 运行结果，执行 failure
 FAILURE
@@ -647,29 +647,29 @@ OK
 
 $ ./bin/etcdctl get user1
 user1
-2222</code></pre>
+<span class="token number">2222</span></code></pre>
 
-<h3 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h3><pre class="language-none"><code class="language-none">// 当 stock1 的数值改变（ put 方法）的时候，watch 会收到通知
-$ ./bin/etcdctl watch stock1
+<h3 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h3><pre class="language-bash" data-language="bash"><code class="language-bash">// 当 stock1 的数值改变（ put 方法）的时候，watch 会收到通知
+$ ./bin/etcdctl <span class="token function">watch</span> stock1
 
 // 新打开终端
-$ export ETCDCTL_API=3
-$ ./bin/etcdctl put stock1 1000
+$ <span class="token builtin class-name">export</span> <span class="token assign-left variable">ETCDCTL_API</span><span class="token operator">=</span><span class="token number">3</span>
+$ ./bin/etcdctl put stock1 <span class="token number">1000</span>
 
 //在watch 终端显示
 PUT
 stock1
-1000
+<span class="token number">1000</span>
 
 
-$ ./bin/etcdctl watch stock --prefix
-$ ./bin/etcdctl put stock1 10
-$ ./bin/etcdctl put stock2 20</code></pre>
+$ ./bin/etcdctl <span class="token function">watch</span> stock --prefix
+$ ./bin/etcdctl put stock1 <span class="token number">10</span>
+$ ./bin/etcdctl put stock2 <span class="token number">20</span></code></pre>
 
-<h3 id="lease"><a href="#lease" class="headerlink" title="lease"></a>lease</h3><pre class="language-none"><code class="language-none">$ ./bin/etcdctl lease grant 300
-# lease 326963a02758b527 granted with TTL(300s)
+<h3 id="lease"><a href="#lease" class="headerlink" title="lease"></a>lease</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ ./bin/etcdctl lease grant <span class="token number">300</span>
+<span class="token comment"># lease 326963a02758b527 granted with TTL(300s)</span>
 
-$ ./bin/etcdctl put sample value --lease=326963a02758b527
+$ ./bin/etcdctl put sample value --lease<span class="token operator">=</span>326963a02758b527
 OK
 
 $ ./bin/etcdctl get sample
@@ -678,26 +678,26 @@ $ ./bin/etcdctl lease keep-alive 326963a02758b520
 $ ./bin/etcdctl lease revoke 326963a02758b527
 lease 326963a02758b527 revoked
 
-# or after 300 seconds
+<span class="token comment"># or after 300 seconds</span>
 $ ./bin/etcdctl get sample</code></pre>
 
-<h3 id="Distributed-locks"><a href="#Distributed-locks" class="headerlink" title="Distributed locks"></a>Distributed locks</h3><pre class="language-none"><code class="language-none">//第一终端
+<h3 id="Distributed-locks"><a href="#Distributed-locks" class="headerlink" title="Distributed locks"></a>Distributed locks</h3><pre class="language-bash" data-language="bash"><code class="language-bash">//第一终端
 $ ./bin/etcdctl lock mutex1
 mutex1/326963a02758b52d
 
-# 第二终端
+<span class="token comment"># 第二终端</span>
 $ ./bin/etcdctl lock mutex1
 
 // 当第一个终端结束了，第二个终端会显示
 mutex1/326963a02758b531</code></pre>
 
-<h3 id="Elections"><a href="#Elections" class="headerlink" title="Elections"></a>Elections</h3><pre class="language-none"><code class="language-none">$ ./bin/etcdctl elect one p1
+<h3 id="Elections"><a href="#Elections" class="headerlink" title="Elections"></a>Elections</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ ./bin/etcdctl elect one p1
 
 one/326963a02758b539
 p1
 
 
-# another client with the same name blocks
+<span class="token comment"># another client with the same name blocks</span>
 $ ./bin/etcdctl elect one p2
 
 //结束第一终端，第二终端显示
@@ -705,81 +705,81 @@ one/326963a02758b53e
 p2</code></pre>
 
 <h3 id="Cluster-status"><a href="#Cluster-status" class="headerlink" title="Cluster status"></a>Cluster status</h3><p>集群状态</p>
-<pre class="language-none"><code class="language-none">$ ./bin/etcdctl --write-out=table endpoint status
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ ./bin/etcdctl --write-out<span class="token operator">=</span>table endpoint status
 
 $ ./bin/etcdctl endpoint health</code></pre>
 
-<h3 id="Snapshot"><a href="#Snapshot" class="headerlink" title="Snapshot"></a>Snapshot</h3><pre class="language-none"><code class="language-none">./bin/etcdctl snapshot save my.db
+<h3 id="Snapshot"><a href="#Snapshot" class="headerlink" title="Snapshot"></a>Snapshot</h3><pre class="language-bash" data-language="bash"><code class="language-bash">./bin/etcdctl snapshot save my.db
 
 Snapshot saved at my.db
 
-./bin/etcdctl --write-out=table snapshot status my.db</code></pre>
+./bin/etcdctl --write-out<span class="token operator">=</span>table snapshot status my.db</code></pre>
 
-<h3 id="Member"><a href="#Member" class="headerlink" title="Member"></a>Member</h3><pre class="language-none"><code class="language-none">./bin/etcdctl member list -w table</code></pre>
+<h3 id="Member"><a href="#Member" class="headerlink" title="Member"></a>Member</h3><pre class="language-bash" data-language="bash"><code class="language-bash">./bin/etcdctl member list -w table</code></pre>
 
 <h1 id="etcd-多台服务器集群"><a href="#etcd-多台服务器集群" class="headerlink" title="etcd 多台服务器集群"></a>etcd 多台服务器集群</h1><hr>
-<h2 id="下载安装-etcd"><a href="#下载安装-etcd" class="headerlink" title="下载安装 etcd"></a>下载安装 etcd</h2><pre class="language-none"><code class="language-none">$ mkdir -p $GOPATH/src/github.com/coreos
-$ cd !$
-$ git clone https://github.com/coreos/etcd.git
-$ cd etcd
+<h2 id="下载安装-etcd"><a href="#下载安装-etcd" class="headerlink" title="下载安装 etcd"></a>下载安装 etcd</h2><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">mkdir</span> -p <span class="token variable">$GOPATH</span>/src/github.com/coreos
+$ <span class="token builtin class-name">cd</span> <span class="token operator">!</span>$
+$ <span class="token function">git</span> clone https://github.com/coreos/etcd.git
+$ <span class="token builtin class-name">cd</span> etcd
 $ ./build</code></pre>
 
 <h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><p>每个节点都要执行以下配置，HOST_1、HOST_2、HOST_3 分别设置为多台服务器的IP</p>
-<pre class="language-none"><code class="language-none">TOKEN=token-01
-CLUSTER_STATE=new
-NAME_1=machine-1
-NAME_2=machine-2
-NAME_3=machine-3
-HOST_1=192.168.1.126
-HOST_2=192.168.1.119
-HOST_3=192.168.1.103
-CLUSTER=${NAME_1}=http://${HOST_1}:2380,${NAME_2}=http://${HOST_2}:2380,${NAME_3}=http://${HOST_3}:2380</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">TOKEN</span><span class="token operator">=</span>token-01
+<span class="token assign-left variable">CLUSTER_STATE</span><span class="token operator">=</span>new
+<span class="token assign-left variable">NAME_1</span><span class="token operator">=</span>machine-1
+<span class="token assign-left variable">NAME_2</span><span class="token operator">=</span>machine-2
+<span class="token assign-left variable">NAME_3</span><span class="token operator">=</span>machine-3
+<span class="token assign-left variable">HOST_1</span><span class="token operator">=</span><span class="token number">192.168</span>.1.126
+<span class="token assign-left variable">HOST_2</span><span class="token operator">=</span><span class="token number">192.168</span>.1.119
+<span class="token assign-left variable">HOST_3</span><span class="token operator">=</span><span class="token number">192.168</span>.1.103
+<span class="token assign-left variable">CLUSTER</span><span class="token operator">=</span><span class="token variable">${NAME_1}</span><span class="token operator">=</span>http://<span class="token variable">${HOST_1}</span>:2380,<span class="token variable">${NAME_2}</span><span class="token operator">=</span>http://<span class="token variable">${HOST_2}</span>:2380,<span class="token variable">${NAME_3}</span><span class="token operator">=</span>http://<span class="token variable">${HOST_3}</span>:2380</code></pre>
 
 <p><strong>machine 1</strong> 执行如下命令</p>
-<pre class="language-none"><code class="language-none">$ cd $GOPATH/src/github.com/coreos/etcd/bin
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> <span class="token variable">$GOPATH</span>/src/github.com/coreos/etcd/bin
 
-# For machine 1
-THIS_NAME=${NAME_1}
-THIS_IP=${HOST_1}
-./etcd --data-dir=data.etcd --name ${THIS_NAME} --initial-advertise-peer-urls http://${THIS_IP}:2380 --listen-peer-urls http://${THIS_IP}:2380 --advertise-client-urls http://${THIS_IP}:2379 --listen-client-urls http://${THIS_IP}:2379 --initial-cluster ${CLUSTER} --initial-cluster-state ${CLUSTER_STATE} --initial-cluster-token ${TOKEN}</code></pre>
+<span class="token comment"># For machine 1</span>
+<span class="token assign-left variable">THIS_NAME</span><span class="token operator">=</span><span class="token variable">${NAME_1}</span>
+<span class="token assign-left variable">THIS_IP</span><span class="token operator">=</span><span class="token variable">${HOST_1}</span>
+./etcd --data-dir<span class="token operator">=</span>data.etcd --name <span class="token variable">${THIS_NAME}</span> --initial-advertise-peer-urls http://<span class="token variable">${THIS_IP}</span>:2380 --listen-peer-urls http://<span class="token variable">${THIS_IP}</span>:2380 --advertise-client-urls http://<span class="token variable">${THIS_IP}</span>:2379 --listen-client-urls http://<span class="token variable">${THIS_IP}</span>:2379 --initial-cluster <span class="token variable">${CLUSTER}</span> --initial-cluster-state <span class="token variable">${CLUSTER_STATE}</span> --initial-cluster-token <span class="token variable">${TOKEN}</span></code></pre>
 
 <p><strong>machine 2</strong> 执行如下命令</p>
-<pre class="language-none"><code class="language-none">$ cd $GOPATH/src/github.com/coreos/etcd/bin
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> <span class="token variable">$GOPATH</span>/src/github.com/coreos/etcd/bin
 
-# For machine 2
-THIS_NAME=${NAME_2}
-THIS_IP=${HOST_2}
-./etcd --data-dir=data.etcd --name ${THIS_NAME} --initial-advertise-peer-urls http://${THIS_IP}:2380 --listen-peer-urls http://${THIS_IP}:2380 --advertise-client-urls http://${THIS_IP}:2379 --listen-client-urls http://${THIS_IP}:2379 --initial-cluster ${CLUSTER} --initial-cluster-state ${CLUSTER_STATE} --initial-cluster-token ${TOKEN}</code></pre>
+<span class="token comment"># For machine 2</span>
+<span class="token assign-left variable">THIS_NAME</span><span class="token operator">=</span><span class="token variable">${NAME_2}</span>
+<span class="token assign-left variable">THIS_IP</span><span class="token operator">=</span><span class="token variable">${HOST_2}</span>
+./etcd --data-dir<span class="token operator">=</span>data.etcd --name <span class="token variable">${THIS_NAME}</span> --initial-advertise-peer-urls http://<span class="token variable">${THIS_IP}</span>:2380 --listen-peer-urls http://<span class="token variable">${THIS_IP}</span>:2380 --advertise-client-urls http://<span class="token variable">${THIS_IP}</span>:2379 --listen-client-urls http://<span class="token variable">${THIS_IP}</span>:2379 --initial-cluster <span class="token variable">${CLUSTER}</span> --initial-cluster-state <span class="token variable">${CLUSTER_STATE}</span> --initial-cluster-token <span class="token variable">${TOKEN}</span></code></pre>
 
 <p><strong>machine 3</strong> 执行如下命令</p>
-<pre class="language-none"><code class="language-none">$ cd $GOPATH/src/github.com/coreos/etcd/bin
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> <span class="token variable">$GOPATH</span>/src/github.com/coreos/etcd/bin
 
-# For machine 3
-THIS_NAME=${NAME_3}
-THIS_IP=${HOST_3}
-./etcd --data-dir=data.etcd --name ${THIS_NAME} --initial-advertise-peer-urls http://${THIS_IP}:2380 --listen-peer-urls http://${THIS_IP}:2380 --advertise-client-urls http://${THIS_IP}:2379 --listen-client-urls http://${THIS_IP}:2379 --initial-cluster ${CLUSTER} --initial-cluster-state ${CLUSTER_STATE} --initial-cluster-token ${TOKEN}</code></pre>
+<span class="token comment"># For machine 3</span>
+<span class="token assign-left variable">THIS_NAME</span><span class="token operator">=</span><span class="token variable">${NAME_3}</span>
+<span class="token assign-left variable">THIS_IP</span><span class="token operator">=</span><span class="token variable">${HOST_3}</span>
+./etcd --data-dir<span class="token operator">=</span>data.etcd --name <span class="token variable">${THIS_NAME}</span> --initial-advertise-peer-urls http://<span class="token variable">${THIS_IP}</span>:2380 --listen-peer-urls http://<span class="token variable">${THIS_IP}</span>:2380 --advertise-client-urls http://<span class="token variable">${THIS_IP}</span>:2379 --listen-client-urls http://<span class="token variable">${THIS_IP}</span>:2379 --initial-cluster <span class="token variable">${CLUSTER}</span> --initial-cluster-state <span class="token variable">${CLUSTER_STATE}</span> --initial-cluster-token <span class="token variable">${TOKEN}</span></code></pre>
 
 <p>检测服务器运行是否正常</p>
-<pre class="language-none"><code class="language-none">$ cd $GOPATH/src/github.com/coreos/etcd/bin
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> <span class="token variable">$GOPATH</span>/src/github.com/coreos/etcd/bin
 
-export ETCDCTL_API=3
-HOST_1=192.168.1.126
-HOST_2=192.168.1.119
-HOST_3=192.168.1.103
-ENDPOINTS=$HOST_1:2379,$HOST_2:2379,$HOST_3:2379
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">ETCDCTL_API</span><span class="token operator">=</span><span class="token number">3</span>
+<span class="token assign-left variable">HOST_1</span><span class="token operator">=</span><span class="token number">192.168</span>.1.126
+<span class="token assign-left variable">HOST_2</span><span class="token operator">=</span><span class="token number">192.168</span>.1.119
+<span class="token assign-left variable">HOST_3</span><span class="token operator">=</span><span class="token number">192.168</span>.1.103
+<span class="token assign-left variable">ENDPOINTS</span><span class="token operator">=</span><span class="token variable">$HOST_1</span>:2379,<span class="token variable">$HOST_2</span>:2379,<span class="token variable">$HOST_3</span>:2379
 
-./etcdctl --endpoints=$ENDPOINTS member list</code></pre>
+./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> member list</code></pre>
 
-<h2 id="存储数据-1"><a href="#存储数据-1" class="headerlink" title="存储数据"></a>存储数据</h2><pre class="language-none"><code class="language-none">./etcdctl --endpoints=$ENDPOINTS put foo "Hello World!"
+<h2 id="存储数据-1"><a href="#存储数据-1" class="headerlink" title="存储数据"></a>存储数据</h2><pre class="language-bash" data-language="bash"><code class="language-bash">./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> put foo <span class="token string">"Hello World!"</span>
 
-./etcdctl --endpoints=$ENDPOINTS get foo
-./etcdctl --endpoints=$ENDPOINTS --write-out="json" get foo</code></pre>
+./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> get foo
+./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> --write-out<span class="token operator">=</span><span class="token string">"json"</span> get foo</code></pre>
 
-<h2 id="根据前缀查询-1"><a href="#根据前缀查询-1" class="headerlink" title="根据前缀查询"></a>根据前缀查询</h2><pre class="language-none"><code class="language-none">./etcdctl --endpoints=$ENDPOINTS put web1 value1
-./etcdctl --endpoints=$ENDPOINTS put web2 value2
-./etcdctl --endpoints=$ENDPOINTS put web3 value3
+<h2 id="根据前缀查询-1"><a href="#根据前缀查询-1" class="headerlink" title="根据前缀查询"></a>根据前缀查询</h2><pre class="language-bash" data-language="bash"><code class="language-bash">./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> put web1 value1
+./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> put web2 value2
+./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> put web3 value3
 
-./etcdctl --endpoints=$ENDPOINTS get web --prefix
+./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> get web --prefix
 
 web1
 value1
@@ -788,28 +788,28 @@ value2
 web3
 value3</code></pre>
 
-<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><pre class="language-none"><code class="language-none">./etcdctl --endpoints=$ENDPOINTS put key myvalue
-./etcdctl --endpoints=$ENDPOINTS del key
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><pre class="language-bash" data-language="bash"><code class="language-bash">./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> put key myvalue
+./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> del key
 
-./etcdctl --endpoints=$ENDPOINTS put k1 value1
-./etcdctl --endpoints=$ENDPOINTS put k2 value2
-./etcdctl --endpoints=$ENDPOINTS del k --prefix</code></pre>
+./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> put k1 value1
+./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> put k2 value2
+./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> del k --prefix</code></pre>
 
-<h2 id="事务写入-1"><a href="#事务写入-1" class="headerlink" title="事务写入"></a>事务写入</h2><pre class="language-none"><code class="language-none">$ ./etcdctl --endpoints=$ENDPOINTS put user1 bad
+<h2 id="事务写入-1"><a href="#事务写入-1" class="headerlink" title="事务写入"></a>事务写入</h2><pre class="language-bash" data-language="bash"><code class="language-bash">$ ./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> put user1 bad
 OK
 
-$ ./etcdctl --endpoints=$ENDPOINTS txn --interactive
+$ ./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> txn --interactive
 
 compares:
 // 输入以下内容，输入结束按 两次回车
-value("user1") = "bad"      
+value<span class="token punctuation">(</span><span class="token string">"user1"</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token string">"bad"</span>      
 
-//如果 user1 = bad，则执行 get user1 
-success requests (get, put, del):
+//如果 user1 <span class="token operator">=</span> bad，则执行 get user1 
+success requests <span class="token punctuation">(</span>get, put, del<span class="token punctuation">)</span>:
 get user1
 
-//如果 user1 != bad，则执行 put user1 good
-failure requests (get, put, del):
+//如果 user1 <span class="token operator">!=</span> bad，则执行 put user1 good
+failure requests <span class="token punctuation">(</span>get, put, del<span class="token punctuation">)</span>:
 put user1 good
 
 // 运行结果，执行 success
@@ -820,44 +820,44 @@ bad
 
 
 
-$ ./etcdctl --endpoints=$ENDPOINTS txn --interactive
+$ ./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> txn --interactive
 compares:
-value("user1") = "111"  
+value<span class="token punctuation">(</span><span class="token string">"user1"</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token string">"111"</span>  
 
-// 如果 user1 = 111，则执行 get user1 
-success requests (get, put, del):
+// 如果 user1 <span class="token operator">=</span> <span class="token number">111</span>，则执行 get user1 
+success requests <span class="token punctuation">(</span>get, put, del<span class="token punctuation">)</span>:
 get user1
 
-//如果 user1 != 111，则执行 put user1 2222
-failure requests (get, put, del):
-put user1 2222
+//如果 user1 <span class="token operator">!=</span> <span class="token number">111</span>，则执行 put user1 <span class="token number">2222</span>
+failure requests <span class="token punctuation">(</span>get, put, del<span class="token punctuation">)</span>:
+put user1 <span class="token number">2222</span>
 
 // 运行结果，执行 failure
 FAILURE
 
 OK
 
-$ ./etcdctl --endpoints=$ENDPOINTS get user1
+$ ./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> get user1
 user1
-2222</code></pre>
+<span class="token number">2222</span></code></pre>
 
-<h2 id="watch-1"><a href="#watch-1" class="headerlink" title="watch"></a>watch</h2><pre class="language-none"><code class="language-none">// 当 stock1 的数值改变（ put 方法）的时候，watch 会收到通知
-./etcdctl --endpoints=$ENDPOINTS watch stock1
+<h2 id="watch-1"><a href="#watch-1" class="headerlink" title="watch"></a>watch</h2><pre class="language-bash" data-language="bash"><code class="language-bash">// 当 stock1 的数值改变（ put 方法）的时候，watch 会收到通知
+./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> <span class="token function">watch</span> stock1
 
 // 新打开终端
-$ cd $GOPATH/src/github.com/coreos/etcd/bin
+$ <span class="token builtin class-name">cd</span> <span class="token variable">$GOPATH</span>/src/github.com/coreos/etcd/bin
 
-export ETCDCTL_API=3
-HOST_1=192.168.1.126
-HOST_2=192.168.1.119
-HOST_3=192.168.1.103
-ENDPOINTS=$HOST_1:2379,$HOST_2:2379,$HOST_3:2379
-./etcdctl --endpoints=$ENDPOINTS put stock1 1000
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">ETCDCTL_API</span><span class="token operator">=</span><span class="token number">3</span>
+<span class="token assign-left variable">HOST_1</span><span class="token operator">=</span><span class="token number">192.168</span>.1.126
+<span class="token assign-left variable">HOST_2</span><span class="token operator">=</span><span class="token number">192.168</span>.1.119
+<span class="token assign-left variable">HOST_3</span><span class="token operator">=</span><span class="token number">192.168</span>.1.103
+<span class="token assign-left variable">ENDPOINTS</span><span class="token operator">=</span><span class="token variable">$HOST_1</span>:2379,<span class="token variable">$HOST_2</span>:2379,<span class="token variable">$HOST_3</span>:2379
+./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> put stock1 <span class="token number">1000</span>
 
-./etcdctl --endpoints=$ENDPOINTS watch stock --prefix
+./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> <span class="token function">watch</span> stock --prefix
 
-./etcdctl --endpoints=$ENDPOINTS put stock1 10
-./etcdctl --endpoints=$ENDPOINTS put stock2 20</code></pre>
+./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> put stock1 <span class="token number">10</span>
+./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> put stock2 <span class="token number">20</span></code></pre>
 
 <h2 id="更多操作"><a href="#更多操作" class="headerlink" title="更多操作"></a>更多操作</h2><p><a target="_blank" rel="noopener" href="https://coreos.com/etcd/docs/latest/">https://coreos.com/etcd/docs/latest/</a></p>
 
@@ -1632,7 +1632,7 @@ ENDPOINTS=$HOST_1:2379,$HOST_2:2379,$HOST_3:2379
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92.1k</span>
+                        class="white-color">92.2k</span>
             
             
             

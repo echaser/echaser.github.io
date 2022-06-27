@@ -510,66 +510,66 @@
 
 <h2 id="集群搭建"><a href="#集群搭建" class="headerlink" title="集群搭建"></a>集群搭建</h2><p>下面只用同一台服务器进行三个成员节点的开启</p>
 <p><strong>节点1</strong></p>
-<pre class="language-none"><code class="language-none">./etcd --name cd0 --initial-advertise-peer-urls http://127.0.0.1:2380 --listen-peer-urls http://127.0.0.1:2380 --listen-client-urls http://127.0.0.1:2379 --advertise-client-urls http://127.0.0.1:2379 --initial-cluster-token etcd-cluster-1 --initial-cluster cd0=http://127.0.0.1:2380,cd1=http://127.0.0.1:2480,cd2=http://127.0.0.1:2580 --initial-cluster-state new</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">./etcd --name cd0 --initial-advertise-peer-urls http://127.0.0.1:2380 --listen-peer-urls http://127.0.0.1:2380 --listen-client-urls http://127.0.0.1:2379 --advertise-client-urls http://127.0.0.1:2379 --initial-cluster-token etcd-cluster-1 --initial-cluster <span class="token assign-left variable">cd0</span><span class="token operator">=</span>http://127.0.0.1:2380,cd1<span class="token operator">=</span>http://127.0.0.1:2480,cd2<span class="token operator">=</span>http://127.0.0.1:2580 --initial-cluster-state new</code></pre>
 
 <p><strong>节点2</strong></p>
-<pre class="language-none"><code class="language-none">./etcd --name cd1 --initial-advertise-peer-urls http://127.0.0.1:2480 --listen-peer-urls http://127.0.0.1:2480 --listen-client-urls http://127.0.0.1:2479 --advertise-client-urls http://127.0.0.1:2479 --initial-cluster-token etcd-cluster-1 --initial-cluster cd0=http://127.0.0.1:2380,cd1=http://127.0.0.1:2480,cd2=http://127.0.0.1:2580 --initial-cluster-state new</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">./etcd --name cd1 --initial-advertise-peer-urls http://127.0.0.1:2480 --listen-peer-urls http://127.0.0.1:2480 --listen-client-urls http://127.0.0.1:2479 --advertise-client-urls http://127.0.0.1:2479 --initial-cluster-token etcd-cluster-1 --initial-cluster <span class="token assign-left variable">cd0</span><span class="token operator">=</span>http://127.0.0.1:2380,cd1<span class="token operator">=</span>http://127.0.0.1:2480,cd2<span class="token operator">=</span>http://127.0.0.1:2580 --initial-cluster-state new</code></pre>
 
 <p><strong>节点3</strong></p>
-<pre class="language-none"><code class="language-none">./etcd --name cd2 --initial-advertise-peer-urls http://127.0.0.1:2580 --listen-peer-urls http://127.0.0.1:2580 --listen-client-urls http://127.0.0.1:2579 --advertise-client-urls http://127.0.0.1:2579 --initial-cluster-token etcd-cluster-1 --initial-cluster cd0=http://127.0.0.1:2380,cd1=http://127.0.0.1:2480,cd2=http://127.0.0.1:2580 --initial-cluster-state new</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">./etcd --name cd2 --initial-advertise-peer-urls http://127.0.0.1:2580 --listen-peer-urls http://127.0.0.1:2580 --listen-client-urls http://127.0.0.1:2579 --advertise-client-urls http://127.0.0.1:2579 --initial-cluster-token etcd-cluster-1 --initial-cluster <span class="token assign-left variable">cd0</span><span class="token operator">=</span>http://127.0.0.1:2380,cd1<span class="token operator">=</span>http://127.0.0.1:2480,cd2<span class="token operator">=</span>http://127.0.0.1:2580 --initial-cluster-state new</code></pre>
 
-<h2 id="查询-member-列表"><a href="#查询-member-列表" class="headerlink" title="查询 member 列表"></a>查询 member 列表</h2><pre class="language-none"><code class="language-none">export ETCDCTL_API=3
-ENDPOINTS=127.0.0.1:2379,127.0.0.1:2479,127.0.0.1:2579
+<h2 id="查询-member-列表"><a href="#查询-member-列表" class="headerlink" title="查询 member 列表"></a>查询 member 列表</h2><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">ETCDCTL_API</span><span class="token operator">=</span><span class="token number">3</span>
+<span class="token assign-left variable">ENDPOINTS</span><span class="token operator">=</span><span class="token number">127.0</span>.0.1:2379,127.0.0.1:2479,127.0.0.1:2579
 
-./etcdctl --endpoints=$ENDPOINTS member list</code></pre>
+./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> member list</code></pre>
 
 <p>运行结果：</p>
-<pre class="language-none"><code class="language-none">98f0c6bf64240842, started, cd2, http://127.0.0.1:2580, http://127.0.0.1:2579
+<pre class="language-bash" data-language="bash"><code class="language-bash">98f0c6bf64240842, started, cd2, http://127.0.0.1:2580, http://127.0.0.1:2579
 bf9071f4639c75cc, started, cd0, http://127.0.0.1:2380, http://127.0.0.1:2379
 e3ba87c3b4858ef1, started, cd1, http://127.0.0.1:2480, http://127.0.0.1:2479</code></pre>
 
 <h2 id="添加-member-节点"><a href="#添加-member-节点" class="headerlink" title="添加 member 节点"></a>添加 member 节点</h2><p><strong>member add</strong> 添加节点</p>
-<pre class="language-none"><code class="language-none">./etcdctl --endpoints=$ENDPOINTS member add cd3 --peer-urls=http://127.0.0.1:2180
+<pre class="language-bash" data-language="bash"><code class="language-bash">./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> member <span class="token function">add</span> cd3 --peer-urls<span class="token operator">=</span>http://127.0.0.1:2180
 Member b9057cfdc8ff17ce added to cluster 9da8cd75487bd6dc</code></pre>
 
 <p>运行结果：</p>
-<pre class="language-none"><code class="language-none">ETCD_NAME="cd3"
-ETCD_INITIAL_CLUSTER="cd2=http://127.0.0.1:2580,cd3=http://127.0.0.1:2180,cd0=http://127.0.0.1:2380,cd1=http://127.0.0.1:2480"
-ETCD_INITIAL_ADVERTISE_PEER_URLS="http://127.0.0.1:2180"
-ETCD_INITIAL_CLUSTER_STATE="existing"</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">ETCD_NAME</span><span class="token operator">=</span><span class="token string">"cd3"</span>
+<span class="token assign-left variable">ETCD_INITIAL_CLUSTER</span><span class="token operator">=</span><span class="token string">"cd2=http://127.0.0.1:2580,cd3=http://127.0.0.1:2180,cd0=http://127.0.0.1:2380,cd1=http://127.0.0.1:2480"</span>
+<span class="token assign-left variable">ETCD_INITIAL_ADVERTISE_PEER_URLS</span><span class="token operator">=</span><span class="token string">"http://127.0.0.1:2180"</span>
+<span class="token assign-left variable">ETCD_INITIAL_CLUSTER_STATE</span><span class="token operator">=</span><span class="token string">"existing"</span></code></pre>
 
 <p><strong>查询 member 节点列表信息</strong></p>
-<pre class="language-none"><code class="language-none">./etcdctl --endpoints=$ENDPOINTS member list</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> member list</code></pre>
 
 <p>运行结果：</p>
-<pre class="language-none"><code class="language-none">98f0c6bf64240842, started, cd2, http://127.0.0.1:2580, http://127.0.0.1:2579
+<pre class="language-bash" data-language="bash"><code class="language-bash">98f0c6bf64240842, started, cd2, http://127.0.0.1:2580, http://127.0.0.1:2579
 b9057cfdc8ff17ce, unstarted, , http://127.0.0.1:2180, 
 bf9071f4639c75cc, started, cd0, http://127.0.0.1:2380, http://127.0.0.1:2379
 e3ba87c3b4858ef1, started, cd1, http://127.0.0.1:2480, http://127.0.0.1:2479</code></pre>
 
 <p>通过查询结果可以发现：<code>http://127.0.0.1:2180</code> 显示状态为：<code>unstarted</code></p>
 <p><strong>启动新节点</strong></p>
-<pre class="language-none"><code class="language-none">./etcd --name cd3 --listen-client-urls http://127.0.0.1:2179 --advertise-client-urls http://127.0.0.1:2179 --listen-peer-urls http://127.0.0.1:2180 --initial-advertise-peer-urls http://127.0.0.1:2180 --initial-cluster-state existing --initial-cluster cd2=http://127.0.0.1:2580,cd0=http://127.0.0.1:2380,cd3=http://127.0.0.1:2180,cd1=http://127.0.0.1:2480 --initial-cluster-token etcd-cluster-1</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">./etcd --name cd3 --listen-client-urls http://127.0.0.1:2179 --advertise-client-urls http://127.0.0.1:2179 --listen-peer-urls http://127.0.0.1:2180 --initial-advertise-peer-urls http://127.0.0.1:2180 --initial-cluster-state existing --initial-cluster <span class="token assign-left variable">cd2</span><span class="token operator">=</span>http://127.0.0.1:2580,cd0<span class="token operator">=</span>http://127.0.0.1:2380,cd3<span class="token operator">=</span>http://127.0.0.1:2180,cd1<span class="token operator">=</span>http://127.0.0.1:2480 --initial-cluster-token etcd-cluster-1</code></pre>
 
 <p><strong>查询 member 节点列表信息</strong></p>
-<pre class="language-none"><code class="language-none">./etcdctl --endpoints=$ENDPOINTS member list</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> member list</code></pre>
 
 <p>运行结果：</p>
-<pre class="language-none"><code class="language-none">98f0c6bf64240842, started, cd2, http://127.0.0.1:2580, http://127.0.0.1:2579
+<pre class="language-bash" data-language="bash"><code class="language-bash">98f0c6bf64240842, started, cd2, http://127.0.0.1:2580, http://127.0.0.1:2579
 b9057cfdc8ff17ce, started, cd3, http://127.0.0.1:2180, http://127.0.0.1:2179
 bf9071f4639c75cc, started, cd0, http://127.0.0.1:2380, http://127.0.0.1:2379
 e3ba87c3b4858ef1, started, cd1, http://127.0.0.1:2480, http://127.0.0.1:2479</code></pre>
 
-<h2 id="删除-member"><a href="#删除-member" class="headerlink" title="删除 member"></a>删除 member</h2><pre class="language-none"><code class="language-none">./etcdctl --endpoints=$ENDPOINTS member remove b9057cfdc8ff17ce</code></pre>
+<h2 id="删除-member"><a href="#删除-member" class="headerlink" title="删除 member"></a>删除 member</h2><pre class="language-bash" data-language="bash"><code class="language-bash">./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> member remove b9057cfdc8ff17ce</code></pre>
 
 <p>运行结果：</p>
-<pre class="language-none"><code class="language-none">Member b9057cfdc8ff17ce removed from cluster 9da8cd75487bd6dc</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">Member b9057cfdc8ff17ce removed from cluster 9da8cd75487bd6dc</code></pre>
 
 <p><strong>查询 member 节点列表信息</strong></p>
-<pre class="language-none"><code class="language-none">./etcdctl --endpoints=$ENDPOINTS member list</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">./etcdctl --endpoints<span class="token operator">=</span><span class="token variable">$ENDPOINTS</span> member list</code></pre>
 
 <p>运行结果：</p>
-<pre class="language-none"><code class="language-none">98f0c6bf64240842, started, cd2, http://127.0.0.1:2580, http://127.0.0.1:2579
+<pre class="language-bash" data-language="bash"><code class="language-bash">98f0c6bf64240842, started, cd2, http://127.0.0.1:2580, http://127.0.0.1:2579
 bf9071f4639c75cc, started, cd0, http://127.0.0.1:2380, http://127.0.0.1:2379
 e3ba87c3b4858ef1, started, cd1, http://127.0.0.1:2480, http://127.0.0.1:2479</code></pre>
 
@@ -589,7 +589,7 @@ e3ba87c3b4858ef1, started, cd1, http://127.0.0.1:2480, http://127.0.0.1:2479</co
 <span class="token punctuation">}</span></code></pre>
 
 <p>执行完 添加节点，需要打开终端启动节点服务器</p>
-<pre class="language-none"><code class="language-none">./etcd --name cd3 --listen-client-urls http://127.0.0.1:2179 --advertise-client-urls http://127.0.0.1:2179 --listen-peer-urls http://127.0.0.1:2180 --initial-advertise-peer-urls http://127.0.0.1:2180 --initial-cluster-state existing --initial-cluster cd2=http://127.0.0.1:2580,cd0=http://127.0.0.1:2380,cd3=http://127.0.0.1:2180,cd1=http://127.0.0.1:2480 --initial-cluster-token etcd-cluster-1</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">./etcd --name cd3 --listen-client-urls http://127.0.0.1:2179 --advertise-client-urls http://127.0.0.1:2179 --listen-peer-urls http://127.0.0.1:2180 --initial-advertise-peer-urls http://127.0.0.1:2180 --initial-cluster-state existing --initial-cluster <span class="token assign-left variable">cd2</span><span class="token operator">=</span>http://127.0.0.1:2580,cd0<span class="token operator">=</span>http://127.0.0.1:2380,cd3<span class="token operator">=</span>http://127.0.0.1:2180,cd1<span class="token operator">=</span>http://127.0.0.1:2480 --initial-cluster-token etcd-cluster-1</code></pre>
 
 <p><strong>如果启动失败，需要删除 cd3 的信息</strong></p>
 <p><img src="http://olgjbx93m.bkt.clouddn.com/20180129-104838.png"></p>
@@ -1459,7 +1459,7 @@ e3ba87c3b4858ef1, started, cd1, http://127.0.0.1:2480, http://127.0.0.1:2479</co
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92.1k</span>
+                        class="white-color">92.2k</span>
             
             
             

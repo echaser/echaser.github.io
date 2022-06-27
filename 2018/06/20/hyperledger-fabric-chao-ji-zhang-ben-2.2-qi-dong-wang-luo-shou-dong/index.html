@@ -510,23 +510,23 @@ $ cd hyfa/fabric-samples/first-network/
                 <span id="more"></span>
 
 <h2 id="启动网络手动实现"><a href="#启动网络手动实现" class="headerlink" title="启动网络手动实现"></a>启动网络手动实现</h2><h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><h3 id="生成组织关系和身份证书"><a href="#生成组织关系和身份证书" class="headerlink" title="生成组织关系和身份证书"></a>生成组织关系和身份证书</h3><p>确定是在 <code>fabric-samples/first-network</code> 路径下</p>
-<pre class="language-none"><code class="language-none">$ cd hyfa/fabric-samples/first-network/</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> hyfa/fabric-samples/first-network/</code></pre>
 
 <p>为fabric网络生成指定拓扑结构的<strong>组织关系和身份证书</strong></p>
-<pre class="language-none"><code class="language-none">$ sudo ../bin/cryptogen generate --config=./crypto-config.yaml</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token punctuation">..</span>/bin/cryptogen generate --config<span class="token operator">=</span>./crypto-config.yaml</code></pre>
 
 <blockquote>
 <p>此命令依赖 <code>crypto-config.yaml</code> 配置文件</p>
 </blockquote>
 <p>会有如下输出:</p>
-<pre class="language-none"><code class="language-none">org1.example.com
+<pre class="language-bash" data-language="bash"><code class="language-bash">org1.example.com
 org2.example.com</code></pre>
 
 <p>证书和密钥（即MSP材料）将被输出到目录 <code>first-network/crypto-config</code> 的目录中</p>
 <p>ordererOrganizations子目录下包括构成Orderer组织(1个Orderer节点)的身份信息</p>
 <p>peerOrganizations子目录下为所有的Peer节点组织(2个组织, 4个节点)的相关身份信息. 其中最关键的是MSP目录, 代表了实体的身份信息</p>
 <p>crypto-config文件目录结构如下</p>
-<pre class="language-none"><code class="language-none">crypto-config
+<pre class="language-bash" data-language="bash"><code class="language-bash">crypto-config
 ├── ordererOrganizations
 │   └── example.com
 │       ├── ca
@@ -554,7 +554,7 @@ org2.example.com</code></pre>
 │       ├── tlsca
 │       │   ├── 138f1cfd2708bca1e9e525773af410d46cef12736c3673ed787d7bbc38f013a4_sk
 │       │   └── tlsca.example.com-cert.pem
-│       └── users
+│       └── <span class="token function">users</span>
 │           └── Admin@example.com
 │               ├── msp
 │               │   ├── admincerts
@@ -567,32 +567,32 @@ org2.example.com</code></pre>
 │                   ├── client.crt
 │                   └── client.key
 └── peerOrganizations
-    ├── org1.example.com            # 第一个组织的相关材料，每个组织会生成单独的根证书
-    │   ├── ca  #存放组织的根证书和对应的私钥文件，默认采用EC 算法，证书为自签名。组织内的实体将基于该根证书作为证书根。
+    ├── org1.example.com            <span class="token comment"># 第一个组织的相关材料，每个组织会生成单独的根证书</span>
+    │   ├── ca  <span class="token comment">#存放组织的根证书和对应的私钥文件，默认采用EC 算法，证书为自签名。组织内的实体将基于该根证书作为证书根。</span>
     │   │   ├── 9b78dd1cc0570c9ef3f3fa31a1b343e7a6c0f157a2cc17f75412e12f2936898c_sk
     │   │   └── ca.org1.example.com-cert.pem
-    │   ├── msp                 # 存放代表该组织的身份信息
-    │   │   ├── admincerts          # 组织管理员的身份验证证书，被根证书签名
+    │   ├── msp                 <span class="token comment"># 存放代表该组织的身份信息</span>
+    │   │   ├── admincerts          <span class="token comment"># 组织管理员的身份验证证书，被根证书签名</span>
     │   │   │   └── Admin@org1.example.com-cert.pem
-    │   │   ├── cacerts             # 组织的根证书，同ca 目录下文件
+    │   │   ├── cacerts             <span class="token comment"># 组织的根证书，同ca 目录下文件</span>
     │   │   │   └── ca.org1.example.com-cert.pem
     │   │   ├── config.yaml
-    │   │   └── tlscacerts          # ：用于TLS 的CA 证书，自签名
+    │   │   └── tlscacerts          <span class="token comment"># ：用于TLS 的CA 证书，自签名</span>
     │   │       └── tlsca.org1.example.com-cert.pem
-    │   ├── peers           # 存放属于该组织的所有Peer 节点
-    │   │   ├── peer0.org1.example.com    # 第一个peer 的信息，包括其msp 证书和tls 证书两类
+    │   ├── peers           <span class="token comment"># 存放属于该组织的所有Peer 节点</span>
+    │   │   ├── peer0.org1.example.com    <span class="token comment"># 第一个peer 的信息，包括其msp 证书和tls 证书两类</span>
     │   │   │   ├── msp     
-    │   │   │   │   ├── admincerts              # 组织管理员的身份验证证书。Peer 将基于这些证书来认证交易签署者是否为管理员身份     
-    │   │   │   │   ├── cacerts             # 存放组织的根证书
+    │   │   │   │   ├── admincerts              <span class="token comment"># 组织管理员的身份验证证书。Peer 将基于这些证书来认证交易签署者是否为管理员身份     </span>
+    │   │   │   │   ├── cacerts             <span class="token comment"># 存放组织的根证书</span>
     │   │   │   │   ├── config.yaml         
-    │   │   │   │   ├── keystore                # 本节点的身份私钥，用来签名
-    │   │   │   │   ├── signcerts               # 验证本节点签名的证书，被组织根证书签名
-    │   │   │   │   └── tlscacerts              # TLS 连接用的身份证书，即组织TLS 证书
-    │   │   │   └── tls     # 存放tls 相关的证书和私钥
-    │   │   │       ├── ca.crt          # 组织的根证书
-    │   │   │       ├── server.crt      # 验证本节点签名的证书，被组织根证书签名
-    │   │   │       └── server.key      # 本节点的身份私钥，用来签名
-    │   │   └── peer1.org1.example.com      # 第二个peer 的信息，与peer0.org1.example.com结构类似
+    │   │   │   │   ├── keystore                <span class="token comment"># 本节点的身份私钥，用来签名</span>
+    │   │   │   │   ├── signcerts               <span class="token comment"># 验证本节点签名的证书，被组织根证书签名</span>
+    │   │   │   │   └── tlscacerts              <span class="token comment"># TLS 连接用的身份证书，即组织TLS 证书</span>
+    │   │   │   └── tls     <span class="token comment"># 存放tls 相关的证书和私钥</span>
+    │   │   │       ├── ca.crt          <span class="token comment"># 组织的根证书</span>
+    │   │   │       ├── server.crt      <span class="token comment"># 验证本节点签名的证书，被组织根证书签名</span>
+    │   │   │       └── server.key      <span class="token comment"># 本节点的身份私钥，用来签名</span>
+    │   │   └── peer1.org1.example.com      <span class="token comment"># 第二个peer 的信息，与peer0.org1.example.com结构类似</span>
     │   │       ├── msp
     │   │       │   ├── admincerts
     │   │       │   ├── cacerts
@@ -607,30 +607,30 @@ org2.example.com</code></pre>
     │   ├── tlsca
     │   │   ├── cf4587814bc05f9f81ac3d990c365660dedf1479e60f737c7e9e707727a27168_sk
     │   │   └── tlsca.org1.example.com-cert.pem
-    │   └── users       # 存放属于该组织的用户的实体
-    │       ├── Admin@org1.example.com      # 管理员用户的信息，包括其msp 证书和tls 证书两类
+    │   └── <span class="token function">users</span>       <span class="token comment"># 存放属于该组织的用户的实体</span>
+    │       ├── Admin@org1.example.com      <span class="token comment"># 管理员用户的信息，包括其msp 证书和tls 证书两类</span>
     │       │   ├── msp
-    │       │   │   ├── admincerts          # 管理身份验证证书
-    │       │   │   ├── cacerts             # 存放组织的根证书
-    │       │   │   ├── keystore            # 本用户的身份私钥，用来签名
-    │       │   │   ├── signcerts           # 管理员用户的身份验证证书，被组织根证书签名。要被某个Peer认可，则必须放到该Peer 的msp/admincerts 下
-    │       │   │   └── tlscacerts          # TLS 连接用的身份证书，即组织TLS 证书
-    │       │   └── tls     # 存放tls 相关的证书和私钥
-    │       │       ├── ca.crt      # 组织的根证书
-    │       │       ├── client.crt      # 管理员的用户身份验证证书，被组织根证书签名
-    │       │       └── client.key  # 管理员用户的身份私钥，用来签名
-    │       └── User1@org1.example.com      # 第一个用户的信息，包括msp 证书和tls 证书两类
+    │       │   │   ├── admincerts          <span class="token comment"># 管理身份验证证书</span>
+    │       │   │   ├── cacerts             <span class="token comment"># 存放组织的根证书</span>
+    │       │   │   ├── keystore            <span class="token comment"># 本用户的身份私钥，用来签名</span>
+    │       │   │   ├── signcerts           <span class="token comment"># 管理员用户的身份验证证书，被组织根证书签名。要被某个Peer认可，则必须放到该Peer 的msp/admincerts 下</span>
+    │       │   │   └── tlscacerts          <span class="token comment"># TLS 连接用的身份证书，即组织TLS 证书</span>
+    │       │   └── tls     <span class="token comment"># 存放tls 相关的证书和私钥</span>
+    │       │       ├── ca.crt      <span class="token comment"># 组织的根证书</span>
+    │       │       ├── client.crt      <span class="token comment"># 管理员的用户身份验证证书，被组织根证书签名</span>
+    │       │       └── client.key  <span class="token comment"># 管理员用户的身份私钥，用来签名</span>
+    │       └── User1@org1.example.com      <span class="token comment"># 第一个用户的信息，包括msp 证书和tls 证书两类</span>
     │           ├── msp
-    │           │   ├── admincerts      # 管理身份验证证书
-    │           │   ├── cacerts         # 存放组织的根证书
-    │           │   ├── keystore            # 本用户的身份私钥，用来签名
-    │           │   ├── signcerts       # 验证本用户签名的身份证书，被组织根证书签名
-    │           │   └── tlscacerts      # TLS 连接用的身份证书，即组织TLS 证书
-    │           └── tls         # 存放tls 相关的证书和私钥
-    │               ├── ca.crt      # 组织的根证书
-    │               ├── client.crt      # 验证用户签名的身份证书，被组织根证书签名
-    │               └── client.key      # 用户的身份私钥，用来签名
-    └── org2.example.com                # 第二个组织的信息，与org1.example.com结构类似
+    │           │   ├── admincerts      <span class="token comment"># 管理身份验证证书</span>
+    │           │   ├── cacerts         <span class="token comment"># 存放组织的根证书</span>
+    │           │   ├── keystore            <span class="token comment"># 本用户的身份私钥，用来签名</span>
+    │           │   ├── signcerts       <span class="token comment"># 验证本用户签名的身份证书，被组织根证书签名</span>
+    │           │   └── tlscacerts      <span class="token comment"># TLS 连接用的身份证书，即组织TLS 证书</span>
+    │           └── tls         <span class="token comment"># 存放tls 相关的证书和私钥</span>
+    │               ├── ca.crt      <span class="token comment"># 组织的根证书</span>
+    │               ├── client.crt      <span class="token comment"># 验证用户签名的身份证书，被组织根证书签名</span>
+    │               └── client.key      <span class="token comment"># 用户的身份私钥，用来签名</span>
+    └── org2.example.com                <span class="token comment"># 第二个组织的信息，与org1.example.com结构类似</span>
         ├── ca
         │   ├── 91fd76daf883a57066303fb6842ff4fb07c6793dbc8fbbca6303efea455884b2_sk
         │   └── ca.org2.example.com-cert.pem
@@ -670,7 +670,7 @@ org2.example.com</code></pre>
         ├── tlsca
         │   ├── d3c3e6e37d306992bc9fb826415ed77971031418db48c195d5a24521916f32f3_sk
         │   └── tlsca.org2.example.com-cert.pem
-        └── users
+        └── <span class="token function">users</span>
             ├── Admin@org2.example.com
             │   ├── msp
             │   │   ├── admincerts
@@ -708,83 +708,90 @@ org2.example.com</code></pre>
 </ul>
 <p>这些身份文件随后可以分发到对应的Orderer 节点和Peer 节点上，并放到对应的MSP路径下，用于签名使用</p>
 <h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><p>告诉configtxgen工具在哪里寻找configtx.yaml 文件</p>
-<pre class="language-none"><code class="language-none">$ export FABRIC_CFG_PATH=$PWD</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">export</span> <span class="token assign-left variable">FABRIC_CFG_PATH</span><span class="token operator">=</span><span class="token environment constant">$PWD</span></code></pre>
 
 <h3 id="创建Ordering服务启动初始区块"><a href="#创建Ordering服务启动初始区块" class="headerlink" title="创建Ordering服务启动初始区块"></a>创建Ordering服务启动初始区块</h3><p>指定使用 <code>configtx.yaml</code> 文件中定义的 <code>TwoOrgsOrdererGenesis</code> 模板, 生成Ordering服务系统通道的初始区块文件</p>
-<pre class="language-none"><code class="language-none">$ sudo ../bin/configtxgen -profile TwoOrgsOrdererGenesis -outputBlock ./channel-artifacts/genesis.block</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token punctuation">..</span>/bin/configtxgen -profile TwoOrgsOrdererGenesis -outputBlock ./channel-artifacts/genesis.block</code></pre>
 
 <p>命令执行后输出如下:</p>
-<pre class="language-none"><code class="language-none">10:49:21.181 CST [common/tools/configtxgen] main -&gt; INFO 001 Loading configuration
-10:49:21.207 CST [msp] getMspConfig -&gt; INFO 002 Loading NodeOUs
-10:49:21.208 CST [msp] getMspConfig -&gt; INFO 003 Loading NodeOUs
-10:49:21.210 CST [common/tools/configtxgen] doOutputBlock -&gt; INFO 004 Generating genesis block
-10:49:21.211 CST [common/tools/configtxgen] doOutputBlock -&gt; INFO 005 Writing genesis block</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token number">10</span>:49:21.181 CST <span class="token punctuation">[</span>common/tools/configtxgen<span class="token punctuation">]</span> main -<span class="token operator">&gt;</span> INFO 001 Loading configuration
+<span class="token number">10</span>:49:21.207 CST <span class="token punctuation">[</span>msp<span class="token punctuation">]</span> getMspConfig -<span class="token operator">&gt;</span> INFO 002 Loading NodeOUs
+<span class="token number">10</span>:49:21.208 CST <span class="token punctuation">[</span>msp<span class="token punctuation">]</span> getMspConfig -<span class="token operator">&gt;</span> INFO 003 Loading NodeOUs
+<span class="token number">10</span>:49:21.210 CST <span class="token punctuation">[</span>common/tools/configtxgen<span class="token punctuation">]</span> doOutputBlock -<span class="token operator">&gt;</span> INFO 004 Generating genesis block
+<span class="token number">10</span>:49:21.211 CST <span class="token punctuation">[</span>common/tools/configtxgen<span class="token punctuation">]</span> doOutputBlock -<span class="token operator">&gt;</span> INFO 005 Writing genesis block</code></pre>
 
 <h3 id="创建一个应用通道的配置交易"><a href="#创建一个应用通道的配置交易" class="headerlink" title="创建一个应用通道的配置交易"></a>创建一个应用通道的配置交易</h3><p>务必替换$CHANNEL_NAME或设置CHANNEL_NAME为可在整个说明中使用的环境变量</p>
-<pre class="language-none"><code class="language-none">$ export CHANNEL_NAME=mychannel</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">export</span> <span class="token assign-left variable">CHANNEL_NAME</span><span class="token operator">=</span>mychannel</code></pre>
 
 <p>指定使用 <code>configtx.yaml</code> 配置文件中的 <code>TwoOrgsChannel</code> 模板, 来生成新建通道的配置交易文件, <code>TwoOrgsChannel</code> 模板指定了Org1和Org2都属于后面新建的应用通道</p>
-<pre class="language-none"><code class="language-none">$ sudo ../bin/configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID $CHANNEL_NAME</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token punctuation">..</span>/bin/configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID <span class="token variable">$CHANNEL_NAME</span></code></pre>
 
 <p>输出如下</p>
-<pre class="language-none"><code class="language-none">11:13:24.984 CST [common/tools/configtxgen] main -&gt; INFO 001 Loading configuration
-11:13:24.992 CST [common/tools/configtxgen] doOutputChannelCreateTx -&gt; INFO 002 Generating new channel configtx
-11:13:24.993 CST [msp] getMspConfig -&gt; INFO 003 Loading NodeOUs
-11:13:24.994 CST [msp] getMspConfig -&gt; INFO 004 Loading NodeOUs
-11:13:25.016 CST [common/tools/configtxgen] doOutputChannelCreateTx -&gt; INFO 005 Writing new channel tx</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token number">11</span>:13:24.984 CST <span class="token punctuation">[</span>common/tools/configtxgen<span class="token punctuation">]</span> main -<span class="token operator">&gt;</span> INFO 001 Loading configuration
+<span class="token number">11</span>:13:24.992 CST <span class="token punctuation">[</span>common/tools/configtxgen<span class="token punctuation">]</span> doOutputChannelCreateTx -<span class="token operator">&gt;</span> INFO 002 Generating new channel configtx
+<span class="token number">11</span>:13:24.993 CST <span class="token punctuation">[</span>msp<span class="token punctuation">]</span> getMspConfig -<span class="token operator">&gt;</span> INFO 003 Loading NodeOUs
+<span class="token number">11</span>:13:24.994 CST <span class="token punctuation">[</span>msp<span class="token punctuation">]</span> getMspConfig -<span class="token operator">&gt;</span> INFO 004 Loading NodeOUs
+<span class="token number">11</span>:13:25.016 CST <span class="token punctuation">[</span>common/tools/configtxgen<span class="token punctuation">]</span> doOutputChannelCreateTx -<span class="token operator">&gt;</span> INFO 005 Writing new channel tx</code></pre>
 
 <h3 id="生成锚节点配置更新文件"><a href="#生成锚节点配置更新文件" class="headerlink" title="生成锚节点配置更新文件"></a>生成锚节点配置更新文件</h3><p>锚节点配置更新文件用来对组织的锚节点进行配置</p>
 <p>同样基于 <code>configtx.yaml</code> 配置文件生成新建通道文件, 每个组织都需要分别生成且注意指定对应的组织名称</p>
-<pre class="language-none"><code class="language-none">$ sudo ../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org1MSP
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token punctuation">..</span>/bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID <span class="token variable">$CHANNEL_NAME</span> -asOrg Org1MSP
 
-$ sudo ../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org2MSP</code></pre>
+$ <span class="token function">sudo</span> <span class="token punctuation">..</span>/bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID <span class="token variable">$CHANNEL_NAME</span> -asOrg Org2MSP</code></pre>
 
-<h3 id="启动网络"><a href="#启动网络" class="headerlink" title="启动网络"></a>启动网络</h3><p><code>$ sudo docker-compose \-f docker-compose-cli.yaml up \-d</code></p>
-<p>-f: 指定docker-compose文件</p>
-<p>注:</p>
-<blockquote>
-<p>如果想查看网络的实时日志，则不需要提供 -d 参数</p>
-<p>CLI容器将闲置1000秒。如果在需要时它消失了，可以用一个简单的命令重新启动它：</p>
-<p>​ $ sudo docker start cli</p>
-</blockquote>
-<p>网络启动顺序: 首先启动Orderer节点, 然后启动Peer节点, 日志输出如下:</p>
-<pre class="language-none"><code class="language-none">......
-orderer.example.com       | 02:48:25.080 UTC [orderer/common/server] initializeServerConfig -&gt; INFO 002 Starting orderer with TLS enabled
-orderer.example.com       | 02:48:25.101 UTC [fsblkstorage] newBlockfileMgr -&gt; INFO 003 Getting block information from block storage
-orderer.example.com       | 02:48:25.138 UTC [orderer/commmon/multichannel] NewRegistrar -&gt; INFO 004 Starting system channel 'testchainid' with genesis block hash 67662e918ab76b4a8863cc625d67fcc31e9cb3a7c3c4f9f707af1c05ba5be686 and orderer type solo
-orderer.example.com       | 02:48:25.138 UTC [orderer/common/server] Start -&gt; INFO 005 Starting orderer:
-......</code></pre>
+<h3 id="启动网络"><a href="#启动网络" class="headerlink" title="启动网络"></a>启动网络</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">docker-compose</span> <span class="token punctuation">\</span>-f docker-compose-cli.yaml up <span class="token punctuation">\</span>-d
+```<span class="token variable"><span class="token variable">`</span>
+
+<span class="token punctuation">\</span>-f: 指定docker-compose文件
+
+注:
+
+<span class="token operator">&gt;</span> 如果想查看网络的实时日志，则不需要提供 <span class="token punctuation">\</span>-d 参数
+<span class="token operator">&gt;</span> 
+<span class="token operator">&gt;</span> CLI容器将闲置1000秒。如果在需要时它消失了，可以用一个简单的命令重新启动它：
+<span class="token operator">&gt;</span> 
+<span class="token operator">&gt;</span> ​ <span class="token punctuation">\</span>$ <span class="token function">sudo</span> <span class="token function">docker</span> start cli
+
+网络启动顺序: 首先启动Orderer节点, 然后启动Peer节点, 日志输出如下:
+
+<span class="token variable">`</span></span>``bash
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>
+orderer.example.com       <span class="token operator">|</span> 02:48:25.080 UTC <span class="token punctuation">[</span>orderer/common/server<span class="token punctuation">]</span> initializeServerConfig -<span class="token operator">&gt;</span> INFO 002 Starting orderer with TLS enabled
+orderer.example.com       <span class="token operator">|</span> 02:48:25.101 UTC <span class="token punctuation">[</span>fsblkstorage<span class="token punctuation">]</span> newBlockfileMgr -<span class="token operator">&gt;</span> INFO 003 Getting block information from block storage
+orderer.example.com       <span class="token operator">|</span> 02:48:25.138 UTC <span class="token punctuation">[</span>orderer/commmon/multichannel<span class="token punctuation">]</span> NewRegistrar -<span class="token operator">&gt;</span> INFO 004 Starting system channel <span class="token string">'testchainid'</span> with genesis block <span class="token builtin class-name">hash</span> 67662e918ab76b4a8863cc625d67fcc31e9cb3a7c3c4f9f707af1c05ba5be686 and orderer <span class="token builtin class-name">type</span> solo
+orderer.example.com       <span class="token operator">|</span> 02:48:25.138 UTC <span class="token punctuation">[</span>orderer/common/server<span class="token punctuation">]</span> Start -<span class="token operator">&gt;</span> INFO 005 Starting orderer:
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span></code></pre>
 
 <p>Peer节点启动后, 默认情况下没有加入网络中的任何应用通道, 也不会与Orderer服务建立连接.需要通过客户端对其进行操作, 让它加入网络和指定的应用通道中</p>
 <h3 id="进入Docker容器"><a href="#进入Docker容器" class="headerlink" title="进入Docker容器"></a>进入Docker容器</h3><p>执行如下命令进入到CLI容器中(后继操作都在容器中执行)</p>
-<pre class="language-none"><code class="language-none">$ sudo docker exec -it cli bash</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">docker</span> <span class="token builtin class-name">exec</span> -it cli <span class="token function">bash</span></code></pre>
 
 <p>如果成功, 命令提示符会变为如下内容:</p>
-<p>​ <code>root@b240e1643244:/opt/gopath/src/github.com/hyperledger/fabric/peer#</code></p>
+<p><code>root@b240e1643244:/opt/gopath/src/github.com/hyperledger/fabric/peer#</code></p>
 <h3 id="创建通道"><a href="#创建通道" class="headerlink" title="创建通道"></a>创建通道</h3><p>检查环境变量是否正确设置</p>
-<pre class="language-none"><code class="language-none">echo $CHANNEL_NAME</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token variable">$CHANNEL_NAME</span></code></pre>
 
 <p>设置环境变量</p>
-<pre class="language-none"><code class="language-none">export CHANNEL_NAME=mychannel</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">CHANNEL_NAME</span><span class="token operator">=</span>mychannel</code></pre>
 
 <p>创建通道</p>
-<pre class="language-none"><code class="language-none">peer channel create -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/channel.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">peer channel create -o orderer.example.com:7050 -c <span class="token variable">$CHANNEL_NAME</span> -f ./channel-artifacts/channel.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem</code></pre>
 
 <blockquote>
 <p>该命令自动在本地生成与该应用通道同名的初始区块 <strong>mychannel.block</strong>, 只有拥有该文件才可以加入创建的应用通道中</p>
 </blockquote>
 <p>查看:</p>
-<pre class="language-none"><code class="language-none">root@086adb802655:/opt/gopath/src/github.com/hyperledger/fabric/peer# ll
-total 36
-drwxr-xr-x 5 root root  4096 Apr 29 03:34 ./
-drwxr-xr-x 3 root root  4096 Apr 29 02:48 ../
-drwxr-xr-x 2 root root  4096 Apr 29 02:47 channel-artifacts/
-drwxr-xr-x 4 root root  4096 Apr 29 02:35 crypto/
--rw-r--r-- 1 root root 15660 Apr 29 03:34 mychannel.block
-drwxr-xr-x 2 root root  4096 Apr 29 02:13 scripts/</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">root@086adb802655:/opt/gopath/src/github.com/hyperledger/fabric/peer<span class="token comment"># ll</span>
+total <span class="token number">36</span>
+drwxr-xr-x <span class="token number">5</span> root root  <span class="token number">4096</span> Apr <span class="token number">29</span> 03:34 ./
+drwxr-xr-x <span class="token number">3</span> root root  <span class="token number">4096</span> Apr <span class="token number">29</span> 02:48 <span class="token punctuation">..</span>/
+drwxr-xr-x <span class="token number">2</span> root root  <span class="token number">4096</span> Apr <span class="token number">29</span> 02:47 channel-artifacts/
+drwxr-xr-x <span class="token number">4</span> root root  <span class="token number">4096</span> Apr <span class="token number">29</span> 02:35 crypto/
+-rw-r--r-- <span class="token number">1</span> root root <span class="token number">15660</span> Apr <span class="token number">29</span> 03:34 mychannel.block
+drwxr-xr-x <span class="token number">2</span> root root  <span class="token number">4096</span> Apr <span class="token number">29</span> 02:13 scripts/</code></pre>
 
 <h3 id="加入通道"><a href="#加入通道" class="headerlink" title="加入通道"></a>加入通道</h3><p>应用通道所包含组织的成员节点可以加入通道中</p>
-<pre class="language-none"><code class="language-none">peer channel join -b mychannel.block</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">peer channel <span class="token function">join</span> -b mychannel.block</code></pre>
 
 <p>join命令: 将本Peer节点加入到某个应用通道中</p>
 <h4 id="参数含义"><a href="#参数含义" class="headerlink" title="参数含义"></a>参数含义</h4><p>-b: 初始区块文件的路径信息</p>
@@ -792,15 +799,15 @@ drwxr-xr-x 2 root root  4096 Apr 29 02:13 scripts/</code></pre>
 <p>执行成功后, Peer连接到该应用通道的Ordering服务上, 开始接收区块信息</p>
 </blockquote>
 <h3 id="更新锚点"><a href="#更新锚点" class="headerlink" title="更新锚点"></a>更新锚点</h3><p>使用Org1的管理员身份更新锚节点配置</p>
-<pre class="language-none"><code class="language-none">peer channel update -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/Org1MSPanchors.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">peer channel update -o orderer.example.com:7050 -c <span class="token variable">$CHANNEL_NAME</span> -f ./channel-artifacts/Org1MSPanchors.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem</code></pre>
 
 <p>使用Org2的管理员身份更新锚节点配置</p>
-<pre class="language-none"><code class="language-none">CORE_PEER_LOCALMSPID="Org2MSP"
-CORE_PEER_ADDRESS=peer0.org2.example.com:7051 
-CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
-CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt 
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">CORE_PEER_LOCALMSPID</span><span class="token operator">=</span><span class="token string">"Org2MSP"</span>
+<span class="token assign-left variable">CORE_PEER_ADDRESS</span><span class="token operator">=</span>peer0.org2.example.com:7051 
+<span class="token assign-left variable">CORE_PEER_MSPCONFIGPATH</span><span class="token operator">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
+<span class="token assign-left variable">CORE_PEER_TLS_ROOTCERT_FILE</span><span class="token operator">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt 
 
-peer channel update -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/Org2MSPanchors.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem</code></pre>
+peer channel update -o orderer.example.com:7050 -c <span class="token variable">$CHANNEL_NAME</span> -f ./channel-artifacts/Org2MSPanchors.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem</code></pre>
 
 <p>手动配置网络完成, 可以测试Chaincode</p>
 
@@ -1575,7 +1582,7 @@ peer channel update -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-ar
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92.1k</span>
+                        class="white-color">92.2k</span>
             
             
             

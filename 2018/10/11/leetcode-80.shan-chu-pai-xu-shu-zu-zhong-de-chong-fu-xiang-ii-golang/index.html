@@ -512,16 +512,16 @@
 <p>给定一个排序数组，你需要在<code>原地</code>删除重复出现的元素，使得每个元素最多出现两次，返回移除后数组的新长度。</p>
 <p>不要使用额外的数组空间，你必须在<code>原地</code>修改输入数组并在使用 O(1) 额外空间的条件下完成。</p>
 <p>示例 1:</p>
-<pre class="language-none"><code class="language-none">给定 nums = [1,1,1,2,2,3],
+<pre class="language-bash" data-language="bash"><code class="language-bash">给定 nums <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1,1</span>,1,2,2,3<span class="token punctuation">]</span>,
 
-函数应返回新长度 length = 5, 并且原数组的前五个元素被修改为 1, 1, 2, 2, 3 。
+函数应返回新长度 length <span class="token operator">=</span> <span class="token number">5</span>, 并且原数组的前五个元素被修改为 <span class="token number">1</span>, <span class="token number">1</span>, <span class="token number">2</span>, <span class="token number">2</span>, <span class="token number">3</span> 。
 
 你不需要考虑数组中超出新长度后面的元素。</code></pre>
 
 <p>示例 2:</p>
-<pre class="language-none"><code class="language-none">给定 nums = [0,0,1,1,1,1,2,3,3],
+<pre class="language-bash" data-language="bash"><code class="language-bash">给定 nums <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0,0</span>,1,1,1,1,2,3,3<span class="token punctuation">]</span>,
 
-函数应返回新长度 length = 7, 并且原数组的前五个元素被修改为 0, 0, 1, 1, 2, 3, 3 。
+函数应返回新长度 length <span class="token operator">=</span> <span class="token number">7</span>, 并且原数组的前五个元素被修改为 <span class="token number">0</span>, <span class="token number">0</span>, <span class="token number">1</span>, <span class="token number">1</span>, <span class="token number">2</span>, <span class="token number">3</span>, <span class="token number">3</span> 。
 
 你不需要考虑数组中超出新长度后面的元素。</code></pre>
 
@@ -529,14 +529,14 @@
 <p>为什么返回数值是整数，但输出的答案是数组呢?</p>
 <p>请注意，输入数组是以“引用”方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。</p>
 <p>你可以想象内部操作如下:</p>
-<pre class="language-none"><code class="language-none">// nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝
-int len = removeDuplicates(nums);
+<pre class="language-bash" data-language="bash"><code class="language-bash">// nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝
+int len <span class="token operator">=</span> removeDuplicates<span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 // 在函数里修改输入数组对于调用者是可见的。
 // 根据你的函数返回的长度, 它会打印出数组中该长度范围内的所有元素。
-for (int i = 0; i &lt; len; i++) {
-    print(nums[i]);
-}</code></pre>
+<span class="token keyword">for</span> <span class="token punctuation">(</span>int i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i++<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    print<span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 
 <pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">removeDuplicates</span><span class="token punctuation">(</span>nums <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
@@ -1330,7 +1330,7 @@ for (int i = 0; i &lt; len; i++) {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92.1k</span>
+                        class="white-color">92.2k</span>
             
             
             

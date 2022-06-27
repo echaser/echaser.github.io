@@ -549,10 +549,10 @@ go 调用 md5">
 <li>将每一512字节细分成16个小组，每个小组64位（8个字节）</li>
 <li>先认识四个线性函数(&amp;是与,|是或,^是异或)</li>
 </ul>
-<pre class="language-none"><code class="language-none">F(X,Y,Z)=(Y ^ Z) &amp; X) ^ Z  
-G(X,Y,Z)=((X ^ Y) &amp; Z) ^ Y  
-H(X,Y,Z)=X ^ Y ^ Z  
-I(X,Y,Z)=Y ^ (X | ^Z)  </code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">F<span class="token punctuation">(</span>X,Y,Z<span class="token punctuation">)</span><span class="token operator">=</span><span class="token punctuation">(</span>Y ^ Z<span class="token punctuation">)</span> <span class="token operator">&amp;</span> X<span class="token punctuation">)</span> ^ Z  
+G<span class="token punctuation">(</span>X,Y,Z<span class="token punctuation">)</span><span class="token operator">=</span><span class="token punctuation">((</span>X ^ Y<span class="token punctuation">)</span> <span class="token operator">&amp;</span> Z<span class="token punctuation">)</span> ^ Y  
+H<span class="token punctuation">(</span>X,Y,Z<span class="token punctuation">)</span><span class="token operator">=</span>X ^ Y ^ Z  
+I<span class="token punctuation">(</span>X,Y,Z<span class="token punctuation">)</span><span class="token operator">=</span>Y ^ <span class="token punctuation">(</span>X <span class="token operator">|</span> ^Z<span class="token punctuation">)</span>  </code></pre>
 
 <ul>
 <li>设Mj表示消息的第j个子分组（从0到15），&lt;&lt;</li>
@@ -1661,7 +1661,7 @@ I(X,Y,Z)=Y ^ (X | ^Z)  </code></pre>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92.1k</span>
+                        class="white-color">92.2k</span>
             
             
             

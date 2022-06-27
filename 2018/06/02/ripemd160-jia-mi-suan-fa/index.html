@@ -8,11 +8,11 @@
     <meta name="description" content="
 
 哈希值的输出值一般是16进制的字符串。而16进制字符串，每两个字符占一个字节。我们知道，一个字节=8bit.
-以sha256为例：- 256bit-&amp;gt;64位16进制字符。
+以sha256为例：256bit-&amp;gt;64位16进制字符。
 package main
 
 import (
-    &#34;f">
+    &#34;fmt">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -475,7 +475,7 @@ import (
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    185
+                    163
                 </div>
                 
 
@@ -508,7 +508,7 @@ import (
                 <span id="more"></span>
 
 <p>哈希值的输出值一般是<code>16</code>进制的字符串。而<code>16</code>进制字符串，每两个字符占一个字节。我们知道，一个字节<code>=8bit</code>.</p>
-<p>以<code>sha256</code>为例：<br>- <code>256bit-&gt;64</code>位<code>16</code>进制字符。</p>
+<p>以<code>sha256</code>为例：<br><code>256bit-&gt;64</code>位<code>16</code>进制字符。</p>
 <pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
 
 <span class="token keyword">import</span> <span class="token punctuation">(</span>
@@ -524,10 +524,16 @@ import (
     fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>hashString<span class="token punctuation">)</span>
 <span class="token punctuation">}</span></code></pre>
 
-<pre class="language-none"><code class="language-none">$ d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592</code></pre>
 
-<p>而<code>ripemd</code>:<br>- <code>160bit-&gt;40</code>位<code>16</code>进制字符。</p>
-<p>cd c d cd GOPATH/src<br>mkdirgolang.org m k d i r g o l a n g . o r g mkdir golang.org cd golang.org<br>mkdirx m k d i r x mkdir x cd x<br>$ git clone <a target="_blank" rel="noopener" href="https://github.com/golang/crypto.git">https://github.com/golang/crypto.git</a></p>
+<p>而<code>ripemd</code>:<br><code>160bit-&gt;40</code>位<code>16</code>进制字符。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> <span class="token variable">$GOPATH</span>/src  
+<span class="token function">mkdir</span> golang.org
+<span class="token builtin class-name">cd</span> golang.org  
+<span class="token function">mkdir</span> x 
+<span class="token builtin class-name">cd</span> x  
+$ <span class="token function">git</span> clone <span class="token operator">&lt;</span>https://github.com/golang/crypto.git<span class="token operator">&gt;</span></code></pre>
+
 <pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
 
 <span class="token keyword">import</span> <span class="token punctuation">(</span>
@@ -543,7 +549,7 @@ import (
     fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>hashString<span class="token punctuation">)</span>
 <span class="token punctuation">}</span></code></pre>
 
-<pre class="language-none"><code class="language-none">$ 37f332f68db77bd9d7edd4969571ad671cf9dd3b</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ 37f332f68db77bd9d7edd4969571ad671cf9dd3b</code></pre>
                 
             </div>
             <hr/>
@@ -1295,7 +1301,7 @@ import (
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92.1k</span>
+                        class="white-color">92.2k</span>
             
             
             

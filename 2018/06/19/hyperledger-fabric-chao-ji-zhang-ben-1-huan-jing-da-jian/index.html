@@ -509,122 +509,130 @@ $ sudo">
                 <span id="more"></span>
 
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>快速入门: <a target="_blank" rel="noopener" href="http://hyperledger-fabric.readthedocs.io/en/release-1.1/getting_started.html">http://hyperledger-fabric.readthedocs.io/en/release-1.1/getting_started.html</a></p>
-<h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><pre class="language-none"><code class="language-none">$ sudo apt update
-$ sudo apt install git</code></pre>
+<h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt</span> update
+$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> <span class="token function">git</span></code></pre>
 
-<h4 id="安装curl"><a href="#安装curl" class="headerlink" title="安装curl"></a>安装curl</h4><pre class="language-none"><code class="language-none">$ sudo apt install curl</code></pre>
+<h4 id="安装curl"><a href="#安装curl" class="headerlink" title="安装curl"></a>安装curl</h4><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> <span class="token function">curl</span></code></pre>
 
-<h4 id="安装vim"><a href="#安装vim" class="headerlink" title="安装vim"></a>安装vim</h4><pre class="language-none"><code class="language-none">$ sudo apt install vim</code></pre>
+<h4 id="安装vim"><a href="#安装vim" class="headerlink" title="安装vim"></a>安装vim</h4><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> <span class="token function">vim</span></code></pre>
 
-<h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h3><pre class="language-none"><code class="language-none">$ sudo apt update
-$ docker --version
-$ sudo apt install docker.io</code></pre>
+<h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt</span> update
+$ <span class="token function">docker</span> --version
+$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> docker.io</code></pre>
 
 <h4 id="查看Docker版本信息"><a href="#查看Docker版本信息" class="headerlink" title="查看Docker版本信息"></a>查看Docker版本信息</h4><p>version 1.12+</p>
-<pre class="language-none"><code class="language-none">$ docker --version</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">docker</span> --version</code></pre>
 
 <p>输出: <code>Docker version 1.13.1, build 092cba3</code></p>
-<h3 id="安装Docker-Compose"><a href="#安装Docker-Compose" class="headerlink" title="安装Docker Compose"></a>安装Docker Compose</h3><pre class="language-none"><code class="language-none">$ docker-compose --version
-$ sudo apt install docker-compose</code></pre>
+<h3 id="安装Docker-Compose"><a href="#安装Docker-Compose" class="headerlink" title="安装Docker Compose"></a>安装Docker Compose</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">docker-compose</span> --version
+$ <span class="token function">sudo</span> <span class="token function">apt</span> <span class="token function">install</span> <span class="token function">docker-compose</span></code></pre>
 
-<h4 id="查看DockerCompose版本信息"><a href="#查看DockerCompose版本信息" class="headerlink" title="查看DockerCompose版本信息"></a>查看DockerCompose版本信息</h4><pre class="language-none"><code class="language-none">$ docker-compose --version</code></pre>
+<h4 id="查看DockerCompose版本信息"><a href="#查看DockerCompose版本信息" class="headerlink" title="查看DockerCompose版本信息"></a>查看DockerCompose版本信息</h4><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">docker-compose</span> --version</code></pre>
 
-<p>输出: <code>docker-compose version 1.8.0, build unknown</code></p>
+<p>输出: </p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker-compose</span> version <span class="token number">1.8</span>.0, build unknown</code></pre>
+
 <h3 id="Golang"><a href="#Golang" class="headerlink" title="Golang"></a>Golang</h3><p>Fabric1.1.0版本要求Go1.9+</p>
 <p>Fabric1.0.0版本要求Go1.7+</p>
 <p>上传go1.10.1.linux-amd64.tar.gz</p>
-<h4 id="解压文件"><a href="#解压文件" class="headerlink" title="解压文件"></a>解压文件</h4><pre class="language-none"><code class="language-none">$ tar -zxvf go1.10.1.linux-amd64.tar.gz</code></pre>
+<h4 id="解压文件"><a href="#解压文件" class="headerlink" title="解压文件"></a>解压文件</h4><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">tar</span> -zxvf go1.10.1.linux-amd64.tar.gz</code></pre>
 
-<h4 id="编辑环境变量文件"><a href="#编辑环境变量文件" class="headerlink" title="编辑环境变量文件"></a>编辑环境变量文件</h4><pre class="language-none"><code class="language-none">$ vim .bashrc </code></pre>
+<h4 id="编辑环境变量文件"><a href="#编辑环境变量文件" class="headerlink" title="编辑环境变量文件"></a>编辑环境变量文件</h4><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">vim</span> .bashrc </code></pre>
 
 <p>添加如下内容:</p>
-<pre class="language-none"><code class="language-none">export GOPATH=$HOME/gocode
-export GOROOT=$HOME/go
-export PATH=$GOROOT/bin:$PATH</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">GOPATH</span><span class="token operator">=</span><span class="token environment constant">$HOME</span>/gocode
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">GOROOT</span><span class="token operator">=</span><span class="token environment constant">$HOME</span>/go
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token variable">$GOROOT</span>/bin:<span class="token environment constant">$PATH</span></code></pre>
 
-<pre class="language-none"><code class="language-none">$ source .bashrc
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">source</span> .bashrc
 $ go version</code></pre>
 
-<p>输出: <code>go version go1.10.1 linux/amd64</code></p>
+<p>输出:</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">go version go1.10.1 linux/amd64</code></pre>
+
 <blockquote>
 <p>如果系统中有旧版本的golang,则使用如下命令卸载旧版本的golang,然后再重新安装</p>
 <pre class="language-none"><code class="language-none">$ su -
 
 # apt-get remove golang-go --purge &amp;&amp; apt-get autoremove --purge &amp;&amp; apt-get clean</code></pre>
 </blockquote>
-<h3 id="安装Node与npm"><a href="#安装Node与npm" class="headerlink" title="安装Node与npm"></a>安装Node与npm</h3><h4 id="安装nvm"><a href="#安装nvm" class="headerlink" title="安装nvm"></a>安装nvm</h4><pre class="language-none"><code class="language-none">$ sudo apt update
-$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.10/install.sh | bash
+<h3 id="安装Node与npm"><a href="#安装Node与npm" class="headerlink" title="安装Node与npm"></a>安装Node与npm</h3><h4 id="安装nvm"><a href="#安装nvm" class="headerlink" title="安装nvm"></a>安装nvm</h4><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt</span> update
+$ <span class="token function">curl</span> -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.10/install.sh <span class="token operator">|</span> <span class="token function">bash</span>
 
-$ export NVM_DIR="$HOME/.nvm"
-$ [ -s "$NVM_DIR/nvm.sh" ] &amp;&amp; \. "$NVM_DIR/nvm.sh" </code></pre>
+$ <span class="token builtin class-name">export</span> <span class="token assign-left variable">NVM_DIR</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$HOME</span>/.nvm"</span>
+$ <span class="token punctuation">[</span> -s <span class="token string">"<span class="token variable">$NVM_DIR</span>/nvm.sh"</span> <span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>. <span class="token string">"<span class="token variable">$NVM_DIR</span>/nvm.sh"</span> </code></pre>
 
-<h4 id="安装Node"><a href="#安装Node" class="headerlink" title="安装Node"></a>安装Node</h4><pre class="language-none"><code class="language-none">$ nvm install v8.11.1</code></pre>
+<h4 id="安装Node"><a href="#安装Node" class="headerlink" title="安装Node"></a>安装Node</h4><pre class="language-bash" data-language="bash"><code class="language-bash">$ nvm <span class="token function">install</span> v8.11.1</code></pre>
 
-<h4 id="检查Node版本"><a href="#检查Node版本" class="headerlink" title="检查Node版本"></a>检查Node版本</h4><pre class="language-none"><code class="language-none">$ node -v</code></pre>
+<h4 id="检查Node版本"><a href="#检查Node版本" class="headerlink" title="检查Node版本"></a>检查Node版本</h4><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">node</span> -v</code></pre>
 
-<p>输出: <code>v8.11.1</code></p>
-<h4 id="检查npm版本"><a href="#检查npm版本" class="headerlink" title="检查npm版本"></a>检查npm版本</h4><pre class="language-none"><code class="language-none">$ npm -v</code></pre>
+<p>输出: </p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">v8.11.1</code></pre>
 
-<p>输出: <code>5.6.0</code></p>
-<h3 id="Hyperledger-Fabric-Samples-下载安装"><a href="#Hyperledger-Fabric-Samples-下载安装" class="headerlink" title="Hyperledger Fabric Samples 下载安装"></a>Hyperledger Fabric Samples 下载安装</h3><h4 id="创建一个空目录"><a href="#创建一个空目录" class="headerlink" title="创建一个空目录"></a>创建一个空目录</h4><pre class="language-none"><code class="language-none">$ mkdir hyfa</code></pre>
+<h4 id="检查npm版本"><a href="#检查npm版本" class="headerlink" title="检查npm版本"></a>检查npm版本</h4><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">npm</span> -v</code></pre>
 
-<h4 id="进入该目录"><a href="#进入该目录" class="headerlink" title="进入该目录"></a>进入该目录</h4><pre class="language-none"><code class="language-none">$ cd hyfa</code></pre>
+<p>输出: </p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token number">5.6</span>.0</code></pre>
+
+<h3 id="Hyperledger-Fabric-Samples-下载安装"><a href="#Hyperledger-Fabric-Samples-下载安装" class="headerlink" title="Hyperledger Fabric Samples 下载安装"></a>Hyperledger Fabric Samples 下载安装</h3><h4 id="创建一个空目录"><a href="#创建一个空目录" class="headerlink" title="创建一个空目录"></a>创建一个空目录</h4><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">mkdir</span> hyfa</code></pre>
+
+<h4 id="进入该目录"><a href="#进入该目录" class="headerlink" title="进入该目录"></a>进入该目录</h4><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> hyfa</code></pre>
 
 <h5 id="下载方式一"><a href="#下载方式一" class="headerlink" title="下载方式一:"></a>下载方式一:</h5><p><strong>新建文件bootstrap.sh</strong></p>
-<pre class="language-none"><code class="language-none">$ vim bootstrap.sh</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">vim</span> bootstrap.sh</code></pre>
 
 <p>将<code>https://github.com/hyperledger/fabric/blob/master/scripts/bootstrap.sh</code>中的内容拷贝保存退出</p>
 <p><strong>赋予bootstrap.sh可执行权限并运行</strong></p>
-<pre class="language-none"><code class="language-none">$ chmod +x bootstrap.sh</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">chmod</span> +x bootstrap.sh</code></pre>
 
 <p><strong>配置docker加速器</strong></p>
 <p>配置docker加速器的目的是为了在下载docker镜像文件时加速</p>
-<pre class="language-none"><code class="language-none">$ curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://8890cb8b.m.daocloud.io</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">curl</span> -sSL https://get.daocloud.io/daotools/set_mirror.sh <span class="token operator">|</span> <span class="token function">sh</span> -s http://8890cb8b.m.daocloud.io</code></pre>
 
 <p><strong>重启docker服务</strong></p>
-<pre class="language-none"><code class="language-none">$ sudo systemctl restart docker.service</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> systemctl restart docker.service</code></pre>
 
 <p><strong>执行<code>bootstrap.sh</code></strong></p>
 <p><strong>确定网络稳定,否则会导致各种问题，例如下载到一半时网络超时，下载失败等等</strong></p>
-<pre class="language-none"><code class="language-none">$ sudo ./bootstrap.sh 1.1.0</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> ./bootstrap.sh <span class="token number">1.1</span>.0</code></pre>
 
 <p>下载完成后, 查看相关输出内容, 如果下载有失败的镜像, 可再次执行 <code>$ sudo ./bootstrap.sh 1.1.0</code> 命令</p>
 <h5 id="下载方式二"><a href="#下载方式二" class="headerlink" title="下载方式二:"></a>下载方式二:</h5><blockquote>
 <p><strong>建议使用方式一进行下载</strong></p>
 </blockquote>
 <p><strong>配置docker加速器,</strong></p>
-<pre class="language-none"><code class="language-none">$ curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://8890cb8b.m.daocloud.io</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">curl</span> -sSL https://get.daocloud.io/daotools/set_mirror.sh <span class="token operator">|</span> <span class="token function">sh</span> -s http://8890cb8b.m.daocloud.io</code></pre>
 
 <p><strong>重启docker服务</strong></p>
-<pre class="language-none"><code class="language-none">$ sudo systemctl restart docker.service</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> systemctl restart docker.service</code></pre>
 
-<pre class="language-none"><code class="language-none">$ curl  https://github.com/hyperledger/fabric/blob/master/scripts/bootstrap.sh | bash -s 1.1.0</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">curl</span>  https://github.com/hyperledger/fabric/blob/master/scripts/bootstrap.sh <span class="token operator">|</span> <span class="token function">bash</span> -s <span class="token number">1.1</span>.0</code></pre>
 
 <hr>
 <p>安装完成后输出:</p>
-<pre class="language-none"><code class="language-none">hyperledger/fabric-ca          latest          72617b4fa9b4   5 weeks ago    299 MB
-hyperledger/fabric-ca          x86_64-1.1.0    72617b4fa9b4   5 weeks ago    299 MB
-hyperledger/fabric-tools       latest          b7bfddf508bc   5 weeks ago    1.46 GB
-hyperledger/fabric-tools       x86_64-1.1.0    b7bfddf508bc   5 weeks ago    1.46 GB
-hyperledger/fabric-orderer     latest          ce0c810df36a   5 weeks ago    180 MB
-hyperledger/fabric-orderer     x86_64-1.1.0    ce0c810df36a   5 weeks ago    180 MB
-hyperledger/fabric-peer        latest          b023f9be0771   5 weeks ago    187 MB
-hyperledger/fabric-peer        x86_64-1.1.0    b023f9be0771   5 weeks ago    187 MB
-hyperledger/fabric-javaenv     latest          82098abb1a17   5 weeks ago    1.52 GB
-hyperledger/fabric-javaenv     x86_64-1.1.0    82098abb1a17   5 weeks ago    1.52 GB
-hyperledger/fabric-ccenv       latest          c8b4909d8d46   5 weeks ago    1.39 GB
-hyperledger/fabric-ccenv       x86_64-1.1.0    c8b4909d8d46   5 weeks ago    1.39 GB
-hyperledger/fabric-zookeeper   latest          92cbb952b6f8   2 months ago   1.39 GB
-hyperledger/fabric-zookeeper   x86_64-0.4.6    92cbb952b6f8   2 months ago   1.39 GB
-hyperledger/fabric-kafka       latest          554c591b86a8   2 months ago   1.4 GB
-hyperledger/fabric-kafka       x86_64-0.4.6    554c591b86a8   2 months ago   1.4 GB
-hyperledger/fabric-couchdb     latest          7e73c828fc5b   2 months ago   1.56 GB
-hyperledger/fabric-couchdb     x86_64-0.4.6    7e73c828fc5b   2 months ago   1.56 GB</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">hyperledger/fabric-ca          latest          72617b4fa9b4   <span class="token number">5</span> weeks ago    <span class="token number">299</span> MB
+hyperledger/fabric-ca          x86_64-1.1.0    72617b4fa9b4   <span class="token number">5</span> weeks ago    <span class="token number">299</span> MB
+hyperledger/fabric-tools       latest          b7bfddf508bc   <span class="token number">5</span> weeks ago    <span class="token number">1.46</span> GB
+hyperledger/fabric-tools       x86_64-1.1.0    b7bfddf508bc   <span class="token number">5</span> weeks ago    <span class="token number">1.46</span> GB
+hyperledger/fabric-orderer     latest          ce0c810df36a   <span class="token number">5</span> weeks ago    <span class="token number">180</span> MB
+hyperledger/fabric-orderer     x86_64-1.1.0    ce0c810df36a   <span class="token number">5</span> weeks ago    <span class="token number">180</span> MB
+hyperledger/fabric-peer        latest          b023f9be0771   <span class="token number">5</span> weeks ago    <span class="token number">187</span> MB
+hyperledger/fabric-peer        x86_64-1.1.0    b023f9be0771   <span class="token number">5</span> weeks ago    <span class="token number">187</span> MB
+hyperledger/fabric-javaenv     latest          82098abb1a17   <span class="token number">5</span> weeks ago    <span class="token number">1.52</span> GB
+hyperledger/fabric-javaenv     x86_64-1.1.0    82098abb1a17   <span class="token number">5</span> weeks ago    <span class="token number">1.52</span> GB
+hyperledger/fabric-ccenv       latest          c8b4909d8d46   <span class="token number">5</span> weeks ago    <span class="token number">1.39</span> GB
+hyperledger/fabric-ccenv       x86_64-1.1.0    c8b4909d8d46   <span class="token number">5</span> weeks ago    <span class="token number">1.39</span> GB
+hyperledger/fabric-zookeeper   latest          92cbb952b6f8   <span class="token number">2</span> months ago   <span class="token number">1.39</span> GB
+hyperledger/fabric-zookeeper   x86_64-0.4.6    92cbb952b6f8   <span class="token number">2</span> months ago   <span class="token number">1.39</span> GB
+hyperledger/fabric-kafka       latest          554c591b86a8   <span class="token number">2</span> months ago   <span class="token number">1.4</span> GB
+hyperledger/fabric-kafka       x86_64-0.4.6    554c591b86a8   <span class="token number">2</span> months ago   <span class="token number">1.4</span> GB
+hyperledger/fabric-couchdb     latest          7e73c828fc5b   <span class="token number">2</span> months ago   <span class="token number">1.56</span> GB
+hyperledger/fabric-couchdb     x86_64-0.4.6    7e73c828fc5b   <span class="token number">2</span> months ago   <span class="token number">1.56</span> GB</code></pre>
 
-<h4 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h4><pre class="language-none"><code class="language-none">$ export PATH=&lt;path to download location&gt;/bin:$PATH</code></pre>
+<h4 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h4><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token operator">&lt;</span>path to download location<span class="token operator">&gt;</span>/bin:<span class="token environment constant">$PATH</span></code></pre>
 
 <p>注: 表示下载的<code>fabric-samples</code>文件目录所在路径</p>
-<pre class="language-none"><code class="language-none">例:  $ export PATH=$HOME/hyfa/fabric-samples/bin:$PATH</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">例:  $ <span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$HOME</span>/hyfa/fabric-samples/bin:<span class="token environment constant">$PATH</span></code></pre>
 
 <p><code>HyperLedger Fabric</code>环境搭建完成</p>
 
@@ -1399,7 +1407,7 @@ hyperledger/fabric-couchdb     x86_64-0.4.6    7e73c828fc5b   2 months ago   1.5
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92.1k</span>
+                        class="white-color">92.2k</span>
             
             
             

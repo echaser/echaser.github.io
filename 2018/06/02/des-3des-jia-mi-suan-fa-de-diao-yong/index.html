@@ -666,10 +666,10 @@ CFB模式 全称Cipher Fee">
 <span class="token punctuation">}</span></code></pre>
 
 <p>如果我们把主函数中 <code>key</code> 改为25位的 <code>1234567890123456789012345</code> 运行 <code>go run 3des.go</code>，提示出现如下错误：</p>
-<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">go</span> run 3des<span class="token punctuation">.</span><span class="token keyword">go</span>
-<span class="token builtin">panic</span><span class="token punctuation">:</span> crypto<span class="token operator">/</span>des<span class="token punctuation">:</span> invalid key size <span class="token number">25</span>
+<pre class="language-bash" data-language="bash"><code class="language-bash">go run 3des.go
+panic: crypto/des: invalid key size <span class="token number">25</span>
 
-goroutine <span class="token number">1</span> <span class="token punctuation">[</span>running<span class="token punctuation">]</span><span class="token punctuation">:</span></code></pre>
+goroutine <span class="token number">1</span> <span class="token punctuation">[</span>running<span class="token punctuation">]</span>:</code></pre>
 
 <h3 id="详细代码"><a href="#详细代码" class="headerlink" title="详细代码"></a>详细代码</h3><pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
 
@@ -1498,7 +1498,7 @@ goroutine <span class="token number">1</span> <span class="token punctuation">[<
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92.1k</span>
+                        class="white-color">92.2k</span>
             
             
             

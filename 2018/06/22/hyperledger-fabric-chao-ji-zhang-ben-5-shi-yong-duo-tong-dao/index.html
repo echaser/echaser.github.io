@@ -509,56 +509,57 @@ $ sudo docker-compose -f docker-compose-simple.yaml down
             <div id="articleContent">
                 <span id="more"></span>
 
-<h1 id="使用多通道"><a href="#使用多通道" class="headerlink" title="使用多通道"></a>使用多通道</h1><pre class="language-none"><code class="language-none">$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode
+<h1 id="使用多通道"><a href="#使用多通道" class="headerlink" title="使用多通道"></a>使用多通道</h1><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> ~/hyfa/fabric-samples/chaincode-docker-devmode
 
-$ sudo docker-compose -f docker-compose-simple.yaml down   
+$ <span class="token function">sudo</span> <span class="token function">docker-compose</span> -f docker-compose-simple.yaml down   
 
-$ cd ../first-network</code></pre>
+$ <span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>/first-network</code></pre>
 
 <h3 id="创建一个应用通道的配置交易"><a href="#创建一个应用通道的配置交易" class="headerlink" title="创建一个应用通道的配置交易"></a>创建一个应用通道的配置交易</h3><p>务必替换$CHANNEL_NAME或设置CHANNEL_NAME为可在整个说明中使用的环境变量</p>
-<pre class="language-none"><code class="language-none">$ export CHANNEL_NAME=mychannel2 </code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">export</span> <span class="token assign-left variable">CHANNEL_NAME</span><span class="token operator">=</span>mychannel2 </code></pre>
 
 <p>指定使用 <code>configtx.yaml</code> 配置文件中的 <code>TwoOrgsChannel</code> 模板, 来生成新建通道的配置交易文件,</p>
-<pre class="language-none"><code class="language-none">$ sudo ../bin/configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID $CHANNEL_NAME</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token punctuation">..</span>/bin/configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID <span class="token variable">$CHANNEL_NAME</span></code></pre>
 
 <p>输出如下</p>
-<pre class="language-none"><code class="language-none">11:13:24.984 CST [common/tools/configtxgen] main -&gt; INFO 001 Loading configuration
-11:13:24.992 CST [common/tools/configtxgen] doOutputChannelCreateTx -&gt; INFO 002 Generating new channel configtx
-11:13:24.993 CST [msp] getMspConfig -&gt; INFO 003 Loading NodeOUs
-11:13:24.994 CST [msp] getMspConfig -&gt; INFO 004 Loading NodeOUs
-11:13:25.016 CST [common/tools/configtxgen] doOutputChannelCreateTx -&gt; INFO 005 Writing new channel tx</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token number">11</span>:13:24.984 CST <span class="token punctuation">[</span>common/tools/configtxgen<span class="token punctuation">]</span> main -<span class="token operator">&gt;</span> INFO 001 Loading configuration
+<span class="token number">11</span>:13:24.992 CST <span class="token punctuation">[</span>common/tools/configtxgen<span class="token punctuation">]</span> doOutputChannelCreateTx -<span class="token operator">&gt;</span> INFO 002 Generating new channel configtx
+<span class="token number">11</span>:13:24.993 CST <span class="token punctuation">[</span>msp<span class="token punctuation">]</span> getMspConfig -<span class="token operator">&gt;</span> INFO 003 Loading NodeOUs
+<span class="token number">11</span>:13:24.994 CST <span class="token punctuation">[</span>msp<span class="token punctuation">]</span> getMspConfig -<span class="token operator">&gt;</span> INFO 004 Loading NodeOUs
+<span class="token number">11</span>:13:25.016 CST <span class="token punctuation">[</span>common/tools/configtxgen<span class="token punctuation">]</span> doOutputChannelCreateTx -<span class="token operator">&gt;</span> INFO 005 Writing new channel tx</code></pre>
 
 <h3 id="生成锚节点配置更新文件"><a href="#生成锚节点配置更新文件" class="headerlink" title="生成锚节点配置更新文件"></a>生成锚节点配置更新文件</h3><p>锚节点配置更新文件用来对组织的锚节点进行配置</p>
 <p>同样基于 <code>configtx.yaml</code> 配置文件生成新建通道文件, 每个组织都需要分别生成且注意指定对应的组织名称</p>
-<pre class="language-none"><code class="language-none">$ sudo ../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org1MSP
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token punctuation">..</span>/bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID <span class="token variable">$CHANNEL_NAME</span> -asOrg Org1MSP
 
-$ sudo ../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org2MSP</code></pre>
+$ <span class="token function">sudo</span> <span class="token punctuation">..</span>/bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID <span class="token variable">$CHANNEL_NAME</span> -asOrg Org2MSP</code></pre>
 
-<h3 id="启动网络"><a href="#启动网络" class="headerlink" title="启动网络"></a>启动网络</h3><p><code>$ sudo docker-compose \-f docker-compose-cli.yaml up \-d</code></p>
+<h3 id="启动网络"><a href="#启动网络" class="headerlink" title="启动网络"></a>启动网络</h3><pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">docker-compose</span> <span class="token punctuation">\</span>-f docker-compose-cli.yaml up <span class="token punctuation">\</span>-d</code></pre>
+
 <h3 id="进入Docker容器"><a href="#进入Docker容器" class="headerlink" title="进入Docker容器"></a>进入Docker容器</h3><p>执行如下命令进入到CLI容器中</p>
-<pre class="language-none"><code class="language-none">$ sudo docker exec -it cli bash</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">docker</span> <span class="token builtin class-name">exec</span> -it cli <span class="token function">bash</span></code></pre>
 
 <h3 id="创建通道"><a href="#创建通道" class="headerlink" title="创建通道"></a>创建通道</h3><p>检查环境变量是否正确设置</p>
-<pre class="language-none"><code class="language-none">echo $CHANNEL_NAME</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token variable">$CHANNEL_NAME</span></code></pre>
 
 <p>设置环境变量</p>
-<pre class="language-none"><code class="language-none">export CHANNEL_NAME=mychannel2</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">CHANNEL_NAME</span><span class="token operator">=</span>mychannel2</code></pre>
 
 <p>创建通道</p>
-<pre class="language-none"><code class="language-none">peer channel create -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/channel.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">peer channel create -o orderer.example.com:7050 -c <span class="token variable">$CHANNEL_NAME</span> -f ./channel-artifacts/channel.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem</code></pre>
 
 <h3 id="加入通道"><a href="#加入通道" class="headerlink" title="加入通道"></a>加入通道</h3><p>应用通道所包含组织的成员节点可以加入通道中</p>
-<pre class="language-none"><code class="language-none">peer channel join -b mychannel2.block -o orderer:7050</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">peer channel <span class="token function">join</span> -b mychannel2.block -o orderer:7050</code></pre>
 
 <hr>
 <h3 id="更新锚点"><a href="#更新锚点" class="headerlink" title="更新锚点"></a>更新锚点</h3><p>使用Org1的管理员身份更新锚节点配置</p>
-<pre class="language-none"><code class="language-none">peer channel update -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/Org1MSPanchors.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">peer channel update -o orderer.example.com:7050 -c <span class="token variable">$CHANNEL_NAME</span> -f ./channel-artifacts/Org1MSPanchors.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem</code></pre>
 
 <p>使用Org2的管理员身份更新锚节点配置</p>
-<pre class="language-none"><code class="language-none">CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp CORE_PEER_ADDRESS=peer0.org2.example.com:7051 CORE_PEER_LOCALMSPID="Org2MSP" CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt peer channel update -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/Org2MSPanchors.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">CORE_PEER_MSPCONFIGPATH</span><span class="token operator">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp <span class="token assign-left variable">CORE_PEER_ADDRESS</span><span class="token operator">=</span>peer0.org2.example.com:7051 <span class="token assign-left variable">CORE_PEER_LOCALMSPID</span><span class="token operator">=</span><span class="token string">"Org2MSP"</span> <span class="token assign-left variable">CORE_PEER_TLS_ROOTCERT_FILE</span><span class="token operator">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt peer channel update -o orderer.example.com:7050 -c <span class="token variable">$CHANNEL_NAME</span> -f ./channel-artifacts/Org2MSPanchors.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem</code></pre>
 
 <hr>
-<h3 id="列出所加入的通道"><a href="#列出所加入的通道" class="headerlink" title="列出所加入的通道"></a>列出所加入的通道</h3><pre class="language-none"><code class="language-none">peer channel list</code></pre>
+<h3 id="列出所加入的通道"><a href="#列出所加入的通道" class="headerlink" title="列出所加入的通道"></a>列出所加入的通道</h3><pre class="language-bash" data-language="bash"><code class="language-bash">peer channel list</code></pre>
 
 <p>list命令会列出指定的Peer节点已经加入的所有应用通道的列表.</p>
 
@@ -1333,7 +1334,7 @@ $ sudo ../bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./cha
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92.1k</span>
+                        class="white-color">92.2k</span>
             
             
             

@@ -541,15 +541,15 @@ function abs(x) {
 <p><code>function (x) { ... }</code>是一个匿名函数，它没有函数名。但是，这个匿名函数赋值给了变量<code>abs</code>，所以，通过变量<code>abs</code>就可以调用该函数。</p>
 <p>上述两种定义_完全等价_，注意第二种方式按照完整语法需要在函数体末尾加一个<code>;</code>，表示赋值语句结束。</p>
 <h3 id="2-调用函数"><a href="#2-调用函数" class="headerlink" title="2 调用函数"></a>2 调用函数</h3><p>调用函数时，按顺序传入参数即可：</p>
-<pre class="language-none"><code class="language-none">abs(10); // 返回10
-abs(-9); // 返回9</code></pre>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">abs</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 返回10</span>
+<span class="token function">abs</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">9</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 返回9</span></code></pre>
 
 <p>由于JavaScript允许传入任意个参数而不影响调用，因此传入的参数比定义的参数多也没有问题，虽然函数内部并不需要这些参数：</p>
-<pre class="language-none"><code class="language-none">abs(10, 'blablabla'); // 返回10
-abs(-9, 'haha', 'hehe', null); // 返回9</code></pre>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">abs</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token string">'blablabla'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 返回10</span>
+<span class="token function">abs</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">9</span><span class="token punctuation">,</span> <span class="token string">'haha'</span><span class="token punctuation">,</span> <span class="token string">'hehe'</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 返回9</span></code></pre>
 
 <p>传入的参数比定义的少也没有问题：</p>
-<pre class="language-none"><code class="language-none">abs(); // 返回NaN</code></pre>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">abs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 返回NaN</span></code></pre>
 
 <p>此时<code>abs(x)</code>函数的参数<code>x</code>将收到<code>undefined</code>，计算结果为<code>NaN</code>。</p>
 <p>要避免收到<code>undefined</code>，可以对参数进行检查：</p>
@@ -1644,7 +1644,7 @@ arr<span class="token punctuation">.</span><span class="token function">reduce</
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92.1k</span>
+                        class="white-color">92.2k</span>
             
             
             

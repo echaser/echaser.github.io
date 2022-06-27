@@ -509,49 +509,49 @@ go-ethereum源码go-etherrum源码可以从github上面下载，或者使用git�
 
 <h2 id="go-ethereum源码"><a href="#go-ethereum源码" class="headerlink" title="go-ethereum源码"></a>go-ethereum源码</h2><p>go-etherrum源码可以从<a target="_blank" rel="noopener" href="https://github.com/ethereum/go-ethereum">github</a>上面下载，或者使用git克隆到本地。</p>
 <h2 id="搭建go-ethereum调试环境"><a href="#搭建go-ethereum调试环境" class="headerlink" title="搭建go ethereum调试环境"></a>搭建go ethereum调试环境</h2><h3 id="windows-10-64bit"><a href="#windows-10-64bit" class="headerlink" title="windows 10 64bit"></a>windows 10 64bit</h3><p>首先下载go安装包进行安装，因为GO的网站被墙，所以从下面地址下载。</p>
-<pre class="language-none"><code class="language-none">https://studygolang.com/dl/golang/go1.9.1.windows-amd64.msi</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">https://studygolang.com/dl/golang/go1.9.1.windows-amd64.msi</code></pre>
 
 <p>安装好之后，设置环境变量，把C:\Go\bin目录添加到你的PATH环境变量， 然后增加一个GOPATH的环境变量，GOPATH的值设置为你的GO语言下载的代码路径(我设置的是C:\GOPATH)</p>
 <p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/wugang33/go-ethereum-code-analysis/master/picture/go_env_1.png"><img src="https://raw.githubusercontent.com/wugang33/go-ethereum-code-analysis/master/picture/go_env_1.png" alt="image"></a></p>
 <p>安装git工具，请参考网络上的教程安装git工具， go语言从github自动下载代码需要git工具的支持</p>
 <p>打开命令行工具下载 go-ethereum的代码</p>
-<pre class="language-none"><code class="language-none">go get github.com/ethereum/go-ethereum</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">go get github.com/ethereum/go-ethereum</code></pre>
 
 <p>命令执行成功之后，代码就会下载到下面这个目录，%GOPATH%\src\github.com\ethereum\go-ethereum 如果执行过程中出现</p>
-<pre class="language-none"><code class="language-none"># github.com/ethereum/go-ethereum/crypto/secp256k1
-exec: "gcc": executable file not found in %PATH%</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># github.com/ethereum/go-ethereum/crypto/secp256k1</span>
+exec: <span class="token string">"gcc"</span><span class="token builtin class-name">:</span> executable <span class="token function">file</span> not found <span class="token keyword">in</span> %<span class="token environment constant">PATH</span>%</code></pre>
 
 <p>则需要安装gcc工具，我们从下面地址下载并安装</p>
-<pre class="language-none"><code class="language-none">http://tdm-gcc.tdragon.net/download</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">http://tdm-gcc.tdragon.net/download</code></pre>
 
 <p>接下来安装IDE工具。 我是用的IDE是JetBrains的Gogland。 可以在下面地址下载</p>
-<pre class="language-none"><code class="language-none">https://download.jetbrains.com/go/gogland-173.2696.28.exe</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">https://download.jetbrains.com/go/gogland-173.2696.28.exe</code></pre>
 
 <p>安装完成后打开IDE. 选择File -&gt; Open -&gt; 选择GOPATH\src\github.com\ethereum\go-ethereum目录打开。</p>
 <p>然后打开go-ethereum/rlp/decode_test.go. 在编辑框右键选择运行， 如果运行成功，代表环境搭建完成。</p>
 <p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/wugang33/go-ethereum-code-analysis/master/picture/go_env_2.png"><img src="https://raw.githubusercontent.com/wugang33/go-ethereum-code-analysis/master/picture/go_env_2.png" alt="image"></a></p>
 <h3 id="Ubuntu-16-04-64bit"><a href="#Ubuntu-16-04-64bit" class="headerlink" title="Ubuntu 16.04 64bit"></a>Ubuntu 16.04 64bit</h3><p>go安装包进行安装</p>
-<pre class="language-none"><code class="language-none">apt install golang-go git -y</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">apt</span> <span class="token function">install</span> golang-go <span class="token function">git</span> -y</code></pre>
 
 <p>golang环境配置：</p>
-<pre class="language-none"><code class="language-none">编辑/etc/profile文件，在该文件中加入以下内容：
-export GOROOT=/usr/bin/go  
-export GOPATH=/root/home/goproject
-export GOBIN=/root/home/goproject/bin
-export GOLIB=/root/home/goproject/
-export PATH=$PATH:$GOBIN:$GOPATH/bin:$GOROOT/bin</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">编辑/etc/profile文件，在该文件中加入以下内容：
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">GOROOT</span><span class="token operator">=</span>/usr/bin/go  
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">GOPATH</span><span class="token operator">=</span>/root/home/goproject
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">GOBIN</span><span class="token operator">=</span>/root/home/goproject/bin
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">GOLIB</span><span class="token operator">=</span>/root/home/goproject/
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span><span class="token builtin class-name">:</span><span class="token variable">$GOBIN</span><span class="token builtin class-name">:</span><span class="token variable">$GOPATH</span>/bin:<span class="token variable">$GOROOT</span>/bin</code></pre>
 
 <p>执行以下命令，使得环境变量生效：</p>
-<pre class="language-none"><code class="language-none"># source /etc/profile</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">source</span> /etc/profile</code></pre>
 
 <p>下载源码：</p>
-<pre class="language-none"><code class="language-none">#cd  /root/home/goproject; mkdir src； cd src  #进入go项目目录，并创建src目录, 并进入src目录
-#git clone https://github.com/ethereum/go-ethereum</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span>  /root/home/goproject<span class="token punctuation">;</span> <span class="token function">mkdir</span> src； <span class="token builtin class-name">cd</span> src  <span class="token comment">#进入go项目目录，并创建src目录, 并进入src目录</span>
+$ <span class="token function">git</span> clone https://github.com/ethereum/go-ethereum</code></pre>
 
 <p>使用vim或其他IDE打开即可；</p>
 <h2 id="环境测试"><a href="#环境测试" class="headerlink" title="环境测试"></a>环境测试</h2><p>打开go-ethereum/rlp/decode_test.go. 在编辑框右键选择运行， 如果运行成功，代表环境搭建完成</p>
 <h3 id="go-ethereum-目录大概介绍"><a href="#go-ethereum-目录大概介绍" class="headerlink" title="go ethereum 目录大概介绍"></a>go ethereum 目录大概介绍</h3><p>go-ethereum项目的组织结构基本上是按照功能模块划分的目录，下面简单介绍一下各个目录的结构，每个目录在GO语言里面又被成为一个Package,我理解跟Java里面的Package应该是差不多的意思。</p>
-<pre class="language-none"><code class="language-none">accounts            实现了一个高等级的以太坊账户管理
+<pre class="language-bash" data-language="bash"><code class="language-bash">accounts            实现了一个高等级的以太坊账户管理
 bmt         二进制的默克尔树的实现
 build           主要是编译和构建的一些脚本和配置
 cmd         命令行工具，又分了很多的命令行工具，下面一个一个介绍
@@ -567,15 +567,15 @@ cmd         命令行工具，又分了很多的命令行工具，下面一个�
     /util       提供了一些公共的工具
     /wnode      这是一个简单的Whisper节点。 它可以用作独立的引导节点。此外，可以用于不同的测试和诊断目的。
 common          提供了一些公共的工具类
-compression     Package rle implements the run-length encoding used for Ethereum data.
-consensus       提供了以太坊的一些共识算法，比如ethhash, clique(proof-of-authority)
+compression     Package rle implements the run-length encoding used <span class="token keyword">for</span> Ethereum data.
+consensus       提供了以太坊的一些共识算法，比如ethhash, clique<span class="token punctuation">(</span>proof-of-authority<span class="token punctuation">)</span>
 console         console类
 contracts   
-core            以太坊的核心数据结构和算法(虚拟机，状态，区块链，布隆过滤器)
+core            以太坊的核心数据结构和算法<span class="token punctuation">(</span>虚拟机，状态，区块链，布隆过滤器<span class="token punctuation">)</span>
 crypto          加密和hash算法，
 eth         实现了以太坊的协议
 ethclient       提供了以太坊的RPC客户端
-ethdb           eth的数据库(包括实际使用的leveldb和供测试使用的内存数据库)
+ethdb           eth的数据库<span class="token punctuation">(</span>包括实际使用的leveldb和供测试使用的内存数据库<span class="token punctuation">)</span>
 ethstats        提供网络状态的报告
 event           处理实时的事件
 les         实现了以太坊的轻量级协议子集
@@ -584,7 +584,7 @@ log         提供对人机都友好的日志信息
 metrics         提供磁盘计数器
 miner           提供以太坊的区块创建和挖矿
 mobile          移动端使用的一些warpper
-node            以太坊的多种类型的节点
+<span class="token function">node</span>            以太坊的多种类型的节点
 p2p         以太坊p2p网络协议
 rlp         以太坊序列化处理
 rpc         远程方法调用
@@ -1367,7 +1367,7 @@ whisper         提供了whisper节点的协议。</code></pre>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92.1k</span>
+                        class="white-color">92.2k</span>
             
             
             

@@ -8,10 +8,10 @@
     <meta name="description" content="
 
 创建P2P serverfunc (n *Node) Start() error {
-    ...
-
-    // Initialize the p2p server. This creates the node key and
-  ">
+	...
+	
+	// Initialize the p2p server. This creates the node key and
+	// dis">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -511,53 +511,52 @@
                 <span id="more"></span>
 
 <h2 id="创建P2P-server"><a href="#创建P2P-server" class="headerlink" title="创建P2P server"></a>创建P2P server</h2><pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>n <span class="token operator">*</span>Node<span class="token punctuation">)</span> <span class="token function">Start</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
-    <span class="token operator">...</span>
-
-    <span class="token comment">// Initialize the p2p server. This creates the node key and</span>
-    <span class="token comment">// discovery databases.</span>
-    n<span class="token punctuation">.</span>serverConfig <span class="token operator">=</span> n<span class="token punctuation">.</span>config<span class="token punctuation">.</span>P2P
-    n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">.</span>PrivateKey <span class="token operator">=</span> n<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token function">NodeKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">.</span>Name <span class="token operator">=</span> n<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token function">NodeName</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">.</span>Logger <span class="token operator">=</span> n<span class="token punctuation">.</span>log
-    <span class="token keyword">if</span> n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">.</span>StaticNodes <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
-        n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">.</span>StaticNodes <span class="token operator">=</span> n<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token function">StaticNodes</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">if</span> n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">.</span>TrustedNodes <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
-        n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">.</span>TrustedNodes <span class="token operator">=</span> n<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token function">TrustedNodes</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">if</span> n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">.</span>NodeDatabase <span class="token operator">==</span> <span class="token string">""</span> <span class="token punctuation">{</span>
-        n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">.</span>NodeDatabase <span class="token operator">=</span> n<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token function">NodeDB</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-    running <span class="token operator">:=</span> <span class="token operator">&amp;</span>p2p<span class="token punctuation">.</span>Server<span class="token punctuation">{</span>Config<span class="token punctuation">:</span> n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">}</span>
-    n<span class="token punctuation">.</span>log<span class="token punctuation">.</span><span class="token function">Info</span><span class="token punctuation">(</span><span class="token string">"Starting peer-to-peer node"</span><span class="token punctuation">,</span> <span class="token string">"instance"</span><span class="token punctuation">,</span> n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">.</span>Name<span class="token punctuation">)</span>
-    <span class="token operator">...</span><span class="token punctuation">.</span>
+	<span class="token operator">...</span>
+	
+	<span class="token comment">// Initialize the p2p server. This creates the node key and</span>
+	<span class="token comment">// discovery databases.</span>
+	n<span class="token punctuation">.</span>serverConfig <span class="token operator">=</span> n<span class="token punctuation">.</span>config<span class="token punctuation">.</span>P2P
+	n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">.</span>PrivateKey <span class="token operator">=</span> n<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token function">NodeKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">.</span>Name <span class="token operator">=</span> n<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token function">NodeName</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">.</span>Logger <span class="token operator">=</span> n<span class="token punctuation">.</span>log
+	<span class="token keyword">if</span> n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">.</span>StaticNodes <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">.</span>StaticNodes <span class="token operator">=</span> n<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token function">StaticNodes</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">if</span> n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">.</span>TrustedNodes <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">.</span>TrustedNodes <span class="token operator">=</span> n<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token function">TrustedNodes</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">if</span> n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">.</span>NodeDatabase <span class="token operator">==</span> <span class="token string">""</span> <span class="token punctuation">{</span>
+		n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">.</span>NodeDatabase <span class="token operator">=</span> n<span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token function">NodeDB</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	running <span class="token operator">:=</span> <span class="token operator">&amp;</span>p2p<span class="token punctuation">.</span>Server<span class="token punctuation">{</span>Config<span class="token punctuation">:</span> n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">}</span>
+	n<span class="token punctuation">.</span>log<span class="token punctuation">.</span><span class="token function">Info</span><span class="token punctuation">(</span><span class="token string">"Starting peer-to-peer node"</span><span class="token punctuation">,</span> <span class="token string">"instance"</span><span class="token punctuation">,</span> n<span class="token punctuation">.</span>serverConfig<span class="token punctuation">.</span>Name<span class="token punctuation">)</span>
+	<span class="token operator">...</span><span class="token punctuation">.</span>
 <span class="token punctuation">}</span></code></pre>
-
 <p>代码首先做了一些检查工作：加锁、判断结点是否已经运行、检查datadir是否可以打开，然后初始化P2P server配置，最后用该配置创建了一个p2p.Server实例。首先初始化Node中的services字段，然后遍历serviceFuncs，也就是之前注册的所有Service的构造函数列表。在创建Service实例之前，先为每个Service创建一个ServiceContext，之前提到过，ServiceContext里存储的是从Node继承过来的一些信息。接着通过构造函数创建Service实例，然后加入到service这个map中。</p>
 <h2 id="创建Service"><a href="#创建Service" class="headerlink" title="创建Service"></a>创建Service</h2><pre class="language-golang" data-language="golang"><code class="language-golang">// Otherwise copy and specialize the P2P configuration
-    services := make(map[reflect.Type]Service)
-    for _, constructor := range n.serviceFuncs {
-        // Create a new context for the particular service
-        ctx := &amp;ServiceContext{
-            config:         n.config,
-            services:       make(map[reflect.Type]Service),
-            EventMux:       n.eventmux,
-            AccountManager: n.accman,
-        }
-        for kind, s := range services { // copy needed for threaded access
-            ctx.services[kind] = s
-        }
-        // Construct and save the service
-        service, err := constructor(ctx)
-        if err != nil {
-            return err
-        }
-        kind := reflect.TypeOf(service)
-        if _, exists := services[kind]; exists {
-            return &amp;DuplicateServiceError{Kind: kind}
-        }
-        services[kind] = service
-    }</code></pre>
+	services := make(map[reflect.Type]Service)
+	for _, constructor := range n.serviceFuncs {
+		// Create a new context for the particular service
+		ctx := &amp;ServiceContext{
+			config:         n.config,
+			services:       make(map[reflect.Type]Service),
+			EventMux:       n.eventmux,
+			AccountManager: n.accman,
+		}
+		for kind, s := range services { // copy needed for threaded access
+			ctx.services[kind] = s
+		}
+		// Construct and save the service
+		service, err := constructor(ctx)
+		if err != nil {
+			return err
+		}
+		kind := reflect.TypeOf(service)
+		if _, exists := services[kind]; exists {
+			return &amp;DuplicateServiceError{Kind: kind}
+		}
+		services[kind] = service
+	}</code></pre>
 
 <p>首先初始化Node中的services字段，然后遍历serviceFuncs，也就是之前注册的所有Service的构造函数列表。在创建Service实例之前，先为每个Service创建一个ServiceContext，之前提到过，ServiceContext里存储的是从Node继承过来的一些信息。接着通过构造函数创建Service实例，然后加入到service这个map中。</p>
 <h2 id="启动P2P-server"><a href="#启动P2P-server" class="headerlink" title="启动P2P server"></a>启动P2P server</h2><pre class="language-go" data-language="go"><code class="language-go"><span class="token comment">// Gather the protocols and start the freshly assembled P2P server  </span>
@@ -575,234 +574,231 @@
 <li><p>发起UDP请求获取结点表：内部会启动goroutine来完成</p>
 </li>
 <li><p>侦听TCP端口：用于业务数据传输，基于RLPx协议</p>
-<ul>
-<li>发起TCP请求连接到其他结点：也是启动goroutine完成</li>
-</ul>
+</li>
+<li><p>发起TCP请求连接到其他结点：也是启动goroutine完成</p>
 </li>
 </ul>
-<pre class="language-none"><code class="language-none">// p2p/server.go
-// Servers can not be re-used after stopping.
-func (srv *Server) Start() (err error) {
-    srv.lock.Lock()
-    defer srv.lock.Unlock()
-    if srv.running {
-        return errors.New("server already running")
-    }
-    srv.running = true
-    srv.log = srv.Config.Logger
-    if srv.log == nil {
-        srv.log = log.New()
-    }
-    srv.log.Info("Starting P2P networking")
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token comment">// p2p/server.go</span>
+<span class="token comment">// Servers can not be re-used after stopping.</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>srv <span class="token operator">*</span>Server<span class="token punctuation">)</span> <span class="token function">Start</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>err <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	srv<span class="token punctuation">.</span>lock<span class="token punctuation">.</span><span class="token function">Lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">defer</span> srv<span class="token punctuation">.</span>lock<span class="token punctuation">.</span><span class="token function">Unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> srv<span class="token punctuation">.</span>running <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> errors<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token string">"server already running"</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	srv<span class="token punctuation">.</span>running <span class="token operator">=</span> <span class="token boolean">true</span>
+	srv<span class="token punctuation">.</span>log <span class="token operator">=</span> srv<span class="token punctuation">.</span>Config<span class="token punctuation">.</span>Logger
+	<span class="token keyword">if</span> srv<span class="token punctuation">.</span>log <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		srv<span class="token punctuation">.</span>log <span class="token operator">=</span> log<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	srv<span class="token punctuation">.</span>log<span class="token punctuation">.</span><span class="token function">Info</span><span class="token punctuation">(</span><span class="token string">"Starting P2P networking"</span><span class="token punctuation">)</span>
 
-    // static fields
-    if srv.PrivateKey == nil {
-        return fmt.Errorf("Server.PrivateKey must be set to a non-nil key")
-    }
-    if srv.newTransport == nil {
-        srv.newTransport = newRLPX
-    }
-    if srv.Dialer == nil {
-        srv.Dialer = TCPDialer{&amp;net.Dialer{Timeout: defaultDialTimeout}}
-    }
-    srv.quit = make(chan struct{})
-    srv.addpeer = make(chan *conn)
-    srv.delpeer = make(chan peerDrop)
-    srv.posthandshake = make(chan *conn)
-    srv.addstatic = make(chan *discover.Node)
-    srv.removestatic = make(chan *discover.Node)
-    srv.peerOp = make(chan peerOpFunc)
-    srv.peerOpDone = make(chan struct{})
+	<span class="token comment">// static fields</span>
+	<span class="token keyword">if</span> srv<span class="token punctuation">.</span>PrivateKey <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">"Server.PrivateKey must be set to a non-nil key"</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">if</span> srv<span class="token punctuation">.</span>newTransport <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		srv<span class="token punctuation">.</span>newTransport <span class="token operator">=</span> newRLPX
+	<span class="token punctuation">}</span>
+	<span class="token keyword">if</span> srv<span class="token punctuation">.</span>Dialer <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		srv<span class="token punctuation">.</span>Dialer <span class="token operator">=</span> TCPDialer<span class="token punctuation">{</span><span class="token operator">&amp;</span>net<span class="token punctuation">.</span>Dialer<span class="token punctuation">{</span>Timeout<span class="token punctuation">:</span> defaultDialTimeout<span class="token punctuation">}</span><span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	srv<span class="token punctuation">.</span>quit <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+	srv<span class="token punctuation">.</span>addpeer <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token operator">*</span>conn<span class="token punctuation">)</span>
+	srv<span class="token punctuation">.</span>delpeer <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> peerDrop<span class="token punctuation">)</span>
+	srv<span class="token punctuation">.</span>posthandshake <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token operator">*</span>conn<span class="token punctuation">)</span>
+	srv<span class="token punctuation">.</span>addstatic <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token operator">*</span>discover<span class="token punctuation">.</span>Node<span class="token punctuation">)</span>
+	srv<span class="token punctuation">.</span>removestatic <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token operator">*</span>discover<span class="token punctuation">.</span>Node<span class="token punctuation">)</span>
+	srv<span class="token punctuation">.</span>peerOp <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> peerOpFunc<span class="token punctuation">)</span>
+	srv<span class="token punctuation">.</span>peerOpDone <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
 
-    var (
-        conn      *net.UDPConn
-        sconn     *sharedUDPConn
-        realaddr  *net.UDPAddr
-        unhandled chan discover.ReadPacket
-    )
+	<span class="token keyword">var</span> <span class="token punctuation">(</span>
+		conn      <span class="token operator">*</span>net<span class="token punctuation">.</span>UDPConn
+		sconn     <span class="token operator">*</span>sharedUDPConn
+		realaddr  <span class="token operator">*</span>net<span class="token punctuation">.</span>UDPAddr
+		unhandled <span class="token keyword">chan</span> discover<span class="token punctuation">.</span>ReadPacket
+	<span class="token punctuation">)</span>
 
-    if !srv.NoDiscovery || srv.DiscoveryV5 {
-        addr, err := net.ResolveUDPAddr("udp", srv.ListenAddr)
-        if err != nil {
-            return err
-        }
-        conn, err = net.ListenUDP("udp", addr)
-        if err != nil {
-            return err
-        }
-        realaddr = conn.LocalAddr().(*net.UDPAddr)
-        if srv.NAT != nil {
-            if !realaddr.IP.IsLoopback() {
-                go nat.Map(srv.NAT, srv.quit, "udp", realaddr.Port, realaddr.Port, "ethereum discovery")
-            }
-            // TODO: react to external IP changes over time.
-            if ext, err := srv.NAT.ExternalIP(); err == nil {
-                realaddr = &amp;net.UDPAddr{IP: ext, Port: realaddr.Port}
-            }
-        }
-    }
+	<span class="token keyword">if</span> <span class="token operator">!</span>srv<span class="token punctuation">.</span>NoDiscovery <span class="token operator">||</span> srv<span class="token punctuation">.</span>DiscoveryV5 <span class="token punctuation">{</span>
+		addr<span class="token punctuation">,</span> err <span class="token operator">:=</span> net<span class="token punctuation">.</span><span class="token function">ResolveUDPAddr</span><span class="token punctuation">(</span><span class="token string">"udp"</span><span class="token punctuation">,</span> srv<span class="token punctuation">.</span>ListenAddr<span class="token punctuation">)</span>
+		<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+			<span class="token keyword">return</span> err
+		<span class="token punctuation">}</span>
+		conn<span class="token punctuation">,</span> err <span class="token operator">=</span> net<span class="token punctuation">.</span><span class="token function">ListenUDP</span><span class="token punctuation">(</span><span class="token string">"udp"</span><span class="token punctuation">,</span> addr<span class="token punctuation">)</span>
+		<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+			<span class="token keyword">return</span> err
+		<span class="token punctuation">}</span>
+		realaddr <span class="token operator">=</span> conn<span class="token punctuation">.</span><span class="token function">LocalAddr</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token operator">*</span>net<span class="token punctuation">.</span>UDPAddr<span class="token punctuation">)</span>
+		<span class="token keyword">if</span> srv<span class="token punctuation">.</span>NAT <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+			<span class="token keyword">if</span> <span class="token operator">!</span>realaddr<span class="token punctuation">.</span>IP<span class="token punctuation">.</span><span class="token function">IsLoopback</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+				<span class="token keyword">go</span> nat<span class="token punctuation">.</span><span class="token function">Map</span><span class="token punctuation">(</span>srv<span class="token punctuation">.</span>NAT<span class="token punctuation">,</span> srv<span class="token punctuation">.</span>quit<span class="token punctuation">,</span> <span class="token string">"udp"</span><span class="token punctuation">,</span> realaddr<span class="token punctuation">.</span>Port<span class="token punctuation">,</span> realaddr<span class="token punctuation">.</span>Port<span class="token punctuation">,</span> <span class="token string">"ethereum discovery"</span><span class="token punctuation">)</span>
+			<span class="token punctuation">}</span>
+			<span class="token comment">// TODO: react to external IP changes over time.</span>
+			<span class="token keyword">if</span> ext<span class="token punctuation">,</span> err <span class="token operator">:=</span> srv<span class="token punctuation">.</span>NAT<span class="token punctuation">.</span><span class="token function">ExternalIP</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+				realaddr <span class="token operator">=</span> <span class="token operator">&amp;</span>net<span class="token punctuation">.</span>UDPAddr<span class="token punctuation">{</span>IP<span class="token punctuation">:</span> ext<span class="token punctuation">,</span> Port<span class="token punctuation">:</span> realaddr<span class="token punctuation">.</span>Port<span class="token punctuation">}</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
 
-    if !srv.NoDiscovery &amp;&amp; srv.DiscoveryV5 {
-        unhandled = make(chan discover.ReadPacket, 100)
-        sconn = &amp;sharedUDPConn{conn, unhandled}
-    }
+	<span class="token keyword">if</span> <span class="token operator">!</span>srv<span class="token punctuation">.</span>NoDiscovery <span class="token operator">&amp;&amp;</span> srv<span class="token punctuation">.</span>DiscoveryV5 <span class="token punctuation">{</span>
+		unhandled <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> discover<span class="token punctuation">.</span>ReadPacket<span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+		sconn <span class="token operator">=</span> <span class="token operator">&amp;</span>sharedUDPConn<span class="token punctuation">{</span>conn<span class="token punctuation">,</span> unhandled<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
 
-    // node table
-    if !srv.NoDiscovery {
-        cfg := discover.Config{
-            PrivateKey:   srv.PrivateKey,
-            AnnounceAddr: realaddr,
-            NodeDBPath:   srv.NodeDatabase,
-            NetRestrict:  srv.NetRestrict,
-            Bootnodes:    srv.BootstrapNodes,
-            Unhandled:    unhandled,
-        }
-        ntab, err := discover.ListenUDP(conn, cfg)
-        if err != nil {
-            return err
-        }
-        srv.ntab = ntab
-    }
+	<span class="token comment">// node table</span>
+	<span class="token keyword">if</span> <span class="token operator">!</span>srv<span class="token punctuation">.</span>NoDiscovery <span class="token punctuation">{</span>
+		cfg <span class="token operator">:=</span> discover<span class="token punctuation">.</span>Config<span class="token punctuation">{</span>
+			PrivateKey<span class="token punctuation">:</span>   srv<span class="token punctuation">.</span>PrivateKey<span class="token punctuation">,</span>
+			AnnounceAddr<span class="token punctuation">:</span> realaddr<span class="token punctuation">,</span>
+			NodeDBPath<span class="token punctuation">:</span>   srv<span class="token punctuation">.</span>NodeDatabase<span class="token punctuation">,</span>
+			NetRestrict<span class="token punctuation">:</span>  srv<span class="token punctuation">.</span>NetRestrict<span class="token punctuation">,</span>
+			Bootnodes<span class="token punctuation">:</span>    srv<span class="token punctuation">.</span>BootstrapNodes<span class="token punctuation">,</span>
+			Unhandled<span class="token punctuation">:</span>    unhandled<span class="token punctuation">,</span>
+		<span class="token punctuation">}</span>
+		ntab<span class="token punctuation">,</span> err <span class="token operator">:=</span> discover<span class="token punctuation">.</span><span class="token function">ListenUDP</span><span class="token punctuation">(</span>conn<span class="token punctuation">,</span> cfg<span class="token punctuation">)</span>
+		<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+			<span class="token keyword">return</span> err
+		<span class="token punctuation">}</span>
+		srv<span class="token punctuation">.</span>ntab <span class="token operator">=</span> ntab
+	<span class="token punctuation">}</span>
 
-    if srv.DiscoveryV5 {
-        var (
-            ntab *discv5.Network
-            err  error
-        )
-        if sconn != nil {
-            ntab, err = discv5.ListenUDP(srv.PrivateKey, sconn, realaddr, "", srv.NetRestrict) //srv.NodeDatabase)
-        } else {
-            ntab, err = discv5.ListenUDP(srv.PrivateKey, conn, realaddr, "", srv.NetRestrict) //srv.NodeDatabase)
-        }
-        if err != nil {
-            return err
-        }
-        if err := ntab.SetFallbackNodes(srv.BootstrapNodesV5); err != nil {
-            return err
-        }
-        srv.DiscV5 = ntab
-    }
+	<span class="token keyword">if</span> srv<span class="token punctuation">.</span>DiscoveryV5 <span class="token punctuation">{</span>
+		<span class="token keyword">var</span> <span class="token punctuation">(</span>
+			ntab <span class="token operator">*</span>discv5<span class="token punctuation">.</span>Network
+			err  <span class="token builtin">error</span>
+		<span class="token punctuation">)</span>
+		<span class="token keyword">if</span> sconn <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+			ntab<span class="token punctuation">,</span> err <span class="token operator">=</span> discv5<span class="token punctuation">.</span><span class="token function">ListenUDP</span><span class="token punctuation">(</span>srv<span class="token punctuation">.</span>PrivateKey<span class="token punctuation">,</span> sconn<span class="token punctuation">,</span> realaddr<span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">,</span> srv<span class="token punctuation">.</span>NetRestrict<span class="token punctuation">)</span> <span class="token comment">//srv.NodeDatabase)</span>
+		<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+			ntab<span class="token punctuation">,</span> err <span class="token operator">=</span> discv5<span class="token punctuation">.</span><span class="token function">ListenUDP</span><span class="token punctuation">(</span>srv<span class="token punctuation">.</span>PrivateKey<span class="token punctuation">,</span> conn<span class="token punctuation">,</span> realaddr<span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">,</span> srv<span class="token punctuation">.</span>NetRestrict<span class="token punctuation">)</span> <span class="token comment">//srv.NodeDatabase)</span>
+		<span class="token punctuation">}</span>
+		<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+			<span class="token keyword">return</span> err
+		<span class="token punctuation">}</span>
+		<span class="token keyword">if</span> err <span class="token operator">:=</span> ntab<span class="token punctuation">.</span><span class="token function">SetFallbackNodes</span><span class="token punctuation">(</span>srv<span class="token punctuation">.</span>BootstrapNodesV5<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+			<span class="token keyword">return</span> err
+		<span class="token punctuation">}</span>
+		srv<span class="token punctuation">.</span>DiscV5 <span class="token operator">=</span> ntab
+	<span class="token punctuation">}</span>
 
-    dynPeers := srv.maxDialedConns()
-    dialer := newDialState(srv.StaticNodes, srv.BootstrapNodes, srv.ntab, dynPeers, srv.NetRestrict)
+	dynPeers <span class="token operator">:=</span> srv<span class="token punctuation">.</span><span class="token function">maxDialedConns</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	dialer <span class="token operator">:=</span> <span class="token function">newDialState</span><span class="token punctuation">(</span>srv<span class="token punctuation">.</span>StaticNodes<span class="token punctuation">,</span> srv<span class="token punctuation">.</span>BootstrapNodes<span class="token punctuation">,</span> srv<span class="token punctuation">.</span>ntab<span class="token punctuation">,</span> dynPeers<span class="token punctuation">,</span> srv<span class="token punctuation">.</span>NetRestrict<span class="token punctuation">)</span>
 
-    // handshake
-    srv.ourHandshake = &amp;protoHandshake{Version: baseProtocolVersion, Name: srv.Name, ID: discover.PubkeyID(&amp;srv.PrivateKey.PublicKey)}
-    for _, p := range srv.Protocols {
-        srv.ourHandshake.Caps = append(srv.ourHandshake.Caps, p.cap())
-    }
-    // listen/dial
-    if srv.ListenAddr != "" {
-        if err := srv.startListening(); err != nil {
-            return err
-        }
-    }
-    if srv.NoDial &amp;&amp; srv.ListenAddr == "" {
-        srv.log.Warn("P2P server will be useless, neither dialing nor listening")
-    }
+	<span class="token comment">// handshake</span>
+	srv<span class="token punctuation">.</span>ourHandshake <span class="token operator">=</span> <span class="token operator">&amp;</span>protoHandshake<span class="token punctuation">{</span>Version<span class="token punctuation">:</span> baseProtocolVersion<span class="token punctuation">,</span> Name<span class="token punctuation">:</span> srv<span class="token punctuation">.</span>Name<span class="token punctuation">,</span> ID<span class="token punctuation">:</span> discover<span class="token punctuation">.</span><span class="token function">PubkeyID</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>srv<span class="token punctuation">.</span>PrivateKey<span class="token punctuation">.</span>PublicKey<span class="token punctuation">)</span><span class="token punctuation">}</span>
+	<span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> p <span class="token operator">:=</span> <span class="token keyword">range</span> srv<span class="token punctuation">.</span>Protocols <span class="token punctuation">{</span>
+		srv<span class="token punctuation">.</span>ourHandshake<span class="token punctuation">.</span>Caps <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>srv<span class="token punctuation">.</span>ourHandshake<span class="token punctuation">.</span>Caps<span class="token punctuation">,</span> p<span class="token punctuation">.</span><span class="token function">cap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">// listen/dial</span>
+	<span class="token keyword">if</span> srv<span class="token punctuation">.</span>ListenAddr <span class="token operator">!=</span> <span class="token string">""</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> err <span class="token operator">:=</span> srv<span class="token punctuation">.</span><span class="token function">startListening</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+			<span class="token keyword">return</span> err
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">if</span> srv<span class="token punctuation">.</span>NoDial <span class="token operator">&amp;&amp;</span> srv<span class="token punctuation">.</span>ListenAddr <span class="token operator">==</span> <span class="token string">""</span> <span class="token punctuation">{</span>
+		srv<span class="token punctuation">.</span>log<span class="token punctuation">.</span><span class="token function">Warn</span><span class="token punctuation">(</span><span class="token string">"P2P server will be useless, neither dialing nor listening"</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
 
-    srv.loopWG.Add(1)
-    go srv.run(dialer)
-    srv.running = true
-    return nil
-}</code></pre>
+	srv<span class="token punctuation">.</span>loopWG<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+	<span class="token keyword">go</span> srv<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>dialer<span class="token punctuation">)</span>
+	srv<span class="token punctuation">.</span>running <span class="token operator">=</span> <span class="token boolean">true</span>
+	<span class="token keyword">return</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span></code></pre>
 
 <h2 id="启动Service"><a href="#启动Service" class="headerlink" title="启动Service"></a>启动Service</h2><pre class="language-go" data-language="go"><code class="language-go"><span class="token comment">// Start each of the services</span>
-    started <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>reflect<span class="token punctuation">.</span>Type<span class="token punctuation">{</span><span class="token punctuation">}</span>
-    <span class="token keyword">for</span> kind<span class="token punctuation">,</span> service <span class="token operator">:=</span> <span class="token keyword">range</span> services <span class="token punctuation">{</span>
-        <span class="token comment">// Start the next service, stopping all previous upon failure</span>
-        <span class="token keyword">if</span> err <span class="token operator">:=</span> service<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span>running<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
-            <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> kind <span class="token operator">:=</span> <span class="token keyword">range</span> started <span class="token punctuation">{</span>
-                services<span class="token punctuation">[</span>kind<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">Stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-            <span class="token punctuation">}</span>
-            running<span class="token punctuation">.</span><span class="token function">Stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-
-            <span class="token keyword">return</span> err
+started <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>reflect<span class="token punctuation">.</span>Type<span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> kind<span class="token punctuation">,</span> service <span class="token operator">:=</span> <span class="token keyword">range</span> services <span class="token punctuation">{</span>
+    <span class="token comment">// Start the next service, stopping all previous upon failure</span>
+    <span class="token keyword">if</span> err <span class="token operator">:=</span> service<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span>running<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> kind <span class="token operator">:=</span> <span class="token keyword">range</span> started <span class="token punctuation">{</span>
+            services<span class="token punctuation">[</span>kind<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">Stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
         <span class="token punctuation">}</span>
-        <span class="token comment">// Mark the service started for potential cleanup</span>
-        started <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>started<span class="token punctuation">,</span> kind<span class="token punctuation">)</span>
-    <span class="token punctuation">}</span></code></pre>
+        running<span class="token punctuation">.</span><span class="token function">Stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 
+        <span class="token keyword">return</span> err
+    <span class="token punctuation">}</span>
+    <span class="token comment">// Mark the service started for potential cleanup</span>
+    started <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>started<span class="token punctuation">,</span> kind<span class="token punctuation">)</span>
+<span class="token punctuation">}</span></code></pre>
 <p>主要就是依次调用每个Service的Start()方法，然后把启动的Service的类型存储到started表中。之前提到 Ethereum 作为一个service，被Node注册进去。Node start的时候会启动其注册的所有服务，Ethereum service也是一样。</p>
-<h2 id="ethereum-service"><a href="#ethereum-service" class="headerlink" title="ethereum service"></a>ethereum service</h2><h3 id="ethereum-service的初始化"><a href="#ethereum-service的初始化" class="headerlink" title="ethereum service的初始化"></a>ethereum service的初始化</h3><pre class="language-none"><code class="language-none">eth/backend.go
-func New(ctx *node.ServiceContext, config *Config) (*Ethereum, error) {
-    if config.SyncMode == downloader.LightSync {
-        return nil, errors.New("can't run eth.Ethereum in light sync mode, use les.LightEthereum")
-    }
-    if !config.SyncMode.IsValid() {
-        return nil, fmt.Errorf("invalid sync mode %d", config.SyncMode)
-    }
-    chainDb, err := CreateDB(ctx, config, "chaindata")
-    if err != nil {
-        return nil, err
-    }
-    chainConfig, genesisHash, genesisErr := core.SetupGenesisBlock(chainDb, config.Genesis)
-    if _, ok := genesisErr.(*params.ConfigCompatError); genesisErr != nil &amp;&amp; !ok {
-        return nil, genesisErr
-    }
-    log.Info("Initialised chain configuration", "config", chainConfig)
+<h2 id="ethereum-service"><a href="#ethereum-service" class="headerlink" title="ethereum service"></a>ethereum service</h2><h3 id="ethereum-service的初始化"><a href="#ethereum-service的初始化" class="headerlink" title="ethereum service的初始化"></a>ethereum service的初始化</h3><pre class="language-go" data-language="go"><code class="language-go"><span class="token comment">// eth/backend.go</span>
+<span class="token keyword">func</span> <span class="token function">New</span><span class="token punctuation">(</span>ctx <span class="token operator">*</span>node<span class="token punctuation">.</span>ServiceContext<span class="token punctuation">,</span> config <span class="token operator">*</span>Config<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>Ethereum<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">if</span> config<span class="token punctuation">.</span>SyncMode <span class="token operator">==</span> downloader<span class="token punctuation">.</span>LightSync <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> errors<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token string">"can't run eth.Ethereum in light sync mode, use les.LightEthereum"</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">if</span> <span class="token operator">!</span>config<span class="token punctuation">.</span>SyncMode<span class="token punctuation">.</span><span class="token function">IsValid</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">"invalid sync mode %d"</span><span class="token punctuation">,</span> config<span class="token punctuation">.</span>SyncMode<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	chainDb<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">CreateDB</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> config<span class="token punctuation">,</span> <span class="token string">"chaindata"</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+	<span class="token punctuation">}</span>
+	chainConfig<span class="token punctuation">,</span> genesisHash<span class="token punctuation">,</span> genesisErr <span class="token operator">:=</span> core<span class="token punctuation">.</span><span class="token function">SetupGenesisBlock</span><span class="token punctuation">(</span>chainDb<span class="token punctuation">,</span> config<span class="token punctuation">.</span>Genesis<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> <span class="token boolean">_</span><span class="token punctuation">,</span> ok <span class="token operator">:=</span> genesisErr<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token operator">*</span>params<span class="token punctuation">.</span>ConfigCompatError<span class="token punctuation">)</span><span class="token punctuation">;</span> genesisErr <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>ok <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> genesisErr
+	<span class="token punctuation">}</span>
+	log<span class="token punctuation">.</span><span class="token function">Info</span><span class="token punctuation">(</span><span class="token string">"Initialised chain configuration"</span><span class="token punctuation">,</span> <span class="token string">"config"</span><span class="token punctuation">,</span> chainConfig<span class="token punctuation">)</span>
 
-    eth := &amp;Ethereum{
-        config:         config,
-        chainDb:        chainDb,
-        chainConfig:    chainConfig,
-        eventMux:       ctx.EventMux,
-        accountManager: ctx.AccountManager,
-        engine:         CreateConsensusEngine(ctx, &amp;config.Ethash, chainConfig, chainDb),
-        shutdownChan:   make(chan bool),
-        networkId:      config.NetworkId,
-        gasPrice:       config.GasPrice,
-        etherbase:      config.Etherbase,
-        bloomRequests:  make(chan chan *bloombits.Retrieval),
-        bloomIndexer:   NewBloomIndexer(chainDb, params.BloomBitsBlocks),
-    }
+	eth <span class="token operator">:=</span> <span class="token operator">&amp;</span>Ethereum<span class="token punctuation">{</span>
+		config<span class="token punctuation">:</span>         config<span class="token punctuation">,</span>
+		chainDb<span class="token punctuation">:</span>        chainDb<span class="token punctuation">,</span>
+		chainConfig<span class="token punctuation">:</span>    chainConfig<span class="token punctuation">,</span>
+		eventMux<span class="token punctuation">:</span>       ctx<span class="token punctuation">.</span>EventMux<span class="token punctuation">,</span>
+		accountManager<span class="token punctuation">:</span> ctx<span class="token punctuation">.</span>AccountManager<span class="token punctuation">,</span>
+		engine<span class="token punctuation">:</span>         <span class="token function">CreateConsensusEngine</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> <span class="token operator">&amp;</span>config<span class="token punctuation">.</span>Ethash<span class="token punctuation">,</span> chainConfig<span class="token punctuation">,</span> chainDb<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		shutdownChan<span class="token punctuation">:</span>   <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token builtin">bool</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		networkId<span class="token punctuation">:</span>      config<span class="token punctuation">.</span>NetworkId<span class="token punctuation">,</span>
+		gasPrice<span class="token punctuation">:</span>       config<span class="token punctuation">.</span>GasPrice<span class="token punctuation">,</span>
+		etherbase<span class="token punctuation">:</span>      config<span class="token punctuation">.</span>Etherbase<span class="token punctuation">,</span>
+		bloomRequests<span class="token punctuation">:</span>  <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token keyword">chan</span> <span class="token operator">*</span>bloombits<span class="token punctuation">.</span>Retrieval<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		bloomIndexer<span class="token punctuation">:</span>   <span class="token function">NewBloomIndexer</span><span class="token punctuation">(</span>chainDb<span class="token punctuation">,</span> params<span class="token punctuation">.</span>BloomBitsBlocks<span class="token punctuation">)</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
 
-    log.Info("Initialising Ethereum protocol", "versions", ProtocolVersions, "network", config.NetworkId)
+	log<span class="token punctuation">.</span><span class="token function">Info</span><span class="token punctuation">(</span><span class="token string">"Initialising Ethereum protocol"</span><span class="token punctuation">,</span> <span class="token string">"versions"</span><span class="token punctuation">,</span> ProtocolVersions<span class="token punctuation">,</span> <span class="token string">"network"</span><span class="token punctuation">,</span> config<span class="token punctuation">.</span>NetworkId<span class="token punctuation">)</span>
 
-    if !config.SkipBcVersionCheck {
-        bcVersion := rawdb.ReadDatabaseVersion(chainDb)
-        if bcVersion != core.BlockChainVersion &amp;&amp; bcVersion != 0 {
-            return nil, fmt.Errorf("Blockchain DB version mismatch (%d / %d). Run geth upgradedb.\n", bcVersion, core.BlockChainVersion)
-        }
-        rawdb.WriteDatabaseVersion(chainDb, core.BlockChainVersion)
-    }
-    var (
-        vmConfig    = vm.Config{EnablePreimageRecording: config.EnablePreimageRecording}
-        cacheConfig = &amp;core.CacheConfig{Disabled: config.NoPruning, TrieNodeLimit: config.TrieCache, TrieTimeLimit: config.TrieTimeout}
-    )
-    eth.blockchain, err = core.NewBlockChain(chainDb, cacheConfig, eth.chainConfig, eth.engine, vmConfig)
-    if err != nil {
-        return nil, err
-    }
-    // Rewind the chain in case of an incompatible config upgrade.
-    if compat, ok := genesisErr.(*params.ConfigCompatError); ok {
-        log.Warn("Rewinding chain to upgrade configuration", "err", compat)
-        eth.blockchain.SetHead(compat.RewindTo)
-        rawdb.WriteChainConfig(chainDb, genesisHash, chainConfig)
-    }
-    eth.bloomIndexer.Start(eth.blockchain)
+	<span class="token keyword">if</span> <span class="token operator">!</span>config<span class="token punctuation">.</span>SkipBcVersionCheck <span class="token punctuation">{</span>
+		bcVersion <span class="token operator">:=</span> rawdb<span class="token punctuation">.</span><span class="token function">ReadDatabaseVersion</span><span class="token punctuation">(</span>chainDb<span class="token punctuation">)</span>
+		<span class="token keyword">if</span> bcVersion <span class="token operator">!=</span> core<span class="token punctuation">.</span>BlockChainVersion <span class="token operator">&amp;&amp;</span> bcVersion <span class="token operator">!=</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+			<span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">"Blockchain DB version mismatch (%d / %d). Run geth upgradedb.\n"</span><span class="token punctuation">,</span> bcVersion<span class="token punctuation">,</span> core<span class="token punctuation">.</span>BlockChainVersion<span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+		rawdb<span class="token punctuation">.</span><span class="token function">WriteDatabaseVersion</span><span class="token punctuation">(</span>chainDb<span class="token punctuation">,</span> core<span class="token punctuation">.</span>BlockChainVersion<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">var</span> <span class="token punctuation">(</span>
+		vmConfig    <span class="token operator">=</span> vm<span class="token punctuation">.</span>Config<span class="token punctuation">{</span>EnablePreimageRecording<span class="token punctuation">:</span> config<span class="token punctuation">.</span>EnablePreimageRecording<span class="token punctuation">}</span>
+		cacheConfig <span class="token operator">=</span> <span class="token operator">&amp;</span>core<span class="token punctuation">.</span>CacheConfig<span class="token punctuation">{</span>Disabled<span class="token punctuation">:</span> config<span class="token punctuation">.</span>NoPruning<span class="token punctuation">,</span> TrieNodeLimit<span class="token punctuation">:</span> config<span class="token punctuation">.</span>TrieCache<span class="token punctuation">,</span> TrieTimeLimit<span class="token punctuation">:</span> config<span class="token punctuation">.</span>TrieTimeout<span class="token punctuation">}</span>
+	<span class="token punctuation">)</span>
+	eth<span class="token punctuation">.</span>blockchain<span class="token punctuation">,</span> err <span class="token operator">=</span> core<span class="token punctuation">.</span><span class="token function">NewBlockChain</span><span class="token punctuation">(</span>chainDb<span class="token punctuation">,</span> cacheConfig<span class="token punctuation">,</span> eth<span class="token punctuation">.</span>chainConfig<span class="token punctuation">,</span> eth<span class="token punctuation">.</span>engine<span class="token punctuation">,</span> vmConfig<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+	<span class="token punctuation">}</span>
+	<span class="token comment">// Rewind the chain in case of an incompatible config upgrade.</span>
+	<span class="token keyword">if</span> compat<span class="token punctuation">,</span> ok <span class="token operator">:=</span> genesisErr<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token operator">*</span>params<span class="token punctuation">.</span>ConfigCompatError<span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+		log<span class="token punctuation">.</span><span class="token function">Warn</span><span class="token punctuation">(</span><span class="token string">"Rewinding chain to upgrade configuration"</span><span class="token punctuation">,</span> <span class="token string">"err"</span><span class="token punctuation">,</span> compat<span class="token punctuation">)</span>
+		eth<span class="token punctuation">.</span>blockchain<span class="token punctuation">.</span><span class="token function">SetHead</span><span class="token punctuation">(</span>compat<span class="token punctuation">.</span>RewindTo<span class="token punctuation">)</span>
+		rawdb<span class="token punctuation">.</span><span class="token function">WriteChainConfig</span><span class="token punctuation">(</span>chainDb<span class="token punctuation">,</span> genesisHash<span class="token punctuation">,</span> chainConfig<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	eth<span class="token punctuation">.</span>bloomIndexer<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span>eth<span class="token punctuation">.</span>blockchain<span class="token punctuation">)</span>
 
-    if config.TxPool.Journal != "" {
-        config.TxPool.Journal = ctx.ResolvePath(config.TxPool.Journal)
-    }
-    eth.txPool = core.NewTxPool(config.TxPool, eth.chainConfig, eth.blockchain)
+	<span class="token keyword">if</span> config<span class="token punctuation">.</span>TxPool<span class="token punctuation">.</span>Journal <span class="token operator">!=</span> <span class="token string">""</span> <span class="token punctuation">{</span>
+		config<span class="token punctuation">.</span>TxPool<span class="token punctuation">.</span>Journal <span class="token operator">=</span> ctx<span class="token punctuation">.</span><span class="token function">ResolvePath</span><span class="token punctuation">(</span>config<span class="token punctuation">.</span>TxPool<span class="token punctuation">.</span>Journal<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	eth<span class="token punctuation">.</span>txPool <span class="token operator">=</span> core<span class="token punctuation">.</span><span class="token function">NewTxPool</span><span class="token punctuation">(</span>config<span class="token punctuation">.</span>TxPool<span class="token punctuation">,</span> eth<span class="token punctuation">.</span>chainConfig<span class="token punctuation">,</span> eth<span class="token punctuation">.</span>blockchain<span class="token punctuation">)</span>
 
-    if eth.protocolManager, err = NewProtocolManager(eth.chainConfig, config.SyncMode, config.NetworkId, eth.eventMux, eth.txPool, eth.engine, eth.blockchain, chainDb); err != nil {
-        return nil, err
-    }
-    eth.miner = miner.New(eth, eth.chainConfig, eth.EventMux(), eth.engine)
-    eth.miner.SetExtra(makeExtraData(config.ExtraData))
+	<span class="token keyword">if</span> eth<span class="token punctuation">.</span>protocolManager<span class="token punctuation">,</span> err <span class="token operator">=</span> <span class="token function">NewProtocolManager</span><span class="token punctuation">(</span>eth<span class="token punctuation">.</span>chainConfig<span class="token punctuation">,</span> config<span class="token punctuation">.</span>SyncMode<span class="token punctuation">,</span> config<span class="token punctuation">.</span>NetworkId<span class="token punctuation">,</span> eth<span class="token punctuation">.</span>eventMux<span class="token punctuation">,</span> eth<span class="token punctuation">.</span>txPool<span class="token punctuation">,</span> eth<span class="token punctuation">.</span>engine<span class="token punctuation">,</span> eth<span class="token punctuation">.</span>blockchain<span class="token punctuation">,</span> chainDb<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+	<span class="token punctuation">}</span>
+	eth<span class="token punctuation">.</span>miner <span class="token operator">=</span> miner<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>eth<span class="token punctuation">,</span> eth<span class="token punctuation">.</span>chainConfig<span class="token punctuation">,</span> eth<span class="token punctuation">.</span><span class="token function">EventMux</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> eth<span class="token punctuation">.</span>engine<span class="token punctuation">)</span>
+	eth<span class="token punctuation">.</span>miner<span class="token punctuation">.</span><span class="token function">SetExtra</span><span class="token punctuation">(</span><span class="token function">makeExtraData</span><span class="token punctuation">(</span>config<span class="token punctuation">.</span>ExtraData<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-    eth.APIBackend = &amp;EthAPIBackend{eth, nil}
-    gpoParams := config.GPO
-    if gpoParams.Default == nil {
-        gpoParams.Default = config.GasPrice
-    }
-    eth.APIBackend.gpo = gasprice.NewOracle(eth.APIBackend, gpoParams)
+	eth<span class="token punctuation">.</span>APIBackend <span class="token operator">=</span> <span class="token operator">&amp;</span>EthAPIBackend<span class="token punctuation">{</span>eth<span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">}</span>
+	gpoParams <span class="token operator">:=</span> config<span class="token punctuation">.</span>GPO
+	<span class="token keyword">if</span> gpoParams<span class="token punctuation">.</span>Default <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		gpoParams<span class="token punctuation">.</span>Default <span class="token operator">=</span> config<span class="token punctuation">.</span>GasPrice
+	<span class="token punctuation">}</span>
+	eth<span class="token punctuation">.</span>APIBackend<span class="token punctuation">.</span>gpo <span class="token operator">=</span> gasprice<span class="token punctuation">.</span><span class="token function">NewOracle</span><span class="token punctuation">(</span>eth<span class="token punctuation">.</span>APIBackend<span class="token punctuation">,</span> gpoParams<span class="token punctuation">)</span>
 
-    return eth, nil
-}</code></pre>
-
+	<span class="token keyword">return</span> eth<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span></code></pre>
 <ul>
 <li>如果config.SyncMode 是 downloader.LightSync，走的是les/backend.go的初始化方法。</li>
 <li>chainDb, err := CreateDB(ctx, config, “chaindata”)打开leveldb，leveldb是eth存储数据库。</li>
@@ -818,124 +814,122 @@ func New(ctx *node.ServiceContext, config *Config) (*Ethereum, error) {
 <li>miner.New(eth, eth.chainConfig, eth.EventMux(), eth.engine) 初始化矿工</li>
 <li>eth.ApiBackend.gpo = gasprice.NewOracle(eth.ApiBackend, gpoParams) 创建预言最新gasprice的预言机</li>
 </ul>
-<h3 id="ethereum-service-启动"><a href="#ethereum-service-启动" class="headerlink" title="ethereum service 启动"></a>ethereum service 启动</h3><pre class="language-none"><code class="language-none">func (s *Ethereum) Start(srvr *p2p.Server) error {
-    // Start the bloom bits servicing goroutines
-    s.startBloomHandlers()
+<h3 id="ethereum-service-启动"><a href="#ethereum-service-启动" class="headerlink" title="ethereum service 启动"></a>ethereum service 启动</h3><pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>s <span class="token operator">*</span>Ethereum<span class="token punctuation">)</span> <span class="token function">Start</span><span class="token punctuation">(</span>srvr <span class="token operator">*</span>p2p<span class="token punctuation">.</span>Server<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+	<span class="token comment">// Start the bloom bits servicing goroutines</span>
+	s<span class="token punctuation">.</span><span class="token function">startBloomHandlers</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-    // Start the RPC service
-    s.netRPCService = ethapi.NewPublicNetAPI(srvr, s.NetVersion())
+	<span class="token comment">// Start the RPC service</span>
+	s<span class="token punctuation">.</span>netRPCService <span class="token operator">=</span> ethapi<span class="token punctuation">.</span><span class="token function">NewPublicNetAPI</span><span class="token punctuation">(</span>srvr<span class="token punctuation">,</span> s<span class="token punctuation">.</span><span class="token function">NetVersion</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-    // Figure out a max peers count based on the server limits
-    maxPeers := srvr.MaxPeers
-    if s.config.LightServ &gt; 0 {
-        if s.config.LightPeers &gt;= srvr.MaxPeers {
-            return fmt.Errorf("invalid peer config: light peer count (%d) &gt;= total peer count (%d)", s.config.LightPeers, srvr.MaxPeers)
-        }
-        maxPeers -= s.config.LightPeers
-    }
-    // Start the networking layer and the light server if requested
-    s.protocolManager.Start(maxPeers)
-    if s.lesServer != nil {
-        s.lesServer.Start(srvr)
-    }
-    return nil
-}</code></pre>
-
+	<span class="token comment">// Figure out a max peers count based on the server limits</span>
+	maxPeers <span class="token operator">:=</span> srvr<span class="token punctuation">.</span>MaxPeers
+	<span class="token keyword">if</span> s<span class="token punctuation">.</span>config<span class="token punctuation">.</span>LightServ <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> s<span class="token punctuation">.</span>config<span class="token punctuation">.</span>LightPeers <span class="token operator">&gt;=</span> srvr<span class="token punctuation">.</span>MaxPeers <span class="token punctuation">{</span>
+			<span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">"invalid peer config: light peer count (%d) &gt;= total peer count (%d)"</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>config<span class="token punctuation">.</span>LightPeers<span class="token punctuation">,</span> srvr<span class="token punctuation">.</span>MaxPeers<span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+		maxPeers <span class="token operator">-=</span> s<span class="token punctuation">.</span>config<span class="token punctuation">.</span>LightPeers
+	<span class="token punctuation">}</span>
+	<span class="token comment">// Start the networking layer and the light server if requested</span>
+	s<span class="token punctuation">.</span>protocolManager<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span>maxPeers<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> s<span class="token punctuation">.</span>lesServer <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		s<span class="token punctuation">.</span>lesServer<span class="token punctuation">.</span><span class="token function">Start</span><span class="token punctuation">(</span>srvr<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span></code></pre>
 <p>首先启动bloom过滤器 eth 的net 相关Api 加入RPC 服务。<br>s.protocolManager.Start(maxPeers) 设置最大同步节点数，并启动eth P2P通讯。<br>如果ethereum service 出问题了才会启动lesServer。</p>
 <h3 id="ProtocolManager-以太坊P2P通讯协议管理"><a href="#ProtocolManager-以太坊P2P通讯协议管理" class="headerlink" title="ProtocolManager 以太坊P2P通讯协议管理"></a>ProtocolManager 以太坊P2P通讯协议管理</h3><p>ethereum service的初始化 也会调用 <code>NewProtocolManager</code>。</p>
-<pre class="language-none"><code class="language-none">func New(ctx *node.ServiceContext, config *Config) (*Ethereum, error) {
-...
-    if eth.protocolManager, err = NewProtocolManager(eth.chainConfig, config.SyncMode, config.NetworkId, eth.eventMux, eth.txPool, eth.engine, eth.blockchain, chainDb); err != nil {
-            return nil, err
-        }
-
-        ....
-}</code></pre>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">New</span><span class="token punctuation">(</span>ctx <span class="token operator">*</span>node<span class="token punctuation">.</span>ServiceContext<span class="token punctuation">,</span> config <span class="token operator">*</span>Config<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>Ethereum<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+    <span class="token keyword">if</span> eth<span class="token punctuation">.</span>protocolManager<span class="token punctuation">,</span> err <span class="token operator">=</span> <span class="token function">NewProtocolManager</span><span class="token punctuation">(</span>eth<span class="token punctuation">.</span>chainConfig<span class="token punctuation">,</span> config<span class="token punctuation">.</span>SyncMode<span class="token punctuation">,</span> config<span class="token punctuation">.</span>NetworkId<span class="token punctuation">,</span> eth<span class="token punctuation">.</span>eventMux<span class="token punctuation">,</span> eth<span class="token punctuation">.</span>txPool<span class="token punctuation">,</span> eth<span class="token punctuation">.</span>engine<span class="token punctuation">,</span> eth<span class="token punctuation">.</span>blockchain<span class="token punctuation">,</span> chainDb<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+    		<span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    	<span class="token punctuation">}</span>
+    	
+    	<span class="token operator">...</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span></code></pre>
 
 <p><strong>ProtocolManager 的初始化方法</strong></p>
-<pre class="language-none"><code class="language-none">func NewProtocolManager(config *params.ChainConfig, mode downloader.SyncMode, networkId uint64, mux *event.TypeMux, txpool txPool, engine consensus.Engine, blockchain *core.BlockChain, chaindb ethdb.Database) (*ProtocolManager, error) {
-    // Create the protocol manager with the base fields
-    manager := &amp;ProtocolManager{
-        networkId:   networkId,
-        eventMux:    mux,
-        txpool:      txpool,
-        blockchain:  blockchain,
-        chainconfig: config,
-        peers:       newPeerSet(),
-        newPeerCh:   make(chan *peer),
-        noMorePeers: make(chan struct{}),
-        txsyncCh:    make(chan *txsync),
-        quitSync:    make(chan struct{}),
-    }
-    // Figure out whether to allow fast sync or not
-    if mode == downloader.FastSync &amp;&amp; blockchain.CurrentBlock().NumberU64() &gt; 0 {
-        log.Warn("Blockchain not empty, fast sync disabled")
-        mode = downloader.FullSync
-    }
-    if mode == downloader.FastSync {
-        manager.fastSync = uint32(1)
-    }
-    // Initiate a sub-protocol for every implemented version we can handle
-    manager.SubProtocols = make([]p2p.Protocol, 0, len(ProtocolVersions))
-    for i, version := range ProtocolVersions {
-        // Skip protocol version if incompatible with the mode of operation
-        if mode == downloader.FastSync &amp;&amp; version &lt; eth63 {
-            continue
-        }
-        // Compatible; initialise the sub-protocol
-        version := version // Closure for the run
-        manager.SubProtocols = append(manager.SubProtocols, p2p.Protocol{
-            Name:    ProtocolName,
-            Version: version,
-            Length:  ProtocolLengths[i],
-            Run: func(p *p2p.Peer, rw p2p.MsgReadWriter) error {
-                peer := manager.newPeer(int(version), p, rw)
-                select {
-                case manager.newPeerCh &lt;- peer:
-                    manager.wg.Add(1)
-                    defer manager.wg.Done()
-                    return manager.handle(peer)
-                case &lt;-manager.quitSync:
-                    return p2p.DiscQuitting
-                }
-            },
-            NodeInfo: func() interface{} {
-                return manager.NodeInfo()
-            },
-            PeerInfo: func(id discover.NodeID) interface{} {
-                if p := manager.peers.Peer(fmt.Sprintf("%x", id[:8])); p != nil {
-                    return p.Info()
-                }
-                return nil
-            },
-        })
-    }
-    if len(manager.SubProtocols) == 0 {
-        return nil, errIncompatibleConfig
-    }
-    // Construct the different synchronisation mechanisms
-    manager.downloader = downloader.New(mode, chaindb, manager.eventMux, blockchain, nil, manager.removePeer)
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">NewProtocolManager</span><span class="token punctuation">(</span>config <span class="token operator">*</span>params<span class="token punctuation">.</span>ChainConfig<span class="token punctuation">,</span> mode downloader<span class="token punctuation">.</span>SyncMode<span class="token punctuation">,</span> networkId <span class="token builtin">uint64</span><span class="token punctuation">,</span> mux <span class="token operator">*</span>event<span class="token punctuation">.</span>TypeMux<span class="token punctuation">,</span> txpool txPool<span class="token punctuation">,</span> engine consensus<span class="token punctuation">.</span>Engine<span class="token punctuation">,</span> blockchain <span class="token operator">*</span>core<span class="token punctuation">.</span>BlockChain<span class="token punctuation">,</span> chaindb ethdb<span class="token punctuation">.</span>Database<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>ProtocolManager<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">// Create the protocol manager with the base fields</span>
+	manager <span class="token operator">:=</span> <span class="token operator">&amp;</span>ProtocolManager<span class="token punctuation">{</span>
+		networkId<span class="token punctuation">:</span>   networkId<span class="token punctuation">,</span>
+		eventMux<span class="token punctuation">:</span>    mux<span class="token punctuation">,</span>
+		txpool<span class="token punctuation">:</span>      txpool<span class="token punctuation">,</span>
+		blockchain<span class="token punctuation">:</span>  blockchain<span class="token punctuation">,</span>
+		chainconfig<span class="token punctuation">:</span> config<span class="token punctuation">,</span>
+		peers<span class="token punctuation">:</span>       <span class="token function">newPeerSet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		newPeerCh<span class="token punctuation">:</span>   <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token operator">*</span>peer<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		noMorePeers<span class="token punctuation">:</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+		txsyncCh<span class="token punctuation">:</span>    <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token operator">*</span>txsync<span class="token punctuation">)</span><span class="token punctuation">,</span>
+		quitSync<span class="token punctuation">:</span>    <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">// Figure out whether to allow fast sync or not</span>
+	<span class="token keyword">if</span> mode <span class="token operator">==</span> downloader<span class="token punctuation">.</span>FastSync <span class="token operator">&amp;&amp;</span> blockchain<span class="token punctuation">.</span><span class="token function">CurrentBlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">NumberU64</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+		log<span class="token punctuation">.</span><span class="token function">Warn</span><span class="token punctuation">(</span><span class="token string">"Blockchain not empty, fast sync disabled"</span><span class="token punctuation">)</span>
+		mode <span class="token operator">=</span> downloader<span class="token punctuation">.</span>FullSync
+	<span class="token punctuation">}</span>
+	<span class="token keyword">if</span> mode <span class="token operator">==</span> downloader<span class="token punctuation">.</span>FastSync <span class="token punctuation">{</span>
+		manager<span class="token punctuation">.</span>fastSync <span class="token operator">=</span> <span class="token function">uint32</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">// Initiate a sub-protocol for every implemented version we can handle</span>
+	manager<span class="token punctuation">.</span>SubProtocols <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span>p2p<span class="token punctuation">.</span>Protocol<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token function">len</span><span class="token punctuation">(</span>ProtocolVersions<span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token keyword">for</span> i<span class="token punctuation">,</span> version <span class="token operator">:=</span> <span class="token keyword">range</span> ProtocolVersions <span class="token punctuation">{</span>
+		<span class="token comment">// Skip protocol version if incompatible with the mode of operation</span>
+		<span class="token keyword">if</span> mode <span class="token operator">==</span> downloader<span class="token punctuation">.</span>FastSync <span class="token operator">&amp;&amp;</span> version <span class="token operator">&lt;</span> eth63 <span class="token punctuation">{</span>
+			<span class="token keyword">continue</span>
+		<span class="token punctuation">}</span>
+		<span class="token comment">// Compatible; initialise the sub-protocol</span>
+		version <span class="token operator">:=</span> version <span class="token comment">// Closure for the run</span>
+		manager<span class="token punctuation">.</span>SubProtocols <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>manager<span class="token punctuation">.</span>SubProtocols<span class="token punctuation">,</span> p2p<span class="token punctuation">.</span>Protocol<span class="token punctuation">{</span>
+			Name<span class="token punctuation">:</span>    ProtocolName<span class="token punctuation">,</span>
+			Version<span class="token punctuation">:</span> version<span class="token punctuation">,</span>
+			Length<span class="token punctuation">:</span>  ProtocolLengths<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span>
+			Run<span class="token punctuation">:</span> <span class="token keyword">func</span><span class="token punctuation">(</span>p <span class="token operator">*</span>p2p<span class="token punctuation">.</span>Peer<span class="token punctuation">,</span> rw p2p<span class="token punctuation">.</span>MsgReadWriter<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+				peer <span class="token operator">:=</span> manager<span class="token punctuation">.</span><span class="token function">newPeer</span><span class="token punctuation">(</span><span class="token function">int</span><span class="token punctuation">(</span>version<span class="token punctuation">)</span><span class="token punctuation">,</span> p<span class="token punctuation">,</span> rw<span class="token punctuation">)</span>
+				<span class="token keyword">select</span> <span class="token punctuation">{</span>
+				<span class="token keyword">case</span> manager<span class="token punctuation">.</span>newPeerCh <span class="token operator">&lt;-</span> peer<span class="token punctuation">:</span>
+					manager<span class="token punctuation">.</span>wg<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+					<span class="token keyword">defer</span> manager<span class="token punctuation">.</span>wg<span class="token punctuation">.</span><span class="token function">Done</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+					<span class="token keyword">return</span> manager<span class="token punctuation">.</span><span class="token function">handle</span><span class="token punctuation">(</span>peer<span class="token punctuation">)</span>
+				<span class="token keyword">case</span> <span class="token operator">&lt;-</span>manager<span class="token punctuation">.</span>quitSync<span class="token punctuation">:</span>
+					<span class="token keyword">return</span> p2p<span class="token punctuation">.</span>DiscQuitting
+				<span class="token punctuation">}</span>
+			<span class="token punctuation">}</span><span class="token punctuation">,</span>
+			NodeInfo<span class="token punctuation">:</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token punctuation">{</span>
+				<span class="token keyword">return</span> manager<span class="token punctuation">.</span><span class="token function">NodeInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+			<span class="token punctuation">}</span><span class="token punctuation">,</span>
+			PeerInfo<span class="token punctuation">:</span> <span class="token keyword">func</span><span class="token punctuation">(</span>id discover<span class="token punctuation">.</span>NodeID<span class="token punctuation">)</span> <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token punctuation">{</span>
+				<span class="token keyword">if</span> p <span class="token operator">:=</span> manager<span class="token punctuation">.</span>peers<span class="token punctuation">.</span><span class="token function">Peer</span><span class="token punctuation">(</span>fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"%x"</span><span class="token punctuation">,</span> id<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> p <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+					<span class="token keyword">return</span> p<span class="token punctuation">.</span><span class="token function">Info</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+				<span class="token punctuation">}</span>
+				<span class="token keyword">return</span> <span class="token boolean">nil</span>
+			<span class="token punctuation">}</span><span class="token punctuation">,</span>
+		<span class="token punctuation">}</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>manager<span class="token punctuation">.</span>SubProtocols<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> errIncompatibleConfig
+	<span class="token punctuation">}</span>
+	<span class="token comment">// Construct the different synchronisation mechanisms</span>
+	manager<span class="token punctuation">.</span>downloader <span class="token operator">=</span> downloader<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>mode<span class="token punctuation">,</span> chaindb<span class="token punctuation">,</span> manager<span class="token punctuation">.</span>eventMux<span class="token punctuation">,</span> blockchain<span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> manager<span class="token punctuation">.</span>removePeer<span class="token punctuation">)</span>
 
-    validator := func(header *types.Header) error {
-        return engine.VerifyHeader(blockchain, header, true)
-    }
-    heighter := func() uint64 {
-        return blockchain.CurrentBlock().NumberU64()
-    }
-    inserter := func(blocks types.Blocks) (int, error) {
-        // If fast sync is running, deny importing weird blocks
-        if atomic.LoadUint32(&amp;manager.fastSync) == 1 {
-            log.Warn("Discarded bad propagated block", "number", blocks[0].Number(), "hash", blocks[0].Hash())
-            return 0, nil
-        }
-        atomic.StoreUint32(&amp;manager.acceptTxs, 1) // Mark initial sync done on any fetcher import
-        return manager.blockchain.InsertChain(blocks)
-    }
-    manager.fetcher = fetcher.New(blockchain.GetBlockByHash, validator, manager.BroadcastBlock, heighter, inserter, manager.removePeer)
+	validator <span class="token operator">:=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>header <span class="token operator">*</span>types<span class="token punctuation">.</span>Header<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> engine<span class="token punctuation">.</span><span class="token function">VerifyHeader</span><span class="token punctuation">(</span>blockchain<span class="token punctuation">,</span> header<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	heighter <span class="token operator">:=</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">uint64</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> blockchain<span class="token punctuation">.</span><span class="token function">CurrentBlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">NumberU64</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	inserter <span class="token operator">:=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>blocks types<span class="token punctuation">.</span>Blocks<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token comment">// If fast sync is running, deny importing weird blocks</span>
+		<span class="token keyword">if</span> atomic<span class="token punctuation">.</span><span class="token function">LoadUint32</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>manager<span class="token punctuation">.</span>fastSync<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span> <span class="token punctuation">{</span>
+			log<span class="token punctuation">.</span><span class="token function">Warn</span><span class="token punctuation">(</span><span class="token string">"Discarded bad propagated block"</span><span class="token punctuation">,</span> <span class="token string">"number"</span><span class="token punctuation">,</span> blocks<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">Number</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"hash"</span><span class="token punctuation">,</span> blocks<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">Hash</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+			<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
+		<span class="token punctuation">}</span>
+		atomic<span class="token punctuation">.</span><span class="token function">StoreUint32</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>manager<span class="token punctuation">.</span>acceptTxs<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token comment">// Mark initial sync done on any fetcher import</span>
+		<span class="token keyword">return</span> manager<span class="token punctuation">.</span>blockchain<span class="token punctuation">.</span><span class="token function">InsertChain</span><span class="token punctuation">(</span>blocks<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	manager<span class="token punctuation">.</span>fetcher <span class="token operator">=</span> fetcher<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span>blockchain<span class="token punctuation">.</span>GetBlockByHash<span class="token punctuation">,</span> validator<span class="token punctuation">,</span> manager<span class="token punctuation">.</span>BroadcastBlock<span class="token punctuation">,</span> heighter<span class="token punctuation">,</span> inserter<span class="token punctuation">,</span> manager<span class="token punctuation">.</span>removePeer<span class="token punctuation">)</span>
 
-    return manager, nil
-}</code></pre>
-
+	<span class="token keyword">return</span> manager<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span></code></pre>
 <ul>
 <li>peers 为以太坊临近的同步网络节点，newPeerCh、noMorePeers、txsyncCh、quitSync对应同步的通知</li>
 <li>manager.SubProtocols 创建以太坊 P2P server 的 通讯协议，通常只有一个值。manager.SubProtocols，在Node start的时候传给以太坊 P2P server并同时start P2P server。协议里面三个函数指针（Run、NodeInfo、PeerInfo）非常重要，后面会用到。</li>
@@ -944,21 +938,22 @@ func New(ctx *node.ServiceContext, config *Config) (*Ethereum, error) {
 </ul>
 <p>Ethereum service 启动的时候会同时启动 ProtocolManager。</p>
 <p><strong>ProtocolManager的start()方法：</strong></p>
-<p>func (pm *ProtocolManager) Start(maxPeers int) {<br>pm.maxPeers = maxPeers</p>
-<pre class="language-none"><code class="language-none">// broadcast transactions
-pm.txsCh = make(chan core.NewTxsEvent, txChanSize)
-pm.txsSub = pm.txpool.SubscribeNewTxsEvent(pm.txsCh)
-go pm.txBroadcastLoop()
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>pm <span class="token operator">*</span>ProtocolManager<span class="token punctuation">)</span> <span class="token function">Start</span><span class="token punctuation">(</span>maxPeers <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    pm<span class="token punctuation">.</span>maxPeers <span class="token operator">=</span> maxPeers
+	<span class="token comment">// broadcast transactions</span>
+	pm<span class="token punctuation">.</span>txsCh <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> core<span class="token punctuation">.</span>NewTxsEvent<span class="token punctuation">,</span> txChanSize<span class="token punctuation">)</span>
+	pm<span class="token punctuation">.</span>txsSub <span class="token operator">=</span> pm<span class="token punctuation">.</span>txpool<span class="token punctuation">.</span><span class="token function">SubscribeNewTxsEvent</span><span class="token punctuation">(</span>pm<span class="token punctuation">.</span>txsCh<span class="token punctuation">)</span>
+	<span class="token keyword">go</span> pm<span class="token punctuation">.</span><span class="token function">txBroadcastLoop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	
+	<span class="token comment">// broadcast mined blocks</span>
+	pm<span class="token punctuation">.</span>minedBlockSub <span class="token operator">=</span> pm<span class="token punctuation">.</span>eventMux<span class="token punctuation">.</span><span class="token function">Subscribe</span><span class="token punctuation">(</span>core<span class="token punctuation">.</span>NewMinedBlockEvent<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+	<span class="token keyword">go</span> pm<span class="token punctuation">.</span><span class="token function">minedBroadcastLoop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	
+	<span class="token comment">// start sync handlers</span>
+	<span class="token keyword">go</span> pm<span class="token punctuation">.</span><span class="token function">syncer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">go</span> pm<span class="token punctuation">.</span><span class="token function">txsyncLoop</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span></code></pre>
 
-// broadcast mined blocks
-pm.minedBlockSub = pm.eventMux.Subscribe(core.NewMinedBlockEvent{})
-go pm.minedBroadcastLoop()
-
-// start sync handlers
-go pm.syncer()
-go pm.txsyncLoop()</code></pre>
-
-<p>}</p>
 <ul>
 <li>创建一个新交易的订阅通道，并启动交易广播的goroutine</li>
 <li>创建一个挖坑的订阅通道，并启动</li>
@@ -970,46 +965,44 @@ go pm.txsyncLoop()</code></pre>
 <ul>
 <li>pm.txBroadcastLoop()方法</li>
 </ul>
-<pre class="language-none"><code class="language-none">func (pm *ProtocolManager) txBroadcastLoop() {
-    for {
-        select {
-        case event := &lt;-pm.txsCh:
-            pm.BroadcastTxs(event.Txs)
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>pm <span class="token operator">*</span>ProtocolManager<span class="token punctuation">)</span> <span class="token function">txBroadcastLoop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">for</span> <span class="token punctuation">{</span>
+		<span class="token keyword">select</span> <span class="token punctuation">{</span>
+		<span class="token keyword">case</span> event <span class="token operator">:=</span> <span class="token operator">&lt;-</span>pm<span class="token punctuation">.</span>txsCh<span class="token punctuation">:</span>
+			pm<span class="token punctuation">.</span><span class="token function">BroadcastTxs</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>Txs<span class="token punctuation">)</span>
 
-        // Err() channel will be closed when unsubscribing.
-        case &lt;-pm.txsSub.Err():
-            return
-        }
-    }
-}</code></pre>
+		<span class="token comment">// Err() channel will be closed when unsubscribing.</span>
+		<span class="token keyword">case</span> <span class="token operator">&lt;-</span>pm<span class="token punctuation">.</span>txsSub<span class="token punctuation">.</span><span class="token function">Err</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+			<span class="token keyword">return</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 
 <p>core/tx_pool.go 产生新的交易的时候会send self.txCh，这时候会激活 self.BroadcastTx(event.Tx.Hash(), event.Tx)</p>
-<pre class="language-none"><code class="language-none">func (pm *ProtocolManager) BroadcastTx(hash common.Hash, tx *types.Transaction) {
-    // Broadcast transaction to a batch of peers not knowing about it
-    peers := pm.peers.PeersWithoutTx(hash)
-    //FIXME include this again: peers = peers[:int(math.Sqrt(float64(len(peers))))]
-    for _, peer := range peers {
-        peer.SendTransactions(types.Transactions{tx})
-    }
-    log.Trace("Broadcast transaction", "hash", hash, "recipients", len(peers))
-}</code></pre>
-
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>pm <span class="token operator">*</span>ProtocolManager<span class="token punctuation">)</span> <span class="token function">BroadcastTx</span><span class="token punctuation">(</span>hash common<span class="token punctuation">.</span>Hash<span class="token punctuation">,</span> tx <span class="token operator">*</span>types<span class="token punctuation">.</span>Transaction<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Broadcast transaction to a batch of peers not knowing about it</span>
+    peers <span class="token operator">:=</span> pm<span class="token punctuation">.</span>peers<span class="token punctuation">.</span><span class="token function">PeersWithoutTx</span><span class="token punctuation">(</span>hash<span class="token punctuation">)</span>
+    <span class="token comment">//FIXME include this again: peers = peers[:int(math.Sqrt(float64(len(peers))))]</span>
+    <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> peer <span class="token operator">:=</span> <span class="token keyword">range</span> peers <span class="token punctuation">{</span>
+        peer<span class="token punctuation">.</span><span class="token function">SendTransactions</span><span class="token punctuation">(</span>types<span class="token punctuation">.</span>Transactions<span class="token punctuation">{</span>tx<span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    log<span class="token punctuation">.</span><span class="token function">Trace</span><span class="token punctuation">(</span><span class="token string">"Broadcast transaction"</span><span class="token punctuation">,</span> <span class="token string">"hash"</span><span class="token punctuation">,</span> hash<span class="token punctuation">,</span> <span class="token string">"recipients"</span><span class="token punctuation">,</span> <span class="token function">len</span><span class="token punctuation">(</span>peers<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span></code></pre>
 <p>向缓存的没有这个交易hash的网络节点广播此次交易。</p>
 <ul>
 <li>pm.minedBroadcastLoop()方法</li>
 </ul>
-<pre class="language-none"><code class="language-none">// Mined broadcast loop
-func (self *ProtocolManager) minedBroadcastLoop() {
-    // automatically stops if unsubscribe
-    for obj := range self.minedBlockSub.Chan() {
-        switch ev := obj.Data.(type) {
-        case core.NewMinedBlockEvent:
-            self.BroadcastBlock(ev.Block, true)  // First propagate block to peers
-            self.BroadcastBlock(ev.Block, false) // Only then announce to the rest
-        }
-    }
-}</code></pre>
-
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token comment">// Mined broadcast loop</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>self <span class="token operator">*</span>ProtocolManager<span class="token punctuation">)</span> <span class="token function">minedBroadcastLoop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// automatically stops if unsubscribe</span>
+    <span class="token keyword">for</span> obj <span class="token operator">:=</span> <span class="token keyword">range</span> self<span class="token punctuation">.</span>minedBlockSub<span class="token punctuation">.</span><span class="token function">Chan</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">switch</span> ev <span class="token operator">:=</span> obj<span class="token punctuation">.</span>Data<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token keyword">type</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">case</span> core<span class="token punctuation">.</span>NewMinedBlockEvent<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span><span class="token function">BroadcastBlock</span><span class="token punctuation">(</span>ev<span class="token punctuation">.</span>Block<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>  <span class="token comment">// First propagate block to peers</span>
+            self<span class="token punctuation">.</span><span class="token function">BroadcastBlock</span><span class="token punctuation">(</span>ev<span class="token punctuation">.</span>Block<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token comment">// Only then announce to the rest</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 <p>收到 <code>miner.go</code> 里面 <code>NewMinedBlockEvent</code> 挖到新区块的事件通知，激活self.BroadcastBlock(ev.Block, true)</p>
 <pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>pm <span class="token operator">*</span>ProtocolManager<span class="token punctuation">)</span> <span class="token function">BroadcastBlock</span><span class="token punctuation">(</span>block <span class="token operator">*</span>types<span class="token punctuation">.</span>Block<span class="token punctuation">,</span> propagate <span class="token builtin">bool</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     hash <span class="token operator">:=</span> block<span class="token punctuation">.</span><span class="token function">Hash</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -1041,7 +1034,6 @@ func (self *ProtocolManager) minedBroadcastLoop() {
         log<span class="token punctuation">.</span><span class="token function">Trace</span><span class="token punctuation">(</span><span class="token string">"Announced block"</span><span class="token punctuation">,</span> <span class="token string">"hash"</span><span class="token punctuation">,</span> hash<span class="token punctuation">,</span> <span class="token string">"recipients"</span><span class="token punctuation">,</span> <span class="token function">len</span><span class="token punctuation">(</span>peers<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"duration"</span><span class="token punctuation">,</span> common<span class="token punctuation">.</span><span class="token function">PrettyDuration</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span><span class="token function">Since</span><span class="token punctuation">(</span>block<span class="token punctuation">.</span>ReceivedAt<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
-
 <p>如果propagate为true 向网络节点广播整个挖到的block，为false 只广播挖到的区块的hash值和number值。广播的区块还包括这个区块打包的所有交易。</p>
 <ul>
 <li>pm.syncer() 方法</li>
@@ -1146,7 +1138,6 @@ func (self *ProtocolManager) minedBroadcastLoop() {
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span></code></pre>
-
 <p>当从网络节点同步过来最新的交易数据后，本地也会把新同步下来的交易数据广播给网络中的其他节点。这四个goroutine 基本上就在不停的做广播区块、广播交易，同步到区块、同步到交易，再广播区块、广播交易。</p>
 
                 
@@ -1912,7 +1903,7 @@ func (self *ProtocolManager) minedBroadcastLoop() {
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92.1k</span>
+                        class="white-color">92.2k</span>
             
             
             

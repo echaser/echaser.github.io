@@ -525,7 +525,7 @@ RSA可以被用于">
 <h3 id="求N"><a href="#求N" class="headerlink" title="求N"></a>求N</h3><p>首先准备两个很大的质数。这两个很大的质数为p和q。p和q太小的话，密码会变得容易破译，但太大的话计算时间又会变得很长。</p>
 <p>判断一个数是不是质数并不是看它能不能分解质因数，而是通过数学上的判断方法来完成。</p>
 <p>准备好两个很大的质数之后，我们将这两个数相乘，其结果就是数N。也就是说，数 N 可以用下列公式来表达：</p>
-<pre class="language-none"><code class="language-none">N = p x q (p、q为质数)</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">N <span class="token operator">=</span> p x q <span class="token punctuation">(</span>p、q为质数<span class="token punctuation">)</span></code></pre>
 
 <h3 id="求L"><a href="#求L" class="headerlink" title="求L"></a>求L</h3><p><code>L</code> 这个数在RSA的加密和解密过程中都不出现，它只出现在生成密钥对的过程中。</p>
 <p><code>L</code> 是 <code>p-1</code> 和 <code>q-1</code> 的最小公倍数( least common multiple, lcm )。</p>
@@ -534,38 +534,38 @@ RSA可以被用于">
 
 <h3 id="求E"><a href="#求E" class="headerlink" title="求E"></a>求E</h3><p>E是一个比1大、比L小的数。此外，E和L的最大公约数( greatest common divisor, gcd)必须为1。</p>
 <p>如果用gcd(X, Y)来表示X和Y的最大公约数，则E和L之间存在下列关系。</p>
-<pre class="language-none"><code class="language-none">1 &lt; E &lt; L
-gcd(E,L)= 1</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span> <span class="token operator">&lt;</span> E <span class="token operator">&lt;</span> L
+gcd<span class="token punctuation">(</span>E,L<span class="token punctuation">)</span><span class="token operator">=</span> <span class="token number">1</span></code></pre>
 
 <h3 id="求D"><a href="#求D" class="headerlink" title="求D"></a>求D</h3><p>数D是由数E计算得到的。D、E和L之间必须具备下列关系。</p>
-<pre class="language-none"><code class="language-none">1 &lt; D &lt; L
-E x D mod L = 1</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token number">1</span> <span class="token operator">&lt;</span> D <span class="token operator">&lt;</span> L
+E x D mod L <span class="token operator">=</span> <span class="token number">1</span></code></pre>
 
 <p><img src="http://upload-images.jianshu.io/upload_images/11383699-7851948dee589d20.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
 <h3 id="举个密钥对生成的例子"><a href="#举个密钥对生成的例子" class="headerlink" title="举个密钥对生成的例子"></a>举个密钥对生成的例子</h3><ul>
 <li><strong>求N</strong></li>
 </ul>
 <p>首先我们准备两个质数p、q,这里我们选择17和19,它们都是质数。</p>
-<pre class="language-none"><code class="language-none">N = p x q
-  = 17 x 19
-  = 323</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">N <span class="token operator">=</span> p x q
+  <span class="token operator">=</span> <span class="token number">17</span> x <span class="token number">19</span>
+  <span class="token operator">=</span> <span class="token number">323</span></code></pre>
 
 <ul>
 <li><strong>求L</strong></li>
 </ul>
 <p>L是p-1和q- 1的最小公倍数。</p>
-<pre class="language-none"><code class="language-none">L = lcm(p-1,q-1)
-  = lcm(16, 18)
-  = 144</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">L <span class="token operator">=</span> lcm<span class="token punctuation">(</span>p-1,q-1<span class="token punctuation">)</span>
+  <span class="token operator">=</span> lcm<span class="token punctuation">(</span><span class="token number">16</span>, <span class="token number">18</span><span class="token punctuation">)</span>
+  <span class="token operator">=</span> <span class="token number">144</span></code></pre>
 
 <ul>
 <li><strong>求E</strong></li>
 </ul>
 <p>E和L的最大公约数必须是1。</p>
-<pre class="language-none"><code class="language-none">gcd(E,L)=1</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">gcd<span class="token punctuation">(</span>E,L<span class="token punctuation">)</span><span class="token operator">=</span><span class="token number">1</span></code></pre>
 
 <p>满足条件的E有很多，例如下面这些数都可以。</p>
-<pre class="language-none"><code class="language-none">5,7,11,13,17,19,23,25,29,31,...</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token number">5,7</span>,11,13,17,19,23,25,29,31,<span class="token punctuation">..</span>.</code></pre>
 
 <p>这些数好像都是质数，但其实并不是这样的，比如25就不是质数。这些数称为和 L “互质的数”，也就是相对于L是质数的意思。我们选择5来作为E。</p>
 <p>E=5, N=323 就是公钥。</p>
@@ -573,12 +573,12 @@ E x D mod L = 1</code></pre>
 <li><strong>求D</strong></li>
 </ul>
 <p>D必须满足下列条件:</p>
-<pre class="language-none"><code class="language-none">E x D mod L=l</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">E x D mod <span class="token assign-left variable">L</span><span class="token operator">=</span>l</code></pre>
 
 <p>D = 29可以满足上面的条件，因为:</p>
-<pre class="language-none"><code class="language-none">E x D mod L = 5 x 29 mod 144
-            = 145 mod 144
-            =1</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">E x D mod L <span class="token operator">=</span> <span class="token number">5</span> x <span class="token number">29</span> mod <span class="token number">144</span>
+            <span class="token operator">=</span> <span class="token number">145</span> mod <span class="token number">144</span>
+            <span class="token operator">=</span><span class="token number">1</span></code></pre>
 
 <p>我们已经成功生成了密钥对，即:</p>
 <p><strong>公钥</strong>: <code>E=5 N=323</code><br><strong>私钥</strong>: <code>D=29 N=323</code></p>
@@ -1354,7 +1354,7 @@ E x D mod L = 1</code></pre>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92.1k</span>
+                        class="white-color">92.2k</span>
             
             
             

@@ -566,44 +566,44 @@ AES是作为DES的替代标准出现的，全称Advanced Encryption Standard，�
 <h3 id="密钥扩展"><a href="#密钥扩展" class="headerlink" title="密钥扩展"></a>密钥扩展</h3><p>Nk表示初始密钥的字数，一个字为4个字节，以16字节初始密钥为例，初始密钥共计4个字。AES加密过程共计需Nk+7个子密钥，即4(Nk + 7)个字，以16字节初始密钥为例，共计需11个子密钥，44个字。其中前Nk个字作为种子密钥，由初始密钥填充。以16字节初始密钥为例，前4个字，由初始密钥填充。之后的每个字，W[i]等于前边一个字W[i-1]与Nk个字之前的字W[i-Nk]异或。但是对于Nk整数倍位置的字，在异或之前先对W[i-1]做如下变换：字节循环移位、S盒变换，并异或轮常数。</p>
 <p>密钥扩展示意图</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/11383699-ddb89aa1d456e90d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
-<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">expandKeyGo</span><span class="token punctuation">(</span>key <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> enc<span class="token punctuation">,</span> dec <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">uint32</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment">// Encryption key setup.</span>
-    <span class="token keyword">var</span> i <span class="token builtin">int</span>
-    nk <span class="token operator">:=</span> <span class="token function">len</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">4</span>
-    <span class="token keyword">for</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> nk<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
-        <span class="token comment">//其中前Nk个字作为种子密钥，由初始密钥填充</span>
-        <span class="token comment">//以16字节初始密钥为例，前4个字，由初始密钥填充</span>
-        enc<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">uint32</span><span class="token punctuation">(</span>key<span class="token punctuation">[</span><span class="token number">4</span><span class="token operator">*</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">&lt;&lt;</span><span class="token number">24</span> <span class="token operator">|</span> <span class="token function">uint32</span><span class="token punctuation">(</span>key<span class="token punctuation">[</span><span class="token number">4</span><span class="token operator">*</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">&lt;&lt;</span><span class="token number">16</span> <span class="token operator">|</span> <span class="token function">uint32</span><span class="token punctuation">(</span>key<span class="token punctuation">[</span><span class="token number">4</span><span class="token operator">*</span>i<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">&lt;&lt;</span><span class="token number">8</span> <span class="token operator">|</span> <span class="token function">uint32</span><span class="token punctuation">(</span>key<span class="token punctuation">[</span><span class="token number">4</span><span class="token operator">*</span>i<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">for</span> <span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token function">len</span><span class="token punctuation">(</span>enc<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
-        t <span class="token operator">:=</span> enc<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
-        <span class="token keyword">if</span> i<span class="token operator">%</span>nk <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
-            <span class="token comment">//但是对于Nk整数倍位置的字，在异或之前先对W[i-1]做如下变换：字节循环移位、S盒变换，并异或轮常数</span>
-            t <span class="token operator">=</span> <span class="token function">subw</span><span class="token punctuation">(</span><span class="token function">rotw</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">^</span> <span class="token punctuation">(</span><span class="token function">uint32</span><span class="token punctuation">(</span>powx<span class="token punctuation">[</span>i<span class="token operator">/</span>nk<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&lt;&lt;</span> <span class="token number">24</span><span class="token punctuation">)</span>
-        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> nk <span class="token operator">&gt;</span> <span class="token number">6</span> <span class="token operator">&amp;&amp;</span> i<span class="token operator">%</span>nk <span class="token operator">==</span> <span class="token number">4</span> <span class="token punctuation">{</span>
-            t <span class="token operator">=</span> <span class="token function">subw</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment">//之后的每个字，W[i]等于前边一个字W[i-1]与Nk个字之前的字W[i-Nk]异或</span>
-        enc<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> enc<span class="token punctuation">[</span>i<span class="token operator">-</span>nk<span class="token punctuation">]</span> <span class="token operator">^</span> t
-    <span class="token punctuation">}</span>
+<pre class="language-golang" data-language="golang"><code class="language-golang">func expandKeyGo(key []byte, enc, dec []uint32) {
+    // Encryption key setup.
+    var i int
+    nk := len(key) / 4
+    for i = 0; i &lt; nk; i++ {
+        //其中前Nk个字作为种子密钥，由初始密钥填充
+        //以16字节初始密钥为例，前4个字，由初始密钥填充
+        enc[i] = uint32(key[4*i])&lt;&lt;24 | uint32(key[4*i+1])&lt;&lt;16 | uint32(key[4*i+2])&lt;&lt;8 | uint32(key[4*i+3])
+    }
+    for ; i &lt; len(enc); i++ {
+        t := enc[i-1]
+        if i%nk == 0 {
+            //但是对于Nk整数倍位置的字，在异或之前先对W[i-1]做如下变换：字节循环移位、S盒变换，并异或轮常数
+            t = subw(rotw(t)) ^ (uint32(powx[i/nk-1]) &lt;&lt; 24)
+        } else if nk &gt; 6 &amp;&amp; i%nk == 4 {
+            t = subw(t)
+        }
+        //之后的每个字，W[i]等于前边一个字W[i-1]与Nk个字之前的字W[i-Nk]异或
+        enc[i] = enc[i-nk] ^ t
+    }
 
-    <span class="token comment">//enc为加密子密钥组</span>
-    <span class="token comment">//dec为解密子密钥组，dec为enc逆序</span>
-    <span class="token keyword">if</span> dec <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span>
-    <span class="token punctuation">}</span>
-    n <span class="token operator">:=</span> <span class="token function">len</span><span class="token punctuation">(</span>enc<span class="token punctuation">)</span>
-    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i <span class="token operator">+=</span> <span class="token number">4</span> <span class="token punctuation">{</span>
-        ei <span class="token operator">:=</span> n <span class="token operator">-</span> i <span class="token operator">-</span> <span class="token number">4</span>
-        <span class="token keyword">for</span> j <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> <span class="token number">4</span><span class="token punctuation">;</span> j<span class="token operator">++</span> <span class="token punctuation">{</span>
-            x <span class="token operator">:=</span> enc<span class="token punctuation">[</span>ei<span class="token operator">+</span>j<span class="token punctuation">]</span>
-            <span class="token keyword">if</span> i <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> i<span class="token operator">+</span><span class="token number">4</span> <span class="token operator">&lt;</span> n <span class="token punctuation">{</span>
-                x <span class="token operator">=</span> td0<span class="token punctuation">[</span>sbox0<span class="token punctuation">[</span>x<span class="token operator">&gt;&gt;</span><span class="token number">24</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">^</span> td1<span class="token punctuation">[</span>sbox0<span class="token punctuation">[</span>x<span class="token operator">&gt;&gt;</span><span class="token number">16</span><span class="token operator">&amp;</span><span class="token number">0xff</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">^</span> td2<span class="token punctuation">[</span>sbox0<span class="token punctuation">[</span>x<span class="token operator">&gt;&gt;</span><span class="token number">8</span><span class="token operator">&amp;</span><span class="token number">0xff</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">^</span> td3<span class="token punctuation">[</span>sbox0<span class="token punctuation">[</span>x<span class="token operator">&amp;</span><span class="token number">0xff</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
-            <span class="token punctuation">}</span>
-            dec<span class="token punctuation">[</span>i<span class="token operator">+</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> x
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre>
+    //enc为加密子密钥组
+    //dec为解密子密钥组，dec为enc逆序
+    if dec == nil {
+        return
+    }
+    n := len(enc)
+    for i := 0; i &lt; n; i += 4 {
+        ei := n - i - 4
+        for j := 0; j &lt; 4; j++ {
+            x := enc[ei+j]
+            if i &gt; 0 &amp;&amp; i+4 &lt; n {
+                x = td0[sbox0[x&gt;&gt;24]] ^ td1[sbox0[x&gt;&gt;16&amp;0xff]] ^ td2[sbox0[x&gt;&gt;8&amp;0xff]] ^ td3[sbox0[x&amp;0xff]]
+            }
+            dec[i+j] = x
+        }
+    }
+}</code></pre>
 
 <h3 id="字节代替SubBytes"><a href="#字节代替SubBytes" class="headerlink" title="字节代替SubBytes"></a>字节代替SubBytes</h3><p>AES定义了一个S盒，它由16x16个字节组成的矩阵，包含了8位所能表示的256个数的一个置换表。AES的分组长度128位，即16字节，每个字节高4位作为行值、低4位作为列值，从S盒中查找指定行、列的值作为输出。AES输入的16个字节，每个字节按上述方式映射为新的字节，即字节代替。</p>
 <h3 id="行移位ShiftRows"><a href="#行移位ShiftRows" class="headerlink" title="行移位ShiftRows"></a>行移位ShiftRows</h3><p>AES输入的16个字节组成4x4字节矩阵，行移位即：第1行保持不变，第2行循环左移1个字节，第3行循环左移2个字节，第4行循环左移3个字节。逆向行移位为后3行做行移位的反向操作，如第2行循环右移1个字节，其他行类似处理。</p>
@@ -1385,7 +1385,7 @@ AES是作为DES的替代标准出现的，全称Advanced Encryption Standard，�
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92.1k</span>
+                        class="white-color">92.2k</span>
             
             
             

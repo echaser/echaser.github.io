@@ -478,7 +478,7 @@ OpenSSL&amp;gt;
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    360
+                    358
                 </div>
                 
 
@@ -510,39 +510,38 @@ OpenSSL&amp;gt;
             <div id="articleContent">
                 <span id="more"></span>
 
-<h2 id="一般情况下ubuntu和mac系统都会自带openssl，安装之前先测试一下，打开终端，输入openssl，如果出现以下画面，即已安装。"><a href="#一般情况下ubuntu和mac系统都会自带openssl，安装之前先测试一下，打开终端，输入openssl，如果出现以下画面，即已安装。" class="headerlink" title="一般情况下ubuntu和mac系统都会自带openssl，安装之前先测试一下，打开终端，输入openssl，如果出现以下画面，即已安装。"></a>一般情况下ubuntu和mac系统都会自带openssl，安装之前先测试一下，打开终端，输入openssl，如果出现以下画面，即已安装。</h2><pre class="language-ruby" data-language="ruby"><code class="language-ruby">lbl<span class="token variable">@lbl</span><span class="token operator">:</span><span class="token operator">~</span>$ openssl
+<h2 id="一般情况下ubuntu和mac系统都会自带openssl，安装之前先测试一下，打开终端，输入openssl，如果出现以下画面，即已安装。"><a href="#一般情况下ubuntu和mac系统都会自带openssl，安装之前先测试一下，打开终端，输入openssl，如果出现以下画面，即已安装。" class="headerlink" title="一般情况下ubuntu和mac系统都会自带openssl，安装之前先测试一下，打开终端，输入openssl，如果出现以下画面，即已安装。"></a>一般情况下ubuntu和mac系统都会自带openssl，安装之前先测试一下，打开终端，输入openssl，如果出现以下画面，即已安装。</h2><pre class="language-bash" data-language="bash"><code class="language-bash">lbl@lbl:~$ openssl
 
 OpenSSL<span class="token operator">&gt;</span></code></pre>
 
 <p>如果系统没有安装可执行以下命令进行安装：</p>
-<pre class="language-ruby" data-language="ruby"><code class="language-ruby">$ sudo apt<span class="token operator">-</span>get install openssl</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> openssl</code></pre>
 
 <p>安装完成之后既可以使用了</p>
 <p>首先需要进入openssl交互界面，在终端输入openssl命令即可</p>
-<h2 id="1-生成RSA私钥"><a href="#1-生成RSA私钥" class="headerlink" title="1.生成RSA私钥"></a>1.生成RSA私钥</h2><pre class="language-none"><code class="language-none">$ genrsa -out rsa_private_key.pem 1024</code></pre>
+<h2 id="1-生成RSA私钥"><a href="#1-生成RSA私钥" class="headerlink" title="1.生成RSA私钥"></a>1.生成RSA私钥</h2><pre class="language-bash" data-language="bash"><code class="language-bash">$ genrsa -out rsa_private_key.pem <span class="token number">1024</span></code></pre>
 
 <p>该命令会生成1024位的私钥，同时会在当前路径下生成rsa_private_key.pem文件，界面如下：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp">OpenSSL<span class="token operator">&gt;</span> genrsa <span class="token operator">-</span>out rsa_private_key<span class="token punctuation">.</span>pem <span class="token number">1024</span>
-Generating RSA <span class="token keyword">private</span> key<span class="token punctuation">,</span> <span class="token number">1024</span> bit <span class="token keyword">long</span> modulus
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">++</span><span class="token operator">++</span><span class="token operator">++</span>
-<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">++</span><span class="token operator">++</span><span class="token operator">++</span>
-e is <span class="token number">65537</span> <span class="token punctuation">(</span><span class="token number">0x010001</span><span class="token punctuation">)</span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">OpenSSL<span class="token operator">&gt;</span> genrsa -out rsa_private_key.pem <span class="token number">1024</span>
+Generating RSA private key, <span class="token number">1024</span> bit long modulus
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>.++++++
+<span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span><span class="token punctuation">..</span>.++++++
+e is <span class="token number">65537</span> <span class="token punctuation">(</span>0x010001<span class="token punctuation">)</span></code></pre>
 
-<h2 id="2-把RSA私钥转换成PKCS8格式"><a href="#2-把RSA私钥转换成PKCS8格式" class="headerlink" title="2.把RSA私钥转换成PKCS8格式"></a>2.把RSA私钥转换成PKCS8格式</h2><pre class="language-ruby" data-language="ruby"><code class="language-ruby">$ pkcs8 <span class="token operator">-</span>topk8 <span class="token operator">-</span>inform <span class="token constant">PEM</span> <span class="token operator">-</span><span class="token keyword">in</span> rsa_private_key<span class="token punctuation">.</span>pem <span class="token operator">-</span>outform <span class="token constant">PEM</span> –nocrypt</code></pre>
+<h2 id="2-把RSA私钥转换成PKCS8格式"><a href="#2-把RSA私钥转换成PKCS8格式" class="headerlink" title="2.把RSA私钥转换成PKCS8格式"></a>2.把RSA私钥转换成PKCS8格式</h2><pre class="language-bash" data-language="bash"><code class="language-bash">$ pkcs8 -topk8 -inform PEM -in rsa_private_key.pem -outform PEM –nocrypt</code></pre>
 
-<pre class="language-none"><code class="language-none">pkcs8: Use -help for summary.
-error in pkcs8</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">pkcs8: Use -help <span class="token keyword">for</span> summary.
+error <span class="token keyword">in</span> pkcs8</code></pre>
 
 <p>输入命令后如果出现上面报错情况可尝试去掉最后的 -nocrypt</p>
-<pre class="language-ruby" data-language="ruby"><code class="language-ruby">$ pkcs8 <span class="token operator">-</span>topk8 <span class="token operator">-</span>inform <span class="token constant">PEM</span> <span class="token operator">-</span><span class="token keyword">in</span> rsa_private_key<span class="token punctuation">.</span>pem <span class="token operator">-</span>outform <span class="token constant">PEM</span></code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ pkcs8 -topk8 -inform PEM -in rsa_private_key.pem -outform PEM</code></pre>
 
 <p>如果出现输入加密密码的信息即为成功，输入两次加密密码就会出现秘钥信息，下面代码中从—–BEGIN ENCRYPTED PRIVATE KEY—–开始到—–END ENCRYPTED PRIVATE KEY—–为止都是秘钥内容。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/11383699-068d2fe3a0aab050.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/658"></p>
-<p>siyao.png</p>
-<h2 id="3-生成RSA公钥"><a href="#3-生成RSA公钥" class="headerlink" title="3.生成RSA公钥"></a>3.生成RSA公钥</h2><pre class="language-none"><code class="language-none">$ rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem</code></pre>
+<p><img src="https://upload-images.jianshu.io/upload_images/11383699-068d2fe3a0aab050.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/658" alt="siyao.png"></p>
+<h2 id="3-生成RSA公钥"><a href="#3-生成RSA公钥" class="headerlink" title="3.生成RSA公钥"></a>3.生成RSA公钥</h2><pre class="language-bash" data-language="bash"><code class="language-bash">$ rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem</code></pre>
 
-<p>输入上面命令，若出现writing RSA key则公钥生成成功，如下图：</p>
-<pre class="language-none"><code class="language-none">OpenSSL&gt; rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem
+<p>输入上面命令，若出现<em>writing RSA key</em>则公钥生成成功，如下图：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">OpenSSL<span class="token operator">&gt;</span> rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem
 writing RSA key</code></pre>
 
 <p>此时在当前路径下会出现一个名为rsa_public_key.pem的文件，其内容就是公钥。</p>
@@ -1318,7 +1317,7 @@ writing RSA key</code></pre>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92.1k</span>
+                        class="white-color">92.2k</span>
             
             
             

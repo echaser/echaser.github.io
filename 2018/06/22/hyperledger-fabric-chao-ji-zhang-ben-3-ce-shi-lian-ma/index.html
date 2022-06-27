@@ -512,25 +512,25 @@ Peer加入应用通道后, 可以执行链码相关操作,进行测试
                 <span id="more"></span>
 
 <h2 id="测试链码"><a href="#测试链码" class="headerlink" title="测试链码"></a>测试链码</h2><p>确定进入CLI容器中</p>
-<pre class="language-none"><code class="language-none">$ sudo docker exec -it cli bash</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">sudo</span> <span class="token function">docker</span> <span class="token builtin class-name">exec</span> -it cli <span class="token function">bash</span></code></pre>
 
 <p>Peer加入应用通道后, 可以执行链码相关操作,进行测试</p>
 <p>链码在调用之前, 必须先经过安装和实例化两个步骤, 部署到Peer节点上.</p>
 <p>检查环境变量是否正确设置</p>
-<pre class="language-none"><code class="language-none">echo $CHANNEL_NAME</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token variable">$CHANNEL_NAME</span></code></pre>
 
 <p>设置环境变量</p>
-<pre class="language-none"><code class="language-none">export CHANNEL_NAME=mychannel</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">CHANNEL_NAME</span><span class="token operator">=</span>mychannel</code></pre>
 
 <h3 id="安装并实例化Chaincode"><a href="#安装并实例化Chaincode" class="headerlink" title="安装并实例化Chaincode"></a>安装并实例化Chaincode</h3><p>安装:</p>
-<pre class="language-none"><code class="language-none">peer chaincode install -n mycc -v 1.0 -p github.com/chaincode/chaincode_example02/go/</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">peer chaincode <span class="token function">install</span> -n mycc -v <span class="token number">1.0</span> -p github.com/chaincode/chaincode_example02/go/</code></pre>
 
 <p>参数说明:</p>
 <p>-n: 指定要安装的链码的名称</p>
 <p>-v: 指定要安装的链码的版本号</p>
 <p>-p: 指定要安装的链码的链码文件所在路径</p>
 <p>实例化:</p>
-<pre class="language-none"><code class="language-none">peer chaincode instantiate -o orderer.example.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C $CHANNEL_NAME -n mycc -v 1.0 -c '{"Args":["init","a", "100", "b","200"]}' -P "OR ('Org1MSP.peer','Org2MSP.peer')"</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">peer chaincode instantiate -o orderer.example.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C <span class="token variable">$CHANNEL_NAME</span> -n mycc -v <span class="token number">1.0</span> -c <span class="token string">'{"Args":["init","a", "100", "b","200"]}'</span> -P <span class="token string">"OR ('Org1MSP.peer','Org2MSP.peer')"</span></code></pre>
 
 <p>参数说明:</p>
 <p>-o: 指定Orderer服务地址</p>
@@ -547,28 +547,39 @@ Peer加入应用通道后, 可以执行链码相关操作,进行测试
 <li>query</li>
 <li>invoke</li>
 </ol>
-<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><pre class="language-none"><code class="language-none">peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'</code></pre>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><pre class="language-bash" data-language="bash"><code class="language-bash">peer chaincode query -C <span class="token variable">$CHANNEL_NAME</span> -n mycc -c <span class="token string">'{"Args":["query","a"]}'</span></code></pre>
 
 <p>参数说明:</p>
 <p>-C: 指定所属通道</p>
 <p>-n: 指定链码名称</p>
 <p>-c: 调用链码的传递的参数</p>
 <p>输出结果:<code>Query Result: 100</code></p>
-<h3 id="调用-x2F-转账"><a href="#调用-x2F-转账" class="headerlink" title="调用/转账"></a>调用/转账</h3><pre class="language-none"><code class="language-none">peer chaincode invoke -o orderer.example.com:7050  --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem  -C $CHANNEL_NAME -n mycc -c '{"Args":["invoke","a","b","10"]}'</code></pre>
+<h3 id="调用-x2F-转账"><a href="#调用-x2F-转账" class="headerlink" title="调用/转账"></a>调用/转账</h3><pre class="language-bash" data-language="bash"><code class="language-bash">peer chaincode invoke -o orderer.example.com:7050  --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem  -C <span class="token variable">$CHANNEL_NAME</span> -n mycc -c <span class="token string">'{"Args":["invoke","a","b","10"]}'</span></code></pre>
 
-<h3 id="查询a账户的金额"><a href="#查询a账户的金额" class="headerlink" title="查询a账户的金额"></a>查询a账户的金额</h3><pre class="language-none"><code class="language-none">peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'</code></pre>
+<h3 id="查询a账户的金额"><a href="#查询a账户的金额" class="headerlink" title="查询a账户的金额"></a>查询a账户的金额</h3><pre class="language-bash" data-language="bash"><code class="language-bash">peer chaincode query -C <span class="token variable">$CHANNEL_NAME</span> -n mycc -c <span class="token string">'{"Args":["query","a"]}'</span></code></pre>
 
 <p>输出结果: <code>Query Result: 90</code></p>
 <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p>将github.com/chaincode/sacc/的链码安装并实例化,</p>
-<p>​ 查询a账户的余额</p>
-<p>​ 使用set方法设置a账户的余额</p>
-<p>​ 使用get方法获取a账户的余额</p>
+<ul>
+<li><p>查询a账户的余额</p>
+</li>
+<li><p>使用set方法设置a账户的余额</p>
+</li>
+<li><p>使用get方法获取a账户的余额</p>
+</li>
+</ul>
 <p>实例化时只需要两个参数, 不需要指定操作名称</p>
-<p>​ 两个参数: 账户名, 金额</p>
+<ul>
+<li>两个参数: 账户名, 金额</li>
+</ul>
 <p>set</p>
-<p>​ 账户名, 金额</p>
+<ul>
+<li>账户名, 金额</li>
+</ul>
 <p>get</p>
-<p>​ 账户名, 金额</p>
+<ul>
+<li>账户名, 金额</li>
+</ul>
 
                 
             </div>
@@ -1341,7 +1352,7 @@ Peer加入应用通道后, 可以执行链码相关操作,进行测试
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92.1k</span>
+                        class="white-color">92.2k</span>
             
             
             

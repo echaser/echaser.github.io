@@ -7,8 +7,8 @@
     <meta name="keywords" content="Ubuntu命令卸载软件, echaser">
     <meta name="description" content="
 
-1.打开一个终端，输入dpkg \--list ,按下Enter键，终端输出以下内容，显示的是你电脑上安装的所有软件。
-2.在终端中找到你需要卸载的软件的名称，列表是按照首字母排序的。3.在终端上输入命令sudo apt-get \--">
+1.打开一个终端，输入dpkg --list ,按下Enter键，终端输出以下内容，显示的是你电脑上安装的所有软件。
+2.在终端中找到你需要卸载的软件的名称，列表是按照首字母排序的。3.在终端上输入命令sudo apt-get --pu">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -507,8 +507,8 @@
             <div id="articleContent">
                 <span id="more"></span>
 
-<p>1.打开一个终端，输入<code>dpkg \--list</code> ,按下Enter键，终端输出以下内容，显示的是你电脑上安装的所有软件。<br><img src="https://img-blog.csdn.net/20180701201216992?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1Y2t5ZG9nNjEy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="软件列表"></p>
-<p>2.在终端中找到你需要卸载的软件的名称，列表是按照首字母排序的。<br><img src="https://img-blog.csdn.net/20180701201418693?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1Y2t5ZG9nNjEy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="找到要卸载的软件包"><br>3.在终端上输入命令<code>sudo apt-get \--purge remove 包名</code>（<code>--purge</code>是可选项，写上这个属性是将软件及其配置文件一并删除，如不需要删除配置文件，可执行<code>sudo apt-get remove 包名</code>） ，此处我要删除的是<code>polipo</code> ，那么在终端输入<code>sudo apt-get \--purge remove polipo</code>，按下回车，输入密码，再次回车。<br><img src="https://img-blog.csdn.net/20180701202207502?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1Y2t5ZG9nNjEy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="输入删除命令"><br>4.执行过程中，会提示你是否真的要删除（继续执行删除命令），在终端输入<code>y</code> ，然后回车，删除程序继续执行。<br><img src="https://img-blog.csdn.net/20180701202534321?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1Y2t5ZG9nNjEy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="确认删除"><br>5.正常情况下，再次出现输入命令行删除成功。<br><img src="https://img-blog.csdn.net/20180701202824995?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1Y2t5ZG9nNjEy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="删除成功"></p>
+<p>1.打开一个终端，输入<code>dpkg --list</code> ,按下Enter键，终端输出以下内容，显示的是你电脑上安装的所有软件。<br><img src="https://img-blog.csdn.net/20180701201216992?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1Y2t5ZG9nNjEy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="软件列表"></p>
+<p>2.在终端中找到你需要卸载的软件的名称，列表是按照首字母排序的。<br><img src="https://img-blog.csdn.net/20180701201418693?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1Y2t5ZG9nNjEy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="找到要卸载的软件包"><br>3.在终端上输入命令<code>sudo apt-get --purge remove 包名</code>（<code>--purge</code>是可选项，写上这个属性是将软件及其配置文件一并删除，如不需要删除配置文件，可执行<code>sudo apt-get remove 包名</code>） ，此处我要删除的是<code>polipo</code> ，那么在终端输入<code>sudo apt-get --purge remove polipo</code>，按下回车，输入密码，再次回车。<br><img src="https://img-blog.csdn.net/20180701202207502?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1Y2t5ZG9nNjEy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="输入删除命令"><br>4.执行过程中，会提示你是否真的要删除（继续执行删除命令），在终端输入<code>y</code> ，然后回车，删除程序继续执行。<br><img src="https://img-blog.csdn.net/20180701202534321?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1Y2t5ZG9nNjEy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="确认删除"><br>5.正常情况下，再次出现输入命令行删除成功。<br><img src="https://img-blog.csdn.net/20180701202824995?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1Y2t5ZG9nNjEy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="删除成功"></p>
 
                 
             </div>
@@ -1281,7 +1281,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92.1k</span>
+                        class="white-color">92.2k</span>
             
             
             
