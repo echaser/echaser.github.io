@@ -541,10 +541,10 @@ public:
 <h2 id="难度值"><a href="#难度值" class="headerlink" title="难度值"></a>难度值</h2><p>难度值（difficulty）是矿工们在挖矿时候的重要参考指标，它决定了矿工大约需要经过多少次哈希运算才能产生一个合法的区块。比特币的区块大约每10分钟生成一个，如果要在不同的全网算力条件下，新区块的产生保持都基本这个速率，难度值必须根据全网算力的变化进行调整。简单地说，难度值被设定在无论挖矿能力如何，新区块产生速率都保持在10分钟一个。</p>
 <p>难度的调整是在每个完整节点中独立自动发生的。每2016个区块，所有节点都会按统一的公式自动调整难度，这个公式是由最新2016个区块的花费时长与期望时长（期望时长为20160分钟即两周，是按每10分钟一个区块的产生速率计算出的总时长）比较得出的，根据实际时长与期望时长的比值，进行相应调整（或变难或变易）。也就是说，如果区块产生的速率比10分钟快则增加难度，比10分钟慢则降低难度。</p>
 <p>这个公式可以总结为如下形式：</p>
-<pre class="language-none"><code class="language-none">新难度值 = 旧难度值 * ( 过去2016个区块花费时长 / 20160 分钟 )</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">新难度值 <span class="token operator">=</span> 旧难度值 * <span class="token punctuation">(</span> 过去2016个区块花费时长 / <span class="token number">20160</span> 分钟 <span class="token punctuation">)</span></code></pre>
 
 <p>工作量证明需要有一个目标值。比特币工作量证明的目标值（Target）的计算公式如下：</p>
-<pre class="language-none"><code class="language-none">目标值 = 最大目标值 / 难度值
+<pre class="language-bash" data-language="bash"><code class="language-bash">目标值 <span class="token operator">=</span> 最大目标值 / 难度值
 其中最大目标值为一个恒定值：
 0x00000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</code></pre>
 

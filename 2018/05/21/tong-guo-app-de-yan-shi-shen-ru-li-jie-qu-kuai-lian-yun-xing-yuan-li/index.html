@@ -511,17 +511,17 @@ $ git clone https://github.com/seanseany/blockchain-cli
                 <span id="more"></span>
 
 <h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>如果没有安装nodejs，需要先安装 <a target="_blank" rel="noopener" href="https://nodejs.org/en/">nodejs</a></p>
-<pre class="language-none"><code class="language-none"># Clone this repository
-$ git clone https://github.com/seanseany/blockchain-cli
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># Clone this repository</span>
+$ <span class="token function">git</span> clone https://github.com/seanseany/blockchain-cli
 
-# Go into the repository
-$ cd blockchain-cli
+<span class="token comment"># Go into the repository</span>
+$ <span class="token builtin class-name">cd</span> blockchain-cli
 
-# Install dependencies
-$ npm install
+<span class="token comment"># Install dependencies</span>
+$ <span class="token function">npm</span> <span class="token function">install</span>
 
-# Run the app
-$ npm start</code></pre>
+<span class="token comment"># Run the app</span>
+$ <span class="token function">npm</span> start</code></pre>
 
 <p>运行结果：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/11383699-7c936d9281ac5752.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
@@ -531,8 +531,8 @@ $ npm start</code></pre>
 <p><img src="http://upload-images.jianshu.io/upload_images/11383699-84b77686e7dc5abb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
 <h2 id="Hash是怎么计算的？"><a href="#Hash是怎么计算的？" class="headerlink" title="Hash是怎么计算的？"></a>Hash是怎么计算的？</h2><p>Hash值是一个十六进制固定长度为64位的唯一的标识。</p>
 <p>hash值是由<code>index</code>, <code>previous block hash</code>, <code>timestamp</code>, <code>block data</code> 和 <code>nonce</code> 作为输入数据计算而得。</p>
-<pre class="language-none"><code class="language-none">CryptoJS.SHA256(index + previousHash + timestamp + data + nonce)
-The SHA256 algorithm will calculate a unique hash, given those inputs. The same inputs will always return the same hash.</code></pre>
+<pre class="language-bash" data-language="bash"><code class="language-bash">CryptoJS.SHA256<span class="token punctuation">(</span>index + previousHash + timestamp + data + nonce<span class="token punctuation">)</span>
+The SHA256 algorithm will calculate a unique hash, given those inputs. The same inputs will always <span class="token builtin class-name">return</span> the same hash.</code></pre>
 
 <p>SHA256算法将根据给出的输入数据计算出一个唯一的hash值，只要输入值不变，永远返回相同的结果。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/11383699-85e951e425f83b73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>

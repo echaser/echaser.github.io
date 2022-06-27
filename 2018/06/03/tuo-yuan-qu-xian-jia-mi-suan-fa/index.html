@@ -503,24 +503,24 @@
                 <span id="more"></span>
 
 <p>椭圆曲线加密算法，即：Elliptic Curve Cryptography，简称ECC，是基于椭圆曲线数学理论实现的一种非对称加密算法。相比RSA，ECC优势是可以使用更短的密钥，来实现与RSA相当或更高的安全。据研究，160位ECC加密安全性相当于1024位RSA加密，210位ECC加密安全性相当于2048位RSA加密。</p>
-<p>　　椭圆曲线在密码学中的使用，是1985年由Neal Koblitz和Victor Miller分别独立提出的。  
+<p>椭圆曲线在密码学中的使用，是1985年由Neal Koblitz和Victor Miller分别独立提出的。
 　　</p>
 <h2 id="椭圆曲线"><a href="#椭圆曲线" class="headerlink" title="椭圆曲线"></a>椭圆曲线</h2><p>一般情况下，椭圆曲线可用下列方程式来表示，其中a,b,c,d为系数。</p>
 <blockquote>
-<p>E:y2=ax3+ bx2+cx+d</p>
+<p>E:y<sup>2</sup>=ax<sup>3</sup>+ bx<sup>2</sup>+cx+d</p>
 </blockquote>
 <p>例如，当a=1,b=0,c=-2,d=4时，所得到的椭圆曲线为:</p>
 <blockquote>
-<p>E:y2=x3-2x+4</p>
+<p>E:y<sup>2</sup>=x<sup>3</sup>-2x+4</p>
 </blockquote>
 <p>该椭圆曲线E的图像如图X-1所示，可以看出根本就不是椭圆形。　　</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/11383699-420366b27a6cb1dd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/974cb942e9737b1bbde36873a8e36633.png" alt="image"></p>
 <h2 id="定义椭圆曲线的运算规则"><a href="#定义椭圆曲线的运算规则" class="headerlink" title="定义椭圆曲线的运算规则"></a>定义椭圆曲线的运算规则</h2><h3 id="加法"><a href="#加法" class="headerlink" title="加法"></a>加法</h3><p>过曲线上的两点A、B画一条直线，找到直线与椭圆曲线的交点，交点关于x轴对称位置的点，定义为A+B，即为加法。如下图所示：A + B = C</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/11383699-cd1d2239278899e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/07b0afb7d292cb87de3dbc2b2c658b8a.png" alt="image"></p>
 <h3 id="二倍运算"><a href="#二倍运算" class="headerlink" title="二倍运算"></a>二倍运算</h3><p>上述方法无法解释A + A，即两点重合的情况。因此在这种情况下，将椭圆曲线在A点的切线，与椭圆曲线的交点，交点关于x轴对称位置的点，定义为A + A，即2A，即为二倍运算。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/11383699-0c0895d64e787e5f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/38a3a7998203d7a6bf63daf7bf54f21f.png" alt="image"></p>
 <h3 id="正负取反"><a href="#正负取反" class="headerlink" title="正负取反"></a>正负取反</h3><p>将A关于x轴对称位置的点定义为-A，即椭圆曲线的正负取反运算。如下图所示：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/11383699-7fbd1c932558c389.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/3fe34163bcadecfa5dc02172fbcbf19a.png" alt="image"></p>
 <h3 id="无穷远点"><a href="#无穷远点" class="headerlink" title="无穷远点"></a>无穷远点</h3><p>如果将A与-A相加，过A与-A的直线平行于y轴，可以认为直线与椭圆曲线相交于无穷远点。</p>
 <p>综上，定义了A+B、2A运算，因此给定椭圆曲线的某一点G，可以求出2G、3G（即G + 2G）、4G……。即：当给定G点时，已知x，求xG点并不困难。反之，已知xG点，求x则非常困难。此即为椭圆曲线加密算法背后的数学原理。</p>
 <h2 id="有限域上的椭圆曲线运算"><a href="#有限域上的椭圆曲线运算" class="headerlink" title="有限域上的椭圆曲线运算"></a>有限域上的椭圆曲线运算</h2><p>椭圆曲线要形成一条光滑的曲线，要求x,y取值均为实数，即实数域上的椭圆曲线。但椭圆曲线加密算法，并非使用实数域，而是使用有限域。按数论定义，有限域GF(p)指给定某个质数p，由0、1、2……p-1共p个元素组成的整数集合中定义的加减乘除运算。</p>
@@ -528,13 +528,13 @@
 <p>　　此时，椭圆曲线不再是一条光滑曲线，而是一些不连续的点，如下图所示。以点(1,7)为例，7² ≡ 1³ + 1 + 1 ≡ 3 (mod 23)。如此还有如下点：</p>
 <p>　　(0,1) (0,22)<br>　　(1,7) (1,16)<br>　　(3,10) (3,13)<br>　　(4,0)<br>　　(5,4) (5,19)<br>　　(6,4) (6,19)<br>　　(7,11) (7,12)<br>　　(9,7) (9,16)<br>　　(11,3) (11,20)<br>　　等等。</p>
 <p>　　另外，如果P(x,y)为椭圆曲线上的点，则-P即(x,-y)也为椭圆曲线上的点。如点P(0,1)，-P=(0,-1)=(0,22)也为椭圆曲线上的点。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/11383699-9a71d1172fe6a79a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/487f951500f4d79b447af7ce22aea65f.png" alt="image"></p>
 <h3 id="计算xG"><a href="#计算xG" class="headerlink" title="计算xG"></a>计算xG</h3><p>　　相关公式如下：<br>　　有限域GF(p)上的椭圆曲线y² = x³ + ax + b，若P(Xp, Yp), Q(Xq, Yq)，且P≠-Q，则R(Xr,Yr) = P+Q 由如下规则确定：</p>
 <p>　　Xr = (λ² - Xp - Xq) mod p<br>　　Yr = (λ(Xp - Xr) - Yp) mod p<br>　　其中λ = (Yq - Yp)/(Xq - Xp) mod p（若P≠Q）, λ = (3Xp² + a)/2Yp mod p（若P=Q）</p>
 <p>　　因此，有限域GF(23)上的椭圆曲线y² ≡ x³ + x + 1 (mod 23)，假设以(0,1)为G点，计算2G、3G、4G…xG等等，方法如下：</p>
 <p>　　计算2G：<br>　　λ = (3x0² + 1)/2x1 mod 23 = (1/2) mod 23 = 12<br>　　Xr = (12² - 0 - 0) mod 23 = 6<br>　　Yr = (12(0 - 6) - 1) mod 23 = 19<br>　　即2G为点(6,19)</p>
 <p>　　计算3G：<br>　　3G = G + 2G，即(0,1) + (6,19)<br>　　λ = (19 - 1)/(6 - 0) mod 23 = 3<br>　　Xr = (3² - 0 - 6) mod 23 = 3<br>　　Yr = (3(0 - 3) - 1) mod 23 = 13<br>　　即3G为点(3, 13)</p>
-<p>　　同理计算4G、5G…xG，分布如下图：<br>　　<br>　　[图片上传失败…(image-2d5c43-1526642990683)]  
+<p>　　同理计算4G、5G…xG，分布如下图：<br>　　<br>　　[图片上传失败…(image-2d5c43-1526642990683)]
 　　</p>
 <h2 id="椭圆曲线加解密算法原理"><a href="#椭圆曲线加解密算法原理" class="headerlink" title="椭圆曲线加解密算法原理"></a>椭圆曲线加解密算法原理</h2><p>　　建立基于椭圆曲线的加密机制，需要找到类似RSA质因子分解或其他求离散对数这样的难题。而椭圆曲线上的已知G和xG求x，是非常困难的，此即为椭圆曲线上的的离散对数问题。此处x即为私钥，xG即为公钥。</p>
 <p>　　椭圆曲线加密算法原理如下：</p>
@@ -545,61 +545,57 @@
 <p>　　私钥签名：<br>　　1、选择随机数r，计算点rG(x, y)。<br>　　2、根据随机数r、消息M的哈希h、私钥k，计算s = (h + kx)/r。<br>　　3、将消息M、和签名{rG, s}发给接收方。</p>
 <p>　　公钥验证签名：<br>　　1、接收方收到消息M、以及签名{rG=(x,y), s}。<br>　　2、根据消息求哈希h。<br>　　3、使用发送方公钥K计算：hG/s + xK/s，并与rG比较，如相等即验签成功。</p>
 <p>　　原理如下：<br>　　hG/s + xK/s = hG/s + x(kG)/s = (h+xk)G/s<br>　　= r(h+xk)G / (h+kx) = rG</p>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><pre class="language-none"><code class="language-none">package main
-import (
-    "crypto/ecdsa"
-    "crypto/elliptic"
-    "crypto/rand"
-    "crypto/sha256"
-    "math/big"
-    "fmt"
-)
-//通过椭圆曲线完成签名和验证
-func main() {
-    //声明明文
-    message := []byte("hello world")
-    //生成私钥
-    privateKey, _ := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
-    //生成公钥
-    pub := privateKey.PublicKey
-    //将明文散列
-    digest := sha256.Sum256(message)
-    //签名
-    r, s, _ := ecdsa.Sign(rand.Reader, privateKey, digest[:])
-    //设置私钥的参数类型为曲线类型
-    param := privateKey.Curve.Params()
-    //获得私钥byte长度
-    curveOrderByteSize := param.P.BitLen() / 8
-    //获得签名返回值的字节
-    rByte, sByte := r.Bytes(), s.Bytes()
-    //创建数组
-    signature := make([]byte, curveOrderByteSize*2)
-    //通过数组保存了签名结果的返回值
-    copy(signature[curveOrderByteSize-len(rByte):], rByte)
-    copy(signature[curveOrderByteSize*2-len(sByte):], sByte)
-    //认证
-    //将明文做hash散列，为了验证的内容对比
-    digest = sha256.Sum256(message)
-    curveOrderByteSize = pub.Curve.Params().P.BitLen() / 8
-    //创建两个整形对象
-    r, s = new(big.Int), new(big.Int)
-    //设置证书值
-    r.SetBytes(signature[:curveOrderByteSize])
-    s.SetBytes(signature[curveOrderByteSize:])
+<p>##代码实现：</p>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">"crypto/ecdsa"</span>
+	<span class="token string">"crypto/elliptic"</span>
+	<span class="token string">"crypto/rand"</span>
+	<span class="token string">"crypto/sha256"</span>
+	<span class="token string">"math/big"</span>
+	<span class="token string">"fmt"</span>
+<span class="token punctuation">)</span>
+<span class="token comment">//通过椭圆曲线完成签名和验证</span>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token comment">//声明明文</span>
+	message <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">"hello world"</span><span class="token punctuation">)</span>
+	<span class="token comment">//生成私钥</span>
+	privateKey<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> ecdsa<span class="token punctuation">.</span><span class="token function">GenerateKey</span><span class="token punctuation">(</span>elliptic<span class="token punctuation">.</span><span class="token function">P256</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> rand<span class="token punctuation">.</span>Reader<span class="token punctuation">)</span>
+	<span class="token comment">//生成公钥</span>
+	pub <span class="token operator">:=</span> privateKey<span class="token punctuation">.</span>PublicKey
+	<span class="token comment">//将明文散列</span>
+	digest <span class="token operator">:=</span> sha256<span class="token punctuation">.</span><span class="token function">Sum256</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span>
+	<span class="token comment">//签名</span>
+	r<span class="token punctuation">,</span> s<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> ecdsa<span class="token punctuation">.</span><span class="token function">Sign</span><span class="token punctuation">(</span>rand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> privateKey<span class="token punctuation">,</span> digest<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+	<span class="token comment">//设置私钥的参数类型为曲线类型</span>
+	param <span class="token operator">:=</span> privateKey<span class="token punctuation">.</span>Curve<span class="token punctuation">.</span><span class="token function">Params</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token comment">//获得私钥byte长度</span>
+	curveOrderByteSize <span class="token operator">:=</span> param<span class="token punctuation">.</span>P<span class="token punctuation">.</span><span class="token function">BitLen</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">8</span>
+	<span class="token comment">//获得签名返回值的字节</span>
+	rByte<span class="token punctuation">,</span> sByte <span class="token operator">:=</span> r<span class="token punctuation">.</span><span class="token function">Bytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span><span class="token function">Bytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token comment">//创建数组</span>
+	signature <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> curveOrderByteSize<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span>
+	<span class="token comment">//通过数组保存了签名结果的返回值</span>
+	<span class="token function">copy</span><span class="token punctuation">(</span>signature<span class="token punctuation">[</span>curveOrderByteSize<span class="token operator">-</span><span class="token function">len</span><span class="token punctuation">(</span>rByte<span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> rByte<span class="token punctuation">)</span>
+	<span class="token function">copy</span><span class="token punctuation">(</span>signature<span class="token punctuation">[</span>curveOrderByteSize<span class="token operator">*</span><span class="token number">2</span><span class="token operator">-</span><span class="token function">len</span><span class="token punctuation">(</span>sByte<span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> sByte<span class="token punctuation">)</span>
+	<span class="token comment">//认证</span>
+	<span class="token comment">//将明文做hash散列，为了验证的内容对比</span>
+	digest <span class="token operator">=</span> sha256<span class="token punctuation">.</span><span class="token function">Sum256</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span>
+	curveOrderByteSize <span class="token operator">=</span> pub<span class="token punctuation">.</span>Curve<span class="token punctuation">.</span><span class="token function">Params</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>P<span class="token punctuation">.</span><span class="token function">BitLen</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">8</span>
+	<span class="token comment">//创建两个整形对象</span>
+	r<span class="token punctuation">,</span> s <span class="token operator">=</span> <span class="token function">new</span><span class="token punctuation">(</span>big<span class="token punctuation">.</span>Int<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">new</span><span class="token punctuation">(</span>big<span class="token punctuation">.</span>Int<span class="token punctuation">)</span>
+	<span class="token comment">//设置证书值</span>
+	r<span class="token punctuation">.</span><span class="token function">SetBytes</span><span class="token punctuation">(</span>signature<span class="token punctuation">[</span><span class="token punctuation">:</span>curveOrderByteSize<span class="token punctuation">]</span><span class="token punctuation">)</span>
+	s<span class="token punctuation">.</span><span class="token function">SetBytes</span><span class="token punctuation">(</span>signature<span class="token punctuation">[</span>curveOrderByteSize<span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token comment">//认证</span>
+        e <span class="token operator">:=</span> ecdsa<span class="token punctuation">.</span><span class="token function">Verify</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pub<span class="token punctuation">,</span> digest<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> r<span class="token punctuation">,</span> s<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> e <span class="token operator">==</span> <span class="token boolean">true</span> <span class="token punctuation">{</span>
+            fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"OK"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"failed"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 
-
-​```
-//认证
-e := ecdsa.Verify(&amp;pub, digest[:], r, s)
-
-if e == true {
-    fmt.Println("OK")
-} else {
-    fmt.Println("failed")
-}
-​```
-
-}</code></pre>
                 
             </div>
             <hr/>

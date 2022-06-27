@@ -503,50 +503,50 @@
                 <span id="more"></span>
 
 <h2 id="数字签名算法-DSA"><a href="#数字签名算法-DSA" class="headerlink" title="数字签名算法(DSA)"></a>数字签名算法(DSA)</h2><p>数字签名算法（DSA，Digital Signature Algorithm），是一种公开密钥算法，不能用于加密，只能用于数字签名。主要用作为接收者验证数字的完整性和数据发送者的身份，DSA算法的安全性基于解离散对数的困难性。</p>
-<pre class="language-none"><code class="language-none">package main
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
 
-import (
-    "crypto/dsa"
-    "crypto/rand"
-    "fmt"
-)
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">"crypto/dsa"</span>
+    <span class="token string">"crypto/rand"</span>
+    <span class="token string">"fmt"</span>
+<span class="token punctuation">)</span>
 
-func main() {
-    var params dsa.Parameters
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> params dsa<span class="token punctuation">.</span>Parameters
 
-    //生成参数 
-    if e := dsa.GenerateParameters(&amp;params, rand.Reader, dsa.L1024N160); e != nil {
-        fmt.Println(e)
-    }
+    <span class="token comment">//生成参数 </span>
+    <span class="token keyword">if</span> e <span class="token operator">:=</span> dsa<span class="token punctuation">.</span><span class="token function">GenerateParameters</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>params<span class="token punctuation">,</span> rand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> dsa<span class="token punctuation">.</span>L1024N160<span class="token punctuation">)</span><span class="token punctuation">;</span> e <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
 
-    //生成私钥 
-    var priv dsa.PrivateKey
+    <span class="token comment">//生成私钥 </span>
+    <span class="token keyword">var</span> priv dsa<span class="token punctuation">.</span>PrivateKey
 
-    priv.Parameters = params
-    if e := dsa.GenerateKey(&amp;priv, rand.Reader); e != nil {
-        fmt.Println(e)
-    }
+    priv<span class="token punctuation">.</span>Parameters <span class="token operator">=</span> params
+    <span class="token keyword">if</span> e <span class="token operator">:=</span> dsa<span class="token punctuation">.</span><span class="token function">GenerateKey</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>priv<span class="token punctuation">,</span> rand<span class="token punctuation">.</span>Reader<span class="token punctuation">)</span><span class="token punctuation">;</span> e <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
 
-    //根据私钥生成公钥 
-    pub := priv.PublicKey
+    <span class="token comment">//根据私钥生成公钥 </span>
+    pub <span class="token operator">:=</span> priv<span class="token punctuation">.</span>PublicKey
 
-    //消息 
-    message := []byte("hello world")
+    <span class="token comment">//消息 </span>
+    message <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">"hello world"</span><span class="token punctuation">)</span>
 
-    //使用私钥进行签名，产生整数对(r,s) 
-    r, s, e := dsa.Sign(rand.Reader, &amp;priv, message)
-    if e != nil {
-        fmt.Println(e)
-    }
+    <span class="token comment">//使用私钥进行签名，产生整数对(r,s) </span>
+    r<span class="token punctuation">,</span> s<span class="token punctuation">,</span> e <span class="token operator">:=</span> dsa<span class="token punctuation">.</span><span class="token function">Sign</span><span class="token punctuation">(</span>rand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> <span class="token operator">&amp;</span>priv<span class="token punctuation">,</span> message<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> e <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
 
-    //认证 
-    fmt.Printf("认证 %q (r:%s,s:%s)\n", message, r, s)
-    if dsa.Verify(&amp;pub, message, r, s) {
-        fmt.Println("认证正确！")
-    } else {
-        fmt.Println("认证失败！")
-    }
-}</code></pre>
+    <span class="token comment">//认证 </span>
+    fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"认证 %q (r:%s,s:%s)\n"</span><span class="token punctuation">,</span> message<span class="token punctuation">,</span> r<span class="token punctuation">,</span> s<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> dsa<span class="token punctuation">.</span><span class="token function">Verify</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>pub<span class="token punctuation">,</span> message<span class="token punctuation">,</span> r<span class="token punctuation">,</span> s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"认证正确！"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"认证失败！"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 
 <h2 id="公钥加密算法-RSA"><a href="#公钥加密算法-RSA" class="headerlink" title="公钥加密算法(RSA)"></a>公钥加密算法(RSA)</h2><p>公钥加密算法于1987年首次公开，RSA是提出这个算法的三人姓氏开头字母组成，可用于加密，也可以用于数字签名。RSA的安全性基于大数分解的困难性。</p>
 <p>加密算法：</p>
@@ -564,67 +564,67 @@ func main() {
 </ul>
 </li>
 </ul>
-<pre class="language-none"><code class="language-none">package main
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
 
-import (
-    "crypto"
-    "crypto/md5"
-    "crypto/rand"
-    "crypto/rsa"
-    "fmt"
-)
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">"crypto"</span>
+    <span class="token string">"crypto/md5"</span>
+    <span class="token string">"crypto/rand"</span>
+    <span class="token string">"crypto/rsa"</span>
+    <span class="token string">"fmt"</span>
+<span class="token punctuation">)</span>
 
-func main() {
-    //生成私钥 
-    priv, e := rsa.GenerateKey(rand.Reader, 1024)
-    if e != nil {
-        fmt.Println(e)
-    }
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">//生成私钥 </span>
+    priv<span class="token punctuation">,</span> e <span class="token operator">:=</span> rsa<span class="token punctuation">.</span><span class="token function">GenerateKey</span><span class="token punctuation">(</span>rand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> <span class="token number">1024</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> e <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
 
-    //根据私钥产生公钥 
-    pub := &amp;priv.PublicKey
+    <span class="token comment">//根据私钥产生公钥 </span>
+    pub <span class="token operator">:=</span> <span class="token operator">&amp;</span>priv<span class="token punctuation">.</span>PublicKey
 
-    //明文 
-    plaintext := []byte("Hello world")
+    <span class="token comment">//明文 </span>
+    plaintext <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">"Hello world"</span><span class="token punctuation">)</span>
 
-    //加密生成密文 
-    fmt.Printf("%q\n加密:\n", plaintext)
-    ciphertext, e := rsa.EncryptOAEP(md5.New(), rand.Reader, pub, plaintext, nil)
-    if e != nil {
-        fmt.Println(e)
-    }
-    fmt.Printf("\t%x\n", ciphertext)
+    <span class="token comment">//加密生成密文 </span>
+    fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"%q\n加密:\n"</span><span class="token punctuation">,</span> plaintext<span class="token punctuation">)</span>
+    ciphertext<span class="token punctuation">,</span> e <span class="token operator">:=</span> rsa<span class="token punctuation">.</span><span class="token function">EncryptOAEP</span><span class="token punctuation">(</span>md5<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> rand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> pub<span class="token punctuation">,</span> plaintext<span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> e <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"\t%x\n"</span><span class="token punctuation">,</span> ciphertext<span class="token punctuation">)</span>
 
-    //解密得到明文 
-    fmt.Printf("解密:\n")
-    plaintext, e = rsa.DecryptOAEP(md5.New(), rand.Reader, priv, ciphertext, nil)
-    if e != nil {
-        fmt.Println(e)
-    }
-    fmt.Printf("\t%q\n", plaintext)
+    <span class="token comment">//解密得到明文 </span>
+    fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"解密:\n"</span><span class="token punctuation">)</span>
+    plaintext<span class="token punctuation">,</span> e <span class="token operator">=</span> rsa<span class="token punctuation">.</span><span class="token function">DecryptOAEP</span><span class="token punctuation">(</span>md5<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> rand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> priv<span class="token punctuation">,</span> ciphertext<span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> e <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"\t%q\n"</span><span class="token punctuation">,</span> plaintext<span class="token punctuation">)</span>
 
-    //消息先进行Hash处理 
-    h := md5.New()
-    h.Write(plaintext)
-    hashed := h.Sum(nil)
-    fmt.Printf("%q MD5 Hashed:\n\t%x\n", plaintext, hashed)
+    <span class="token comment">//消息先进行Hash处理 </span>
+    h <span class="token operator">:=</span> md5<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    h<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span>plaintext<span class="token punctuation">)</span>
+    hashed <span class="token operator">:=</span> h<span class="token punctuation">.</span><span class="token function">Sum</span><span class="token punctuation">(</span><span class="token boolean">nil</span><span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"%q MD5 Hashed:\n\t%x\n"</span><span class="token punctuation">,</span> plaintext<span class="token punctuation">,</span> hashed<span class="token punctuation">)</span>
 
-    //签名 
-    opts := &amp;rsa.PSSOptions{SaltLength: rsa.PSSSaltLengthAuto, Hash: crypto.MD5}
-    sig, e := rsa.SignPSS(rand.Reader, priv, crypto.MD5, hashed, opts)
-    if e != nil {
-        fmt.Println(e)
-    }
-    fmt.Printf("签名:\n\t%x\n", sig)
+    <span class="token comment">//签名 </span>
+    opts <span class="token operator">:=</span> <span class="token operator">&amp;</span>rsa<span class="token punctuation">.</span>PSSOptions<span class="token punctuation">{</span>SaltLength<span class="token punctuation">:</span> rsa<span class="token punctuation">.</span>PSSSaltLengthAuto<span class="token punctuation">,</span> Hash<span class="token punctuation">:</span> crypto<span class="token punctuation">.</span>MD5<span class="token punctuation">}</span>
+    sig<span class="token punctuation">,</span> e <span class="token operator">:=</span> rsa<span class="token punctuation">.</span><span class="token function">SignPSS</span><span class="token punctuation">(</span>rand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> priv<span class="token punctuation">,</span> crypto<span class="token punctuation">.</span>MD5<span class="token punctuation">,</span> hashed<span class="token punctuation">,</span> opts<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> e <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"签名:\n\t%x\n"</span><span class="token punctuation">,</span> sig<span class="token punctuation">)</span>
 
-    //认证 
-    fmt.Printf("验证结果:")
-    if e := rsa.VerifyPSS(pub, crypto.MD5, hashed, sig, opts); e != nil {
-        fmt.Println("失败:", e)
-    } else {
-        fmt.Println("成功.")
-    }
-}</code></pre>
+    <span class="token comment">//认证 </span>
+    fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"验证结果:"</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> e <span class="token operator">:=</span> rsa<span class="token punctuation">.</span><span class="token function">VerifyPSS</span><span class="token punctuation">(</span>pub<span class="token punctuation">,</span> crypto<span class="token punctuation">.</span>MD5<span class="token punctuation">,</span> hashed<span class="token punctuation">,</span> sig<span class="token punctuation">,</span> opts<span class="token punctuation">)</span><span class="token punctuation">;</span> e <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"失败:"</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"成功."</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 
 <h2 id="椭圆曲线加密算法"><a href="#椭圆曲线加密算法" class="headerlink" title="椭圆曲线加密算法"></a>椭圆曲线加密算法</h2><p>ECDSA的全名是Elliptic Curve DSA，即椭圆曲线DSA。它是Digital Signature Algorithm (DSA)应用了椭圆曲线加密算法的变种。椭圆曲线算法的原理很复杂，但是具有很好的公开密钥算法特性，通过公钥无法逆向获得私钥。</p>
 <ol>
@@ -634,83 +634,84 @@ func main() {
 <li><p>验证过程<br>关于验证过程，这里不讨论它的算法细节。从宏观上看，消息的接收方从签名中分离出r和s，然后利用公开的密钥信息和s计算出r。如果计算出的r和接收到的r值相同，则表示验证成功。否则，表示验证失败。</p>
 </li>
 </ol>
-<pre class="language-none"><code class="language-none">package main
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
 
-import (
-    "fmt"
-    "crypto/ecdsa"
-    "crypto/elliptic"
-    "crypto/rand"
-    "crypto/sha256"
-    "math/big"
-)
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">"fmt"</span>
+    <span class="token string">"crypto/ecdsa"</span>
+    <span class="token string">"crypto/elliptic"</span>
+    <span class="token string">"crypto/rand"</span>
+    <span class="token string">"crypto/sha256"</span>
+    <span class="token string">"math/big"</span>
+<span class="token punctuation">)</span>
 
-func main() {
-    //明文 
-    message := []byte("Hello world")
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">//明文 </span>
+    message <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">"Hello world"</span><span class="token punctuation">)</span>
 
-    key, err := NewSigningKey()
-    if err != nil {
-        return
-    }
+    key<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">NewSigningKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
 
-    signature, err := Sign(message, key)
+    signature<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">Sign</span><span class="token punctuation">(</span>message<span class="token punctuation">,</span> key<span class="token punctuation">)</span>
 
-    fmt.Printf("签名后：%x\n", signature)
-    if err != nil {
-        return
-    }
+    fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"签名后：%x\n"</span><span class="token punctuation">,</span> signature<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
 
-    if !Verify(message, signature, &amp;key.PublicKey) {
-        fmt.Println("验证失败！")
-        return
-    }else{
-        fmt.Println("验证成功！")
-    }
-}
+    <span class="token keyword">if</span> <span class="token operator">!</span><span class="token function">Verify</span><span class="token punctuation">(</span>message<span class="token punctuation">,</span> signature<span class="token punctuation">,</span> <span class="token operator">&amp;</span>key<span class="token punctuation">.</span>PublicKey<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"验证失败！"</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token string">"验证成功！"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-func NewSigningKey() (*ecdsa.PrivateKey, error) {
-    key, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
-    return key, err
-}
+<span class="token keyword">func</span> <span class="token function">NewSigningKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>ecdsa<span class="token punctuation">.</span>PrivateKey<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    key<span class="token punctuation">,</span> err <span class="token operator">:=</span> ecdsa<span class="token punctuation">.</span><span class="token function">GenerateKey</span><span class="token punctuation">(</span>elliptic<span class="token punctuation">.</span><span class="token function">P256</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> rand<span class="token punctuation">.</span>Reader<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> key<span class="token punctuation">,</span> err
+<span class="token punctuation">}</span>
 
-// Sign signs arbitrary data using ECDSA.
-func Sign(data []byte, privkey *ecdsa.PrivateKey) ([]byte, error) {
-    // hash message
-    digest := sha256.Sum256(data)
+<span class="token comment">// Sign signs arbitrary data using ECDSA.</span>
+<span class="token keyword">func</span> <span class="token function">Sign</span><span class="token punctuation">(</span>data <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> privkey <span class="token operator">*</span>ecdsa<span class="token punctuation">.</span>PrivateKey<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// hash message</span>
+    digest <span class="token operator">:=</span> sha256<span class="token punctuation">.</span><span class="token function">Sum256</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
 
-    // sign the hash
-    r, s, err := ecdsa.Sign(rand.Reader, privkey, digest[:])
-    if err != nil {
-        return nil, err
-    }
+    <span class="token comment">// sign the hash</span>
+    r<span class="token punctuation">,</span> s<span class="token punctuation">,</span> err <span class="token operator">:=</span> ecdsa<span class="token punctuation">.</span><span class="token function">Sign</span><span class="token punctuation">(</span>rand<span class="token punctuation">.</span>Reader<span class="token punctuation">,</span> privkey<span class="token punctuation">,</span> digest<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
 
-    // encode the signature {R, S}
-    // big.Int.Bytes() will need padding in the case of leading zero bytes
-    params := privkey.Curve.Params()
-    curveOrderByteSize := params.P.BitLen() / 8
-    rBytes, sBytes := r.Bytes(), s.Bytes()
-    signature := make([]byte, curveOrderByteSize*2)
-    copy(signature[curveOrderByteSize-len(rBytes):], rBytes)
-    copy(signature[curveOrderByteSize*2-len(sBytes):], sBytes)
+    <span class="token comment">// encode the signature {R, S}</span>
+    <span class="token comment">// big.Int.Bytes() will need padding in the case of leading zero bytes</span>
+    params <span class="token operator">:=</span> privkey<span class="token punctuation">.</span>Curve<span class="token punctuation">.</span><span class="token function">Params</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    curveOrderByteSize <span class="token operator">:=</span> params<span class="token punctuation">.</span>P<span class="token punctuation">.</span><span class="token function">BitLen</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">8</span>
+    rBytes<span class="token punctuation">,</span> sBytes <span class="token operator">:=</span> r<span class="token punctuation">.</span><span class="token function">Bytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span><span class="token function">Bytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    signature <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> curveOrderByteSize<span class="token operator">*</span><span class="token number">2</span><span class="token punctuation">)</span>
+    <span class="token function">copy</span><span class="token punctuation">(</span>signature<span class="token punctuation">[</span>curveOrderByteSize<span class="token operator">-</span><span class="token function">len</span><span class="token punctuation">(</span>rBytes<span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> rBytes<span class="token punctuation">)</span>
+    <span class="token function">copy</span><span class="token punctuation">(</span>signature<span class="token punctuation">[</span>curveOrderByteSize<span class="token operator">*</span><span class="token number">2</span><span class="token operator">-</span><span class="token function">len</span><span class="token punctuation">(</span>sBytes<span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> sBytes<span class="token punctuation">)</span>
 
-    return signature, nil
-}
+    <span class="token keyword">return</span> signature<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
 
-// Verify checks a raw ECDSA signature.
-// Returns true if it's valid and false if not.
-func Verify(data, signature []byte, pubkey *ecdsa.PublicKey) bool {
-    // hash message
-    digest := sha256.Sum256(data)
+<span class="token comment">// Verify checks a raw ECDSA signature.</span>
+<span class="token comment">// Returns true if it's valid and false if not.</span>
+<span class="token keyword">func</span> <span class="token function">Verify</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> signature <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> pubkey <span class="token operator">*</span>ecdsa<span class="token punctuation">.</span>PublicKey<span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">{</span>
+    <span class="token comment">// hash message</span>
+    digest <span class="token operator">:=</span> sha256<span class="token punctuation">.</span><span class="token function">Sum256</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
 
-    curveOrderByteSize := pubkey.Curve.Params().P.BitLen() / 8
+    curveOrderByteSize <span class="token operator">:=</span> pubkey<span class="token punctuation">.</span>Curve<span class="token punctuation">.</span><span class="token function">Params</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>P<span class="token punctuation">.</span><span class="token function">BitLen</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">8</span>
 
-    r, s := new(big.Int), new(big.Int)
-    r.SetBytes(signature[:curveOrderByteSize])
-    s.SetBytes(signature[curveOrderByteSize:])
+    r<span class="token punctuation">,</span> s <span class="token operator">:=</span> <span class="token function">new</span><span class="token punctuation">(</span>big<span class="token punctuation">.</span>Int<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">new</span><span class="token punctuation">(</span>big<span class="token punctuation">.</span>Int<span class="token punctuation">)</span>
+    r<span class="token punctuation">.</span><span class="token function">SetBytes</span><span class="token punctuation">(</span>signature<span class="token punctuation">[</span><span class="token punctuation">:</span>curveOrderByteSize<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    s<span class="token punctuation">.</span><span class="token function">SetBytes</span><span class="token punctuation">(</span>signature<span class="token punctuation">[</span>curveOrderByteSize<span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 
-    return ecdsa.Verify(pubkey, digest[:], r, s)
-}</code></pre>
+    <span class="token keyword">return</span> ecdsa<span class="token punctuation">.</span><span class="token function">Verify</span><span class="token punctuation">(</span>pubkey<span class="token punctuation">,</span> digest<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span> r<span class="token punctuation">,</span> s<span class="token punctuation">)</span>
+<span class="token punctuation">}</span></code></pre>
+
                 
             </div>
             <hr/>
