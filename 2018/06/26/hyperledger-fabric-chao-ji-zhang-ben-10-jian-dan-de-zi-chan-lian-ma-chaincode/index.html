@@ -10,7 +10,7 @@
 应用程序是一个基本样本链代码，用于在分类账上创建资产
 安装Go及Docker, Docker-compose, 并配置Go相应的环境变量
 创建目录为chaincode应用程序创建一个目录作为其子目录
-12$ mkdir -p $GOPA">
+$ mkdir -p $GOPATH">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -512,14 +512,26 @@
 <p>应用程序是一个基本样本链代码，用于在分类账上创建资产</p>
 <p><strong>安装Go及Docker, Docker-compose, 并配置Go相应的环境变量</strong></p>
 <h3 id="创建目录"><a href="#创建目录" class="headerlink" title="创建目录"></a>创建目录</h3><p>为chaincode应用程序创建一个目录作为其子目录</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir -p $GOPATH/src/test </span><br><span class="line">$ cd $GOPATH/src/test</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ mkdir -p $GOPATH/src/test 
+$ cd $GOPATH/src/test</code></pre>
 
 <h3 id="新建文件"><a href="#新建文件" class="headerlink" title="新建文件"></a>新建文件</h3><p>新建一个文件,用于编写Go代码</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ touch test.go</span><br><span class="line">$ vim test.go</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ touch test.go
+$ vim test.go</code></pre>
 
 <h3 id="编写代码"><a href="#编写代码" class="headerlink" title="编写代码"></a>编写代码</h3><p>必须实现 <a target="_blank" rel="noopener" href="http://godoc.org/github.com/hyperledger/fabric/core/chaincode/shim#Chaincode">Chaincode接口</a>的<code>Init</code>和<code>Invoke</code>函数。因此，须在文件中添加go import语句以获取链代码的依赖。</p>
 <p>导入chaincode shim包和 <a target="_blank" rel="noopener" href="http://godoc.org/github.com/hyperledger/fabric/protos/peer">peer protobuf包</a>。然后添加一个结构<code>SimpleChaincdoe</code>作为Chaincode函数的接收器</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    "fmt"</span><br><span class="line"></span><br><span class="line">    "github.com/hyperledger/fabric/core/chaincode/shim"</span><br><span class="line">    "github.com/hyperledger/fabric/protos/peer"</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type SimpleChaincdoe struct {</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">package main
+
+import (
+    "fmt"
+
+    "github.com/hyperledger/fabric/core/chaincode/shim"
+    "github.com/hyperledger/fabric/protos/peer"
+)
+
+type SimpleChaincdoe struct {
+}</code></pre>
 
 <h4 id="初始化Chaincode"><a href="#初始化Chaincode" class="headerlink" title="初始化Chaincode"></a>初始化Chaincode</h4><p>Init方法</p>
 <ul>
@@ -527,7 +539,9 @@
 <li>检查合法性, 检查参数数量是否为2个, 如果不是, 则返回错误信息</li>
 <li>利用两参数, 调用PutState方法向账本中写入状态, 如果有错误则返回(shim.Error()), 否则返回nil(shim.Success)</li>
 </ul>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func (t *SimpleChaincdoe) Init(stub shim.ChaincodeStubInterface) peer.Response {</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">func (t *SimpleChaincdoe) Init(stub shim.ChaincodeStubInterface) peer.Response {
+
+}</code></pre>
 
 <h4 id="调用实现"><a href="#调用实现" class="headerlink" title="调用实现"></a>调用实现</h4><p>Invoke方法</p>
 <p>验证函数名称为<code>set</code>或<code>get</code>，并调用那些链式代码应用程序函数，通过<code>shim.Success</code>或<code>shim.Error</code>函数返回响应</p>
@@ -538,7 +552,9 @@
 <li>如果err不为空则返回错误</li>
 <li>err为空则返回[]byte(result)</li>
 </ul>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func (t *SimpleChaincdoe) Invoke(stub shim.ChaincodeStubInterface) peer.Response {</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">func (t *SimpleChaincdoe) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
+
+}</code></pre>
 
 <h4 id="实现Chaincode应用"><a href="#实现Chaincode应用" class="headerlink" title="实现Chaincode应用"></a>实现Chaincode应用</h4><p>chaincode应用程序实现了两个可以通过<code>Invoke</code>函数调用的函数(set/get)</p>
 <p>为了访问分类账的状态，利用 chaincode shim API 的<a target="_blank" rel="noopener" href="http://godoc.org/github.com/hyperledger/fabric/core/chaincode/shim#Chaincodetub.PutState">ChaincodeStubInterface.PutState</a> 和<a target="_blank" rel="noopener" href="http://godoc.org/github.com/hyperledger/fabric/core/chaincode/shim#ChaincodeStub.GetState">ChaincodeStubInterface.GetState</a>函数</p>
@@ -547,7 +563,10 @@
 <li>利用PutState方法将状态写入</li>
 <li>如果成功,则返回要写入的状态, 失败返回错误: fmt.Errorf(“…”)</li>
 </ul>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">func set(stub shim.ChaincodeStubInterface, args []string) (string, error) {</span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">func set(stub shim.ChaincodeStubInterface, args []string) (string, error) {
+
+}
+</code></pre>
 
 <h5 id="get函数-返回两个值"><a href="#get函数-返回两个值" class="headerlink" title="get函数, 返回两个值"></a>get函数, 返回两个值</h5><ul>
 <li>接收参数并判断个数 是否为1个</li>
@@ -555,54 +574,76 @@
 <li>判断err及value是否为空 return “”, fmt.Errorf(“……”)</li>
 <li>返回值 return string(value), nil</li>
 </ul>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">func get(stub shim.ChaincodeStubInterface, args []string) (string, error) {</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">func get(stub shim.ChaincodeStubInterface, args []string) (string, error) {
+
+}</code></pre>
 
 <p>main方法</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">func main() {</span><br><span class="line">    if err := shim.Start(new(SimpleChaincdoe)); err != nil {</span><br><span class="line">            fmt.Printf("Error starting SimpleAsset chaincode: %s", err)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">func main() {
+    if err := shim.Start(new(SimpleChaincdoe)); err != nil {
+            fmt.Printf("Error starting SimpleAsset chaincode: %s", err)
+    }
+}</code></pre>
 
-<h3 id="构建Chaincode"><a href="#构建Chaincode" class="headerlink" title="构建Chaincode"></a>构建Chaincode</h3><h4 id="编译chaincode"><a href="#编译chaincode" class="headerlink" title="编译chaincode"></a>编译chaincode</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ go get -u --tags nopkcs11 github.com/hyperledger/fabric/core/chaincode/shim</span><br><span class="line">$ go build --tags nopkcs11</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="构建Chaincode"><a href="#构建Chaincode" class="headerlink" title="构建Chaincode"></a>构建Chaincode</h3><h4 id="编译chaincode"><a href="#编译chaincode" class="headerlink" title="编译chaincode"></a>编译chaincode</h4><pre class="language-none"><code class="language-none">$ go get -u --tags nopkcs11 github.com/hyperledger/fabric/core/chaincode/shim
+$ go build --tags nopkcs11</code></pre>
 
 <h4 id="使用开发模式测试"><a href="#使用开发模式测试" class="headerlink" title="使用开发模式测试"></a>使用开发模式测试</h4><p>正常情况下chaincode由对等体启动和维护。然而，在“开发模式”下，链码由用户构建并启动</p>
 <p><strong>如果没有安装Hyperledger Fabric Samples请先安装</strong></p>
 <p><strong>如果没有下载Docker images请先下载</strong></p>
 <p>跳转至<code>fabric-samples</code>的<code>chaincode-docker-devmode</code>目录</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/</code></pre>
 
 <p>使用<code>docker images</code>查看Docker镜像信息(显示本地Docker Registry)</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker images</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ sudo docker images</code></pre>
 
 <p>会看到如下输出</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">REPOSITORY                     TAG                  IMAGE ID            CREATED             SIZE</span><br><span class="line">hyperledger/fabric-tools       latest             b7bfddf508bc        About an hour ago   1.46GB</span><br><span class="line">hyperledger/fabric-tools       x86_64-1.1.0       b7bfddf508bc        About an hour ago   1.46GB</span><br><span class="line">hyperledger/fabric-orderer     latest             ce0c810df36a        About an hour ago   180MB</span><br><span class="line">hyperledger/fabric-orderer     x86_64-1.1.0       ce0c810df36a        About an hour ago   180MB</span><br><span class="line">hyperledger/fabric-peer        latest             b023f9be0771        About an hour ago   187MB</span><br><span class="line">hyperledger/fabric-peer        x86_64-1.1.0       b023f9be0771        About an hour ago   187MB</span><br><span class="line">hyperledger/fabric-javaenv     latest             82098abb1a17        About an hour ago   1.52GB</span><br><span class="line">hyperledger/fabric-javaenv     x86_64-1.1.0       82098abb1a17        About an hour ago   1.52GB</span><br><span class="line">hyperledger/fabric-ccenv       latest             c8b4909d8d46        About an hour ago   1.39GB</span><br><span class="line">hyperledger/fabric-ccenv       x86_64-1.1.0       c8b4909d8d46        About an hour ago   1.39GB</span><br><span class="line">......</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">REPOSITORY                     TAG                  IMAGE ID            CREATED             SIZE
+hyperledger/fabric-tools       latest             b7bfddf508bc        About an hour ago   1.46GB
+hyperledger/fabric-tools       x86_64-1.1.0       b7bfddf508bc        About an hour ago   1.46GB
+hyperledger/fabric-orderer     latest             ce0c810df36a        About an hour ago   180MB
+hyperledger/fabric-orderer     x86_64-1.1.0       ce0c810df36a        About an hour ago   180MB
+hyperledger/fabric-peer        latest             b023f9be0771        About an hour ago   187MB
+hyperledger/fabric-peer        x86_64-1.1.0       b023f9be0771        About an hour ago   187MB
+hyperledger/fabric-javaenv     latest             82098abb1a17        About an hour ago   1.52GB
+hyperledger/fabric-javaenv     x86_64-1.1.0       82098abb1a17        About an hour ago   1.52GB
+hyperledger/fabric-ccenv       latest             c8b4909d8d46        About an hour ago   1.39GB
+hyperledger/fabric-ccenv       x86_64-1.1.0       c8b4909d8d46        About an hour ago   1.39GB
+......</code></pre>
 
-<h4 id="使用三个终端"><a href="#使用三个终端" class="headerlink" title="使用三个终端"></a>使用三个终端</h4><h5 id="终端1-启动网络"><a href="#终端1-启动网络" class="headerlink" title="终端1 启动网络"></a>终端1 启动网络</h5><h6 id="启动网络"><a href="#启动网络" class="headerlink" title="启动网络"></a>启动网络</h6><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker-compose -f docker-compose-simple.yaml up -d</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="使用三个终端"><a href="#使用三个终端" class="headerlink" title="使用三个终端"></a>使用三个终端</h4><h5 id="终端1-启动网络"><a href="#终端1-启动网络" class="headerlink" title="终端1 启动网络"></a>终端1 启动网络</h5><h6 id="启动网络"><a href="#启动网络" class="headerlink" title="启动网络"></a>启动网络</h6><pre class="language-none"><code class="language-none">$ sudo docker-compose -f docker-compose-simple.yaml up -d</code></pre>
 
 <p>上面的命令以<code>SingleSampleMSPSolo</code>orderer配置文件启动网络，并以“dev模式”启动对等体。它还启动了两个额外的容器 : 一个用于chaincode环境，一个用于与chaincode交互的CLI。创建和加入通道的命令被嵌入到CLI容器中，因此可以立即跳转到链式代码调用</p>
 <h5 id="终端2-建立并启动链码"><a href="#终端2-建立并启动链码" class="headerlink" title="终端2 建立并启动链码"></a>终端2 建立并启动链码</h5><p>打开第二个终端, 进入到<code>chaincode-docker-devmode</code> 目录</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/</code></pre>
 
 <p>进入</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker exec -it chaincode bash</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ sudo docker exec -it chaincode bash</code></pre>
 
 <p>命令提示符变为:</p>
 <p><code>root@858726aed16e:/opt/gopath/src/chaincode#</code></p>
 <h6 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h6><p>进入test目录编译chaincode</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@858726aed16e:/opt/gopath/src/chaincode#  cd test</span><br><span class="line">root@858726aed16e:/opt/gopath/src/chaincode/test#  go build</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">root@858726aed16e:/opt/gopath/src/chaincode#  cd test
+root@858726aed16e:/opt/gopath/src/chaincode/test#  go build</code></pre>
 
-<h6 id="运行chaincode"><a href="#运行chaincode" class="headerlink" title="运行chaincode"></a>运行chaincode</h6><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=test:0 ./test</span><br></pre></td></tr></tbody></table></figure>
+<h6 id="运行chaincode"><a href="#运行chaincode" class="headerlink" title="运行chaincode"></a>运行chaincode</h6><pre class="language-none"><code class="language-none">CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=test:0 ./test</code></pre>
 
-<h5 id="终端3-使用链码"><a href="#终端3-使用链码" class="headerlink" title="终端3 使用链码"></a>终端3 使用链码</h5><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker exec -it cli bash</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="终端3-使用链码"><a href="#终端3-使用链码" class="headerlink" title="终端3 使用链码"></a>终端3 使用链码</h5><pre class="language-none"><code class="language-none">$ sudo docker exec -it cli bash</code></pre>
 
 <h6 id="安装及实例化"><a href="#安装及实例化" class="headerlink" title="安装及实例化"></a>安装及实例化</h6><p>进入CLI容器后执行如下命令安装及实例化chaincode</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode install -p chaincodedev/chaincode/test -n test -v 0</span><br><span class="line">peer chaincode instantiate -n test -v 0 -c '{"Args":["init","a","10"]}' -C myc</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">peer chaincode install -p chaincodedev/chaincode/test -n test -v 0
+peer chaincode instantiate -n test -v 0 -c '{"Args":["init","a","10"]}' -C myc</code></pre>
 
 <h6 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h6><p>进行调用,将<code>a</code>的值更改为<code>20</code></p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -n test -c '{"Args":["set", "a", "20"]}' -C myc</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">peer chaincode invoke -n test -c '{"Args":["set", "a", "20"]}' -C myc</code></pre>
 
 <p>执行成功, 输出如下内容</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">...... Chaincode invoke successful. result: status:200 payload:"20"</span><br><span class="line">......</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">......
+...... Chaincode invoke successful. result: status:200 payload:"20"
+......</code></pre>
 
 <h6 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h6><p>查询<code>a</code>的值</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -n test -c '{"Args":["query","a"]}' -C myc</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">peer chaincode query -n test -c '{"Args":["query","a"]}' -C myc</code></pre>
 
 <p>执行成功, 输出: <code>Query Result: 20</code></p>
 
@@ -1377,7 +1418,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

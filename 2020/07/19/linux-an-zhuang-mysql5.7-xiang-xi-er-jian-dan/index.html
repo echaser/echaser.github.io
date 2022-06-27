@@ -7,10 +7,12 @@
     <meta name="keywords" content="Linux安装MySQL5.7（详细而简单）, echaser">
     <meta name="description" content="
 
-1vim /etc/yum.repos.d/mysql-community.repo
+vim /etc/yum.repos.d/mysql-community.repo
 
 将以下代码复制进去
-1234567# Enable to use MySQL 5.7[mysql57-community]name=MySQL 5.">
+# Enable to use MySQL 5.7
+[mysql57-community]
+name=MySQL 5.7 Comm">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -477,7 +479,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    354
+                    360
                 </div>
                 
 
@@ -509,40 +511,49 @@
             <div id="articleContent">
                 <span id="more"></span>
 
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/yum.repos.d/mysql-community.repo</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">vim</span> /etc/yum.repos.d/mysql-community.repo</code></pre>
 
 <p><em>将以下代码复制进去</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Enable to use MySQL 5.7</span></span><br><span class="line">[mysql57-community]</span><br><span class="line">name=MySQL 5.7 Community Server</span><br><span class="line">baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/7/$basearch/</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=0</span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># Enable to use MySQL 5.7</span>
+<span class="token punctuation">[</span>mysql57-community<span class="token punctuation">]</span>
+<span class="token assign-left variable">name</span><span class="token operator">=</span>MySQL <span class="token number">5.7</span> Community Server
+<span class="token assign-left variable">baseurl</span><span class="token operator">=</span>http://repo.mysql.com/yum/mysql-5.7-community/el/7/<span class="token variable">$basearch</span>/
+<span class="token assign-left variable">enabled</span><span class="token operator">=</span><span class="token number">1</span>
+<span class="token assign-left variable">gpgcheck</span><span class="token operator">=</span><span class="token number">0</span>
+<span class="token assign-left variable">gpgkey</span><span class="token operator">=</span>file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</code></pre>
 
 <p><em>安装</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mysql-community-server</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">yum <span class="token function">install</span> mysql-community-server</code></pre>
 
 <p><em>权限设置</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown mysql:mysql -R /var/lib/mysql</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">chown</span> mysql:mysql -R /var/lib/mysql</code></pre>
 
 <p><em>初始化</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqld --initialize</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">mysqld --initialize</code></pre>
 
 <p><em>启动</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start mysqld</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">systemctl start mysqld</code></pre>
 
 <p>如果报错：</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Job for mysqld.service failed because the control process exited with error code. See "systemctl status mysqld.service" and "journalctl -xe" for details.</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">Job <span class="token keyword">for</span> mysqld.service failed because the control process exited with error code. See <span class="token string">"systemctl status mysqld.service"</span> and <span class="token string">"journalctl -xe"</span> <span class="token keyword">for</span> details.</code></pre>
 
 <p><em><code>Do this and star mysql again</code></em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /var/lib/mysql</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">rm</span> -rf /var/lib/mysql</code></pre>
 
 <p><em>查看运行状态</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status mysqld</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">systemctl status mysqld</code></pre>
 
 <p><em>获取默认密码并登陆MySQL</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">grep 'temporary password' /var/log/mysqld.log</span><br><span class="line">mysql -uroot -p</span><br><span class="line">use mysql;   #这一步如果报错，类似于下面这样，直接跳转下一步</span><br><span class="line">ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement.</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">grep</span> <span class="token string">'temporary password'</span> /var/log/mysqld.log
+mysql -uroot -p
+use mysql<span class="token punctuation">;</span>   <span class="token comment">#这一步如果报错，类似于下面这样，直接跳转下一步</span>
+ERROR <span class="token number">1820</span> <span class="token punctuation">(</span>HY000<span class="token punctuation">)</span>: You must reset your password using ALTER <span class="token environment constant">USER</span> statement before executing this statement.</code></pre>
 
 <p><em>重置密码（<code>密码尽量包含大小写以及数字，否则可能设置不成功，切记：复杂</code>）</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter user 'root'@'localhost' identified by 'Abc123';</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">alter user <span class="token string">'root'</span>@<span class="token string">'localhost'</span> identified by <span class="token string">'Abc123'</span><span class="token punctuation">;</span></code></pre>
 
 <p><em>开启远程登录(如果需要远程连接的话)</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select user,host from user;</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token keyword">select</span> user,host from user<span class="token punctuation">;</span></code></pre>
 
 <p><em><code>修改前</code></em></p>
 <table>
@@ -565,7 +576,7 @@
 <td>localhost</td>
 </tr>
 </tbody></table>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update user set host='%' where user='root';</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">update user <span class="token builtin class-name">set</span> <span class="token assign-left variable">host</span><span class="token operator">=</span><span class="token string">'%'</span> where <span class="token assign-left variable">user</span><span class="token operator">=</span><span class="token string">'root'</span><span class="token punctuation">;</span></code></pre>
 
 <p><em><code>修改后</code></em></p>
 <table>
@@ -589,10 +600,15 @@
 </tr>
 </tbody></table>
 <p><em>刷新权限</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges;</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">flush privileges<span class="token punctuation">;</span></code></pre>
 
 <p><em><code>其他参考命令</code></em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld.service                              #停止firewall</span><br><span class="line">systemctl disable firewalld.service                           #禁止firewall开机启动</span><br><span class="line">firewall-cmd --zone=public --add-port=3306/tcp --permanent    #开放端口 </span><br><span class="line">firewall-cmd --zone=public --remove-port=3306/tcp --permanent #关闭端口</span><br><span class="line">firewall-cmd --reload                                         #重新载入以生效</span><br><span class="line">firewall-cmd --list-ports                                     #查看开放端口列表</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">systemctl stop firewalld.service                              <span class="token comment">#停止firewall</span>
+systemctl disable firewalld.service                           <span class="token comment">#禁止firewall开机启动</span>
+firewall-cmd --zone<span class="token operator">=</span>public --add-port<span class="token operator">=</span><span class="token number">3306</span>/tcp --permanent    <span class="token comment">#开放端口 </span>
+firewall-cmd --zone<span class="token operator">=</span>public --remove-port<span class="token operator">=</span><span class="token number">3306</span>/tcp --permanent <span class="token comment">#关闭端口</span>
+firewall-cmd --reload                                         <span class="token comment">#重新载入以生效</span>
+firewall-cmd --list-ports                                     <span class="token comment">#查看开放端口列表</span></code></pre>
                 
             </div>
             <hr/>
@@ -1364,7 +1380,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

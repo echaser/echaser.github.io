@@ -9,10 +9,16 @@
 
 给定一个非空数组，返回此数组中第三大的数。如果不存在，则返回数组中最大的数。要求算法时间复杂度必须是O(n)。
 示例 1:
-12345输入: [3, 2, 1]输出: 1解释: 第三大的数是 1.
+输入: [3, 2, 1]
+
+输出: 1
+
+解释: 第三大的数是 1.
 
 示例 2:
-12345输入: [1,">
+输入: [1, 2]
+
+输">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -479,7 +485,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    209
+                    206
                 </div>
                 
 
@@ -513,15 +519,45 @@
 
 <p>给定一个非空数组，返回此数组中第三大的数。如果不存在，则返回数组中最大的数。要求算法时间复杂度必须是O(n)。</p>
 <p>示例 1:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入: [3, 2, 1]</span><br><span class="line"></span><br><span class="line">输出: 1</span><br><span class="line"></span><br><span class="line">解释: 第三大的数是 1.</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">输入: [3, 2, 1]
+
+输出: 1
+
+解释: 第三大的数是 1.</code></pre>
 
 <p>示例 2:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入: [1, 2]</span><br><span class="line"></span><br><span class="line">输出: 2</span><br><span class="line"></span><br><span class="line">解释: 第三大的数不存在, 所以返回最大的数 2 .</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">输入: [1, 2]
+
+输出: 2
+
+解释: 第三大的数不存在, 所以返回最大的数 2 .</code></pre>
 
 <p>示例 3:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入: [2, 2, 3, 1]</span><br><span class="line"></span><br><span class="line">输出: 1</span><br><span class="line"></span><br><span class="line">解释: 注意，要求返回第三大的数，是指第三大且唯一出现的数。</span><br><span class="line">存在两个值为2的数，它们都排第二。</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">输入: [2, 2, 3, 1]
 
-<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">thirdMax</span><span class="params">(nums []<span class="type">int</span>)</span></span> <span class="type">int</span> {</span><br><span class="line">    n := <span class="built_in">make</span>([]<span class="type">int</span>, <span class="number">0</span>)</span><br><span class="line">	sort.Ints(nums)</span><br><span class="line">	i := <span class="number">0</span></span><br><span class="line">	n = <span class="built_in">append</span>(n, nums[<span class="number">0</span>])</span><br><span class="line">	<span class="keyword">for</span> j := <span class="number">1</span>; j &lt; <span class="built_in">len</span>(nums); j++ {</span><br><span class="line">		<span class="keyword">if</span> nums[i] != nums[j] {</span><br><span class="line">			n = <span class="built_in">append</span>(n, nums[j])</span><br><span class="line">			i++</span><br><span class="line">			nums[i] = nums[j]</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	ln := <span class="built_in">len</span>(n)</span><br><span class="line">	<span class="keyword">if</span> ln &lt;= <span class="number">2</span> {</span><br><span class="line">		<span class="keyword">return</span> n[ln<span class="number">-1</span>]</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> n[ln<span class="number">-3</span>]</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+输出: 1
+
+解释: 注意，要求返回第三大的数，是指第三大且唯一出现的数。
+存在两个值为2的数，它们都排第二。</code></pre>
+
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">thirdMax</span><span class="token punctuation">(</span>nums <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+    n <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+	sort<span class="token punctuation">.</span><span class="token function">Ints</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+	i <span class="token operator">:=</span> <span class="token number">0</span>
+	n <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+	<span class="token keyword">for</span> j <span class="token operator">:=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> <span class="token function">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span> j<span class="token operator">++</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token punctuation">{</span>
+			n <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span>
+			i<span class="token operator">++</span>
+			nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	ln <span class="token operator">:=</span> <span class="token function">len</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> ln <span class="token operator">&lt;=</span> <span class="token number">2</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> n<span class="token punctuation">[</span>ln<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> n<span class="token punctuation">[</span>ln<span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span></code></pre>
                 
             </div>
             <hr/>
@@ -1293,7 +1329,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

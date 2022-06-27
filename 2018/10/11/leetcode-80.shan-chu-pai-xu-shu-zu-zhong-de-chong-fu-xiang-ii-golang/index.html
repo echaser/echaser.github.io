@@ -10,7 +10,7 @@
 给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素最多出现两次，返回移除后数组的新长度。
 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
 示例 1:
-12345给定 nums = ">
+给定 nums = [1,1,">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -477,7 +477,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    425
+                    422
                 </div>
                 
 
@@ -512,18 +512,53 @@
 <p>给定一个排序数组，你需要在<code>原地</code>删除重复出现的元素，使得每个元素最多出现两次，返回移除后数组的新长度。</p>
 <p>不要使用额外的数组空间，你必须在<code>原地</code>修改输入数组并在使用 O(1) 额外空间的条件下完成。</p>
 <p>示例 1:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [1,1,1,2,2,3],</span><br><span class="line"></span><br><span class="line">函数应返回新长度 length = 5, 并且原数组的前五个元素被修改为 1, 1, 2, 2, 3 。</span><br><span class="line"></span><br><span class="line">你不需要考虑数组中超出新长度后面的元素。</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">给定 nums = [1,1,1,2,2,3],
+
+函数应返回新长度 length = 5, 并且原数组的前五个元素被修改为 1, 1, 2, 2, 3 。
+
+你不需要考虑数组中超出新长度后面的元素。</code></pre>
 
 <p>示例 2:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [0,0,1,1,1,1,2,3,3],</span><br><span class="line"></span><br><span class="line">函数应返回新长度 length = 7, 并且原数组的前五个元素被修改为 0, 0, 1, 1, 2, 3, 3 。</span><br><span class="line"></span><br><span class="line">你不需要考虑数组中超出新长度后面的元素。</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">给定 nums = [0,0,1,1,1,1,2,3,3],
+
+函数应返回新长度 length = 7, 并且原数组的前五个元素被修改为 0, 0, 1, 1, 2, 3, 3 。
+
+你不需要考虑数组中超出新长度后面的元素。</code></pre>
 
 <p>说明:</p>
 <p>为什么返回数值是整数，但输出的答案是数组呢?</p>
 <p>请注意，输入数组是以“引用”方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。</p>
 <p>你可以想象内部操作如下:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝</span><br><span class="line">int len = removeDuplicates(nums);</span><br><span class="line"></span><br><span class="line">// 在函数里修改输入数组对于调用者是可见的。</span><br><span class="line">// 根据你的函数返回的长度, 它会打印出数组中该长度范围内的所有元素。</span><br><span class="line">for (int i = 0; i &lt; len; i++) {</span><br><span class="line">    print(nums[i]);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">// nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝
+int len = removeDuplicates(nums);
 
-<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">removeDuplicates</span><span class="params">(nums []<span class="type">int</span>)</span></span> <span class="type">int</span> {</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(nums) == <span class="number">0</span> {</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">	}</span><br><span class="line">	count := <span class="number">0</span></span><br><span class="line">	i := <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> j := <span class="number">1</span>; j &lt; <span class="built_in">len</span>(nums); j++ {</span><br><span class="line">		<span class="keyword">if</span> nums[i] != nums[j] {</span><br><span class="line">			i++</span><br><span class="line">		}<span class="keyword">else</span> <span class="keyword">if</span> nums[i] == nums[j] {</span><br><span class="line">			<span class="keyword">if</span> count &lt;= <span class="number">1</span> {</span><br><span class="line">				count ++</span><br><span class="line">				i++</span><br><span class="line">			}<span class="keyword">else</span> {</span><br><span class="line">				nums[i] = nums[i+<span class="number">1</span>]</span><br><span class="line">				<span class="keyword">continue</span></span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> i + <span class="number">1</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+// 在函数里修改输入数组对于调用者是可见的。
+// 根据你的函数返回的长度, 它会打印出数组中该长度范围内的所有元素。
+for (int i = 0; i &lt; len; i++) {
+    print(nums[i]);
+}</code></pre>
+
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">removeDuplicates</span><span class="token punctuation">(</span>nums <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token number">0</span>
+	<span class="token punctuation">}</span>
+	count <span class="token operator">:=</span> <span class="token number">0</span>
+	i <span class="token operator">:=</span> <span class="token number">0</span>
+	<span class="token keyword">for</span> j <span class="token operator">:=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> <span class="token function">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span> j<span class="token operator">++</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token punctuation">{</span>
+			i<span class="token operator">++</span>
+		<span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token keyword">if</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token punctuation">{</span>
+			<span class="token keyword">if</span> count <span class="token operator">&lt;=</span> <span class="token number">1</span> <span class="token punctuation">{</span>
+				count <span class="token operator">++</span>
+				i<span class="token operator">++</span>
+			<span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+				nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span>
+				<span class="token keyword">continue</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> i <span class="token operator">+</span> <span class="token number">1</span>
+<span class="token punctuation">}</span></code></pre>
                 
             </div>
             <hr/>
@@ -1295,7 +1330,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

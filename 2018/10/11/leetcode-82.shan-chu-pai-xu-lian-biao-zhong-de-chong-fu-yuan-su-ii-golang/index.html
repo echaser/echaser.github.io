@@ -9,10 +9,11 @@
 
 给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 没有重复出现 的数字。
 示例 1:
-12输入: 1-&amp;gt;2-&amp;gt;3-&amp;gt;3-&amp;gt;4-&amp;gt;4-&amp;gt;5输出: 1-&amp;gt;2-&amp;gt;5
+输入: 1-&amp;gt;2-&amp;gt;3-&amp;gt;3-&amp;gt;4-&amp;gt;4-&amp;gt;5
+输出: 1-&amp;gt;2-&amp;gt;5
 
 示例 2:
-">
+输">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -479,7 +480,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    159
+                    156
                 </div>
                 
 
@@ -513,12 +514,42 @@
 
 <p>给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 没有重复出现 的数字。</p>
 <p>示例 1:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 1-&gt;2-&gt;3-&gt;3-&gt;4-&gt;4-&gt;5</span><br><span class="line">输出: 1-&gt;2-&gt;5</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">输入: 1-&gt;2-&gt;3-&gt;3-&gt;4-&gt;4-&gt;5
+输出: 1-&gt;2-&gt;5</code></pre>
 
 <p>示例 2:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 1-&gt;1-&gt;1-&gt;2-&gt;3</span><br><span class="line">输出: 2-&gt;3</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">输入: 1-&gt;1-&gt;1-&gt;2-&gt;3
+输出: 2-&gt;3</code></pre>
 
-<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct {</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * }</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">deleteDuplicates</span><span class="params">(head *ListNode)</span></span> *ListNode {</span><br><span class="line">    <span class="keyword">if</span> head == <span class="literal">nil</span> {</span><br><span class="line">		<span class="keyword">return</span> head</span><br><span class="line">	}</span><br><span class="line">	newHead := &amp;ListNode{}</span><br><span class="line">	tmp := newHead</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> head != <span class="literal">nil</span> &amp;&amp; head.Next != <span class="literal">nil</span> {</span><br><span class="line">		<span class="keyword">if</span> head.Val == head.Next.Val {</span><br><span class="line">			<span class="keyword">for</span> head.Next != <span class="literal">nil</span> &amp;&amp; head.Val == head.Next.Val {</span><br><span class="line">				head = head.Next</span><br><span class="line">			}</span><br><span class="line">			head = head.Next</span><br><span class="line">		} <span class="keyword">else</span> {</span><br><span class="line">			tmp.Next = head</span><br><span class="line">			tmp = tmp.Next</span><br><span class="line">			head = head.Next</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	tmp.Next = head</span><br><span class="line">	<span class="keyword">return</span> newHead.Next</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token comment">/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */</span>
+<span class="token keyword">func</span> <span class="token function">deleteDuplicates</span><span class="token punctuation">(</span>head <span class="token operator">*</span>ListNode<span class="token punctuation">)</span> <span class="token operator">*</span>ListNode <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> head <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> head
+	<span class="token punctuation">}</span>
+	newHead <span class="token operator">:=</span> <span class="token operator">&amp;</span>ListNode<span class="token punctuation">{</span><span class="token punctuation">}</span>
+	tmp <span class="token operator">:=</span> newHead
+
+	<span class="token keyword">for</span> head <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token operator">&amp;&amp;</span> head<span class="token punctuation">.</span>Next <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> head<span class="token punctuation">.</span>Val <span class="token operator">==</span> head<span class="token punctuation">.</span>Next<span class="token punctuation">.</span>Val <span class="token punctuation">{</span>
+			<span class="token keyword">for</span> head<span class="token punctuation">.</span>Next <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token operator">&amp;&amp;</span> head<span class="token punctuation">.</span>Val <span class="token operator">==</span> head<span class="token punctuation">.</span>Next<span class="token punctuation">.</span>Val <span class="token punctuation">{</span>
+				head <span class="token operator">=</span> head<span class="token punctuation">.</span>Next
+			<span class="token punctuation">}</span>
+			head <span class="token operator">=</span> head<span class="token punctuation">.</span>Next
+		<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+			tmp<span class="token punctuation">.</span>Next <span class="token operator">=</span> head
+			tmp <span class="token operator">=</span> tmp<span class="token punctuation">.</span>Next
+			head <span class="token operator">=</span> head<span class="token punctuation">.</span>Next
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	tmp<span class="token punctuation">.</span>Next <span class="token operator">=</span> head
+	<span class="token keyword">return</span> newHead<span class="token punctuation">.</span>Next
+<span class="token punctuation">}</span></code></pre>
                 
             </div>
             <hr/>
@@ -1290,7 +1321,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

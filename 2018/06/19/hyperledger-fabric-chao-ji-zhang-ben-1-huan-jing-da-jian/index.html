@@ -8,7 +8,8 @@
     <meta name="description" content="
 
 环境搭建快速入门: http://hyperledger-fabric.readthedocs.io/en/release-1.1/getting_started.html
-前提安装git12$ sudo apt update$ sud">
+前提安装git$ sudo apt update
+$ sudo">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -475,7 +476,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    852
+                    854
                 </div>
                 
 
@@ -508,92 +509,122 @@
                 <span id="more"></span>
 
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>快速入门: <a target="_blank" rel="noopener" href="http://hyperledger-fabric.readthedocs.io/en/release-1.1/getting_started.html">http://hyperledger-fabric.readthedocs.io/en/release-1.1/getting_started.html</a></p>
-<h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install git</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><h4 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h4><pre class="language-none"><code class="language-none">$ sudo apt update
+$ sudo apt install git</code></pre>
 
-<h4 id="安装curl"><a href="#安装curl" class="headerlink" title="安装curl"></a>安装curl</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install curl</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="安装curl"><a href="#安装curl" class="headerlink" title="安装curl"></a>安装curl</h4><pre class="language-none"><code class="language-none">$ sudo apt install curl</code></pre>
 
-<h4 id="安装vim"><a href="#安装vim" class="headerlink" title="安装vim"></a>安装vim</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install vim</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="安装vim"><a href="#安装vim" class="headerlink" title="安装vim"></a>安装vim</h4><pre class="language-none"><code class="language-none">$ sudo apt install vim</code></pre>
 
-<h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">$ docker --version</span><br><span class="line">$ sudo apt install docker.io</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="安装Docker"><a href="#安装Docker" class="headerlink" title="安装Docker"></a>安装Docker</h3><pre class="language-none"><code class="language-none">$ sudo apt update
+$ docker --version
+$ sudo apt install docker.io</code></pre>
 
 <h4 id="查看Docker版本信息"><a href="#查看Docker版本信息" class="headerlink" title="查看Docker版本信息"></a>查看Docker版本信息</h4><p>version 1.12+</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker --version</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ docker --version</code></pre>
 
 <p>输出: <code>Docker version 1.13.1, build 092cba3</code></p>
-<h3 id="安装Docker-Compose"><a href="#安装Docker-Compose" class="headerlink" title="安装Docker Compose"></a>安装Docker Compose</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker-compose --version</span><br><span class="line">$ sudo apt install docker-compose</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="安装Docker-Compose"><a href="#安装Docker-Compose" class="headerlink" title="安装Docker Compose"></a>安装Docker Compose</h3><pre class="language-none"><code class="language-none">$ docker-compose --version
+$ sudo apt install docker-compose</code></pre>
 
-<h4 id="查看DockerCompose版本信息"><a href="#查看DockerCompose版本信息" class="headerlink" title="查看DockerCompose版本信息"></a>查看DockerCompose版本信息</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker-compose --version</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="查看DockerCompose版本信息"><a href="#查看DockerCompose版本信息" class="headerlink" title="查看DockerCompose版本信息"></a>查看DockerCompose版本信息</h4><pre class="language-none"><code class="language-none">$ docker-compose --version</code></pre>
 
 <p>输出: <code>docker-compose version 1.8.0, build unknown</code></p>
 <h3 id="Golang"><a href="#Golang" class="headerlink" title="Golang"></a>Golang</h3><p>Fabric1.1.0版本要求Go1.9+</p>
 <p>Fabric1.0.0版本要求Go1.7+</p>
 <p>上传go1.10.1.linux-amd64.tar.gz</p>
-<h4 id="解压文件"><a href="#解压文件" class="headerlink" title="解压文件"></a>解压文件</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tar -zxvf go1.10.1.linux-amd64.tar.gz</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="解压文件"><a href="#解压文件" class="headerlink" title="解压文件"></a>解压文件</h4><pre class="language-none"><code class="language-none">$ tar -zxvf go1.10.1.linux-amd64.tar.gz</code></pre>
 
-<h4 id="编辑环境变量文件"><a href="#编辑环境变量文件" class="headerlink" title="编辑环境变量文件"></a>编辑环境变量文件</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim .bashrc </span><br></pre></td></tr></tbody></table></figure>
+<h4 id="编辑环境变量文件"><a href="#编辑环境变量文件" class="headerlink" title="编辑环境变量文件"></a>编辑环境变量文件</h4><pre class="language-none"><code class="language-none">$ vim .bashrc </code></pre>
 
 <p>添加如下内容:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export GOPATH=$HOME/gocode</span><br><span class="line">export GOROOT=$HOME/go</span><br><span class="line">export PATH=$GOROOT/bin:$PATH</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">export GOPATH=$HOME/gocode
+export GOROOT=$HOME/go
+export PATH=$GOROOT/bin:$PATH</code></pre>
 
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ source .bashrc</span><br><span class="line">$ go version</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ source .bashrc
+$ go version</code></pre>
 
 <p>输出: <code>go version go1.10.1 linux/amd64</code></p>
 <blockquote>
 <p>如果系统中有旧版本的golang,则使用如下命令卸载旧版本的golang,然后再重新安装</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ su -</span><br><span class="line"></span><br><span class="line"># apt-get remove golang-go --purge &amp;&amp; apt-get autoremove --purge &amp;&amp; apt-get clean</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ su -
+
+# apt-get remove golang-go --purge &amp;&amp; apt-get autoremove --purge &amp;&amp; apt-get clean</code></pre>
 </blockquote>
-<h3 id="安装Node与npm"><a href="#安装Node与npm" class="headerlink" title="安装Node与npm"></a>安装Node与npm</h3><h4 id="安装nvm"><a href="#安装nvm" class="headerlink" title="安装nvm"></a>安装nvm</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.10/install.sh | bash</span><br><span class="line"></span><br><span class="line">$ export NVM_DIR="$HOME/.nvm"</span><br><span class="line">$ [ -s "$NVM_DIR/nvm.sh" ] &amp;&amp; \. "$NVM_DIR/nvm.sh" </span><br></pre></td></tr></tbody></table></figure>
+<h3 id="安装Node与npm"><a href="#安装Node与npm" class="headerlink" title="安装Node与npm"></a>安装Node与npm</h3><h4 id="安装nvm"><a href="#安装nvm" class="headerlink" title="安装nvm"></a>安装nvm</h4><pre class="language-none"><code class="language-none">$ sudo apt update
+$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.10/install.sh | bash
 
-<h4 id="安装Node"><a href="#安装Node" class="headerlink" title="安装Node"></a>安装Node</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nvm install v8.11.1</span><br></pre></td></tr></tbody></table></figure>
+$ export NVM_DIR="$HOME/.nvm"
+$ [ -s "$NVM_DIR/nvm.sh" ] &amp;&amp; \. "$NVM_DIR/nvm.sh" </code></pre>
 
-<h4 id="检查Node版本"><a href="#检查Node版本" class="headerlink" title="检查Node版本"></a>检查Node版本</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ node -v</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="安装Node"><a href="#安装Node" class="headerlink" title="安装Node"></a>安装Node</h4><pre class="language-none"><code class="language-none">$ nvm install v8.11.1</code></pre>
+
+<h4 id="检查Node版本"><a href="#检查Node版本" class="headerlink" title="检查Node版本"></a>检查Node版本</h4><pre class="language-none"><code class="language-none">$ node -v</code></pre>
 
 <p>输出: <code>v8.11.1</code></p>
-<h4 id="检查npm版本"><a href="#检查npm版本" class="headerlink" title="检查npm版本"></a>检查npm版本</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm -v</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="检查npm版本"><a href="#检查npm版本" class="headerlink" title="检查npm版本"></a>检查npm版本</h4><pre class="language-none"><code class="language-none">$ npm -v</code></pre>
 
 <p>输出: <code>5.6.0</code></p>
-<h3 id="Hyperledger-Fabric-Samples-下载安装"><a href="#Hyperledger-Fabric-Samples-下载安装" class="headerlink" title="Hyperledger Fabric Samples 下载安装"></a>Hyperledger Fabric Samples 下载安装</h3><h4 id="创建一个空目录"><a href="#创建一个空目录" class="headerlink" title="创建一个空目录"></a>创建一个空目录</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir hyfa</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Hyperledger-Fabric-Samples-下载安装"><a href="#Hyperledger-Fabric-Samples-下载安装" class="headerlink" title="Hyperledger Fabric Samples 下载安装"></a>Hyperledger Fabric Samples 下载安装</h3><h4 id="创建一个空目录"><a href="#创建一个空目录" class="headerlink" title="创建一个空目录"></a>创建一个空目录</h4><pre class="language-none"><code class="language-none">$ mkdir hyfa</code></pre>
 
-<h4 id="进入该目录"><a href="#进入该目录" class="headerlink" title="进入该目录"></a>进入该目录</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd hyfa</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="进入该目录"><a href="#进入该目录" class="headerlink" title="进入该目录"></a>进入该目录</h4><pre class="language-none"><code class="language-none">$ cd hyfa</code></pre>
 
 <h5 id="下载方式一"><a href="#下载方式一" class="headerlink" title="下载方式一:"></a>下载方式一:</h5><p><strong>新建文件bootstrap.sh</strong></p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim bootstrap.sh</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ vim bootstrap.sh</code></pre>
 
 <p>将<code>https://github.com/hyperledger/fabric/blob/master/scripts/bootstrap.sh</code>中的内容拷贝保存退出</p>
 <p><strong>赋予bootstrap.sh可执行权限并运行</strong></p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ chmod +x bootstrap.sh</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ chmod +x bootstrap.sh</code></pre>
 
 <p><strong>配置docker加速器</strong></p>
 <p>配置docker加速器的目的是为了在下载docker镜像文件时加速</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://8890cb8b.m.daocloud.io</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://8890cb8b.m.daocloud.io</code></pre>
 
 <p><strong>重启docker服务</strong></p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl restart docker.service</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ sudo systemctl restart docker.service</code></pre>
 
 <p><strong>执行<code>bootstrap.sh</code></strong></p>
 <p><strong>确定网络稳定,否则会导致各种问题，例如下载到一半时网络超时，下载失败等等</strong></p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ./bootstrap.sh 1.1.0</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ sudo ./bootstrap.sh 1.1.0</code></pre>
 
 <p>下载完成后, 查看相关输出内容, 如果下载有失败的镜像, 可再次执行 <code>$ sudo ./bootstrap.sh 1.1.0</code> 命令</p>
 <h5 id="下载方式二"><a href="#下载方式二" class="headerlink" title="下载方式二:"></a>下载方式二:</h5><blockquote>
 <p><strong>建议使用方式一进行下载</strong></p>
 </blockquote>
 <p><strong>配置docker加速器,</strong></p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://8890cb8b.m.daocloud.io</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://8890cb8b.m.daocloud.io</code></pre>
 
 <p><strong>重启docker服务</strong></p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl restart docker.service</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ sudo systemctl restart docker.service</code></pre>
 
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl  https://github.com/hyperledger/fabric/blob/master/scripts/bootstrap.sh | bash -s 1.1.0</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ curl  https://github.com/hyperledger/fabric/blob/master/scripts/bootstrap.sh | bash -s 1.1.0</code></pre>
 
 <hr>
 <p>安装完成后输出:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">hyperledger/fabric-ca          latest          72617b4fa9b4   5 weeks ago    299 MB</span><br><span class="line">hyperledger/fabric-ca          x86_64-1.1.0    72617b4fa9b4   5 weeks ago    299 MB</span><br><span class="line">hyperledger/fabric-tools       latest          b7bfddf508bc   5 weeks ago    1.46 GB</span><br><span class="line">hyperledger/fabric-tools       x86_64-1.1.0    b7bfddf508bc   5 weeks ago    1.46 GB</span><br><span class="line">hyperledger/fabric-orderer     latest          ce0c810df36a   5 weeks ago    180 MB</span><br><span class="line">hyperledger/fabric-orderer     x86_64-1.1.0    ce0c810df36a   5 weeks ago    180 MB</span><br><span class="line">hyperledger/fabric-peer        latest          b023f9be0771   5 weeks ago    187 MB</span><br><span class="line">hyperledger/fabric-peer        x86_64-1.1.0    b023f9be0771   5 weeks ago    187 MB</span><br><span class="line">hyperledger/fabric-javaenv     latest          82098abb1a17   5 weeks ago    1.52 GB</span><br><span class="line">hyperledger/fabric-javaenv     x86_64-1.1.0    82098abb1a17   5 weeks ago    1.52 GB</span><br><span class="line">hyperledger/fabric-ccenv       latest          c8b4909d8d46   5 weeks ago    1.39 GB</span><br><span class="line">hyperledger/fabric-ccenv       x86_64-1.1.0    c8b4909d8d46   5 weeks ago    1.39 GB</span><br><span class="line">hyperledger/fabric-zookeeper   latest          92cbb952b6f8   2 months ago   1.39 GB</span><br><span class="line">hyperledger/fabric-zookeeper   x86_64-0.4.6    92cbb952b6f8   2 months ago   1.39 GB</span><br><span class="line">hyperledger/fabric-kafka       latest          554c591b86a8   2 months ago   1.4 GB</span><br><span class="line">hyperledger/fabric-kafka       x86_64-0.4.6    554c591b86a8   2 months ago   1.4 GB</span><br><span class="line">hyperledger/fabric-couchdb     latest          7e73c828fc5b   2 months ago   1.56 GB</span><br><span class="line">hyperledger/fabric-couchdb     x86_64-0.4.6    7e73c828fc5b   2 months ago   1.56 GB</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">hyperledger/fabric-ca          latest          72617b4fa9b4   5 weeks ago    299 MB
+hyperledger/fabric-ca          x86_64-1.1.0    72617b4fa9b4   5 weeks ago    299 MB
+hyperledger/fabric-tools       latest          b7bfddf508bc   5 weeks ago    1.46 GB
+hyperledger/fabric-tools       x86_64-1.1.0    b7bfddf508bc   5 weeks ago    1.46 GB
+hyperledger/fabric-orderer     latest          ce0c810df36a   5 weeks ago    180 MB
+hyperledger/fabric-orderer     x86_64-1.1.0    ce0c810df36a   5 weeks ago    180 MB
+hyperledger/fabric-peer        latest          b023f9be0771   5 weeks ago    187 MB
+hyperledger/fabric-peer        x86_64-1.1.0    b023f9be0771   5 weeks ago    187 MB
+hyperledger/fabric-javaenv     latest          82098abb1a17   5 weeks ago    1.52 GB
+hyperledger/fabric-javaenv     x86_64-1.1.0    82098abb1a17   5 weeks ago    1.52 GB
+hyperledger/fabric-ccenv       latest          c8b4909d8d46   5 weeks ago    1.39 GB
+hyperledger/fabric-ccenv       x86_64-1.1.0    c8b4909d8d46   5 weeks ago    1.39 GB
+hyperledger/fabric-zookeeper   latest          92cbb952b6f8   2 months ago   1.39 GB
+hyperledger/fabric-zookeeper   x86_64-0.4.6    92cbb952b6f8   2 months ago   1.39 GB
+hyperledger/fabric-kafka       latest          554c591b86a8   2 months ago   1.4 GB
+hyperledger/fabric-kafka       x86_64-0.4.6    554c591b86a8   2 months ago   1.4 GB
+hyperledger/fabric-couchdb     latest          7e73c828fc5b   2 months ago   1.56 GB
+hyperledger/fabric-couchdb     x86_64-0.4.6    7e73c828fc5b   2 months ago   1.56 GB</code></pre>
 
-<h4 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ export PATH=&lt;path to download location&gt;/bin:$PATH</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h4><pre class="language-none"><code class="language-none">$ export PATH=&lt;path to download location&gt;/bin:$PATH</code></pre>
 
 <p>注: 表示下载的<code>fabric-samples</code>文件目录所在路径</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">例:  $ export PATH=$HOME/hyfa/fabric-samples/bin:$PATH</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">例:  $ export PATH=$HOME/hyfa/fabric-samples/bin:$PATH</code></pre>
 
 <p><code>HyperLedger Fabric</code>环境搭建完成</p>
 
@@ -1368,7 +1399,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

@@ -10,7 +10,7 @@
 给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。
 你可以假设除了数字 0 之外，这两个数字都不会以零开头。
 示例：
-123输入：(2 -&amp;gt; 4 -&amp;gt; 3) ">
+输入：(2 -&amp;gt; 4 -&amp;gt; 3) + (">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -477,7 +477,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    199
+                    197
                 </div>
                 
 
@@ -512,9 +512,47 @@
 <p>给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。</p>
 <p>你可以假设除了数字 0 之外，这两个数字都不会以零开头。</p>
 <p><strong>示例</strong>：</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)</span><br><span class="line">输出：7 -&gt; 0 -&gt; 8</span><br><span class="line">原因：342 + 465 = 807</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)
+输出：7 -&gt; 0 -&gt; 8
+原因：342 + 465 = 807</code></pre>
 
-<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct {</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * }</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addTwoNumbers</span><span class="params">(l1 *ListNode, l2 *ListNode)</span></span> *ListNode {</span><br><span class="line">    head := &amp;ListNode{}</span><br><span class="line">    p,q := l1,l2</span><br><span class="line">    curr := head</span><br><span class="line">    carry := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> p!=<span class="literal">nil</span> || q!=<span class="literal">nil</span>{</span><br><span class="line">        x := <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> p != <span class="literal">nil</span> {</span><br><span class="line">            x = p.Val</span><br><span class="line">        }</span><br><span class="line">        y := <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> q != <span class="literal">nil</span> {</span><br><span class="line">            y = q.Val</span><br><span class="line">        }</span><br><span class="line">        sum := carry + x + y</span><br><span class="line">        carry = sum / <span class="number">10</span></span><br><span class="line">        curr.Next = &amp;ListNode{Val:sum % <span class="number">10</span>}</span><br><span class="line">        curr = curr.Next</span><br><span class="line">        <span class="keyword">if</span> p !=<span class="literal">nil</span>{</span><br><span class="line">            p = p.Next</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> q != <span class="literal">nil</span> {</span><br><span class="line">            q = q.Next</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">if</span> carry &gt; <span class="number">0</span> {</span><br><span class="line">        curr.Next = &amp;ListNode{Val:carry}</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> head.Next</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token comment">/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */</span>
+<span class="token keyword">func</span> <span class="token function">addTwoNumbers</span><span class="token punctuation">(</span>l1 <span class="token operator">*</span>ListNode<span class="token punctuation">,</span> l2 <span class="token operator">*</span>ListNode<span class="token punctuation">)</span> <span class="token operator">*</span>ListNode <span class="token punctuation">{</span>
+    head <span class="token operator">:=</span> <span class="token operator">&amp;</span>ListNode<span class="token punctuation">{</span><span class="token punctuation">}</span>
+    p<span class="token punctuation">,</span>q <span class="token operator">:=</span> l1<span class="token punctuation">,</span>l2
+    curr <span class="token operator">:=</span> head
+    carry <span class="token operator">:=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> p<span class="token operator">!=</span><span class="token boolean">nil</span> <span class="token operator">||</span> q<span class="token operator">!=</span><span class="token boolean">nil</span><span class="token punctuation">{</span>
+        x <span class="token operator">:=</span> <span class="token number">0</span>
+        <span class="token keyword">if</span> p <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            x <span class="token operator">=</span> p<span class="token punctuation">.</span>Val
+        <span class="token punctuation">}</span>
+        y <span class="token operator">:=</span> <span class="token number">0</span>
+        <span class="token keyword">if</span> q <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            y <span class="token operator">=</span> q<span class="token punctuation">.</span>Val
+        <span class="token punctuation">}</span>
+        sum <span class="token operator">:=</span> carry <span class="token operator">+</span> x <span class="token operator">+</span> y
+        carry <span class="token operator">=</span> sum <span class="token operator">/</span> <span class="token number">10</span>
+        curr<span class="token punctuation">.</span>Next <span class="token operator">=</span> <span class="token operator">&amp;</span>ListNode<span class="token punctuation">{</span>Val<span class="token punctuation">:</span>sum <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">}</span>
+        curr <span class="token operator">=</span> curr<span class="token punctuation">.</span>Next
+        <span class="token keyword">if</span> p <span class="token operator">!=</span><span class="token boolean">nil</span><span class="token punctuation">{</span>
+            p <span class="token operator">=</span> p<span class="token punctuation">.</span>Next
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> q <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            q <span class="token operator">=</span> q<span class="token punctuation">.</span>Next
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> carry <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        curr<span class="token punctuation">.</span>Next <span class="token operator">=</span> <span class="token operator">&amp;</span>ListNode<span class="token punctuation">{</span>Val<span class="token punctuation">:</span>carry<span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> head<span class="token punctuation">.</span>Next
+<span class="token punctuation">}</span></code></pre>
                 
             </div>
             <hr/>
@@ -1286,7 +1324,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

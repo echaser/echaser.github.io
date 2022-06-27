@@ -8,7 +8,9 @@
     <meta name="description" content="
 
 题目描述题目：输入数字n，按顺序打印从1到最大的n位十进制数。比如输入3，则打印出1,2,3一直到最大的3位数999。
-1234567891011121314151617181920212223242526272829303132333">
+func Print1ToMaxOfDigits(n int) {
+	if n &amp;lt;= 0 {
+		return">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -508,7 +510,46 @@
                 <span id="more"></span>
 
 <h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>题目：输入数字n，按顺序打印从1到最大的n位十进制数。比如输入3，则打印出1,2,3一直到最大的3位数999。</p>
-<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Print1ToMaxOfDigits</span><span class="params">(n <span class="type">int</span>)</span></span> {</span><br><span class="line">	<span class="keyword">if</span> n &lt;= <span class="number">0</span> {</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	number := <span class="built_in">make</span>([]<span class="type">int</span>, n)</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ {</span><br><span class="line">		number[<span class="number">0</span>] = i</span><br><span class="line">		print1ToMaxOfDigitsRecursively(number, n, <span class="number">0</span>)</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">print1ToMaxOfDigitsRecursively</span><span class="params">(number []<span class="type">int</span>, length <span class="type">int</span>, index <span class="type">int</span>)</span></span> {</span><br><span class="line">	<span class="keyword">if</span> index == length<span class="number">-1</span> {</span><br><span class="line">		printNumber(number)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ {</span><br><span class="line">		number[index+<span class="number">1</span>] = i</span><br><span class="line">		print1ToMaxOfDigitsRecursively(number, length, index+<span class="number">1</span>)</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printNumber</span><span class="params">(number []<span class="type">int</span>)</span></span> {</span><br><span class="line">	<span class="keyword">var</span> isBeginning0 = <span class="literal">true</span></span><br><span class="line">	length := <span class="built_in">len</span>(number)</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; length; i++ {</span><br><span class="line">		<span class="keyword">if</span> isBeginning0 &amp;&amp; number[i] != <span class="number">0</span> {</span><br><span class="line">			isBeginning0 = <span class="literal">false</span></span><br><span class="line">		}</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> !isBeginning0 {</span><br><span class="line">			fmt.Printf(<span class="string">"%d"</span>, number[i])</span><br><span class="line">			<span class="keyword">if</span> i == length<span class="number">-1</span> {</span><br><span class="line">				fmt.Println()</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">Print1ToMaxOfDigits</span><span class="token punctuation">(</span>n <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">if</span> n <span class="token operator">&lt;=</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span>
+	<span class="token punctuation">}</span>
+
+	number <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span>
+	<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+		number<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> i
+		<span class="token function">print1ToMaxOfDigitsRecursively</span><span class="token punctuation">(</span>number<span class="token punctuation">,</span> n<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">print1ToMaxOfDigitsRecursively</span><span class="token punctuation">(</span>number <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">,</span> length <span class="token builtin">int</span><span class="token punctuation">,</span> index <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">if</span> index <span class="token operator">==</span> length<span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">{</span>
+		<span class="token function">printNumber</span><span class="token punctuation">(</span>number<span class="token punctuation">)</span>
+		<span class="token keyword">return</span>
+	<span class="token punctuation">}</span>
+
+	<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+		number<span class="token punctuation">[</span>index<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> i
+		<span class="token function">print1ToMaxOfDigitsRecursively</span><span class="token punctuation">(</span>number<span class="token punctuation">,</span> length<span class="token punctuation">,</span> index<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">printNumber</span><span class="token punctuation">(</span>number <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	<span class="token keyword">var</span> isBeginning0 <span class="token operator">=</span> <span class="token boolean">true</span>
+	length <span class="token operator">:=</span> <span class="token function">len</span><span class="token punctuation">(</span>number<span class="token punctuation">)</span>
+	<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> length<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> isBeginning0 <span class="token operator">&amp;&amp;</span> number<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+			isBeginning0 <span class="token operator">=</span> <span class="token boolean">false</span>
+		<span class="token punctuation">}</span>
+
+		<span class="token keyword">if</span> <span class="token operator">!</span>isBeginning0 <span class="token punctuation">{</span>
+			fmt<span class="token punctuation">.</span><span class="token function">Printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> number<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+			<span class="token keyword">if</span> i <span class="token operator">==</span> length<span class="token operator">-</span><span class="token number">1</span> <span class="token punctuation">{</span>
+				fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+			<span class="token punctuation">}</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 
 <p>Github: <a target="_blank" rel="noopener" href="https://github.com/luckydog612/algorithm">https://github.com/luckydog612/algorithm</a></p>
 
@@ -1283,7 +1324,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

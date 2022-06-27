@@ -7,7 +7,18 @@
     <meta name="keywords" content="golang - sha256 加密算法, echaser">
     <meta name="description" content="
 
-go 调用 sha256 加密字符串哈希值123456789101112131415161718192021package mainimport(    &#34;fmt&#34;    &#34;crypto/sha256&#34;    &#34;io&#34;    &#34;log&#34;">
+go 调用 sha256 加密字符串哈希值package main
+
+import(
+    &#34;fmt&#34;
+    &#34;crypto/sha256&#34;
+    &#34;io&#34;
+    &#34;log&#34;
+    &#34;os&#34;
+)
+
+func main() {
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -502,9 +513,41 @@ go 调用 sha256 加密字符串哈希值123456789101112131415161718192021packag
             <div id="articleContent">
                 <span id="more"></span>
 
-<h2 id="go-调用-sha256-加密"><a href="#go-调用-sha256-加密" class="headerlink" title="go 调用 sha256 加密"></a>go 调用 sha256 加密</h2><h3 id="字符串哈希值"><a href="#字符串哈希值" class="headerlink" title="字符串哈希值"></a>字符串哈希值</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import(</span><br><span class="line">    "fmt"</span><br><span class="line">    "crypto/sha256"</span><br><span class="line">    "io"</span><br><span class="line">    "log"</span><br><span class="line">    "os"</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() {</span><br><span class="line"></span><br><span class="line">    // 第一种调用方法</span><br><span class="line">    sum := sha256.Sum256([]byte("hello world\n"))</span><br><span class="line">    fmt.Printf("%x\n", sum)</span><br><span class="line"></span><br><span class="line">    // 第二种调用方法</span><br><span class="line">    h := sha256.New()</span><br><span class="line">    h.Write([]byte("hello world\n"))</span><br><span class="line">    fmt.Printf("%x\n", h.Sum(nil))</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="go-调用-sha256-加密"><a href="#go-调用-sha256-加密" class="headerlink" title="go 调用 sha256 加密"></a>go 调用 sha256 加密</h2><h3 id="字符串哈希值"><a href="#字符串哈希值" class="headerlink" title="字符串哈希值"></a>字符串哈希值</h3><pre class="language-none"><code class="language-none">package main
 
-<h3 id="文件哈希值"><a href="#文件哈希值" class="headerlink" title="文件哈希值"></a>文件哈希值</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 对文件加密</span><br><span class="line">f, err := os.Open("test.txt")</span><br><span class="line">if err != nil {</span><br><span class="line">    log.Fatal(err)</span><br><span class="line">}</span><br><span class="line">defer f.Close()</span><br><span class="line"></span><br><span class="line">h = sha256.New()</span><br><span class="line">if _, err := io.Copy(h, f); err != nil {</span><br><span class="line">    log.Fatal(err)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">fmt.Printf("%x\n", h.Sum(nil))</span><br></pre></td></tr></tbody></table></figure>
+import(
+    "fmt"
+    "crypto/sha256"
+    "io"
+    "log"
+    "os"
+)
+
+func main() {
+
+    // 第一种调用方法
+    sum := sha256.Sum256([]byte("hello world\n"))
+    fmt.Printf("%x\n", sum)
+
+    // 第二种调用方法
+    h := sha256.New()
+    h.Write([]byte("hello world\n"))
+    fmt.Printf("%x\n", h.Sum(nil))
+}</code></pre>
+
+<h3 id="文件哈希值"><a href="#文件哈希值" class="headerlink" title="文件哈希值"></a>文件哈希值</h3><pre class="language-none"><code class="language-none">// 对文件加密
+f, err := os.Open("test.txt")
+if err != nil {
+    log.Fatal(err)
+}
+defer f.Close()
+
+h = sha256.New()
+if _, err := io.Copy(h, f); err != nil {
+    log.Fatal(err)
+}
+
+fmt.Printf("%x\n", h.Sum(nil))</code></pre>
 
 <p>源码下载：<a target="_blank" rel="noopener" href="https://github.com/didianV5/blockchain/tree/master/encryption/sha256">https://github.com/didianV5/blockchain/tree/master/encryption/sha256</a></p>
 <h2 id="sha256-实现原理"><a href="#sha256-实现原理" class="headerlink" title="sha256 实现原理"></a>sha256 实现原理</h2><p>SHA-256 算法输入报文的最大长度不超过2^64 bit，输入按512-bit 分组进行处理，产生的输出是一个256-bit 的报文摘要。</p>
@@ -514,26 +557,132 @@ go 调用 sha256 加密字符串哈希值123456789101112131415161718192021packag
 <li><p><strong>附加长度值</strong> 将用64-bit 表示的初始报文（填充前）的位长度附加在步骤1 的结果后（低位字节优先）。</p>
 </li>
 <li><p><strong>初始化缓存</strong>：使用一个256-bit 的缓存来存放该散列函数的中间及最终结果。 该缓存表示为</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const (</span><br><span class="line">  init0     = 0x6A09E667</span><br><span class="line">  init1     = 0xBB67AE85</span><br><span class="line">  init2     = 0x3C6EF372</span><br><span class="line">  init3     = 0xA54FF53A</span><br><span class="line">  init4     = 0x510E527F</span><br><span class="line">  init5     = 0x9B05688C</span><br><span class="line">  init6     = 0x1F83D9AB</span><br><span class="line">  init7     = 0x5BE0CD19</span><br><span class="line">)</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">const (
+  init0     = 0x6A09E667
+  init1     = 0xBB67AE85
+  init2     = 0x3C6EF372
+  init3     = 0xA54FF53A
+  init4     = 0x510E527F
+  init5     = 0x9B05688C
+  init6     = 0x1F83D9AB
+  init7     = 0x5BE0CD19
+)</code></pre>
 </li>
 <li><p><strong>处理512-bit（16 个字）报文分组序列</strong>：该算法使用了六种基本逻辑函数，由64步迭代运算组成。每步都以256-bit 缓存值ABCDEFGH 为输入，然后更新缓存内容。 每步使用一个32-bit 常数值Kt 和一个32-bit Wt。</p>
 <ul>
 <li>常数K为</li>
 </ul>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">var _K = []uint32{</span><br><span class="line">  0x428a2f98,</span><br><span class="line">  0x71374491,</span><br><span class="line">  0xb5c0fbcf,</span><br><span class="line">  0xe9b5dba5,</span><br><span class="line">  0x3956c25b,</span><br><span class="line">  0x59f111f1,</span><br><span class="line">  0x923f82a4,</span><br><span class="line">  0xab1c5ed5,</span><br><span class="line">  0xd807aa98,</span><br><span class="line">  0x12835b01,</span><br><span class="line">  0x243185be,</span><br><span class="line">  0x550c7dc3,</span><br><span class="line">  0x72be5d74,</span><br><span class="line">  0x80deb1fe,</span><br><span class="line">  0x9bdc06a7,</span><br><span class="line">  0xc19bf174,</span><br><span class="line">  0xe49b69c1,</span><br><span class="line">  0xefbe4786,</span><br><span class="line">  0x0fc19dc6,</span><br><span class="line">  0x240ca1cc,</span><br><span class="line">  0x2de92c6f,</span><br><span class="line">  0x4a7484aa,</span><br><span class="line">  0x5cb0a9dc,</span><br><span class="line">  0x76f988da,</span><br><span class="line">  0x983e5152,</span><br><span class="line">  0xa831c66d,</span><br><span class="line">  0xb00327c8,</span><br><span class="line">  0xbf597fc7,</span><br><span class="line">  0xc6e00bf3,</span><br><span class="line">  0xd5a79147,</span><br><span class="line">  0x06ca6351,</span><br><span class="line">  0x14292967,</span><br><span class="line">  0x27b70a85,</span><br><span class="line">  0x2e1b2138,</span><br><span class="line">  0x4d2c6dfc,</span><br><span class="line">  0x53380d13,</span><br><span class="line">  0x650a7354,</span><br><span class="line">  0x766a0abb,</span><br><span class="line">  0x81c2c92e,</span><br><span class="line">  0x92722c85,</span><br><span class="line">  0xa2bfe8a1,</span><br><span class="line">  0xa81a664b,</span><br><span class="line">  0xc24b8b70,</span><br><span class="line">  0xc76c51a3,</span><br><span class="line">  0xd192e819,</span><br><span class="line">  0xd6990624,</span><br><span class="line">  0xf40e3585,</span><br><span class="line">  0x106aa070,</span><br><span class="line">  0x19a4c116,</span><br><span class="line">  0x1e376c08,</span><br><span class="line">  0x2748774c,</span><br><span class="line">  0x34b0bcb5,</span><br><span class="line">  0x391c0cb3,</span><br><span class="line">  0x4ed8aa4a,</span><br><span class="line">  0x5b9cca4f,</span><br><span class="line">  0x682e6ff3,</span><br><span class="line">  0x748f82ee,</span><br><span class="line">  0x78a5636f,</span><br><span class="line">  0x84c87814,</span><br><span class="line">  0x8cc70208,</span><br><span class="line">  0x90befffa,</span><br><span class="line">  0xa4506ceb,</span><br><span class="line">  0xbef9a3f7,</span><br><span class="line">  0xc67178f2,</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">var _K = []uint32{
+  0x428a2f98,
+  0x71374491,
+  0xb5c0fbcf,
+  0xe9b5dba5,
+  0x3956c25b,
+  0x59f111f1,
+  0x923f82a4,
+  0xab1c5ed5,
+  0xd807aa98,
+  0x12835b01,
+  0x243185be,
+  0x550c7dc3,
+  0x72be5d74,
+  0x80deb1fe,
+  0x9bdc06a7,
+  0xc19bf174,
+  0xe49b69c1,
+  0xefbe4786,
+  0x0fc19dc6,
+  0x240ca1cc,
+  0x2de92c6f,
+  0x4a7484aa,
+  0x5cb0a9dc,
+  0x76f988da,
+  0x983e5152,
+  0xa831c66d,
+  0xb00327c8,
+  0xbf597fc7,
+  0xc6e00bf3,
+  0xd5a79147,
+  0x06ca6351,
+  0x14292967,
+  0x27b70a85,
+  0x2e1b2138,
+  0x4d2c6dfc,
+  0x53380d13,
+  0x650a7354,
+  0x766a0abb,
+  0x81c2c92e,
+  0x92722c85,
+  0xa2bfe8a1,
+  0xa81a664b,
+  0xc24b8b70,
+  0xc76c51a3,
+  0xd192e819,
+  0xd6990624,
+  0xf40e3585,
+  0x106aa070,
+  0x19a4c116,
+  0x1e376c08,
+  0x2748774c,
+  0x34b0bcb5,
+  0x391c0cb3,
+  0x4ed8aa4a,
+  0x5b9cca4f,
+  0x682e6ff3,
+  0x748f82ee,
+  0x78a5636f,
+  0x84c87814,
+  0x8cc70208,
+  0x90befffa,
+  0xa4506ceb,
+  0xbef9a3f7,
+  0xc67178f2,
+}</code></pre>
 
 <ul>
 <li>Wt 是 分组之后的报文</li>
 </ul>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">for i := 0; i &lt; 16; i++ {</span><br><span class="line">      j := i * 4</span><br><span class="line">      w[i] = uint32(p[j])&lt;&lt;24 | uint32(p[j+1])&lt;&lt;16 | uint32(p[j+2])&lt;&lt;8 | uint32(p[j+3])</span><br><span class="line">  }</span><br><span class="line">  for i := 16; i &lt; 64; i++ {</span><br><span class="line">      v1 := w[i-2]</span><br><span class="line">      t1 := (v1&gt;&gt;17 | v1&lt;&lt;(32-17)) ^ (v1&gt;&gt;19 | v1&lt;&lt;(32-19)) ^ (v1 &gt;&gt; 10)</span><br><span class="line">      v2 := w[i-15]</span><br><span class="line">      t2 := (v2&gt;&gt;7 | v2&lt;&lt;(32-7)) ^ (v2&gt;&gt;18 | v2&lt;&lt;(32-18)) ^ (v2 &gt;&gt; 3)</span><br><span class="line">      w[i] = t1 + w[i-7] + t2 + w[i-16]</span><br><span class="line">  }</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">for i := 0; i &lt; 16; i++ {
+      j := i * 4
+      w[i] = uint32(p[j])&lt;&lt;24 | uint32(p[j+1])&lt;&lt;16 | uint32(p[j+2])&lt;&lt;8 | uint32(p[j+3])
+  }
+  for i := 16; i &lt; 64; i++ {
+      v1 := w[i-2]
+      t1 := (v1&gt;&gt;17 | v1&lt;&lt;(32-17)) ^ (v1&gt;&gt;19 | v1&lt;&lt;(32-19)) ^ (v1 &gt;&gt; 10)
+      v2 := w[i-15]
+      t2 := (v2&gt;&gt;7 | v2&lt;&lt;(32-7)) ^ (v2&gt;&gt;18 | v2&lt;&lt;(32-18)) ^ (v2 &gt;&gt; 3)
+      w[i] = t1 + w[i-7] + t2 + w[i-16]
+  }</code></pre>
 
 <ul>
 <li>64步迭代运算</li>
 </ul>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">for i := 0; i &lt; 64; i++ {</span><br><span class="line">      t1 := h + ((e&gt;&gt;6 | e&lt;&lt;(32-6)) ^ (e&gt;&gt;11 | e&lt;&lt;(32-11)) ^ (e&gt;&gt;25 | e&lt;&lt;(32-25))) + ((e &amp; f) ^ (^e &amp; g)) + _K[i] + w[i]</span><br><span class="line"></span><br><span class="line">      t2 := ((a&gt;&gt;2 | a&lt;&lt;(32-2)) ^ (a&gt;&gt;13 | a&lt;&lt;(32-13)) ^ (a&gt;&gt;22 | a&lt;&lt;(32-22))) + ((a &amp; b) ^ (a &amp; c) ^ (b &amp; c))</span><br><span class="line"></span><br><span class="line">      h = g</span><br><span class="line">      g = f</span><br><span class="line">      f = e</span><br><span class="line">      e = d + t1</span><br><span class="line">      d = c</span><br><span class="line">      c = b</span><br><span class="line">      b = a</span><br><span class="line">      a = t1 + t2</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  h0 += a</span><br><span class="line">  h1 += b</span><br><span class="line">  h2 += c</span><br><span class="line">  h3 += d</span><br><span class="line">  h4 += e</span><br><span class="line">  h5 += f</span><br><span class="line">  h6 += g</span><br><span class="line">  h7 += h</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">for i := 0; i &lt; 64; i++ {
+      t1 := h + ((e&gt;&gt;6 | e&lt;&lt;(32-6)) ^ (e&gt;&gt;11 | e&lt;&lt;(32-11)) ^ (e&gt;&gt;25 | e&lt;&lt;(32-25))) + ((e &amp; f) ^ (^e &amp; g)) + _K[i] + w[i]
+
+      t2 := ((a&gt;&gt;2 | a&lt;&lt;(32-2)) ^ (a&gt;&gt;13 | a&lt;&lt;(32-13)) ^ (a&gt;&gt;22 | a&lt;&lt;(32-22))) + ((a &amp; b) ^ (a &amp; c) ^ (b &amp; c))
+
+      h = g
+      g = f
+      f = e
+      e = d + t1
+      d = c
+      c = b
+      b = a
+      a = t1 + t2
+  }
+
+  h0 += a
+  h1 += b
+  h2 += c
+  h3 += d
+  h4 += e
+  h5 += f
+  h6 += g
+  h7 += h</code></pre>
 </li>
 <li><p><strong>生成256-bit的报文摘要</strong> 所有的512-bit分组处理完毕后，对于SHA-256算法最后一个分组产生的输出便是256-bit的报文摘要。</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dig.h[0], dig.h[1], dig.h[2], dig.h[3], dig.h[4], dig.h[5], dig.h[6], dig.h[7] = h0, h1, h2, h3, h4, h5, h6, h7</span><br></pre></td></tr></tbody></table></figure></li>
+<pre class="language-none"><code class="language-none">dig.h[0], dig.h[1], dig.h[2], dig.h[3], dig.h[4], dig.h[5], dig.h[6], dig.h[7] = h0, h1, h2, h3, h4, h5, h6, h7</code></pre></li>
 </ul>
 <h2 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h2><p>源码地址： <a target="_blank" rel="noopener" href="https://github.com/didianV5/blockchain/tree/master/encryption/sha256/source">https://github.com/didianV5/blockchain/tree/master/encryption/sha256/source</a></p>
 
@@ -1296,7 +1445,7 @@ go 调用 sha256 加密字符串哈希值123456789101112131415161718192021packag
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

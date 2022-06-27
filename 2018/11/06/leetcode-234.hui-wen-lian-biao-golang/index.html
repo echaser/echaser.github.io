@@ -9,12 +9,14 @@
 
 请判断一个链表是否为回文链表。
 示例 1:
-12输入: 1-&amp;gt;2输出: false
+输入: 1-&amp;gt;2
+输出: false
 
 示例 2:
-12输入: 1-&amp;gt;2-&amp;gt;2-&amp;gt;1输出: true
+输入: 1-&amp;gt;2-&amp;gt;2-&amp;gt;1
+输出: true
 
-进阶：你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解">
+进阶：你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -477,7 +479,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    177
+                    175
                 </div>
                 
 
@@ -511,14 +513,39 @@
 
 <p>请判断一个链表是否为回文链表。</p>
 <p>示例 1:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 1-&gt;2</span><br><span class="line">输出: false</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">输入: 1-&gt;2
+输出: false</code></pre>
 
 <p>示例 2:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 1-&gt;2-&gt;2-&gt;1</span><br><span class="line">输出: true</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">输入: 1-&gt;2-&gt;2-&gt;1
+输出: true</code></pre>
 
 <p>进阶：<br>你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？</p>
 <p>思路：遍历链表，将所有节点按顺序存储到<code>map</code>集合中，通过<code>map</code>的键从两头开始遍历对比，值不相等返回<code>false</code>。</p>
-<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isPalindrome</span><span class="params">(head *ListNode)</span></span> <span class="type">bool</span> {</span><br><span class="line">	m := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">int</span>]*ListNode)</span><br><span class="line">	i := <span class="number">0</span></span><br><span class="line">	m = TraverListNode(head, m, i)</span><br><span class="line">	start := <span class="number">0</span></span><br><span class="line">	end := <span class="built_in">len</span>(m) - <span class="number">1</span></span><br><span class="line">	<span class="keyword">for</span> start &lt;= end {</span><br><span class="line">		<span class="keyword">if</span> m[start].Val != m[end].Val {</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">		}</span><br><span class="line">		start++</span><br><span class="line">		end--</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TraverListNode</span><span class="params">(head *ListNode, m <span class="keyword">map</span>[<span class="type">int</span>]*ListNode, i <span class="type">int</span>)</span></span> <span class="keyword">map</span>[<span class="type">int</span>]*ListNode {</span><br><span class="line">	<span class="keyword">if</span> head == <span class="literal">nil</span> {</span><br><span class="line">		<span class="keyword">return</span> m</span><br><span class="line">	}</span><br><span class="line">	m[i] = head</span><br><span class="line">	i++</span><br><span class="line">	<span class="keyword">return</span> TraverListNode(head.Next, m, i)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">isPalindrome</span><span class="token punctuation">(</span>head <span class="token operator">*</span>ListNode<span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">{</span>
+	m <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token operator">*</span>ListNode<span class="token punctuation">)</span>
+	i <span class="token operator">:=</span> <span class="token number">0</span>
+	m <span class="token operator">=</span> <span class="token function">TraverListNode</span><span class="token punctuation">(</span>head<span class="token punctuation">,</span> m<span class="token punctuation">,</span> i<span class="token punctuation">)</span>
+	start <span class="token operator">:=</span> <span class="token number">0</span>
+	end <span class="token operator">:=</span> <span class="token function">len</span><span class="token punctuation">(</span>m<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
+	<span class="token keyword">for</span> start <span class="token operator">&lt;=</span> end <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> m<span class="token punctuation">[</span>start<span class="token punctuation">]</span><span class="token punctuation">.</span>Val <span class="token operator">!=</span> m<span class="token punctuation">[</span>end<span class="token punctuation">]</span><span class="token punctuation">.</span>Val <span class="token punctuation">{</span>
+			<span class="token keyword">return</span> <span class="token boolean">false</span>
+		<span class="token punctuation">}</span>
+		start<span class="token operator">++</span>
+		end<span class="token operator">--</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">TraverListNode</span><span class="token punctuation">(</span>head <span class="token operator">*</span>ListNode<span class="token punctuation">,</span> m <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token operator">*</span>ListNode<span class="token punctuation">,</span> i <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token operator">*</span>ListNode <span class="token punctuation">{</span>
+	<span class="token keyword">if</span> head <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> m
+	<span class="token punctuation">}</span>
+	m<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> head
+	i<span class="token operator">++</span>
+	<span class="token keyword">return</span> <span class="token function">TraverListNode</span><span class="token punctuation">(</span>head<span class="token punctuation">.</span>Next<span class="token punctuation">,</span> m<span class="token punctuation">,</span> i<span class="token punctuation">)</span>
+<span class="token punctuation">}</span></code></pre>
                 
             </div>
             <hr/>
@@ -1278,7 +1305,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

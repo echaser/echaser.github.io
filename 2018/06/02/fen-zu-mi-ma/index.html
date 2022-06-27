@@ -533,22 +533,36 @@
 <h3 id="ECB模式的特点"><a href="#ECB模式的特点" class="headerlink" title="ECB模式的特点"></a>ECB模式的特点</h3><p>ECB模式是所有模式中最简单的一种。ECB的明文分组与密文分组是一一对应的关系，因此，如果明文中存在多个相同的明文分组，则这些明文分组最终都会将被转换为相同的密文分组。这样一来，只要观察一下密文，就可以知道明文中存在怎样的重复组合，并可以以此为线索来破译密码，因此ECB模式是存在风险的。</p>
 <h3 id="对ECB模式的攻击"><a href="#对ECB模式的攻击" class="headerlink" title="对ECB模式的攻击"></a>对ECB模式的攻击</h3><p>假如存在主动攻击者Mallory，它能够改变密文分组的顺序。当接收者对密文进行解密时，由于密文分组的顺序被改变了，因此相应的明文分组的顺序也会改变。也就是说，攻击者Mallory无需破译密码就能够操纵明文。</p>
 <p>列举一个银行转账的简单例子，假设某银行转账数据由以下3个分组构成。</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">分组1 = 付款人的银行账号</span><br><span class="line">分组2 = 收款人的银行账号</span><br><span class="line">分组3 = 转转金额</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">分组1 = 付款人的银行账号
+分组2 = 收款人的银行账号
+分组3 = 转转金额</code></pre>
 
 <p>我们可以制作一个“从 A 账号 向 B账号转账1000元”的数据，用16进制数据表示如下：</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">明文分组1 = 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 （付款人：A）</span><br><span class="line"></span><br><span class="line">明文分组2 = 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30  （收款人： B）</span><br><span class="line"></span><br><span class="line">明文分组3 = 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40  （转账金额： 1000）</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">明文分组1 = 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 （付款人：A）
+
+明文分组2 = 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30  （收款人： B）
+
+明文分组3 = 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40 40  （转账金额： 1000）</code></pre>
 
 <p>经过 ECB模式进行加密，</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">密文分组1 = 1A 2C 1A 2C 1A 2C 1A 2C 1A 2C 1A 2C 1A 2C 1A 2C （付款人：*）</span><br><span class="line"></span><br><span class="line">密文分组2 = 2D 3F 2D 3F 2D 3F 2D 3F 2D 3F 2D 3F 2D 3F 2D 3F （收款人： *）</span><br><span class="line"></span><br><span class="line">密文分组3 = 4D 5E 4D 5E 4D 5E 4D 5E 4D 5E 4D 5E 4D 5E 4D 5E （转账金额： **）</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">密文分组1 = 1A 2C 1A 2C 1A 2C 1A 2C 1A 2C 1A 2C 1A 2C 1A 2C （付款人：*）
+
+密文分组2 = 2D 3F 2D 3F 2D 3F 2D 3F 2D 3F 2D 3F 2D 3F 2D 3F （收款人： *）
+
+密文分组3 = 4D 5E 4D 5E 4D 5E 4D 5E 4D 5E 4D 5E 4D 5E 4D 5E （转账金额： **）</code></pre>
 
 <p>如果攻击者 Mallory 将密文分组1 和 2 内容对调，</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">密文分组1 = 2D 3F 2D 3F 2D 3F 2D 3F 2D 3F 2D 3F 2D 3F 2D 3F （付款人： *）</span><br><span class="line"></span><br><span class="line">密文分组2 = 1A 2C 1A 2C 1A 2C 1A 2C 1A 2C 1A 2C 1A 2C 1A 2C （收款人：*）</span><br><span class="line"></span><br><span class="line">密文分组3 = 4D 5E 4D 5E 4D 5E 4D 5E 4D 5E 4D 5E 4D 5E 4D 5E （转账金额： **）</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">密文分组1 = 2D 3F 2D 3F 2D 3F 2D 3F 2D 3F 2D 3F 2D 3F 2D 3F （付款人： *）
+
+密文分组2 = 1A 2C 1A 2C 1A 2C 1A 2C 1A 2C 1A 2C 1A 2C 1A 2C （收款人：*）
+
+密文分组3 = 4D 5E 4D 5E 4D 5E 4D 5E 4D 5E 4D 5E 4D 5E 4D 5E （转账金额： **）</code></pre>
 
 <p>那请求内容从A向B转账1000，变成了B向A转账1000。我们可以看出ECB模式的缺点是可以在不破译密文的情况下操纵明文。</p>
 <h2 id="CBC模式"><a href="#CBC模式" class="headerlink" title="CBC模式"></a>CBC模式</h2><p>CBC模式，全称Cipher Block Chaining模式，译为密文分组链接模式，即加密算法的输入是上一个密文分组和下一个明文分组的异或。因为是将上一个密文分组和下一个明文分组的内容混合加密，因此可以避免ECB模式的缺陷。当加密第一个明文分组时，由于不存在上一个密文分组，因此需要准备与分组等长的初始化向量IV，来代替上一个密文分组。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/11383699-7c325eb4c24bac7a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
 <p><strong>初始化向量</strong>：当加密第一个明文分组时，由于不存在“前一个密文分组”，因此需要事先准备一个长度为一个分组的比特序列来代替“前一个密文分组”，这个比特序列称为初始化向量，通常缩写为IV。</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func NewCBCEncrypter(b Block, iv []byte) BlockMode</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">func NewCBCEncrypter(b Block, iv []byte) BlockMode</code></pre>
 
 <p>当我们使用 CBC模式的时候，需要传入 iv（初始化向量）</p>
 <h3 id="CBC模式的特点"><a href="#CBC模式的特点" class="headerlink" title="CBC模式的特点"></a>CBC模式的特点</h3><ul>
@@ -1508,7 +1522,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

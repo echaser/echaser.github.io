@@ -523,29 +523,34 @@
 </ul>
 <h2 id="安装服务端与客户端"><a href="#安装服务端与客户端" class="headerlink" title="安装服务端与客户端"></a>安装服务端与客户端</h2><p>安装Go1.9+</p>
 <p>设置GOPATH环境变量</p>
-<h3 id="安装libtool-与-libltdl-dev-依赖包"><a href="#安装libtool-与-libltdl-dev-依赖包" class="headerlink" title="安装libtool 与 libltdl-dev 依赖包"></a>安装libtool 与 libltdl-dev 依赖包</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install libtool libltdl-dev</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="安装libtool-与-libltdl-dev-依赖包"><a href="#安装libtool-与-libltdl-dev-依赖包" class="headerlink" title="安装libtool 与 libltdl-dev 依赖包"></a>安装libtool 与 libltdl-dev 依赖包</h3><pre class="language-none"><code class="language-none">$ sudo apt update
+$ sudo apt install libtool libltdl-dev</code></pre>
 
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>安装服务端与客户端二进制命令到$GOPATH/bin目录下</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ go get -u github.com/hyperledger/fabric-ca/cmd/...</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ go get -u github.com/hyperledger/fabric-ca/cmd/...</code></pre>
 
 <p>切换至源码目录下：</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd $GOPATH/src/github.com/hyperledger/fabric-ca/</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ cd $GOPATH/src/github.com/hyperledger/fabric-ca/</code></pre>
 
 <p>使用make命令编译：</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ make fabric-ca-server</span><br><span class="line">$ make fabric-ca-client</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ make fabric-ca-server
+$ make fabric-ca-client</code></pre>
 
 <p>生成 <code>bin</code> 目录, 目录中包含 <code>fabric-ca-client</code> 与 <code>fabric-ca-server</code> 两个可执行文件</p>
 <p>设置环境变量</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ export PATH=$GOPATH/src/github.com/hyperledger/fabric-ca/bin:$PATH</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ export PATH=$GOPATH/src/github.com/hyperledger/fabric-ca/bin:$PATH</code></pre>
 
 <h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>返回至用户目录</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~</span><br><span class="line">$ mkdir fabric-ca</span><br><span class="line">$ cd fabric-ca</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ cd ~
+$ mkdir fabric-ca
+$ cd fabric-ca</code></pre>
 
 <p>fabric-ca启动:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 使用init进行初始化</span><br><span class="line">2. 使用start启动</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">1. 使用init进行初始化
+2. 使用start启动</code></pre>
 
 <p>初始化</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fabric-ca-server init -b admin:pass</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ fabric-ca-server init -b admin:pass</code></pre>
 
 <p>生成配置文件到至当前目录</p>
 <ul>
@@ -555,30 +560,187 @@
 <li>msp/keystore/: 路径下存放个人身份的私钥文件(_sk文件), 对应签名证书</li>
 </ul>
 <h3 id="快速启动"><a href="#快速启动" class="headerlink" title="快速启动"></a>快速启动</h3><p>快速启动并初始化一个fabric-ca-server服务</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fabric-ca-server start -b admin:pass</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ fabric-ca-server start -b admin:pass</code></pre>
 
 <p>-b: 提供注册用户的名称与密码, 如果没有使用LDAP, 这个选项为必需. 默认的配置文件的名称为fabric-ca-server-config.yaml</p>
 <blockquote>
 <p>如果之前没有执行初始化命令, 则启动过程中会自动先进行初始化操作. 即从主配置目录搜索相关证书和配置文件, 如果不存在则会自动生成</p>
 </blockquote>
 <h3 id="RESTful-API"><a href="#RESTful-API" class="headerlink" title="RESTful API"></a>RESTful API</h3><p>在打开的新终端中输入以下命令获取指定CA服务的基本信息.</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -X POST -d '{"caname":"test_ca"}' http://localhost:7054/api/v1/cainfo</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ curl -X POST -d '{"caname":"test_ca"}' http://localhost:7054/api/v1/cainfo</code></pre>
 
 <blockquote>
 <p>如要获取默认CA服务的基本信息, 可以不带任何参数, 如:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -X POST http://localhost:7054/api/v1/cainfo</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ curl -X POST http://localhost:7054/api/v1/cainfo</code></pre>
 </blockquote>
 <h2 id="服务端命令剖析"><a href="#服务端命令剖析" class="headerlink" title="服务端命令剖析"></a>服务端命令剖析</h2><p>fabric-ca-server命令主要负责启动一个CA服务, 包括init和start两个子命令</p>
 <h3 id="服务端配置文件解析"><a href="#服务端配置文件解析" class="headerlink" title="服务端配置文件解析"></a>服务端配置文件解析</h3><p>fabric-ca-server-config.yaml配置文件包括通用配置, TLS配置, CA配置, 注册管理配置, 数据库配置, LDAP配置, 组织结构配置, 签名, 证书申请等几部分</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br></pre></td><td class="code"><pre><span class="line">version: 1.1.1-snapshot-e656889</span><br><span class="line">port: 7054              # 指定服务的监听端口</span><br><span class="line">debug: false            # 是否启用DEBUG模式, 输出更多的调试信息上</span><br><span class="line">crlsizelimit: 512000</span><br><span class="line"></span><br><span class="line"># 是否在服务端启用TLS,如果启用TLS后进行身份验证的证书和签名的私钥</span><br><span class="line">tls:    </span><br><span class="line">  enabled: false        # 是否启用TLS, 默认不启用</span><br><span class="line">  certfile:         # TLS证书文件</span><br><span class="line">  keyfile:          # TLS密钥文件</span><br><span class="line">  clientauth:   # 客户端验证配置</span><br><span class="line">    type: noclientcert      # 默认不进行身份验证</span><br><span class="line">    certfiles:      # 进行客户端身份验证时, 信任的证书文件列表</span><br><span class="line"></span><br><span class="line"># 包括实例的名称、签名私钥文件、身份验证证书和证书链文件乖；这些私钥和证书文件会用来作为生成ECert、TCert的根证书</span><br><span class="line">ca:     </span><br><span class="line">  name:         # CA服务名称. 可以支持多个服务</span><br><span class="line">  keyfile:      # 密钥文件(默认: ca-key.pem)</span><br><span class="line">  certfile:     # 证书文件(默认: ca-cert.pem)</span><br><span class="line">  chainfile:    # 证书链文件(默认: chain-cert.pem)</span><br><span class="line"></span><br><span class="line">crl:</span><br><span class="line">  expiry: 24h</span><br><span class="line"></span><br><span class="line"># 当fabric-ca-server自身提供用户的注册管理时使用, 此情况下需要禁用LDAP功能, 否则fabric-ca-server将会把注册管理数据转发到LDAP进行查询</span><br><span class="line">registry:</span><br><span class="line">  # 允许同一个用户名和密码进行enrollment的最大次数, -1为无限制, 0为不支持登记</span><br><span class="line">  maxenrollments: -1        </span><br><span class="line">  identities:   # 注册的实体信息, 可以进行enroll. 只有当LDAP未启用时起作用</span><br><span class="line">     - name: admin</span><br><span class="line">       pass: adminpw</span><br><span class="line">       type: client</span><br><span class="line">       affiliation: ""</span><br><span class="line">       attrs:</span><br><span class="line">          hf.Registrar.Roles: "peer,orderer,client,user"</span><br><span class="line">          hf.Registrar.DelegateRoles: "peer,orderer,client,user"</span><br><span class="line">          hf.Revoker: true</span><br><span class="line">          hf.IntermediateCA: true       # 该id是否是一个中间层的CA</span><br><span class="line">          hf.GenCRL: true</span><br><span class="line">          hf.Registrar.Attributes: "*"</span><br><span class="line">          hf.AffiliationMgr: true</span><br><span class="line"></span><br><span class="line"># 数据库支持SQLite3、MySQL、Postgres. 默认为SQLite3类型的本地数据库. 如果要配置集群, 则需要选用MySQL或Postgres后端数据库, 并在前端部署负载均衡器(如Nginx或HAProxy)</span><br><span class="line">db:</span><br><span class="line">  type: sqlite3</span><br><span class="line">  datasource: fabric-ca-server.db       # SQLite3文件路径</span><br><span class="line">  tls:</span><br><span class="line">      enabled: false    # 是否启用TLS来连接到数据库</span><br><span class="line">      certfiles:        # PEM格式的数据库服务器的TLS根证书, 可以指定多个, 用逗号隔开</span><br><span class="line">      client:</span><br><span class="line">        certfile:       # PEM格式的客户端证书文件</span><br><span class="line">        keyfile:        # PEM格式的客户端证书私钥文件</span><br><span class="line"></span><br><span class="line"># 配置使用远端的LDAP来进行注册管理, 认证enrollment的用户和密码, 并获取用户属性信息. 此时, 服务端将按照指定的usrfilter从LDAP获取对应的用户, 利用其唯一识别名(distinguidhed name)和给定的密码进行验证. </span><br><span class="line"># 当LDAP功能启用时, registry中的配置将被忽略</span><br><span class="line">ldap:</span><br><span class="line">   enabled: false   # 是否启用LDAP, 默认不启用</span><br><span class="line">   url: ldap://&lt;adminDN&gt;:&lt;adminPassword&gt;@&lt;host&gt;:&lt;port&gt;/&lt;base&gt;   # LDAP的服务地址</span><br><span class="line">   tls:</span><br><span class="line">      certfiles:    # PEM格式的LDAP服务器的TLS根证书, 可以为多个, 用逗号隔开</span><br><span class="line">      client:</span><br><span class="line">         certfile:  # PEM格式的客户端证书文件</span><br><span class="line">         keyfile:   # PEM格式的客户端证书私钥文件</span><br><span class="line">   attribute:    </span><br><span class="line">      names: ['uid','member']     </span><br><span class="line">      converters:</span><br><span class="line">         - name:</span><br><span class="line">           value:      </span><br><span class="line">      maps:</span><br><span class="line">         groups:</span><br><span class="line">            - name:</span><br><span class="line">              value:</span><br><span class="line"></span><br><span class="line"># 组织结构配置</span><br><span class="line">affiliations:</span><br><span class="line">   org1:</span><br><span class="line">      - department1</span><br><span class="line">      - department2</span><br><span class="line">   org2:</span><br><span class="line">      - department1</span><br><span class="line"></span><br><span class="line"># 签发证书相关的配置包括签名方法、证书超时时间等. fabric-ca-server可以作为用户证书的签发CA(默认情况下), 也可以作为根CA来进一步支持其它中间CA</span><br><span class="line">signing:</span><br><span class="line">    default:    # 默认情况下,用于签署Ecert</span><br><span class="line">      usage:    # 所签发证书的KeyUsage extension域</span><br><span class="line">        - digital signature</span><br><span class="line">      expiry: 8760h</span><br><span class="line">    profiles:   # 不同的签发配置</span><br><span class="line">      ca:   # 签署中间层CA证书时的配置模板</span><br><span class="line">         usage:</span><br><span class="line">           - cert sign  # 所签发证书的KeyUsage extension域</span><br><span class="line">           - crl sign</span><br><span class="line">         expiry: 43800h</span><br><span class="line">         caconstraint:</span><br><span class="line">           isca: true</span><br><span class="line">           maxpathlen: 0    # 限制该中间层CA无法进一步签署中间层CA</span><br><span class="line">      tls:</span><br><span class="line">         usage:</span><br><span class="line">            - signing</span><br><span class="line">            - key encipherment</span><br><span class="line">            - server auth</span><br><span class="line">            - client auth</span><br><span class="line">            - key agreement</span><br><span class="line">         expiry: 8760h</span><br><span class="line"></span><br><span class="line"># CA自身证书的申请请求配置. 当CA作为根证书服务时, 将基于请求生成一个自签名的证书; 当CA作为中间证书服务时, 将请求发送给上层的根证书进行签署</span><br><span class="line">csr:</span><br><span class="line">   cn: fabric-ca-server     # 建议与服务器名一致</span><br><span class="line">   names:</span><br><span class="line">      - C: US</span><br><span class="line">        ST: "North Carolina"</span><br><span class="line">        L:</span><br><span class="line">        O: Hyperledger</span><br><span class="line">        OU: Fabric</span><br><span class="line">   hosts:</span><br><span class="line">     - kevin-hf</span><br><span class="line">     - localhost</span><br><span class="line">   ca:      # 配置后会加入到证书的扩展字段</span><br><span class="line">      expiry: 131400h       # 超时时间</span><br><span class="line">      pathlength: 1         # 允许产生的中间证书的深度</span><br><span class="line"></span><br><span class="line"># 配置所选择的加密库</span><br><span class="line">bccsp:</span><br><span class="line">    default: SW</span><br><span class="line">    sw:</span><br><span class="line">        hash: SHA2</span><br><span class="line">        security: 256</span><br><span class="line">        filekeystore:</span><br><span class="line">            keystore: msp/keystore      # 存放密钥文件的路径</span><br><span class="line"></span><br><span class="line"># 自动创建除了默认CA外的多个CA实例, 如ca1、ca2等</span><br><span class="line">cacount:</span><br><span class="line"></span><br><span class="line"># 可以指定多个CA配置文件路径, 每个配置文件会启动一个CA服务,注意不同配置文件之间需要避免出现冲突(如服务端口、TLS证书等)</span><br><span class="line">cafiles:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 当CA作为中间层CA服务时的相关配置. 包括父CA的地址和名称、登记信息、TLS配置等.</span><br><span class="line"># 注意: 当intermediate.parentserver.url非空时, 意味着本CA是中间层CA服务,否则为根CA服务</span><br><span class="line">intermediate:</span><br><span class="line">  parentserver:     # 父CA相关信息</span><br><span class="line">    url:</span><br><span class="line">    caname:</span><br><span class="line"></span><br><span class="line">  enrollment:       # 在父CA侧的登记信息</span><br><span class="line">    hosts:          # 证书主机名列表</span><br><span class="line">    profile:        # 签发所用的profile</span><br><span class="line">    label:          # HSM操作中的标签信息</span><br><span class="line"></span><br><span class="line">  tls:      # TLS相关配置</span><br><span class="line">    certfiles:      # 信任的根CA证书</span><br><span class="line">    client:         # 客户端验证启用时的相关文件</span><br><span class="line">      certfile:</span><br><span class="line">      keyfile:</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">version: 1.1.1-snapshot-e656889
+port: 7054              # 指定服务的监听端口
+debug: false            # 是否启用DEBUG模式, 输出更多的调试信息上
+crlsizelimit: 512000
+
+# 是否在服务端启用TLS,如果启用TLS后进行身份验证的证书和签名的私钥
+tls:    
+  enabled: false        # 是否启用TLS, 默认不启用
+  certfile:         # TLS证书文件
+  keyfile:          # TLS密钥文件
+  clientauth:   # 客户端验证配置
+    type: noclientcert      # 默认不进行身份验证
+    certfiles:      # 进行客户端身份验证时, 信任的证书文件列表
+
+# 包括实例的名称、签名私钥文件、身份验证证书和证书链文件乖；这些私钥和证书文件会用来作为生成ECert、TCert的根证书
+ca:     
+  name:         # CA服务名称. 可以支持多个服务
+  keyfile:      # 密钥文件(默认: ca-key.pem)
+  certfile:     # 证书文件(默认: ca-cert.pem)
+  chainfile:    # 证书链文件(默认: chain-cert.pem)
+
+crl:
+  expiry: 24h
+
+# 当fabric-ca-server自身提供用户的注册管理时使用, 此情况下需要禁用LDAP功能, 否则fabric-ca-server将会把注册管理数据转发到LDAP进行查询
+registry:
+  # 允许同一个用户名和密码进行enrollment的最大次数, -1为无限制, 0为不支持登记
+  maxenrollments: -1        
+  identities:   # 注册的实体信息, 可以进行enroll. 只有当LDAP未启用时起作用
+     - name: admin
+       pass: adminpw
+       type: client
+       affiliation: ""
+       attrs:
+          hf.Registrar.Roles: "peer,orderer,client,user"
+          hf.Registrar.DelegateRoles: "peer,orderer,client,user"
+          hf.Revoker: true
+          hf.IntermediateCA: true       # 该id是否是一个中间层的CA
+          hf.GenCRL: true
+          hf.Registrar.Attributes: "*"
+          hf.AffiliationMgr: true
+
+# 数据库支持SQLite3、MySQL、Postgres. 默认为SQLite3类型的本地数据库. 如果要配置集群, 则需要选用MySQL或Postgres后端数据库, 并在前端部署负载均衡器(如Nginx或HAProxy)
+db:
+  type: sqlite3
+  datasource: fabric-ca-server.db       # SQLite3文件路径
+  tls:
+      enabled: false    # 是否启用TLS来连接到数据库
+      certfiles:        # PEM格式的数据库服务器的TLS根证书, 可以指定多个, 用逗号隔开
+      client:
+        certfile:       # PEM格式的客户端证书文件
+        keyfile:        # PEM格式的客户端证书私钥文件
+
+# 配置使用远端的LDAP来进行注册管理, 认证enrollment的用户和密码, 并获取用户属性信息. 此时, 服务端将按照指定的usrfilter从LDAP获取对应的用户, 利用其唯一识别名(distinguidhed name)和给定的密码进行验证. 
+# 当LDAP功能启用时, registry中的配置将被忽略
+ldap:
+   enabled: false   # 是否启用LDAP, 默认不启用
+   url: ldap://&lt;adminDN&gt;:&lt;adminPassword&gt;@&lt;host&gt;:&lt;port&gt;/&lt;base&gt;   # LDAP的服务地址
+   tls:
+      certfiles:    # PEM格式的LDAP服务器的TLS根证书, 可以为多个, 用逗号隔开
+      client:
+         certfile:  # PEM格式的客户端证书文件
+         keyfile:   # PEM格式的客户端证书私钥文件
+   attribute:    
+      names: ['uid','member']     
+      converters:
+         - name:
+           value:      
+      maps:
+         groups:
+            - name:
+              value:
+
+# 组织结构配置
+affiliations:
+   org1:
+      - department1
+      - department2
+   org2:
+      - department1
+
+# 签发证书相关的配置包括签名方法、证书超时时间等. fabric-ca-server可以作为用户证书的签发CA(默认情况下), 也可以作为根CA来进一步支持其它中间CA
+signing:
+    default:    # 默认情况下,用于签署Ecert
+      usage:    # 所签发证书的KeyUsage extension域
+        - digital signature
+      expiry: 8760h
+    profiles:   # 不同的签发配置
+      ca:   # 签署中间层CA证书时的配置模板
+         usage:
+           - cert sign  # 所签发证书的KeyUsage extension域
+           - crl sign
+         expiry: 43800h
+         caconstraint:
+           isca: true
+           maxpathlen: 0    # 限制该中间层CA无法进一步签署中间层CA
+      tls:
+         usage:
+            - signing
+            - key encipherment
+            - server auth
+            - client auth
+            - key agreement
+         expiry: 8760h
+
+# CA自身证书的申请请求配置. 当CA作为根证书服务时, 将基于请求生成一个自签名的证书; 当CA作为中间证书服务时, 将请求发送给上层的根证书进行签署
+csr:
+   cn: fabric-ca-server     # 建议与服务器名一致
+   names:
+      - C: US
+        ST: "North Carolina"
+        L:
+        O: Hyperledger
+        OU: Fabric
+   hosts:
+     - kevin-hf
+     - localhost
+   ca:      # 配置后会加入到证书的扩展字段
+      expiry: 131400h       # 超时时间
+      pathlength: 1         # 允许产生的中间证书的深度
+
+# 配置所选择的加密库
+bccsp:
+    default: SW
+    sw:
+        hash: SHA2
+        security: 256
+        filekeystore:
+            keystore: msp/keystore      # 存放密钥文件的路径
+
+# 自动创建除了默认CA外的多个CA实例, 如ca1、ca2等
+cacount:
+
+# 可以指定多个CA配置文件路径, 每个配置文件会启动一个CA服务,注意不同配置文件之间需要避免出现冲突(如服务端口、TLS证书等)
+cafiles:
+
+
+# 当CA作为中间层CA服务时的相关配置. 包括父CA的地址和名称、登记信息、TLS配置等.
+# 注意: 当intermediate.parentserver.url非空时, 意味着本CA是中间层CA服务,否则为根CA服务
+intermediate:
+  parentserver:     # 父CA相关信息
+    url:
+    caname:
+
+  enrollment:       # 在父CA侧的登记信息
+    hosts:          # 证书主机名列表
+    profile:        # 签发所用的profile
+    label:          # HSM操作中的标签信息
+
+  tls:      # TLS相关配置
+    certfiles:      # 信任的根CA证书
+    client:         # 客户端验证启用时的相关文件
+      certfile:
+      keyfile:</code></pre>
 
 <h3 id="与服务器端进行交互"><a href="#与服务器端进行交互" class="headerlink" title="与服务器端进行交互"></a>与服务器端进行交互</h3><p>可以采用包括RESTful API在内的多种方式与Fabric-CA服务端进行交互. 其中最方便的方式是通过客户端工具 fabric-ca-client</p>
 <h4 id="登记用户"><a href="#登记用户" class="headerlink" title="登记用户"></a>登记用户</h4><p>注册管理员需要以管理员身份使用CA Client连接到CA Server，并生成相应的文件</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ export PATH=$GOPATH/src/github.com/hyperledger/fabric-ca/bin:$PATH</span><br><span class="line">$ fabric-ca-client enroll -u http://admin:pass@localhost:7054</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ export PATH=$GOPATH/src/github.com/hyperledger/fabric-ca/bin:$PATH
+$ fabric-ca-client enroll -u http://admin:pass@localhost:7054</code></pre>
 
 <blockquote>
 <p>如果生成的配置文件不是在当前目录下, 则运行登记命令后可能会产生如下错误</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Error: Response from server: Error Code: 20 - Authorization failure</span><br><span class="line">解决方式: 返回至目录下重新启动服务</span><br><span class="line">$ cd ~</span><br><span class="line">$ fabric-ca-server start -b admin:pass</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">Error: Response from server: Error Code: 20 - Authorization failure
+解决方式: 返回至目录下重新启动服务
+$ cd ~
+$ fabric-ca-server start -b admin:pass</code></pre>
 </blockquote>
 <p>-u: 进行连接的fabric-ca-server服务地址, 默认为”<a target="_blank" rel="noopener" href="http://localhost:7054/">http://localhost:7054</a>”</p>
 <p>该命令访问本地Fabric CA服务, 采用默认的admin用户进行登记. 默认情况下会在用户目录下的.fabric-ca-clien子目录下创建默认的配置文件 <code>fabric-ca-clien-config.yaml</code> 和 <code>msp</code> 子目录(包括签发的证书文件)</p>
@@ -586,31 +748,52 @@
 <p>可以使用 <code>$ tree .fabric-ca-client/</code> 命令查看结构</p>
 </blockquote>
 <h4 id="注册用户"><a href="#注册用户" class="headerlink" title="注册用户"></a>注册用户</h4><p>登记后的用户身份可以采用如下命令来注册一个新的用户:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fabric-ca-client register --id.name kevin --id.type user --id.affiliation org1.department1 --id.attrs '"hf.Registrar.Roles=peer,user"' --id.attrs 'hf.Revoker=true'</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ fabric-ca-client register --id.name kevin --id.type user --id.affiliation org1.department1 --id.attrs '"hf.Registrar.Roles=peer,user"' --id.attrs 'hf.Revoker=true'</code></pre>
 
 <p>执行后输出:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2018/05/02 14:39:28 [INFO] Configuration file location: /home/kevin/.fabric-ca-client/fabric-ca-client-config.yaml</span><br><span class="line">Password: KDwrXkAFENWW</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">2018/05/02 14:39:28 [INFO] Configuration file location: /home/kevin/.fabric-ca-client/fabric-ca-client-config.yaml
+Password: KDwrXkAFENWW</code></pre>
 
 <blockquote>
 <p><strong>命令执行成功后返回该新注册用户的密码</strong></p>
 <p><strong>如果想使用指定的密码, 在命令中添加选项 –id.secret password 即可</strong></p>
 </blockquote>
 <p>可以再次使用enroll命令，给kevin这个用户生成msp的私钥和证书</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fabric-ca-client enroll -u http://kevin:KDwrXkAFENWW@localhost:7054 -M kevinca</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ fabric-ca-client enroll -u http://kevin:KDwrXkAFENWW@localhost:7054 -M kevinca</code></pre>
 
 <blockquote>
 <p>-M: 指定生成证书存放目录MSP的路径, 默认为”msp”</p>
 <p>命令执行成功后会在 <code>.fabric-ca-client</code> 目录下生成指定的userca目录, 在此目录下生成msp的私钥和证书</p>
 <p>可使用tree使用查看</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ tree .fabric-ca-client/</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ tree .fabric-ca-client/</code></pre>
 
 <p>输出内容如下:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">.fabric-ca-client/</span><br><span class="line">├── fabric-ca-client-config.yaml</span><br><span class="line">├── kevinca</span><br><span class="line">│   ├── cacerts</span><br><span class="line">│   │   └── localhost-7054.pem</span><br><span class="line">│   ├── intermediatecerts</span><br><span class="line">│   │   └── localhost-7054.pem</span><br><span class="line">│   ├── keystore</span><br><span class="line">│   │   ├── 8c7e4d893af9b9a5907299097edd69c9adee743f4421f81a2d73ed55a874545e_sk</span><br><span class="line">│   │   └── ec63821399143fc422e01596eca622e8c658c0ded8e5c189804180256c40c19e_sk</span><br><span class="line">│   └── signcerts</span><br><span class="line">│       └── cert.pem</span><br><span class="line">├── msp</span><br><span class="line">    ├── cacerts</span><br><span class="line">    │   └── localhost-7054.pem</span><br><span class="line">    ├── intermediatecerts</span><br><span class="line">    │   └── localhost-7054.pem</span><br><span class="line">    ├── keystore</span><br><span class="line">    │   └── eaa009831dc406950766cc1df104f6fb3ed4b456faa5f476dc41db817a873d2a_sk</span><br><span class="line">    └── signcerts</span><br><span class="line">        └── cert.pem</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">.fabric-ca-client/
+├── fabric-ca-client-config.yaml
+├── kevinca
+│   ├── cacerts
+│   │   └── localhost-7054.pem
+│   ├── intermediatecerts
+│   │   └── localhost-7054.pem
+│   ├── keystore
+│   │   ├── 8c7e4d893af9b9a5907299097edd69c9adee743f4421f81a2d73ed55a874545e_sk
+│   │   └── ec63821399143fc422e01596eca622e8c658c0ded8e5c189804180256c40c19e_sk
+│   └── signcerts
+│       └── cert.pem
+├── msp
+    ├── cacerts
+    │   └── localhost-7054.pem
+    ├── intermediatecerts
+    │   └── localhost-7054.pem
+    ├── keystore
+    │   └── eaa009831dc406950766cc1df104f6fb3ed4b456faa5f476dc41db817a873d2a_sk
+    └── signcerts
+        └── cert.pem</code></pre>
 </blockquote>
 <h4 id="登记节点"><a href="#登记节点" class="headerlink" title="登记节点"></a>登记节点</h4><p>登记Peer或Orderer节点的操作与登记用户身份类似. 可以通过-M指定本地MSP的根路径来在其下存放证书文件</p>
-<h5 id="注册节点"><a href="#注册节点" class="headerlink" title="注册节点:"></a>注册节点:</h5><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fabric-ca-client register --id.name peer0 --id.type peer --id.affiliation org1.department1 --id.secret peer0pw</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="注册节点"><a href="#注册节点" class="headerlink" title="注册节点:"></a>注册节点:</h5><pre class="language-none"><code class="language-none">$ fabric-ca-client register --id.name peer0 --id.type peer --id.affiliation org1.department1 --id.secret peer0pw</code></pre>
 
-<h5 id="登记节点-1"><a href="#登记节点-1" class="headerlink" title="登记节点"></a>登记节点</h5><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fabric-ca-client enroll -u http://peer0:peer0pw@localhost:7054 -M peer0</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="登记节点-1"><a href="#登记节点-1" class="headerlink" title="登记节点"></a>登记节点</h5><pre class="language-none"><code class="language-none">$ fabric-ca-client enroll -u http://peer0:peer0pw@localhost:7054 -M peer0</code></pre>
 
 <h2 id="客户端命令剖析"><a href="#客户端命令剖析" class="headerlink" title="客户端命令剖析"></a>客户端命令剖析</h2><p>fabric-ca-client命令可以与服务端进行交互, 包括五个子命令:</p>
 <ul>
@@ -622,42 +805,54 @@
 </ul>
 <p>这些命令都是通过服务端的RESTful接口来进行操作的</p>
 <h3 id="enroll命令"><a href="#enroll命令" class="headerlink" title="enroll命令"></a>enroll命令</h3><p>向服务端申请签发ECert证书并将文件保存至本地</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fabric-ca-client enroll -u http://admin:pass@localhost:7054</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ fabric-ca-client enroll -u http://admin:pass@localhost:7054</code></pre>
 
 <h3 id="getcacert命令"><a href="#getcacert命令" class="headerlink" title="getcacert命令"></a>getcacert命令</h3><p>向服务端申请根证书信息并保存至本地主配置目录的msp/cacerts路径下</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fabric-ca-client getcacert -u http://admin:pass@localhost:7054</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ fabric-ca-client getcacert -u http://admin:pass@localhost:7054</code></pre>
 
 <p>证书命名格式为: 服务器主机名-CA实例名.pem</p>
 <h3 id="reenroll命令"><a href="#reenroll命令" class="headerlink" title="reenroll命令"></a>reenroll命令</h3><p>利用本地配置信息再次执行enroll过程, 生成新的签名证书材料</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fabric-ca-client reenroll</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ fabric-ca-client reenroll</code></pre>
 
 <h3 id="register命令"><a href="#register命令" class="headerlink" title="register命令"></a>register命令</h3><p>执行注册新用户实体的客户端必须已经通过登记认证, 并且拥有足够的权限(所注册用户的hf.Registrar.Roles和affiliation都不能超出调用者属性)来进行注册</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fabric-ca-client register --id.name jack --id.type user --id.affiliation org1.department1 --id.attrs '"hf.Registrar.Roles=peer,user"' --id.attrs 'hf.Revoker=true' --id.secret jackpw</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ fabric-ca-client register --id.name jack --id.type user --id.affiliation org1.department1 --id.attrs '"hf.Registrar.Roles=peer,user"' --id.attrs 'hf.Revoker=true' --id.secret jackpw</code></pre>
 
 <h3 id="revoke命令"><a href="#revoke命令" class="headerlink" title="revoke命令"></a>revoke命令</h3><p>吊销指定的证书或指定实体相关的所有证书. 执行revoke命令的客户端身份必须拥有足够的权限(hf.Revoker为true, 并且被吊销者机构不能超出吊销者机构的范围)</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ fabric-ca-client revoke -e "jack" -r "affiliationchange"</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ fabric-ca-client revoke -e "jack" -r "affiliationchange"</code></pre>
 
 <p>-e: 指定吊销用户</p>
 <p>-r: 指定吊销原因</p>
 <p>输出内容如下</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2018/05/02 17:55:44 [INFO] Configuration file location: .fabric-ca-client/fabric-ca-client-config.yaml</span><br><span class="line">2018/05/02 17:55:44 [INFO] Sucessfully revoked certificates: []</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">2018/05/02 17:55:44 [INFO] Configuration file location: .fabric-ca-client/fabric-ca-client-config.yaml
+2018/05/02 17:55:44 [INFO] Sucessfully revoked certificates: []</code></pre>
 
 <h2 id="查看AKI和序列号"><a href="#查看AKI和序列号" class="headerlink" title="查看AKI和序列号"></a>查看AKI和序列号</h2><p>AKI: 公钥标识号, 代表了对该证书进行签发机构的身份</p>
 <p>查看根证书的AKI与序列号信息:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ openssl x509 -in .fabric-ca-client/msp/signcerts/cert.pem -text -noout</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ openssl x509 -in .fabric-ca-client/msp/signcerts/cert.pem -text -noout</code></pre>
 
 <p>输出内容如下:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Certificate:</span><br><span class="line">    Data:</span><br><span class="line">        Version: 3 (0x2)</span><br><span class="line">        Serial Number:  # 序列号</span><br><span class="line">            74:48:88:33:70:1a:01:a0:ad:32:29:6e:c5:ab:5a:fa:3b:91:25:a4</span><br><span class="line">   ......</span><br><span class="line">        X509v3 extensions:</span><br><span class="line">           ......</span><br><span class="line">            X509v3 Authority Key Identifier:    # keyid后面的内容就是 AKI</span><br><span class="line">                keyid:45:B1:50:B6:CD:8A:8D:C5:9B:9E:5F:75:15:47:D6:C0:AD:75:FE:71</span><br><span class="line"></span><br><span class="line">    ......</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:  # 序列号
+            74:48:88:33:70:1a:01:a0:ad:32:29:6e:c5:ab:5a:fa:3b:91:25:a4
+   ......
+        X509v3 extensions:
+           ......
+            X509v3 Authority Key Identifier:    # keyid后面的内容就是 AKI
+                keyid:45:B1:50:B6:CD:8A:8D:C5:9B:9E:5F:75:15:47:D6:C0:AD:75:FE:71
 
-<h3 id="单独获取AKI"><a href="#单独获取AKI" class="headerlink" title="单独获取AKI"></a>单独获取AKI</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ openssl x509 -in .fabric-ca-client/msp/signcerts/cert.pem -text -noout | awk '/keyid/ {gsub (/ *keyid:|:/,"",$1);print tolower($0)}'</span><br></pre></td></tr></tbody></table></figure>
+    ......</code></pre>
+
+<h3 id="单独获取AKI"><a href="#单独获取AKI" class="headerlink" title="单独获取AKI"></a>单独获取AKI</h3><pre class="language-none"><code class="language-none">$ openssl x509 -in .fabric-ca-client/msp/signcerts/cert.pem -text -noout | awk '/keyid/ {gsub (/ *keyid:|:/,"",$1);print tolower($0)}'</code></pre>
 
 <p>输出内容如下:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">45b150b6cd8a8dc59b9e5f751547d6c0ad75fe71</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">45b150b6cd8a8dc59b9e5f751547d6c0ad75fe71</code></pre>
 
-<h3 id="单独获取序列号"><a href="#单独获取序列号" class="headerlink" title="单独获取序列号"></a>单独获取序列号</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ openssl x509 -in .fabric-ca-client/msp/signcerts/cert.pem -serial -noout | cut -d "=" -f 2</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="单独获取序列号"><a href="#单独获取序列号" class="headerlink" title="单独获取序列号"></a>单独获取序列号</h3><pre class="language-none"><code class="language-none">$ openssl x509 -in .fabric-ca-client/msp/signcerts/cert.pem -serial -noout | cut -d "=" -f 2</code></pre>
 
 <p>输出内容如下:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">74488833701A01A0AD32296EC5AB5AFA3B9125A4</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">74488833701A01A0AD32296EC5AB5AFA3B9125A4</code></pre>
                 
             </div>
             <hr/>
@@ -1429,7 +1624,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

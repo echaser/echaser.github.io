@@ -9,11 +9,12 @@
 
 node测试关闭网络
 $ sudo ./byfn.sh \-m down
-进入到fabric-samples/fabcar目录中12$ cd ../fabcar/$ ls
+进入到fabric-samples/fabcar目录中$ cd ../fabcar/
+$ ls
 
 
 如果是完整的环境,目录中应该包含如下文件:
-enrollAd">
+enrollAdm">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -514,141 +515,239 @@ enrollAd">
 
 <h1 id="node测试"><a href="#node测试" class="headerlink" title="node测试"></a>node测试</h1><p>关闭网络</p>
 <p><code>$ sudo ./byfn.sh \-m down</code></p>
-<h3 id="进入到fabric-samples-x2F-fabcar目录中"><a href="#进入到fabric-samples-x2F-fabcar目录中" class="headerlink" title="进入到fabric-samples/fabcar目录中"></a>进入到fabric-samples/fabcar目录中</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd ../fabcar/</span><br><span class="line">$ ls</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="进入到fabric-samples-x2F-fabcar目录中"><a href="#进入到fabric-samples-x2F-fabcar目录中" class="headerlink" title="进入到fabric-samples/fabcar目录中"></a>进入到fabric-samples/fabcar目录中</h3><pre class="language-none"><code class="language-none">$ cd ../fabcar/
+$ ls</code></pre>
 
 <blockquote>
 <p>如果是完整的环境,目录中应该包含如下文件:</p>
 <p><code>enrollAdmin.js invoke.js package.json query.js registerUser.js startFabric.sh</code></p>
 </blockquote>
-<h3 id="移除所有处于活动中的Docker容器"><a href="#移除所有处于活动中的Docker容器" class="headerlink" title="移除所有处于活动中的Docker容器"></a>移除所有处于活动中的Docker容器</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker rm -f $(docker ps -aq)</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="移除所有处于活动中的Docker容器"><a href="#移除所有处于活动中的Docker容器" class="headerlink" title="移除所有处于活动中的Docker容器"></a>移除所有处于活动中的Docker容器</h3><pre class="language-none"><code class="language-none">$ sudo docker rm -f $(docker ps -aq)</code></pre>
 
 <p>docker rm : 删除当前指定的Docker容器</p>
 <p>​ docker rm -f $(docker ps -aq)</p>
 <p>​ -f: 强制删除</p>
 <p>查看Docker</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker ps</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ sudo docker ps</code></pre>
 
-<h3 id="清除所有的网络缓存"><a href="#清除所有的网络缓存" class="headerlink" title="清除所有的网络缓存:"></a>清除所有的网络缓存:</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker network prune</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="清除所有的网络缓存"><a href="#清除所有的网络缓存" class="headerlink" title="清除所有的网络缓存:"></a>清除所有的网络缓存:</h3><pre class="language-none"><code class="language-none">$ sudo docker network prune</code></pre>
 
 <h3 id="删除链码图像-链码镜像"><a href="#删除链码图像-链码镜像" class="headerlink" title="删除链码图像(链码镜像)"></a>删除链码图像(链码镜像)</h3><p>删除fabcar智能合约的底层链码图像。如果您是第一次运行此项目可以不执行(系统上不会有此链接代码图像)</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker rmi dev-peer0.org1.example.com-fabcar-1.0-5c906e402ed29f20260ae42283216aa75549c571e2e380f3615826365d8269ba</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ sudo docker rmi dev-peer0.org1.example.com-fabcar-1.0-5c906e402ed29f20260ae42283216aa75549c571e2e380f3615826365d8269ba</code></pre>
 
 <p>删除指定的Docker镜像文件</p>
 <p>​ docker rmi image_id</p>
 <h3 id="安装客户端"><a href="#安装客户端" class="headerlink" title="安装客户端"></a>安装客户端</h3><p>安装应用程序的Fabric依赖关系</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ npm install</code></pre>
 
 <blockquote>
 <p><strong>下载最好使用稳定的VPN</strong></p>
 <p>npm install: 根据 package.json 读取依赖的信息并安装</p>
 <p><strong>如果未安装Node则先按如下步骤安装Node及npm</strong></p>
-<h4 id="安装nvm"><a href="#安装nvm" class="headerlink" title="安装nvm"></a>安装nvm</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.10/install.sh | bash</span><br><span class="line"></span><br><span class="line">$ export NVM_DIR="$HOME/.nvm"</span><br><span class="line">$ [ -s "$NVM_DIR/nvm.sh" ] &amp;&amp; \. "$NVM_DIR/nvm.sh" </span><br></pre></td></tr></tbody></table></figure>
+<h4 id="安装nvm"><a href="#安装nvm" class="headerlink" title="安装nvm"></a>安装nvm</h4><pre class="language-none"><code class="language-none">$ sudo apt update
+$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.10/install.sh | bash
 
-<h4 id="安装Node"><a href="#安装Node" class="headerlink" title="安装Node"></a>安装Node</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nvm install v8.11.1</span><br></pre></td></tr></tbody></table></figure>
+$ export NVM_DIR="$HOME/.nvm"
+$ [ -s "$NVM_DIR/nvm.sh" ] &amp;&amp; \. "$NVM_DIR/nvm.sh" </code></pre>
+
+<h4 id="安装Node"><a href="#安装Node" class="headerlink" title="安装Node"></a>安装Node</h4><pre class="language-none"><code class="language-none">$ nvm install v8.11.1</code></pre>
 
 <p>检查Node版本</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ node -v</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ node -v</code></pre>
 
 <p>输出: <code>v8.11.1</code></p>
 <p>检查npm版本</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm -v</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ npm -v</code></pre>
 
 <p>输出: <code>5.6.0</code></p>
 </blockquote>
-<h3 id="启动网络"><a href="#启动网络" class="headerlink" title="启动网络"></a>启动网络</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ./startFabric.sh</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="启动网络"><a href="#启动网络" class="headerlink" title="启动网络"></a>启动网络</h3><pre class="language-none"><code class="language-none">$ sudo ./startFabric.sh</code></pre>
 
 <p>该命令将启动各种Fabric实体，并启动用Golang编写的链式代码的智能合约容器</p>
 <hr>
 <blockquote>
 <p>如出现以下错误</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR: manifest for hyperledger/fabric-ca:latest not found</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">ERROR: manifest for hyperledger/fabric-ca:latest not found</code></pre>
 
 <p>则说明环境中缺少 fabric-ca 镜像</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">下载镜像</span><br><span class="line">$ sudo docker pull hyperledger/fabric-ca:x86_64-1.1.0-preview</span><br><span class="line"></span><br><span class="line">将其标记为最新</span><br><span class="line">$ sudo docker tag hyperledger/fabric-ca:x86_64-1.1.0-preview hyperledger/fabric-ca:latest</span><br><span class="line"></span><br><span class="line">检查</span><br><span class="line">$ sudo docker images</span><br><span class="line"></span><br><span class="line">重新启动</span><br><span class="line">$ sudo ./startFabric.sh</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">下载镜像
+$ sudo docker pull hyperledger/fabric-ca:x86_64-1.1.0-preview
+
+将其标记为最新
+$ sudo docker tag hyperledger/fabric-ca:x86_64-1.1.0-preview hyperledger/fabric-ca:latest
+
+检查
+$ sudo docker images
+
+重新启动
+$ sudo ./startFabric.sh</code></pre>
 </blockquote>
 <hr>
-<h4 id="可选执行-流式处理CA日志-打开新的终端并执行如下命令"><a href="#可选执行-流式处理CA日志-打开新的终端并执行如下命令" class="headerlink" title="可选执行(流式处理CA日志, 打开新的终端并执行如下命令)"></a>可选执行(流式处理CA日志, 打开新的终端并执行如下命令)</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker logs -f ca.example.com</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="可选执行-流式处理CA日志-打开新的终端并执行如下命令"><a href="#可选执行-流式处理CA日志-打开新的终端并执行如下命令" class="headerlink" title="可选执行(流式处理CA日志, 打开新的终端并执行如下命令)"></a>可选执行(流式处理CA日志, 打开新的终端并执行如下命令)</h4><pre class="language-none"><code class="language-none">$ sudo docker logs -f ca.example.com</code></pre>
 
-<h3 id="注册管理员用户"><a href="#注册管理员用户" class="headerlink" title="注册管理员用户"></a>注册管理员用户</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ node enrollAdmin.js</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="注册管理员用户"><a href="#注册管理员用户" class="headerlink" title="注册管理员用户"></a>注册管理员用户</h3><pre class="language-none"><code class="language-none">$ node enrollAdmin.js</code></pre>
 
 <p>命令执行后输出如下内容:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Successfully enrolled admin user "admin"</span><br><span class="line">Assigned the admin user to the fabric client ::{"name":"admin","mspid":"Org1MSP","roles":null,"affiliation":"","enrollmentSecret":"","enrollment":{"signingIdentity":"dc412dcc161b5732737e98e77fda03433b55408d79b10195f0ff150fc995924a","identity":{"certificate":"-----BEGIN CERTIFICATE-----\nMIICATCCAaigAwIBAgIUMjxyVKytJHiYigb+usxuVlmeI8kwCgYIKoZIzj0EAwIw\nczELMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNh\nbiBGcmFuY2lzY28xGTAXBgNVBAoTEG9yZzEuZXhhbXBsZS5jb20xHDAaBgNVBAMT\nE2NhLm9yZzEuZXhhbXBsZS5jb20wHhcNMTgwNDI2MDcyNzAwWhcNMTkwNDI2MDcz\nMjAwWjAhMQ8wDQYDVQQLEwZjbGllbnQxDjAMBgNVBAMTBWFkbWluMFkwEwYHKoZI\nzj0CAQYIKoZIzj0DAQcDQgAEszinoLQrvnKVYl9FUT8ebxT2jIz5lKCk5olL1cox\n/JchmLPG8Ew1roM2TgG64rvT1nrl1EvMwmD8oEOMgmGqwKNsMGowDgYDVR0PAQH/\nBAQDAgeAMAwGA1UdEwEB/wQCMAAwHQYDVR0OBBYEFNG9kJBZBDSOwFxVHTDByNOl\nMvDSMCsGA1UdIwQkMCKAIEI5qg3NdtruuLoM2nAYUdFFBNMarRst3dusalc2Xkl8\nMAoGCCqGSM49BAMCA0cAMEQCIA1Ugh8NW3tS0GkuUrURdwQrSnFkdWTQhJ1/GvRd\nJbeTAiBGdDpHu/6mZG8dpguA0EaqSHrWJBQra4Vj1Fm9F1+zNg==\n-----END CERTIFICATE-----\n"}}}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">Successfully enrolled admin user "admin"
+Assigned the admin user to the fabric client ::{"name":"admin","mspid":"Org1MSP","roles":null,"affiliation":"","enrollmentSecret":"","enrollment":{"signingIdentity":"dc412dcc161b5732737e98e77fda03433b55408d79b10195f0ff150fc995924a","identity":{"certificate":"-----BEGIN CERTIFICATE-----\nMIICATCCAaigAwIBAgIUMjxyVKytJHiYigb+usxuVlmeI8kwCgYIKoZIzj0EAwIw\nczELMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNh\nbiBGcmFuY2lzY28xGTAXBgNVBAoTEG9yZzEuZXhhbXBsZS5jb20xHDAaBgNVBAMT\nE2NhLm9yZzEuZXhhbXBsZS5jb20wHhcNMTgwNDI2MDcyNzAwWhcNMTkwNDI2MDcz\nMjAwWjAhMQ8wDQYDVQQLEwZjbGllbnQxDjAMBgNVBAMTBWFkbWluMFkwEwYHKoZI\nzj0CAQYIKoZIzj0DAQcDQgAEszinoLQrvnKVYl9FUT8ebxT2jIz5lKCk5olL1cox\n/JchmLPG8Ew1roM2TgG64rvT1nrl1EvMwmD8oEOMgmGqwKNsMGowDgYDVR0PAQH/\nBAQDAgeAMAwGA1UdEwEB/wQCMAAwHQYDVR0OBBYEFNG9kJBZBDSOwFxVHTDByNOl\nMvDSMCsGA1UdIwQkMCKAIEI5qg3NdtruuLoM2nAYUdFFBNMarRst3dusalc2Xkl8\nMAoGCCqGSM49BAMCA0cAMEQCIA1Ugh8NW3tS0GkuUrURdwQrSnFkdWTQhJ1/GvRd\nJbeTAiBGdDpHu/6mZG8dpguA0EaqSHrWJBQra4Vj1Fm9F1+zNg==\n-----END CERTIFICATE-----\n"}}}</code></pre>
 
 <p>成功执行后会调用证书签名请求（CSR），并最终将eCert和密钥材料输出到此文件夹中<code>./hfc-key-store</code>, 应用程序将在创建用户或加载身份对象时查找此位置</p>
-<h3 id="注册-user1用户"><a href="#注册-user1用户" class="headerlink" title="注册 user1用户"></a>注册 user1用户</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ node registerUser.js</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="注册-user1用户"><a href="#注册-user1用户" class="headerlink" title="注册 user1用户"></a>注册 user1用户</h3><pre class="language-none"><code class="language-none">$ node registerUser.js</code></pre>
 
 <p>user1</p>
 <p>该命令执行后调用CSR并将密钥和eCert输出到<code>./hfc-key-store</code>子目录中</p>
 <p>执行命令后输出如下:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Successfully loaded admin from persistence</span><br><span class="line">Successfully registered user1 - secret:mrOjTeyeUmWY</span><br><span class="line">Successfully enrolled member user "user1" </span><br><span class="line">User1 was successfully registered and enrolled and is ready to intreact with the fabric network</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">Successfully loaded admin from persistence
+Successfully registered user1 - secret:mrOjTeyeUmWY
+Successfully enrolled member user "user1" 
+User1 was successfully registered and enrolled and is ready to intreact with the fabric network</code></pre>
 
-<h3 id="查询分类帐"><a href="#查询分类帐" class="headerlink" title="查询分类帐"></a>查询分类帐</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ node query.js</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="查询分类帐"><a href="#查询分类帐" class="headerlink" title="查询分类帐"></a>查询分类帐</h3><pre class="language-none"><code class="language-none">$ node query.js</code></pre>
 
 <p>命令执行后输出如下</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Successfully loaded user1 from persistence</span><br><span class="line">Query has completed, checking results</span><br><span class="line">Response is  [{"Key":"CAR0", "Record"{"colour":"blue","make":"Toyota","model":"Prius","owner":"Tomoko"}},</span><br><span class="line">{"Key":"CAR1", "Record":{"colour":"red","make":"Ford","model":"Mustang","owner":"Brad"}},{"Key":"CAR2", "Record":{"colour":"green","make":"Hyundai","model":"Tucson","owner":"Jin Soo"}},{"Key":"CAR3", "Record":{"colour":"yellow","make":"Volkswagen","model":"Passat","owner":"Max"}},{"Key":"CAR4", "Record":{"colour":"black","make":"Tesla","model":"S","owner":"Adriana"}},{"Key":"CAR5", "Record":{"colour":"purple","make":"Peugeot","model":"205","owner":"Michel"}},{"Key":"CAR6", "Record":</span><br><span class="line">{"colour":"white","make":"Chery","model":"S22L","owner":"Aarav"}},{"Key":"CAR7", "Record":{"colour":"violet","make":"Fiat","model":"Punto","owner":"Pari"}},{"Key":"CAR8", "Record":{"colour":"indigo","make":"Tata","model":"Nano","owner":"Valeria"}},{"Key":"CAR9", "Record":{"colour":"brown","make":"Holden","model":"Barina","owner":"Shotaro"}}]</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">Successfully loaded user1 from persistence
+Query has completed, checking results
+Response is  [{"Key":"CAR0", "Record"{"colour":"blue","make":"Toyota","model":"Prius","owner":"Tomoko"}},
+{"Key":"CAR1", "Record":{"colour":"red","make":"Ford","model":"Mustang","owner":"Brad"}},{"Key":"CAR2", "Record":{"colour":"green","make":"Hyundai","model":"Tucson","owner":"Jin Soo"}},{"Key":"CAR3", "Record":{"colour":"yellow","make":"Volkswagen","model":"Passat","owner":"Max"}},{"Key":"CAR4", "Record":{"colour":"black","make":"Tesla","model":"S","owner":"Adriana"}},{"Key":"CAR5", "Record":{"colour":"purple","make":"Peugeot","model":"205","owner":"Michel"}},{"Key":"CAR6", "Record":
+{"colour":"white","make":"Chery","model":"S22L","owner":"Aarav"}},{"Key":"CAR7", "Record":{"colour":"violet","make":"Fiat","model":"Punto","owner":"Pari"}},{"Key":"CAR8", "Record":{"colour":"indigo","make":"Tata","model":"Nano","owner":"Valeria"}},{"Key":"CAR9", "Record":{"colour":"brown","make":"Holden","model":"Barina","owner":"Shotaro"}}]</code></pre>
 
 <p>由Adriana拥有的黑色特斯拉Model S，由Brad拥有的红色Ford Mustang，由Pari拥有的紫色Fiat Punto等等。</p>
 <p>分类账是基于K-V的，在上面的信息中，Key为CAR0至CAR9</p>
 <p>打开query.js</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat query.js</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ cat query.js</code></pre>
 
 <p>发现应用程序的初始部分定义了某些变量，例如通道名称，证书存储位置和网络端点</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var channel = fabric_client.newChannel('mychannel');</span><br><span class="line">var peer = fabric_client.newPeer('grpc://localhost:7051');</span><br><span class="line">channel.addPeer(peer);</span><br><span class="line"></span><br><span class="line">var member_user = null;</span><br><span class="line">var store_path = path.join(__dirname, 'hfc-key-store');</span><br><span class="line">console.log('Store path:'+store_path);</span><br><span class="line">var tx_id = null;</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">var channel = fabric_client.newChannel('mychannel');
+var peer = fabric_client.newPeer('grpc://localhost:7051');
+channel.addPeer(peer);
+
+var member_user = null;
+var store_path = path.join(__dirname, 'hfc-key-store');
+console.log('Store path:'+store_path);
+var tx_id = null;</code></pre>
 
 <p>query.js文件有如下代码使用第二个身份<code>user1</code>作为此应用程序的签署实体。指定<code>user1</code>为签名者</p>
 <p><code>fabric_client.getUserContext('user1', true);</code></p>
 <p>这是实现查询功能的语句块：</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// queryCar chaincode function - requires 1 argument, ex: args: ['CAR4'],</span><br><span class="line">// queryAllCars chaincode function - requires no arguments , ex: args: [''],</span><br><span class="line">const request = {</span><br><span class="line">  //targets : --- letting this default to the peers assigned to the channel</span><br><span class="line">  chaincodeId: 'fabcar',</span><br><span class="line">  fcn: 'queryAllCars',</span><br><span class="line">  args: ['']</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line">调用链码命令:</span><br><span class="line">    chaincode query -n 链码名称 -C 通道名称 -c 调用链码时所需要传递的参数</span><br><span class="line">    -c '{"Args":["FunctionName", "查询Key"]}'</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">// queryCar chaincode function - requires 1 argument, ex: args: ['CAR4'],
+// queryAllCars chaincode function - requires no arguments , ex: args: [''],
+const request = {
+  //targets : --- letting this default to the peers assigned to the channel
+  chaincodeId: 'fabcar',
+  fcn: 'queryAllCars',
+  args: ['']
+};
+
+调用链码命令:
+    chaincode query -n 链码名称 -C 通道名称 -c 调用链码时所需要传递的参数
+    -c '{"Args":["FunctionName", "查询Key"]}'</code></pre>
 
 <p>当应用程序运行时，它会调用对等<code>fabcar</code>体上的链式代码，运行其中的<code>queryAllCars</code>函数,且不传递任何参数.</p>
 <p>使用编辑器打开query.js</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim query.js</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ vim query.js</code></pre>
 
 <p>修改其查询块内容,更改<code>queryAllCars</code>为<code>queryCar</code>并将<code>CAR4</code>作为特定Key为参数传递来执行此操作</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const request = {</span><br><span class="line">  //targets : --- letting this default to the peers assigned to the channel</span><br><span class="line">  chaincodeId: 'fabcar',</span><br><span class="line">  fcn: 'queryCar',</span><br><span class="line">  args: ['CAR4']</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">const request = {
+  //targets : --- letting this default to the peers assigned to the channel
+  chaincodeId: 'fabcar',
+  fcn: 'queryCar',
+  args: ['CAR4']
+};</code></pre>
 
 <p>保存退出后运行:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ node query.js</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ node query.js</code></pre>
 
 <p>执行后返回如下</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Successfully loaded user1 from persistence</span><br><span class="line">Query has completed, checking results</span><br><span class="line">Response is  {"colour":"black","make":"Tesla","model":"S","owner":"Adriana"}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">Successfully loaded user1 from persistence
+Query has completed, checking results
+Response is  {"colour":"black","make":"Tesla","model":"S","owner":"Adriana"}</code></pre>
 
 <p>使用该<code>queryCar</code>功能，我们可以查询任何关键字（例如<code>CAR0</code>）并获取与该车相对应的任何品牌，型号，颜色和所有者</p>
 <h3 id="更新分类帐"><a href="#更新分类帐" class="headerlink" title="更新分类帐"></a>更新分类帐</h3><p>修改 <code>invoke.js</code>, 找到<code>var request</code>中的<code>fcn</code>与<code>args</code>, 添加一条新的数据</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim invoke.js</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ vim invoke.js</code></pre>
 
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var request = {</span><br><span class="line">            //targets: let default to the peer assigned to the client</span><br><span class="line">            chaincodeId: 'fabcar',</span><br><span class="line">            fcn: 'createCar',</span><br><span class="line">            args: ['CAR10','Chevy','Volt','Red','Nick'],</span><br><span class="line">            chainId: 'mychannel',</span><br><span class="line">            txId: tx_id</span><br><span class="line">    };</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">var request = {
+            //targets: let default to the peer assigned to the client
+            chaincodeId: 'fabcar',
+            fcn: 'createCar',
+            args: ['CAR10','Chevy','Volt','Red','Nick'],
+            chainId: 'mychannel',
+            txId: tx_id
+    };</code></pre>
 
 <p>保存退出后执行</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ node invoke.js</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ node invoke.js</code></pre>
 
 <p>执行成功,输出如下</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Successfully loaded user1 from persistence</span><br><span class="line">Assigning transaction_id:  801d0636b9aa94cc7782af21ec2a10ebb12f929bd722afcee1f2b7b923485c82</span><br><span class="line">Transaction proposal was good</span><br><span class="line">Successfully sent Proposal and received ProposalResponse: Status - 200, message - "OK"</span><br><span class="line">The transaction has been committed on peer localhost:7053</span><br><span class="line">Send transaction promise and event listener promise have completed</span><br><span class="line">Successfully sent transaction to the orderer.</span><br><span class="line">Successfully committed the change to the ledger by the peer</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">Successfully loaded user1 from persistence
+Assigning transaction_id:  801d0636b9aa94cc7782af21ec2a10ebb12f929bd722afcee1f2b7b923485c82
+Transaction proposal was good
+Successfully sent Proposal and received ProposalResponse: Status - 200, message - "OK"
+The transaction has been committed on peer localhost:7053
+Send transaction promise and event listener promise have completed
+Successfully sent transaction to the orderer.
+Successfully committed the change to the ledger by the peer</code></pre>
 
 <p>返回<code>query.js</code>并将参数由<code>CAR4</code>更改为<code>CAR10</code></p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim query.js</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ vim query.js</code></pre>
 
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const request = {</span><br><span class="line">  //targets : --- letting this default to the peers assigned to the channel</span><br><span class="line">  chaincodeId: 'fabcar',</span><br><span class="line">  fcn: 'queryCar',</span><br><span class="line">  args: ['CAR10']</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">const request = {
+  //targets : --- letting this default to the peers assigned to the channel
+  chaincodeId: 'fabcar',
+  fcn: 'queryCar',
+  args: ['CAR10']
+};</code></pre>
 
 <p>查询:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node query.js</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">node query.js</code></pre>
 
 <p>输出内容如下:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Successfully loaded user1 from persistence</span><br><span class="line">Query has completed, checking results</span><br><span class="line">Response is  {"colour":"Red","make":"Chevy","model":"Volt","owner":"Nick"}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">Successfully loaded user1 from persistence
+Query has completed, checking results
+Response is  {"colour":"Red","make":"Chevy","model":"Volt","owner":"Nick"}</code></pre>
 
 <p>修改 <code>invoke.js</code>, 修改CAR10的拥有者为 Dave</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vim invoke.js</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ vim invoke.js</code></pre>
 
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var request = {</span><br><span class="line">  //targets: let default to the peer assigned to the client</span><br><span class="line">  chaincodeId: 'fabcar',</span><br><span class="line">  fcn: 'changeCarOwner',</span><br><span class="line">  args: ['CAR10','Dave'],</span><br><span class="line">  chainId: 'mychannel',</span><br><span class="line">  txId: tx_id</span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">var request = {
+  //targets: let default to the peer assigned to the client
+  chaincodeId: 'fabcar',
+  fcn: 'changeCarOwner',
+  args: ['CAR10','Dave'],
+  chainId: 'mychannel',
+  txId: tx_id
+};</code></pre>
 
 <p>保存退出并执行</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ node invoke.js</span><br><span class="line">$ node query.js</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ node invoke.js
+$ node query.js</code></pre>
 
 <p>运行输出结果:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Successfully loaded user1 from persistence</span><br><span class="line">Query has completed, checking results</span><br><span class="line">Response is  {"colour":"Red","make":"Chevy","model":"Volt","owner":"Dave"}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">Successfully loaded user1 from persistence
+Query has completed, checking results
+Response is  {"colour":"Red","make":"Chevy","model":"Volt","owner":"Dave"}</code></pre>
 
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题:"></a>问题:</h2><p>在执行 node invoke.js 命令后出现如下错误</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Store path:$HOME/hyfa/fabric-samples/fabcar/hfc-key-store</span><br><span class="line">Successfully loaded user1 from persistence</span><br><span class="line">Assigning transaction_id:  f80947242014765a46a17d797b45c8ed9a5db5cc936a57c731219d9e25646051</span><br><span class="line">Transaction proposal was good</span><br><span class="line">Successfully sent Proposal and received ProposalResponse: Status - 200, message - "OK"</span><br><span class="line">Failed to invoke successfully :: TypeError: Cannot read property 'getConnectivityState' of undefined</span><br><span class="line">$HOME/hyfa/fabric-samples/fabcar/node_modules/fabric-client/lib/EventHub.js:308</span><br><span class="line">            if(self._stream) state = self._stream.call.channel_.getConnectivityState();</span><br><span class="line">                                                                ^</span><br><span class="line"></span><br><span class="line">TypeError: Cannot read property 'getConnectivityState' of undefined</span><br><span class="line">    at ClientDuplexStream.&lt;anonymous&gt; ($HOME/hyfa/fabric-samples/fabcar/node_modules/fabric-client/lib/EventHub.js:308:56)</span><br><span class="line">    at emitOne (events.js:116:13)</span><br><span class="line">    at ClientDuplexStream.emit (events.js:211:7)</span><br><span class="line">    at addChunk (_stream_readable.js:263:12)</span><br><span class="line">    at readableAddChunk (_stream_readable.js:250:11)</span><br><span class="line">    at ClientDuplexStream.Readable.push (_stream_readable.js:208:10)</span><br><span class="line">    at Object.onReceiveMessage ($HOME/hyfa/fabric-samples/fabcar/node_modules/grpc/src/client_interceptors.js:1302:19)</span><br><span class="line">    at InterceptingListener.recvMessageWithContext ($HOME/hyfa/fabric-samples/fabcar/node_modules/grpc/src/client_interceptors.js:629:19)</span><br><span class="line">    at $HOME/hyfa/fabric-samples/fabcar/node_modules/grpc/src/client_interceptors.js:728:14</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">Store path:$HOME/hyfa/fabric-samples/fabcar/hfc-key-store
+Successfully loaded user1 from persistence
+Assigning transaction_id:  f80947242014765a46a17d797b45c8ed9a5db5cc936a57c731219d9e25646051
+Transaction proposal was good
+Successfully sent Proposal and received ProposalResponse: Status - 200, message - "OK"
+Failed to invoke successfully :: TypeError: Cannot read property 'getConnectivityState' of undefined
+$HOME/hyfa/fabric-samples/fabcar/node_modules/fabric-client/lib/EventHub.js:308
+            if(self._stream) state = self._stream.call.channel_.getConnectivityState();
+                                                                ^
+
+TypeError: Cannot read property 'getConnectivityState' of undefined
+    at ClientDuplexStream.&lt;anonymous&gt; ($HOME/hyfa/fabric-samples/fabcar/node_modules/fabric-client/lib/EventHub.js:308:56)
+    at emitOne (events.js:116:13)
+    at ClientDuplexStream.emit (events.js:211:7)
+    at addChunk (_stream_readable.js:263:12)
+    at readableAddChunk (_stream_readable.js:250:11)
+    at ClientDuplexStream.Readable.push (_stream_readable.js:208:10)
+    at Object.onReceiveMessage ($HOME/hyfa/fabric-samples/fabcar/node_modules/grpc/src/client_interceptors.js:1302:19)
+    at InterceptingListener.recvMessageWithContext ($HOME/hyfa/fabric-samples/fabcar/node_modules/grpc/src/client_interceptors.js:629:19)
+    at $HOME/hyfa/fabric-samples/fabcar/node_modules/grpc/src/client_interceptors.js:728:14</code></pre>
 
 <p><strong>此问题可以无视, 不会影响到后继查询命令 <code>node query.js</code> 的执行</strong></p>
 
@@ -1423,7 +1522,7 @@ enrollAd">
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

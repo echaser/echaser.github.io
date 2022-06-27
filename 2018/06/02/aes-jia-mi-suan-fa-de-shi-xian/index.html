@@ -479,7 +479,7 @@ CFB模式 全称Cipher Fee">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    684
+                    685
                 </div>
                 
 
@@ -542,10 +542,73 @@ CFB模式 全称Cipher Fee">
 </li>
 </ul>
 <h2 id="实现-AES-加密和解密"><a href="#实现-AES-加密和解密" class="headerlink" title="实现 AES 加密和解密"></a>实现 AES 加密和解密</h2><p>使用CBC模式+PKCS7 填充方式实现AES的加密和解密</p>
-<figure class="highlight golang"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"bytes"</span></span><br><span class="line">    <span class="string">"crypto/cipher"</span></span><br><span class="line">    <span class="string">"crypto/aes"</span></span><br><span class="line">    <span class="string">"encoding/base64"</span></span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">PKCS7Padding</span><span class="params">(ciphertext []<span class="type">byte</span>, blockSize <span class="type">int</span>)</span></span> []<span class="type">byte</span> {</span><br><span class="line">    padding := blockSize - <span class="built_in">len</span>(ciphertext) % blockSize</span><br><span class="line">    padtext := bytes.Repeat([]<span class="type">byte</span>{<span class="type">byte</span>(padding)}, padding)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">append</span>(ciphertext, padtext...)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">PKCS7UnPadding</span><span class="params">(origData []<span class="type">byte</span>)</span></span> []<span class="type">byte</span> {</span><br><span class="line">    length := <span class="built_in">len</span>(origData)</span><br><span class="line">    unpadding := <span class="type">int</span>(origData[length<span class="number">-1</span>])</span><br><span class="line">    <span class="keyword">return</span> origData[:(length - unpadding)]</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">AesEncrypt</span><span class="params">(origData, key []<span class="type">byte</span>)</span></span> ([]<span class="type">byte</span>, <span class="type">error</span>) {</span><br><span class="line">    block, err := aes.NewCipher(key)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    }</span><br><span class="line">    blockSize := block.BlockSize()</span><br><span class="line">    origData = PKCS7Padding(origData, blockSize)</span><br><span class="line">    blockMode := cipher.NewCBCEncrypter(block, key[:blockSize])</span><br><span class="line">    crypted := <span class="built_in">make</span>([]<span class="type">byte</span>, <span class="built_in">len</span>(origData))</span><br><span class="line">    blockMode.CryptBlocks(crypted, origData)</span><br><span class="line">    <span class="keyword">return</span> crypted, <span class="literal">nil</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">AesDecrypt</span><span class="params">(crypted, key []<span class="type">byte</span>)</span></span> ([]<span class="type">byte</span>, <span class="type">error</span>) {</span><br><span class="line">    block, err := aes.NewCipher(key)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> {</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    }</span><br><span class="line">    blockSize := block.BlockSize()</span><br><span class="line">    blockMode := cipher.NewCBCDecrypter(block, key[:blockSize])</span><br><span class="line">    origData := <span class="built_in">make</span>([]<span class="type">byte</span>, <span class="built_in">len</span>(crypted))</span><br><span class="line">    blockMode.CryptBlocks(origData, crypted)</span><br><span class="line">    origData = PKCS7UnPadding(origData)</span><br><span class="line">    <span class="keyword">return</span> origData, <span class="literal">nil</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">    key := []<span class="type">byte</span>(<span class="string">"0123456789abcdef"</span>)</span><br><span class="line">    result, err := AesEncrypt([]<span class="type">byte</span>(<span class="string">"hello world"</span>), key)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> {</span><br><span class="line">        <span class="built_in">panic</span>(err)</span><br><span class="line">    }</span><br><span class="line">    fmt.Println(base64.StdEncoding.EncodeToString(result))</span><br><span class="line">    origData, err := AesDecrypt(result, key)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> {</span><br><span class="line">        <span class="built_in">panic</span>(err)</span><br><span class="line">    }</span><br><span class="line">    fmt.Println(<span class="type">string</span>(origData))</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-golang" data-language="golang"><code class="language-golang">package main
+
+import (
+    "bytes"
+    "crypto/cipher"
+    "crypto/aes"
+    "encoding/base64"
+    "fmt"
+)
+
+func PKCS7Padding(ciphertext []byte, blockSize int) []byte {
+    padding := blockSize - len(ciphertext) % blockSize
+    padtext := bytes.Repeat([]byte{byte(padding)}, padding)
+    return append(ciphertext, padtext...)
+}
+
+func PKCS7UnPadding(origData []byte) []byte {
+    length := len(origData)
+    unpadding := int(origData[length-1])
+    return origData[:(length - unpadding)]
+}
+
+func AesEncrypt(origData, key []byte) ([]byte, error) {
+    block, err := aes.NewCipher(key)
+    if err != nil {
+        return nil, err
+    }
+    blockSize := block.BlockSize()
+    origData = PKCS7Padding(origData, blockSize)
+    blockMode := cipher.NewCBCEncrypter(block, key[:blockSize])
+    crypted := make([]byte, len(origData))
+    blockMode.CryptBlocks(crypted, origData)
+    return crypted, nil
+}
+
+func AesDecrypt(crypted, key []byte) ([]byte, error) {
+    block, err := aes.NewCipher(key)
+    if err != nil {
+        return nil, err
+    }
+    blockSize := block.BlockSize()
+    blockMode := cipher.NewCBCDecrypter(block, key[:blockSize])
+    origData := make([]byte, len(crypted))
+    blockMode.CryptBlocks(origData, crypted)
+    origData = PKCS7UnPadding(origData)
+    return origData, nil
+}
+
+func main() {
+    key := []byte("0123456789abcdef")
+    result, err := AesEncrypt([]byte("hello world"), key)
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println(base64.StdEncoding.EncodeToString(result))
+    origData, err := AesDecrypt(result, key)
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println(string(origData))
+}</code></pre>
 
 <p>运行结果：</p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ go run aes.go</span><br><span class="line"></span><br><span class="line">wem0Upqsl5MBD0Z39jWO/g==</span><br><span class="line">hello world</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ go run aes.go
+
+wem0Upqsl5MBD0Z39jWO/g<span class="token operator">==</span>
+hello world</code></pre>
                 
             </div>
             <hr/>
@@ -1317,7 +1380,7 @@ CFB模式 全称Cipher Fee">
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

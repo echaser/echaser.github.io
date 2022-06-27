@@ -386,7 +386,10 @@
                             
                                 
 
-使用多通道12345$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode$ sudo docker-compose -f docker-compose-simple.yaml down 
+使用多通道$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode
+
+$ sudo docker-compose -f docker-compose-simple.yaml down   
+
                             
                         </div>
                         <div class="publish-info">
@@ -496,11 +499,11 @@
                                 
 
 测试链码确定进入CLI容器中
-1$ sudo docker exec -it cli bash
+$ sudo docker exec -it cli bash
 
 Peer加入应用通道后, 可以执行链码相关操作,进行测试
 链码在调用之前, 必须先经过安装和实例化两个步骤, 部署到Peer节点上.
-检查
+检查环
                             
                         </div>
                         <div class="publish-info">
@@ -552,9 +555,9 @@ Peer加入应用通道后, 可以执行链码相关操作,进行测试
                                 
 
 启动网络手动实现实现步骤生成组织关系和身份证书确定是在 fabric-samples/first-network 路径下
-1$ cd hyfa/fabric-samples/first-network/
+$ cd hyfa/fabric-samples/first-network/
 
-为fabric网络生成指定拓扑
+为fabric网络生成指定拓扑结
                             
                         </div>
                         <div class="publish-info">
@@ -605,9 +608,9 @@ Peer加入应用通道后, 可以执行链码相关操作,进行测试
                             
                                 
 
-进入对应目录1$ cd fabric-samples/first-network
+进入对应目录$ cd fabric-samples/first-network
 
-在first-network目录下有两个自动化脚本byfn.sh和eyfn.sh, 这两个脚本的启动顺序是先执行byfn.sh再执行eyfn.sh（ey
+在first-network目录下有两个自动化脚本byfn.sh和eyfn.sh, 这两个脚本的启动顺序是先执行byfn.sh再执行eyfn.sh（eyf
                             
                         </div>
                         <div class="publish-info">
@@ -659,7 +662,8 @@ Peer加入应用通道后, 可以执行链码相关操作,进行测试
                                 
 
 环境搭建快速入门: http://hyperledger-fabric.readthedocs.io/en/release-1.1/getting_started.html
-前提安装git12$ sudo apt update$ sud
+前提安装git$ sudo apt update
+$ sudo
                             
                         </div>
                         <div class="publish-info">
@@ -710,7 +714,11 @@ Peer加入应用通道后, 可以执行链码相关操作,进行测试
                             
                                 
 
-创建P2P server12345678910111213141516171819202122func (n *Node) Start() error {    ...    // Initialize the p2p server. 
+创建P2P serverfunc (n *Node) Start() error {
+    ...
+
+    // Initialize the p2p server. This creates the node key and
+  
                             
                         </div>
                         <div class="publish-info">
@@ -935,9 +943,9 @@ Peer加入应用通道后, 可以执行链码相关操作,进行测试
                             
                                 
 
-openssl生成私钥1openssl genrsa -out rsa_private_key.pem 1024  
+openssl生成私钥openssl genrsa -out rsa_private_key.pem 1024  
 
-openssl生成公钥1openssl rsa -in rsa_private_key.pem -pubout -o
+openssl生成公钥openssl rsa -in rsa_private_key.pem -pubout -out
                             
                         </div>
                         <div class="publish-info">
@@ -1065,7 +1073,7 @@ openssl生成公钥1openssl rsa -in rsa_private_key.pem -pubout -o
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

@@ -489,7 +489,10 @@
 
 哈希值的输出值一般是16进制的字符串。而16进制字符串，每两个字符占一个字节。我们知道，一个字节=8bit.
 以sha256为例：- 256bit-&gt;64位16进制字符。
-1234567891011121314package ma
+package main
+
+import (
+    "f
                                 
                             </div>
                             <div class="publish-info">
@@ -544,7 +547,18 @@
                                 
                                     
 
-go 调用 sha256 加密字符串哈希值123456789101112131415161718192021package mainimport(    "fmt"    "crypto/sha256"    "io"    "log"
+go 调用 sha256 加密字符串哈希值package main
+
+import(
+    "fmt"
+    "crypto/sha256"
+    "io"
+    "log"
+    "os"
+)
+
+func main() {
+
                                 
                             </div>
                             <div class="publish-info">
@@ -868,11 +882,12 @@ core源
                                 
                                     
 
-下载1$ git clone https://github.com/ethereum/go-ethereum.git
+下载$ git clone https://github.com/ethereum/go-ethereum.git
 
-编译12$ cd go-ethereum$ make geth 
+编译$ cd go-ethereum
+$ make geth 
 
-将 geth 添加到环境变量中 vi ~/.ba
+将 geth 添加到环境变量中 vi ~/.bash
                                 
                             </div>
                             <div class="publish-info">
@@ -997,7 +1012,7 @@ go-ethereum源码go-etherrum源码可以从github上面下载，或者使用git�
 
 集群搭建下面只用同一台服务器进行三个成员节点的开启
 节点1
-1./etcd --name cd0 --initial-advertise-peer-urls http://127.0.0.1:2380 --listen-peer-url
+./etcd --name cd0 --initial-advertise-peer-urls http://127.0.0.1:2380 --listen-peer-urls
                                 
                             </div>
                             <div class="publish-info">
@@ -1324,7 +1339,7 @@ etcd是一个分布式一致性键值存储系统，用于共享配置和服务�
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

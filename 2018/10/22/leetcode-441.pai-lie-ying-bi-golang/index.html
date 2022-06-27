@@ -11,7 +11,9 @@
 给定一个数字 n，找出可形成完整阶梯行的总行数。
 n 是一个非负整数，并且在32位有符号整型的范围内。
 示例 1:
-12345678n = 5硬币">
+n = 5
+
+硬币可排列成以下">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -510,12 +512,37 @@ n 是一个非负整数，并且在32位有符号整型的范围内。
 <p>给定一个数字 n，找出可形成完整阶梯行的总行数。</p>
 <p>n 是一个非负整数，并且在32位有符号整型的范围内。</p>
 <p>示例 1:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">n = 5</span><br><span class="line"></span><br><span class="line">硬币可排列成以下几行:</span><br><span class="line">¤</span><br><span class="line">¤ ¤</span><br><span class="line">¤ ¤</span><br><span class="line"></span><br><span class="line">因为第三行不完整，所以返回2.</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">n = 5
+
+硬币可排列成以下几行:
+¤
+¤ ¤
+¤ ¤
+
+因为第三行不完整，所以返回2.</code></pre>
 
 <p>示例 2:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">n = 8</span><br><span class="line"></span><br><span class="line">硬币可排列成以下几行:</span><br><span class="line">¤</span><br><span class="line">¤ ¤</span><br><span class="line">¤ ¤ ¤</span><br><span class="line">¤ ¤</span><br><span class="line"></span><br><span class="line">因为第四行不完整，所以返回3.</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">n = 8
 
-<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">arrangeCoins</span><span class="params">(n <span class="type">int</span>)</span></span> <span class="type">int</span> {</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">1</span>; ; i++ {</span><br><span class="line">		<span class="keyword">if</span> n == i {</span><br><span class="line">			<span class="keyword">return</span> i</span><br><span class="line">		} <span class="keyword">else</span> <span class="keyword">if</span> n &lt; i {</span><br><span class="line">			<span class="keyword">return</span> i - <span class="number">1</span></span><br><span class="line">		}<span class="keyword">else</span> {</span><br><span class="line">			n = n - i</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+硬币可排列成以下几行:
+¤
+¤ ¤
+¤ ¤ ¤
+¤ ¤
+
+因为第四行不完整，所以返回3.</code></pre>
+
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">arrangeCoins</span><span class="token punctuation">(</span>n <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> n <span class="token operator">==</span> i <span class="token punctuation">{</span>
+			<span class="token keyword">return</span> i
+		<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> n <span class="token operator">&lt;</span> i <span class="token punctuation">{</span>
+			<span class="token keyword">return</span> i <span class="token operator">-</span> <span class="token number">1</span>
+		<span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+			n <span class="token operator">=</span> n <span class="token operator">-</span> i
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
                 
             </div>
             <hr/>
@@ -1275,7 +1302,7 @@ n 是一个非负整数，并且在32位有符号整型的范围内。
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

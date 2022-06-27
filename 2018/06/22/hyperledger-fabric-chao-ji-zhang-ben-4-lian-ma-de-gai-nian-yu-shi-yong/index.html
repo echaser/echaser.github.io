@@ -481,7 +481,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.8k
+                    1.9k
                 </div>
                 
 
@@ -564,15 +564,21 @@
 <h2 id="安装链码"><a href="#安装链码" class="headerlink" title="安装链码"></a>安装链码</h2><p>install命令将链码的源码和环境等内容封装为一个链码安装打包文件(Chaincode Install Package, CIP), 并传输到背书节点.</p>
 <p>背书节点解析后一般会保存在$CORE_PEER_FILESYSTEMPATH/chaincodes目录下</p>
 <p>安装链码只需要与Peer交互</p>
-<h3 id="进入到sacc目录"><a href="#进入到sacc目录" class="headerlink" title="进入到sacc目录"></a>进入到sacc目录</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~/hyfa/fabric-samples/chaincode/sacc/</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="进入到sacc目录"><a href="#进入到sacc目录" class="headerlink" title="进入到sacc目录"></a>进入到sacc目录</h3><pre class="language-none"><code class="language-none">$ cd ~/hyfa/fabric-samples/chaincode/sacc/</code></pre>
 
-<h3 id="构建Chaincode"><a href="#构建Chaincode" class="headerlink" title="构建Chaincode"></a>构建Chaincode</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ go get -u --tags nopkcs11 github.com/hyperledger/fabric/core/chaincode/shim</span><br><span class="line"></span><br><span class="line">$ go build --tags nopkcs11</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="构建Chaincode"><a href="#构建Chaincode" class="headerlink" title="构建Chaincode"></a>构建Chaincode</h3><pre class="language-none"><code class="language-none">$ go get -u --tags nopkcs11 github.com/hyperledger/fabric/core/chaincode/shim
+
+$ go build --tags nopkcs11</code></pre>
 
 <h4 id="命令解释"><a href="#命令解释" class="headerlink" title="命令解释"></a>命令解释</h4><p>go get: 根据要求和实际情况从互联网上下载或更新指定的代码包及其依赖包，并对它们进行编译和安装</p>
 <p>-u: 利用网络来更新已有代码包及其依赖包。默认情况下，该命令只会从网络上下载本地不存在的代码包，而不会更新已有的代码包</p>
 <p>go build: 加上可编译的go源文件可以得到一个可执行文件</p>
 <p>如果在执行 <code>go build \--tags nopkcsll</code> 命令时出现如下错误</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$GOPATH/src/github.com/hyperledger/fabric/vendor/github.com/miekg/pkcs11/pkcs11.go:26:18: fatal error: ltdl.h: No such file or directory</span><br><span class="line">compilation terminated.</span><br><span class="line"></span><br><span class="line">解决方式: 安装 libltdl-dev</span><br><span class="line">$ sudo apt install libltdl-dev</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$GOPATH/src/github.com/hyperledger/fabric/vendor/github.com/miekg/pkcs11/pkcs11.go:26:18: fatal error: ltdl.h: No such file or directory
+compilation terminated.
+
+解决方式: 安装 libltdl-dev
+$ sudo apt install libltdl-dev</code></pre>
 
 <h2 id="使用开发模式测试"><a href="#使用开发模式测试" class="headerlink" title="使用开发模式测试"></a>使用开发模式测试</h2><p>正常情况下chaincode由对等体启动和维护。然而，在“开发模式”下，链码由用户构建并启动</p>
 <blockquote>
@@ -580,60 +586,76 @@
 <p>如果没有下载Docker images请先下载</p>
 </blockquote>
 <p>跳转至<code>fabric-samples</code>的<code>chaincode-docker-devmode</code>目录</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/</code></pre>
 
 <p>使用<code>docker images</code>查看Docker镜像信息(显示本地Docker Registry)</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker images</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ sudo docker images</code></pre>
 
 <p>会看到如下输出</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">REPOSITORY                     TAG                  IMAGE ID            CREATED             SIZE</span><br><span class="line">hyperledger/fabric-tools       latest             b7bfddf508bc        About an hour ago   1.46GB</span><br><span class="line">hyperledger/fabric-tools       x86_64-1.1.0       b7bfddf508bc        About an hour ago   1.46GB</span><br><span class="line">hyperledger/fabric-orderer     latest             ce0c810df36a        About an hour ago   180MB</span><br><span class="line">hyperledger/fabric-orderer     x86_64-1.1.0       ce0c810df36a        About an hour ago   180MB</span><br><span class="line">hyperledger/fabric-peer        latest             b023f9be0771        About an hour ago   187MB</span><br><span class="line">hyperledger/fabric-peer        x86_64-1.1.0       b023f9be0771        About an hour ago   187MB</span><br><span class="line">hyperledger/fabric-javaenv     latest             82098abb1a17        About an hour ago   1.52GB</span><br><span class="line">hyperledger/fabric-javaenv     x86_64-1.1.0       82098abb1a17        About an hour ago   1.52GB</span><br><span class="line">hyperledger/fabric-ccenv       latest             c8b4909d8d46        About an hour ago   1.39GB</span><br><span class="line">hyperledger/fabric-ccenv       x86_64-1.1.0       c8b4909d8d46        About an hour ago   1.39GB</span><br><span class="line">......</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">REPOSITORY                     TAG                  IMAGE ID            CREATED             SIZE
+hyperledger/fabric-tools       latest             b7bfddf508bc        About an hour ago   1.46GB
+hyperledger/fabric-tools       x86_64-1.1.0       b7bfddf508bc        About an hour ago   1.46GB
+hyperledger/fabric-orderer     latest             ce0c810df36a        About an hour ago   180MB
+hyperledger/fabric-orderer     x86_64-1.1.0       ce0c810df36a        About an hour ago   180MB
+hyperledger/fabric-peer        latest             b023f9be0771        About an hour ago   187MB
+hyperledger/fabric-peer        x86_64-1.1.0       b023f9be0771        About an hour ago   187MB
+hyperledger/fabric-javaenv     latest             82098abb1a17        About an hour ago   1.52GB
+hyperledger/fabric-javaenv     x86_64-1.1.0       82098abb1a17        About an hour ago   1.52GB
+hyperledger/fabric-ccenv       latest             c8b4909d8d46        About an hour ago   1.39GB
+hyperledger/fabric-ccenv       x86_64-1.1.0       c8b4909d8d46        About an hour ago   1.39GB
+......</code></pre>
 
 <p><strong>使用三个终端</strong></p>
-<h3 id="终端1-启动网络"><a href="#终端1-启动网络" class="headerlink" title="终端1 启动网络"></a>终端1 启动网络</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="终端1-启动网络"><a href="#终端1-启动网络" class="headerlink" title="终端1 启动网络"></a>终端1 启动网络</h3><pre class="language-none"><code class="language-none">$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/</code></pre>
 
 <blockquote>
 <p>该目录下有 <code>myc.tx</code> 文件</p>
 </blockquote>
 <p>启动网络</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker-compose -f docker-compose-simple.yaml up -d</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ sudo docker-compose -f docker-compose-simple.yaml up -d</code></pre>
 
 <h3 id="终端2-建立并启动链码"><a href="#终端2-建立并启动链码" class="headerlink" title="终端2 建立并启动链码"></a>终端2 建立并启动链码</h3><p>打开第二个终端, 进入到<code>chaincode-docker-devmode</code> 目录</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/</code></pre>
 
 <h4 id="进入CLI"><a href="#进入CLI" class="headerlink" title="进入CLI"></a>进入CLI</h4><p>chaincode容器的作用是为发简化的方式建立并启动链码</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker exec -it chaincode bash</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ sudo docker exec -it chaincode bash</code></pre>
 
 <blockquote>
 <p>命令提示符变为:</p>
 <p><code>root@858726aed16e:/opt/gopath/src/chaincode#</code></p>
 </blockquote>
 <h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><p>进入sacc目录编译chaincode</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@858726aed16e:/opt/gopath/src/chaincode#  cd sacc</span><br><span class="line">root@858726aed16e:/opt/gopath/src/chaincode/sacc#  go build</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">root@858726aed16e:/opt/gopath/src/chaincode#  cd sacc
+root@858726aed16e:/opt/gopath/src/chaincode/sacc#  go build</code></pre>
 
-<h4 id="运行chaincode"><a href="#运行chaincode" class="headerlink" title="运行chaincode"></a>运行chaincode</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=mycc:0 ./sacc</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="运行chaincode"><a href="#运行chaincode" class="headerlink" title="运行chaincode"></a>运行chaincode</h4><pre class="language-none"><code class="language-none">CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=mycc:0 ./sacc</code></pre>
 
 <p>mycc: 链码名称</p>
 <p>0: 链码初始版本号</p>
-<h3 id="终端3-使用链码"><a href="#终端3-使用链码" class="headerlink" title="终端3 使用链码"></a>终端3 使用链码</h3><h4 id="安装及实例化"><a href="#安装及实例化" class="headerlink" title="安装及实例化"></a>安装及实例化</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/</span><br><span class="line">$ sudo docker exec -it cli bash</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="终端3-使用链码"><a href="#终端3-使用链码" class="headerlink" title="终端3 使用链码"></a>终端3 使用链码</h3><h4 id="安装及实例化"><a href="#安装及实例化" class="headerlink" title="安装及实例化"></a>安装及实例化</h4><pre class="language-none"><code class="language-none">$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/
+$ sudo docker exec -it cli bash</code></pre>
 
 <p>进入CLI容器后执行如下命令安装及实例化chaincode</p>
 <blockquote>
 <p><strong>容器中已经有 <code>myc.block</code> 、 <code>myc.tx</code> 两个文件， 可以直接使用</strong></p>
 </blockquote>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode install -p chaincodedev/chaincode/sacc -n mycc -v 0</span><br><span class="line">peer chaincode instantiate -n mycc -v 0 -c '{"Args":["a","10"]}' -C myc </span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">peer chaincode install -p chaincodedev/chaincode/sacc -n mycc -v 0
+peer chaincode instantiate -n mycc -v 0 -c '{"Args":["a","10"]}' -C myc </code></pre>
 
 <h4 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h4><p>进行调用,将<code>a</code>的值更改为<code>20</code></p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -n mycc -c '{"Args":["set", "a", "20"]}' -C myc</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">peer chaincode invoke -n mycc -c '{"Args":["set", "a", "20"]}' -C myc</code></pre>
 
 <p>执行成功, 输出如下内容</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">...... Chaincode invoke successful. result: status:200 payload:"20"</span><br><span class="line">......</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">......
+...... Chaincode invoke successful. result: status:200 payload:"20"
+......</code></pre>
 
 <h4 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h4><p>查询<code>a</code>的值</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -n mycc -c '{"Args":["query","a"]}' -C myc</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">peer chaincode query -n mycc -c '{"Args":["query","a"]}' -C myc</code></pre>
 
 <p>执行成功, 输出: <code>Query Result: 20</code></p>
 <h2 id="打包链码及签名"><a href="#打包链码及签名" class="headerlink" title="打包链码及签名"></a>打包链码及签名</h2><p>通过将链码相关数据进行封装, 可以实现对其进行打包和签名操作</p>
-<h3 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode package -n mycc -p chaincodedev/chaincode/sacc -v 0 -s -S -i "AND('OrgA.admin')" ccpack.out</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h3><pre class="language-none"><code class="language-none">peer chaincode package -n mycc -p chaincodedev/chaincode/sacc -v 0 -s -S -i "AND('OrgA.admin')" ccpack.out</code></pre>
 
 <blockquote>
 <p>-s: 创建角色支持的CC部署规范包, 而不是原始的CC部署规范</p>
@@ -643,21 +665,27 @@
 <p>打包后的文件, 可以直接用于install操作, 如:</p>
 <p>​ <code>peer chaincode install ccpack.out</code></p>
 <h3 id="签名"><a href="#签名" class="headerlink" title="签名"></a>签名</h3><p>对一个打包文件进行签名操作(添加当前MSP签名到签名列表中)</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode signpackage ccpack.out signedccpack.out</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">peer chaincode signpackage ccpack.out signedccpack.out</code></pre>
 
 <h2 id="升级链码"><a href="#升级链码" class="headerlink" title="升级链码"></a>升级链码</h2><p><strong>退出终端3, 停止终端2的服务</strong></p>
-<h3 id="终端2中重新运行chaincode"><a href="#终端2中重新运行chaincode" class="headerlink" title="终端2中重新运行chaincode"></a>终端2中重新运行chaincode</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker exec -it chaincode bash</span><br><span class="line"></span><br><span class="line">cd sacc</span><br><span class="line">go build</span><br><span class="line">CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=mycc:1 ./sacc</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="终端2中重新运行chaincode"><a href="#终端2中重新运行chaincode" class="headerlink" title="终端2中重新运行chaincode"></a>终端2中重新运行chaincode</h3><pre class="language-none"><code class="language-none">$ sudo docker exec -it chaincode bash
+
+cd sacc
+go build
+CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=mycc:1 ./sacc</code></pre>
 
 <p><strong>注意版本为 <code>1.0</code>, 旧版本为 <code>0</code></strong></p>
 <h3 id="终端3"><a href="#终端3" class="headerlink" title="终端3"></a>终端3</h3><p>打开终端3, 进入CLI容器</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker exec -it cli bash</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ sudo docker exec -it cli bash</code></pre>
 
-<h3 id="安装及升级"><a href="#安装及升级" class="headerlink" title="安装及升级"></a>安装及升级</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode install -p chaincodedev/chaincode/sacc -n mycc -v 1</span><br><span class="line"></span><br><span class="line">peer chaincode upgrade -n mycc -v 1 -c '{"Args":["a", "100"]}' -C myc </span><br></pre></td></tr></tbody></table></figure>
+<h3 id="安装及升级"><a href="#安装及升级" class="headerlink" title="安装及升级"></a>安装及升级</h3><pre class="language-none"><code class="language-none">peer chaincode install -p chaincodedev/chaincode/sacc -n mycc -v 1
+
+peer chaincode upgrade -n mycc -v 1 -c '{"Args":["a", "100"]}' -C myc </code></pre>
 
 <p>注意版本号必须一致</p>
 <p>在对某链码代码升级前, 推荐先将所有该链码的容器停止, 并从Peer上备份并移除旧链码部署文件. 之后先在个别Peer节点上部署新链码, 对原有数据进行测试, 成功后再在其它节点上进行升级操作</p>
 <h4 id="查询-1"><a href="#查询-1" class="headerlink" title="查询"></a>查询</h4><p>查询<code>a</code>的值</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -n mycc -c '{"Args":["query","a"]}' -C myc</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">peer chaincode query -n mycc -c '{"Args":["query","a"]}' -C myc</code></pre>
 
 <p>执行成功, 输出: <code>Query Result:100</code></p>
 
@@ -1432,7 +1460,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

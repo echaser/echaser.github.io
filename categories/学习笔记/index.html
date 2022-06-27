@@ -500,10 +500,12 @@ SonarQube是一种自动代码审查工具，用于检测代码中的错误、�
                             
                                 
 
-1vim /etc/yum.repos.d/mysql-community.repo
+vim /etc/yum.repos.d/mysql-community.repo
 
 将以下代码复制进去
-1234567# Enable to use MySQL 5.7[mysql57-community]name=MySQL 5.
+# Enable to use MySQL 5.7
+[mysql57-community]
+name=MySQL 5.7 Comm
                             
                         </div>
                         <div class="publish-info">
@@ -554,7 +556,7 @@ SonarQube是一种自动代码审查工具，用于检测代码中的错误、�
 应用程序是一个基本样本链代码，用于在分类账上创建资产
 安装Go及Docker, Docker-compose, 并配置Go相应的环境变量
 创建目录为chaincode应用程序创建一个目录作为其子目录
-12$ mkdir -p $GOPA
+$ mkdir -p $GOPATH
                             
                         </div>
                         <div class="publish-info">
@@ -654,11 +656,12 @@ SonarQube是一种自动代码审查工具，用于检测代码中的错误、�
 
 node测试关闭网络
 $ sudo ./byfn.sh \-m down
-进入到fabric-samples/fabcar目录中12$ cd ../fabcar/$ ls
+进入到fabric-samples/fabcar目录中$ cd ../fabcar/
+$ ls
 
 
 如果是完整的环境,目录中应该包含如下文件:
-enrollAd
+enrollAdm
                             
                         </div>
                         <div class="publish-info">
@@ -758,7 +761,7 @@ enrollAd
                                 
 
 configtxlator转换配置/添加Org组织到channel设置环境进入到fabric-samples/first-network目录中, 执行.byfn.sh \-m down关闭网络,清理之前的任何环境
-12$ cd $HOM
+$ cd $HOME/
                             
                         </div>
                         <div class="publish-info">
@@ -806,7 +809,10 @@ configtxlator转换配置/添加Org组织到channel设置环境进入到fabric-s
                             
                                 
 
-使用多通道12345$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode$ sudo docker-compose -f docker-compose-simple.yaml down 
+使用多通道$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode
+
+$ sudo docker-compose -f docker-compose-simple.yaml down   
+
                             
                         </div>
                         <div class="publish-info">
@@ -910,11 +916,11 @@ configtxlator转换配置/添加Org组织到channel设置环境进入到fabric-s
                                 
 
 测试链码确定进入CLI容器中
-1$ sudo docker exec -it cli bash
+$ sudo docker exec -it cli bash
 
 Peer加入应用通道后, 可以执行链码相关操作,进行测试
 链码在调用之前, 必须先经过安装和实例化两个步骤, 部署到Peer节点上.
-检查
+检查环
                             
                         </div>
                         <div class="publish-info">
@@ -963,9 +969,9 @@ Peer加入应用通道后, 可以执行链码相关操作,进行测试
                                 
 
 启动网络手动实现实现步骤生成组织关系和身份证书确定是在 fabric-samples/first-network 路径下
-1$ cd hyfa/fabric-samples/first-network/
+$ cd hyfa/fabric-samples/first-network/
 
-为fabric网络生成指定拓扑
+为fabric网络生成指定拓扑结
                             
                         </div>
                         <div class="publish-info">
@@ -1013,9 +1019,9 @@ Peer加入应用通道后, 可以执行链码相关操作,进行测试
                             
                                 
 
-进入对应目录1$ cd fabric-samples/first-network
+进入对应目录$ cd fabric-samples/first-network
 
-在first-network目录下有两个自动化脚本byfn.sh和eyfn.sh, 这两个脚本的启动顺序是先执行byfn.sh再执行eyfn.sh（ey
+在first-network目录下有两个自动化脚本byfn.sh和eyfn.sh, 这两个脚本的启动顺序是先执行byfn.sh再执行eyfn.sh（eyf
                             
                         </div>
                         <div class="publish-info">
@@ -1148,7 +1154,7 @@ Peer加入应用通道后, 可以执行链码相关操作,进行测试
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

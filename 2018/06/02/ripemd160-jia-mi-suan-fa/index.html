@@ -9,7 +9,10 @@
 
 哈希值的输出值一般是16进制的字符串。而16进制字符串，每两个字符占一个字节。我们知道，一个字节=8bit.
 以sha256为例：- 256bit-&amp;gt;64位16进制字符。
-1234567891011121314package ma">
+package main
+
+import (
+    &#34;f">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -506,15 +509,41 @@
 
 <p>哈希值的输出值一般是<code>16</code>进制的字符串。而<code>16</code>进制字符串，每两个字符占一个字节。我们知道，一个字节<code>=8bit</code>.</p>
 <p>以<code>sha256</code>为例：<br>- <code>256bit-&gt;64</code>位<code>16</code>进制字符。</p>
-<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"crypto/sha256"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">    hasher := sha256.New()</span><br><span class="line">    hasher.Write([]<span class="type">byte</span>(<span class="string">"The quick brown fox jumps over the lazy dog"</span>))</span><br><span class="line">    hashBytes := hasher.Sum(<span class="literal">nil</span>)</span><br><span class="line">    hashString := fmt.Sprintf(<span class="string">"%x"</span>, hashBytes)</span><br><span class="line">    fmt.Println(hashString)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
 
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592</span><br></pre></td></tr></tbody></table></figure>
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">"fmt"</span>
+    <span class="token string">"crypto/sha256"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    hasher <span class="token operator">:=</span> sha256<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    hasher<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">"The quick brown fox jumps over the lazy dog"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    hashBytes <span class="token operator">:=</span> hasher<span class="token punctuation">.</span><span class="token function">Sum</span><span class="token punctuation">(</span><span class="token boolean">nil</span><span class="token punctuation">)</span>
+    hashString <span class="token operator">:=</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"%x"</span><span class="token punctuation">,</span> hashBytes<span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>hashString<span class="token punctuation">)</span>
+<span class="token punctuation">}</span></code></pre>
+
+<pre class="language-none"><code class="language-none">$ d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592</code></pre>
 
 <p>而<code>ripemd</code>:<br>- <code>160bit-&gt;40</code>位<code>16</code>进制字符。</p>
 <p>cd c d cd GOPATH/src<br>mkdirgolang.org m k d i r g o l a n g . o r g mkdir golang.org cd golang.org<br>mkdirx m k d i r x mkdir x cd x<br>$ git clone <a target="_blank" rel="noopener" href="https://github.com/golang/crypto.git">https://github.com/golang/crypto.git</a></p>
-<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"golang.org/x/crypto/ripemd160"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">    hasher := ripemd160.New()</span><br><span class="line">    hasher.Write([]<span class="type">byte</span>(<span class="string">"The quick brown fox jumps over the lazy dog"</span>))</span><br><span class="line">    hashBytes := hasher.Sum(<span class="literal">nil</span>)</span><br><span class="line">    hashString := fmt.Sprintf(<span class="string">"%x"</span>, hashBytes)</span><br><span class="line">    fmt.Println(hashString)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
 
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ 37f332f68db77bd9d7edd4969571ad671cf9dd3b</span><br></pre></td></tr></tbody></table></figure>
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">"fmt"</span>
+    <span class="token string">"golang.org/x/crypto/ripemd160"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    hasher <span class="token operator">:=</span> ripemd160<span class="token punctuation">.</span><span class="token function">New</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    hasher<span class="token punctuation">.</span><span class="token function">Write</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">"The quick brown fox jumps over the lazy dog"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    hashBytes <span class="token operator">:=</span> hasher<span class="token punctuation">.</span><span class="token function">Sum</span><span class="token punctuation">(</span><span class="token boolean">nil</span><span class="token punctuation">)</span>
+    hashString <span class="token operator">:=</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">"%x"</span><span class="token punctuation">,</span> hashBytes<span class="token punctuation">)</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>hashString<span class="token punctuation">)</span>
+<span class="token punctuation">}</span></code></pre>
+
+<pre class="language-none"><code class="language-none">$ 37f332f68db77bd9d7edd4969571ad671cf9dd3b</code></pre>
                 
             </div>
             <hr/>
@@ -1266,7 +1295,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

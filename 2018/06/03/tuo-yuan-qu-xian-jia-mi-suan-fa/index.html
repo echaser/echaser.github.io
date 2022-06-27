@@ -545,7 +545,61 @@
 <p>　　私钥签名：<br>　　1、选择随机数r，计算点rG(x, y)。<br>　　2、根据随机数r、消息M的哈希h、私钥k，计算s = (h + kx)/r。<br>　　3、将消息M、和签名{rG, s}发给接收方。</p>
 <p>　　公钥验证签名：<br>　　1、接收方收到消息M、以及签名{rG=(x,y), s}。<br>　　2、根据消息求哈希h。<br>　　3、使用发送方公钥K计算：hG/s + xK/s，并与rG比较，如相等即验签成功。</p>
 <p>　　原理如下：<br>　　hG/s + xK/s = hG/s + x(kG)/s = (h+xk)G/s<br>　　= r(h+xk)G / (h+kx) = rG</p>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line">import (</span><br><span class="line">    "crypto/ecdsa"</span><br><span class="line">    "crypto/elliptic"</span><br><span class="line">    "crypto/rand"</span><br><span class="line">    "crypto/sha256"</span><br><span class="line">    "math/big"</span><br><span class="line">    "fmt"</span><br><span class="line">)</span><br><span class="line">//通过椭圆曲线完成签名和验证</span><br><span class="line">func main() {</span><br><span class="line">    //声明明文</span><br><span class="line">    message := []byte("hello world")</span><br><span class="line">    //生成私钥</span><br><span class="line">    privateKey, _ := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)</span><br><span class="line">    //生成公钥</span><br><span class="line">    pub := privateKey.PublicKey</span><br><span class="line">    //将明文散列</span><br><span class="line">    digest := sha256.Sum256(message)</span><br><span class="line">    //签名</span><br><span class="line">    r, s, _ := ecdsa.Sign(rand.Reader, privateKey, digest[:])</span><br><span class="line">    //设置私钥的参数类型为曲线类型</span><br><span class="line">    param := privateKey.Curve.Params()</span><br><span class="line">    //获得私钥byte长度</span><br><span class="line">    curveOrderByteSize := param.P.BitLen() / 8</span><br><span class="line">    //获得签名返回值的字节</span><br><span class="line">    rByte, sByte := r.Bytes(), s.Bytes()</span><br><span class="line">    //创建数组</span><br><span class="line">    signature := make([]byte, curveOrderByteSize*2)</span><br><span class="line">    //通过数组保存了签名结果的返回值</span><br><span class="line">    copy(signature[curveOrderByteSize-len(rByte):], rByte)</span><br><span class="line">    copy(signature[curveOrderByteSize*2-len(sByte):], sByte)</span><br><span class="line">    //认证</span><br><span class="line">    //将明文做hash散列，为了验证的内容对比</span><br><span class="line">    digest = sha256.Sum256(message)</span><br><span class="line">    curveOrderByteSize = pub.Curve.Params().P.BitLen() / 8</span><br><span class="line">    //创建两个整形对象</span><br><span class="line">    r, s = new(big.Int), new(big.Int)</span><br><span class="line">    //设置证书值</span><br><span class="line">    r.SetBytes(signature[:curveOrderByteSize])</span><br><span class="line">    s.SetBytes(signature[curveOrderByteSize:])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">​```</span><br><span class="line">//认证</span><br><span class="line">e := ecdsa.Verify(&amp;pub, digest[:], r, s)</span><br><span class="line"></span><br><span class="line">if e == true {</span><br><span class="line">    fmt.Println("OK")</span><br><span class="line">} else {</span><br><span class="line">    fmt.Println("failed")</span><br><span class="line">}</span><br><span class="line">​```</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><pre class="language-none"><code class="language-none">package main
+import (
+    "crypto/ecdsa"
+    "crypto/elliptic"
+    "crypto/rand"
+    "crypto/sha256"
+    "math/big"
+    "fmt"
+)
+//通过椭圆曲线完成签名和验证
+func main() {
+    //声明明文
+    message := []byte("hello world")
+    //生成私钥
+    privateKey, _ := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
+    //生成公钥
+    pub := privateKey.PublicKey
+    //将明文散列
+    digest := sha256.Sum256(message)
+    //签名
+    r, s, _ := ecdsa.Sign(rand.Reader, privateKey, digest[:])
+    //设置私钥的参数类型为曲线类型
+    param := privateKey.Curve.Params()
+    //获得私钥byte长度
+    curveOrderByteSize := param.P.BitLen() / 8
+    //获得签名返回值的字节
+    rByte, sByte := r.Bytes(), s.Bytes()
+    //创建数组
+    signature := make([]byte, curveOrderByteSize*2)
+    //通过数组保存了签名结果的返回值
+    copy(signature[curveOrderByteSize-len(rByte):], rByte)
+    copy(signature[curveOrderByteSize*2-len(sByte):], sByte)
+    //认证
+    //将明文做hash散列，为了验证的内容对比
+    digest = sha256.Sum256(message)
+    curveOrderByteSize = pub.Curve.Params().P.BitLen() / 8
+    //创建两个整形对象
+    r, s = new(big.Int), new(big.Int)
+    //设置证书值
+    r.SetBytes(signature[:curveOrderByteSize])
+    s.SetBytes(signature[curveOrderByteSize:])
+
+
+​```
+//认证
+e := ecdsa.Verify(&amp;pub, digest[:], r, s)
+
+if e == true {
+    fmt.Println("OK")
+} else {
+    fmt.Println("failed")
+}
+​```
+
+}</code></pre>
                 
             </div>
             <hr/>
@@ -1297,7 +1351,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

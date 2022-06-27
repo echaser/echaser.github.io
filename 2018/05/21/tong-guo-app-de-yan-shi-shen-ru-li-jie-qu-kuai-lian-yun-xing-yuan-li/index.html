@@ -8,7 +8,10 @@
     <meta name="description" content="
 
 下载安装如果没有安装nodejs，需要先安装 nodejs
-1234567891011# Clone this repository$ git clone https://github.com/seanseany/blockchain-">
+# Clone this repository
+$ git clone https://github.com/seanseany/blockchain-cli
+
+# Go in">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -475,7 +478,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    488
+                    487
                 </div>
                 
 
@@ -508,7 +511,17 @@
                 <span id="more"></span>
 
 <h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>如果没有安装nodejs，需要先安装 <a target="_blank" rel="noopener" href="https://nodejs.org/en/">nodejs</a></p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># Clone this repository</span><br><span class="line">$ git clone https://github.com/seanseany/blockchain-cli</span><br><span class="line"></span><br><span class="line"># Go into the repository</span><br><span class="line">$ cd blockchain-cli</span><br><span class="line"></span><br><span class="line"># Install dependencies</span><br><span class="line">$ npm install</span><br><span class="line"></span><br><span class="line"># Run the app</span><br><span class="line">$ npm start</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none"># Clone this repository
+$ git clone https://github.com/seanseany/blockchain-cli
+
+# Go into the repository
+$ cd blockchain-cli
+
+# Install dependencies
+$ npm install
+
+# Run the app
+$ npm start</code></pre>
 
 <p>运行结果：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/11383699-7c936d9281ac5752.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
@@ -518,18 +531,33 @@
 <p><img src="http://upload-images.jianshu.io/upload_images/11383699-84b77686e7dc5abb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
 <h2 id="Hash是怎么计算的？"><a href="#Hash是怎么计算的？" class="headerlink" title="Hash是怎么计算的？"></a>Hash是怎么计算的？</h2><p>Hash值是一个十六进制固定长度为64位的唯一的标识。</p>
 <p>hash值是由<code>index</code>, <code>previous block hash</code>, <code>timestamp</code>, <code>block data</code> 和 <code>nonce</code> 作为输入数据计算而得。</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CryptoJS.SHA256(index + previousHash + timestamp + data + nonce)</span><br><span class="line">The SHA256 algorithm will calculate a unique hash, given those inputs. The same inputs will always return the same hash.</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">CryptoJS.SHA256(index + previousHash + timestamp + data + nonce)
+The SHA256 algorithm will calculate a unique hash, given those inputs. The same inputs will always return the same hash.</code></pre>
 
 <p>SHA256算法将根据给出的输入数据计算出一个唯一的hash值，只要输入值不变，永远返回相同的结果。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/11383699-85e951e425f83b73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"></p>
 <p>在线演示：<br><a target="_blank" rel="noopener" href="https://anders.com/blockchain/hash.html">https://anders.com/blockchain/hash.html</a></p>
 <h2 id="你是否注意到块哈希中的四个前导0？"><a href="#你是否注意到块哈希中的四个前导0？" class="headerlink" title="你是否注意到块哈希中的四个前导0？"></a>你是否注意到块哈希中的四个前导0？</h2><p>四个前导0是有效散列的最低要求。 所需的前导0的数量称为<code>难度</code>。</p>
 <p>下面的方法验证hash难度是否有效。</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function isValidHashDifficulty(hash, difficulty) {</span><br><span class="line">  for (var i = 0, b = hash.length; i &lt; b; i ++) {</span><br><span class="line">      if (hash[i] !== '0') {</span><br><span class="line">          break;</span><br><span class="line">      }</span><br><span class="line">  }</span><br><span class="line">  return i &gt;= difficulty;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">function isValidHashDifficulty(hash, difficulty) {
+  for (var i = 0, b = hash.length; i &lt; b; i ++) {
+      if (hash[i] !== '0') {
+          break;
+      }
+  }
+  return i &gt;= difficulty;
+}</code></pre>
 
 <p>这就是我们所熟知的工作量证明系统 - <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Proof-of-work_system">Proof-of-Work system</a>。</p>
 <h2 id="什么是nonce？"><a href="#什么是nonce？" class="headerlink" title="什么是nonce？"></a>什么是nonce？</h2><p>nonce是一个用来找到满足条件的hash值的数字。</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let nonce = 0;</span><br><span class="line">let hash;</span><br><span class="line">let input;</span><br><span class="line">while(!isValidHashDifficulty(hash)) {     </span><br><span class="line">  nonce = nonce + 1;</span><br><span class="line">  input = index + previousHash + timestamp + data + nonce;</span><br><span class="line">  hash = CryptoJS.SHA256(input)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">let nonce = 0;
+let hash;
+let input;
+while(!isValidHashDifficulty(hash)) {     
+  nonce = nonce + 1;
+  input = index + previousHash + timestamp + data + nonce;
+  hash = CryptoJS.SHA256(input)
+}</code></pre>
 
 <p><code>nonce</code> 值一直迭代，直到 <code>hash</code> 值有效为止。在我们案例中一个有效的<code>hash</code> 值是最少有4个前导0。找到<code>nonce</code> 值以满足合适条件的<code>hash</code>值的过程就叫做挖矿。</p>
 <p>随着难度的增加，可能的有效散列数减少。 使用较少可能的有效散列，需要更多的处理能力才能找到有效的散列。</p>
@@ -1308,7 +1336,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

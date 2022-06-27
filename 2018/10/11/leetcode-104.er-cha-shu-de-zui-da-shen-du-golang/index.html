@@ -11,7 +11,10 @@
 二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
 说明: 叶子节点是指没有子节点的节点。
 示例：给定二叉树 [3,9,20,null,null,15,7]，
-12345  3 / \9  20 ">
+  3
+ / \
+9  20
+  /">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -478,7 +481,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    136
+                    134
                 </div>
                 
 
@@ -514,10 +517,34 @@
 <p>二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。</p>
 <p>说明: 叶子节点是指没有子节点的节点。</p>
 <p>示例：<br>给定二叉树 [3,9,20,null,null,15,7]，</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  3</span><br><span class="line"> / \</span><br><span class="line">9  20</span><br><span class="line">  /  \</span><br><span class="line"> 15   7</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">  3
+ / \
+9  20
+  /  \
+ 15   7</code></pre>
 
 <p>返回它的最大深度 3 。</p>
-<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * type TreeNode struct {</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Left *TreeNode</span></span><br><span class="line"><span class="comment"> *     Right *TreeNode</span></span><br><span class="line"><span class="comment"> * }</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">maxDepth</span><span class="params">(root *TreeNode)</span></span> <span class="type">int</span> {</span><br><span class="line">    i := <span class="number">0</span></span><br><span class="line">	j := <span class="number">0</span></span><br><span class="line">	<span class="keyword">if</span> root == <span class="literal">nil</span> {</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">	}</span><br><span class="line">	i = maxDepth(root.Left) + <span class="number">1</span></span><br><span class="line">	j = maxDepth(root.Right) + <span class="number">1</span></span><br><span class="line">	<span class="keyword">if</span> i &lt; j {</span><br><span class="line">		i, j = j, i</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> i</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token comment">/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */</span>
+<span class="token keyword">func</span> <span class="token function">maxDepth</span><span class="token punctuation">(</span>root <span class="token operator">*</span>TreeNode<span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+    i <span class="token operator">:=</span> <span class="token number">0</span>
+	j <span class="token operator">:=</span> <span class="token number">0</span>
+	<span class="token keyword">if</span> root <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token number">0</span>
+	<span class="token punctuation">}</span>
+	i <span class="token operator">=</span> <span class="token function">maxDepth</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>Left<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span>
+	j <span class="token operator">=</span> <span class="token function">maxDepth</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>Right<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span>
+	<span class="token keyword">if</span> i <span class="token operator">&lt;</span> j <span class="token punctuation">{</span>
+		i<span class="token punctuation">,</span> j <span class="token operator">=</span> j<span class="token punctuation">,</span> i
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> i
+<span class="token punctuation">}</span></code></pre>
                 
             </div>
             <hr/>
@@ -1289,7 +1316,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

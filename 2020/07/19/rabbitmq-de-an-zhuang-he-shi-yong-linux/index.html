@@ -7,10 +7,10 @@
     <meta name="keywords" content="RabbitMQ的安装和使用（Linux）, echaser">
     <meta name="description" content="
 
-1. 安装相关依赖1yum -y install make gcc gcc-c++ kernel-devel m4 ncurses-devel openssl-devel
+1. 安装相关依赖yum -y install make gcc gcc-c++ kernel-devel m4 ncurses-devel openssl-devel
 
 注意：进行下面步骤之前一定要做的事情
-登陆RabbitMQ官网">
+登陆RabbitMQ官网查">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -477,7 +477,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    700
+                    701
                 </div>
                 
 
@@ -509,7 +509,7 @@
             <div id="articleContent">
                 <span id="more"></span>
 
-<h3 id="1-安装相关依赖"><a href="#1-安装相关依赖" class="headerlink" title="1. 安装相关依赖"></a>1. 安装相关依赖</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install make gcc gcc-c++ kernel-devel m4 ncurses-devel openssl-devel</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="1-安装相关依赖"><a href="#1-安装相关依赖" class="headerlink" title="1. 安装相关依赖"></a>1. 安装相关依赖</h3><pre class="language-none"><code class="language-none">yum -y install make gcc gcc-c++ kernel-devel m4 ncurses-devel openssl-devel</code></pre>
 
 <p><em><code>注意：进行下面步骤之前一定要做的事情</code></em></p>
 <p>登陆<a target="_blank" rel="noopener" href="https://www.rabbitmq.com/which-erlang.html">RabbitMQ官网</a>查询erlang与rabbitmq匹配版本</p>
@@ -517,63 +517,86 @@
 <p><code>版本一定要匹配！！！</code><br><code>版本一定要匹配！！！</code><br><code>版本一定要匹配！！！</code></p>
 </blockquote>
 <h3 id="2-安装Erlang"><a href="#2-安装Erlang" class="headerlink" title="2. 安装Erlang"></a>2. 安装Erlang</h3><p><em>下载</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://erlang.org/download/otp_src_21.3.tar.gz  </span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> http://erlang.org/download/otp_src_21.3.tar.gz  </code></pre>
 
 <p><em>解压</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xzvf otp_src_21.3.tar.gz </span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">tar</span> -xzvf otp_src_21.3.tar.gz </code></pre>
 
 <p><em>配置</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">./configure</code></pre>
 
 <p><em>安装</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">make</span> <span class="token function">install</span></code></pre>
 
 <p><em>验证</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">erl</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">erl</code></pre>
 
 <p><code>出现类似以下提示表明安装成功!(可按Ctrl + C退出，一次不行多来几次)</code></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Erlang/OTP 21 [erts-10.3] [source] [64-bit] [smp:32:32] [ds:32:32:10] [async-threads:1] [hipe]</span><br><span class="line">Eshell V10.3  (abort with ^G)</span><br><span class="line"><span class="meta prompt_">1&gt; </span></span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">Erlang/OTP <span class="token number">21</span> <span class="token punctuation">[</span>erts-10.3<span class="token punctuation">]</span> <span class="token punctuation">[</span>source<span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token number">64</span>-bit<span class="token punctuation">]</span> <span class="token punctuation">[</span>smp:32:32<span class="token punctuation">]</span> <span class="token punctuation">[</span>ds:32:32:10<span class="token punctuation">]</span> <span class="token punctuation">[</span>async-threads:1<span class="token punctuation">]</span> <span class="token punctuation">[</span>hipe<span class="token punctuation">]</span>
+Eshell V10.3  <span class="token punctuation">(</span>abort with ^G<span class="token punctuation">)</span>
+<span class="token operator"><span class="token file-descriptor important">1</span>&gt;</span> </code></pre>
 
 <h3 id="3-安装RabbitMQ"><a href="#3-安装RabbitMQ" class="headerlink" title="3. 安装RabbitMQ"></a>3. 安装RabbitMQ</h3><p><em>下载</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.2/rabbitmq-server-generic-unix-3.8.2.tar.xz</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.2/rabbitmq-server-generic-unix-3.8.2.tar.xz</code></pre>
 
 <p><em>解压</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xz -d rabbitmq-server-generic-unix-3.8.2.tar.xz   -- 这一步解压出rabbitmq-server-generic-unix-3.8.2.tar文件</span><br><span class="line"> 继续解压</span><br><span class="line">tar -xvf rabbitmq-server-generic-unix-3.8.2.tar   -- 这一步解压出rabbitmq-server-generic-unix-3.8.2.tar</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">xz -d rabbitmq-server-generic-unix-3.8.2.tar.xz   -- 这一步解压出rabbitmq-server-generic-unix-3.8.2.tar文件
+ 继续解压
+<span class="token function">tar</span> -xvf rabbitmq-server-generic-unix-3.8.2.tar   -- 这一步解压出rabbitmq-server-generic-unix-3.8.2.tar</code></pre>
 
 <p><code>无需编译安装</code></p>
 <p><em>移动</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -r rabbitmq_server-3.8.2 /usr/local/rabbitmq</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> -r rabbitmq_server-3.8.2 /usr/local/rabbitmq</code></pre>
 
 <p><em>配置</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line">export PATH=/usr/local/rabbitmq/sbin:$PATH     -- 将此句加在文末</span><br><span class="line"> 保存退出</span><br><span class="line">source /etc/profile                            -- 使新配置生效</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">vim</span> /etc/profile
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span>/usr/local/rabbitmq/sbin:<span class="token environment constant">$PATH</span>     -- 将此句加在文末
+ 保存退出
+<span class="token builtin class-name">source</span> /etc/profile                            -- 使新配置生效</code></pre>
 
 <h3 id="4-启动"><a href="#4-启动" class="headerlink" title="4. 启动"></a>4. 启动</h3><p><em>启用Web管理控制台</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">rabbitmq-plugins <span class="token builtin class-name">enable</span> rabbitmq_management</code></pre>
 
 <p><em>后台启动</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-server -detached</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">rabbitmq-server -detached</code></pre>
 
 <p><em><code>以下操作可选</code></em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">systemctl start firewalld                                        -- 启动防火墙</span><br><span class="line">firewall-cmd --zone=public --add-port=15672/tcp --permanent      -- 开放15672端口</span><br><span class="line">firewall-cmd --zone=public --remove-port=15762/tcp --permanent   -- 关闭端口(此句可忽略，笔记)</span><br><span class="line">firewall-cmd --reload                                            -- 开放或关闭端口都需要执行以使操作生效</span><br><span class="line">firewall-cmd --list-ports                                        -- 查看已经开放的端口</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">systemctl start firewalld                                        -- 启动防火墙
+firewall-cmd --zone<span class="token operator">=</span>public --add-port<span class="token operator">=</span><span class="token number">15672</span>/tcp --permanent      -- 开放15672端口
+firewall-cmd --zone<span class="token operator">=</span>public --remove-port<span class="token operator">=</span><span class="token number">15762</span>/tcp --permanent   -- 关闭端口<span class="token punctuation">(</span>此句可忽略，笔记<span class="token punctuation">)</span>
+firewall-cmd --reload                                            -- 开放或关闭端口都需要执行以使操作生效
+firewall-cmd --list-ports                                        -- 查看已经开放的端口</code></pre>
 
 <h3 id="5-使用RabbitMQ"><a href="#5-使用RabbitMQ" class="headerlink" title="5. 使用RabbitMQ"></a>5. 使用RabbitMQ</h3><p><em><code>以下操作需要切换目录到/usr/local/rabbitmq/sbin/ 或在RabbitMQ命令前加上此目录</code></em></p>
 <p><em>创建用户(权限不够可在命令前加<code>sudo</code>)</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl add_user js 123456                      -- 添加用户</span><br><span class="line">rabbitmqctl set_user_tags js administrator          -- 设置用户身份</span><br><span class="line">rabbitmqctl set_permissions -p / js ".*" ".*" ".*"  -- 设置权限</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">rabbitmqctl add_user js <span class="token number">123456</span>                      -- 添加用户
+rabbitmqctl set_user_tags js administrator          -- 设置用户身份
+rabbitmqctl set_permissions -p / js <span class="token string">".*"</span> <span class="token string">".*"</span> <span class="token string">".*"</span>  -- 设置权限</code></pre>
 
 <p><em>下载队列管理命令</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/v3.8.2/bin/rabbitmqadmin</span><br><span class="line">  或者</span><br><span class="line">wget http://127.0.0.1:15672/cli/rabbitmqadmin</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://raw.githubusercontent.com/rabbitmq/rabbitmq-management/v3.8.2/bin/rabbitmqadmin
+  或者
+<span class="token function">wget</span> http://127.0.0.1:15672/cli/rabbitmqadmin</code></pre>
 
 <p><em>赋予权限</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x  rabbitmqadmin</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">chmod</span> +x  rabbitmqadmin</code></pre>
 
 <p><em>查询队列</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python rabbitmqadmin --vhost=vhost --username=username --password=password list queues</span><br><span class="line">例如：</span><br><span class="line">python rabbitmqadmin --vhost=/ --username=js --password=123456 list queues</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">python rabbitmqadmin --vhost<span class="token operator">=</span>vhost --username<span class="token operator">=</span>username --password<span class="token operator">=</span>password list queues
+例如：
+python rabbitmqadmin --vhost<span class="token operator">=</span>/ --username<span class="token operator">=</span>js --password<span class="token operator">=</span><span class="token number">123456</span> list queues</code></pre>
 
 <p><em>创建队列</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">python rabbitmqadmin --vhost=/ --username=username --password=password  declare queue name=队列名称</span><br><span class="line"> 或者</span><br><span class="line">python rabbitmqadmin declare queue name=队列名称 auto_delete=false durable=true --vhost=/ --username=username --password=password</span><br><span class="line">例如：</span><br><span class="line">python rabbitmqadmin auto_delete=false durable=true --vhost=/ --username=js --password=123456 declare queue name=csdn</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">python rabbitmqadmin --vhost<span class="token operator">=</span>/ --username<span class="token operator">=</span>username --password<span class="token operator">=</span>password  <span class="token builtin class-name">declare</span> queue <span class="token assign-left variable">name</span><span class="token operator">=</span>队列名称
+ 或者
+python rabbitmqadmin <span class="token builtin class-name">declare</span> queue <span class="token assign-left variable">name</span><span class="token operator">=</span>队列名称 <span class="token assign-left variable">auto_delete</span><span class="token operator">=</span>false <span class="token assign-left variable">durable</span><span class="token operator">=</span>true --vhost<span class="token operator">=</span>/ --username<span class="token operator">=</span>username --password<span class="token operator">=</span>password
+例如：
+python rabbitmqadmin <span class="token assign-left variable">auto_delete</span><span class="token operator">=</span>false <span class="token assign-left variable">durable</span><span class="token operator">=</span>true --vhost<span class="token operator">=</span>/ --username<span class="token operator">=</span>js --password<span class="token operator">=</span><span class="token number">123456</span> <span class="token builtin class-name">declare</span> queue <span class="token assign-left variable">name</span><span class="token operator">=</span>csdn</code></pre>
 
 <p><em>删除队列</em></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python rabbitmqadmin --vhost=/ --username=username --password=password  delete queue name=队列名称</span><br><span class="line">例如：</span><br><span class="line">python rabbitmqadmin --vhost=/ --username=js --password=123456  delete queue name=队列名称</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">python rabbitmqadmin --vhost<span class="token operator">=</span>/ --username<span class="token operator">=</span>username --password<span class="token operator">=</span>password  delete queue <span class="token assign-left variable">name</span><span class="token operator">=</span>队列名称
+例如：
+python rabbitmqadmin --vhost<span class="token operator">=</span>/ --username<span class="token operator">=</span>js --password<span class="token operator">=</span><span class="token number">123456</span>  delete queue <span class="token assign-left variable">name</span><span class="token operator">=</span>队列名称</code></pre>
 
 <p><em><code>作者：本文力致于整理一篇比较完整的RabbitMQ的安装和使用教程，此文基于本人多次部署服务器整理而成，以避免每次部署服务器重新搜罗资料，有任何问题或需要补充的请留言，诚与各位交流学习！</code></em></p>
 
@@ -1348,7 +1371,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

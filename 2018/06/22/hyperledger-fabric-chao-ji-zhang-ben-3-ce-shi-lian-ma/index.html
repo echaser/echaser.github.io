@@ -8,11 +8,11 @@
     <meta name="description" content="
 
 测试链码确定进入CLI容器中
-1$ sudo docker exec -it cli bash
+$ sudo docker exec -it cli bash
 
 Peer加入应用通道后, 可以执行链码相关操作,进行测试
 链码在调用之前, 必须先经过安装和实例化两个步骤, 部署到Peer节点上.
-检查">
+检查环">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -479,7 +479,7 @@ Peer加入应用通道后, 可以执行链码相关操作,进行测试
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    528
+                    527
                 </div>
                 
 
@@ -512,25 +512,25 @@ Peer加入应用通道后, 可以执行链码相关操作,进行测试
                 <span id="more"></span>
 
 <h2 id="测试链码"><a href="#测试链码" class="headerlink" title="测试链码"></a>测试链码</h2><p>确定进入CLI容器中</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker exec -it cli bash</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ sudo docker exec -it cli bash</code></pre>
 
 <p>Peer加入应用通道后, 可以执行链码相关操作,进行测试</p>
 <p>链码在调用之前, 必须先经过安装和实例化两个步骤, 部署到Peer节点上.</p>
 <p>检查环境变量是否正确设置</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $CHANNEL_NAME</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">echo $CHANNEL_NAME</code></pre>
 
 <p>设置环境变量</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export CHANNEL_NAME=mychannel</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">export CHANNEL_NAME=mychannel</code></pre>
 
 <h3 id="安装并实例化Chaincode"><a href="#安装并实例化Chaincode" class="headerlink" title="安装并实例化Chaincode"></a>安装并实例化Chaincode</h3><p>安装:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode install -n mycc -v 1.0 -p github.com/chaincode/chaincode_example02/go/</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">peer chaincode install -n mycc -v 1.0 -p github.com/chaincode/chaincode_example02/go/</code></pre>
 
 <p>参数说明:</p>
 <p>-n: 指定要安装的链码的名称</p>
 <p>-v: 指定要安装的链码的版本号</p>
 <p>-p: 指定要安装的链码的链码文件所在路径</p>
 <p>实例化:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode instantiate -o orderer.example.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C $CHANNEL_NAME -n mycc -v 1.0 -c '{"Args":["init","a", "100", "b","200"]}' -P "OR ('Org1MSP.peer','Org2MSP.peer')"</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">peer chaincode instantiate -o orderer.example.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C $CHANNEL_NAME -n mycc -v 1.0 -c '{"Args":["init","a", "100", "b","200"]}' -P "OR ('Org1MSP.peer','Org2MSP.peer')"</code></pre>
 
 <p>参数说明:</p>
 <p>-o: 指定Orderer服务地址</p>
@@ -547,16 +547,16 @@ Peer加入应用通道后, 可以执行链码相关操作,进行测试
 <li>query</li>
 <li>invoke</li>
 </ol>
-<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><pre class="language-none"><code class="language-none">peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'</code></pre>
 
 <p>参数说明:</p>
 <p>-C: 指定所属通道</p>
 <p>-n: 指定链码名称</p>
 <p>-c: 调用链码的传递的参数</p>
 <p>输出结果:<code>Query Result: 100</code></p>
-<h3 id="调用-x2F-转账"><a href="#调用-x2F-转账" class="headerlink" title="调用/转账"></a>调用/转账</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode invoke -o orderer.example.com:7050  --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem  -C $CHANNEL_NAME -n mycc -c '{"Args":["invoke","a","b","10"]}'</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="调用-x2F-转账"><a href="#调用-x2F-转账" class="headerlink" title="调用/转账"></a>调用/转账</h3><pre class="language-none"><code class="language-none">peer chaincode invoke -o orderer.example.com:7050  --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem  -C $CHANNEL_NAME -n mycc -c '{"Args":["invoke","a","b","10"]}'</code></pre>
 
-<h3 id="查询a账户的金额"><a href="#查询a账户的金额" class="headerlink" title="查询a账户的金额"></a>查询a账户的金额</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="查询a账户的金额"><a href="#查询a账户的金额" class="headerlink" title="查询a账户的金额"></a>查询a账户的金额</h3><pre class="language-none"><code class="language-none">peer chaincode query -C $CHANNEL_NAME -n mycc -c '{"Args":["query","a"]}'</code></pre>
 
 <p>输出结果: <code>Query Result: 90</code></p>
 <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p>将github.com/chaincode/sacc/的链码安装并实例化,</p>
@@ -1341,7 +1341,7 @@ Peer加入应用通道后, 可以执行链码相关操作,进行测试
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

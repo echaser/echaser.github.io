@@ -9,7 +9,9 @@
 
 给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
 示例：
-123给定一个链表: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5, 和 n = 2.当删除了倒数第二个节点后，链表变为 1-&amp;gt;2-&amp;gt;3-&amp;g">
+给定一个链表: 1-&amp;gt;2-&amp;gt;3-&amp;gt;4-&amp;gt;5, 和 n = 2.
+
+当删除了倒数第二个节点后，链表变为 1-&amp;gt;2-&amp;gt;3-&amp;gt">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -476,7 +478,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    168
+                    166
                 </div>
                 
 
@@ -510,13 +512,43 @@
 
 <p>给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。</p>
 <p>示例：</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 n = 2.</span><br><span class="line"></span><br><span class="line">当删除了倒数第二个节点后，链表变为 1-&gt;2-&gt;3-&gt;5.</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 n = 2.
+
+当删除了倒数第二个节点后，链表变为 1-&gt;2-&gt;3-&gt;5.</code></pre>
 
 <p>说明：</p>
 <p>给定的 n 保证是有效的。</p>
 <p>进阶：</p>
 <p>你能尝试使用一趟扫描实现吗？</p>
-<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * type ListNode struct {</span></span><br><span class="line"><span class="comment"> *     Val int</span></span><br><span class="line"><span class="comment"> *     Next *ListNode</span></span><br><span class="line"><span class="comment"> * }</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">removeNthFromEnd</span><span class="params">(head *ListNode, n <span class="type">int</span>)</span></span> *ListNode {</span><br><span class="line">    <span class="keyword">if</span> n &lt;= <span class="number">0</span> || head == <span class="literal">nil</span> {</span><br><span class="line">        <span class="keyword">return</span> head</span><br><span class="line">    }</span><br><span class="line">    fast := head</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">1</span>; i &lt;= n &amp;&amp; fast != <span class="literal">nil</span>; i++{</span><br><span class="line">        fast = fast.Next</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> fast == <span class="literal">nil</span> {</span><br><span class="line">        <span class="keyword">return</span> head.Next</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    slow := head</span><br><span class="line">    <span class="keyword">for</span> fast.Next != <span class="literal">nil</span> {</span><br><span class="line">        slow = slow.Next</span><br><span class="line">        fast = fast.Next</span><br><span class="line">    }</span><br><span class="line">    slow.Next = slow.Next.Next</span><br><span class="line">    <span class="keyword">return</span> head</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token comment">/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */</span>
+<span class="token keyword">func</span> <span class="token function">removeNthFromEnd</span><span class="token punctuation">(</span>head <span class="token operator">*</span>ListNode<span class="token punctuation">,</span> n <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">*</span>ListNode <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> n <span class="token operator">&lt;=</span> <span class="token number">0</span> <span class="token operator">||</span> head <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> head
+    <span class="token punctuation">}</span>
+    fast <span class="token operator">:=</span> head
+    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n <span class="token operator">&amp;&amp;</span> fast <span class="token operator">!=</span> <span class="token boolean">nil</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">{</span>
+        fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>Next
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword">if</span> fast <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> head<span class="token punctuation">.</span>Next
+    <span class="token punctuation">}</span>
+    
+    
+    slow <span class="token operator">:=</span> head
+    <span class="token keyword">for</span> fast<span class="token punctuation">.</span>Next <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>Next
+        fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>Next
+    <span class="token punctuation">}</span>
+    slow<span class="token punctuation">.</span>Next <span class="token operator">=</span> slow<span class="token punctuation">.</span>Next<span class="token punctuation">.</span>Next
+    <span class="token keyword">return</span> head
+<span class="token punctuation">}</span></code></pre>
                 
             </div>
             <hr/>
@@ -1288,7 +1320,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

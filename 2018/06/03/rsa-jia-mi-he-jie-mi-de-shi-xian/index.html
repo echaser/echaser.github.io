@@ -7,9 +7,9 @@
     <meta name="keywords" content="RSA加密和解密的实现, echaser">
     <meta name="description" content="
 
-openssl生成私钥1openssl genrsa -out rsa_private_key.pem 1024  
+openssl生成私钥openssl genrsa -out rsa_private_key.pem 1024  
 
-openssl生成公钥1openssl rsa -in rsa_private_key.pem -pubout -o">
+openssl生成公钥openssl rsa -in rsa_private_key.pem -pubout -out">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -472,7 +472,7 @@ openssl生成公钥1openssl rsa -in rsa_private_key.pem -pubout -o">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    257
+                    271
                 </div>
                 
 
@@ -504,11 +504,93 @@ openssl生成公钥1openssl rsa -in rsa_private_key.pem -pubout -o">
             <div id="articleContent">
                 <span id="more"></span>
 
-<h2 id="openssl生成私钥"><a href="#openssl生成私钥" class="headerlink" title="openssl生成私钥"></a>openssl生成私钥</h2><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -out rsa_private_key.pem 1024  </span><br></pre></td></tr></tbody></table></figure>
+<h2 id="openssl生成私钥"><a href="#openssl生成私钥" class="headerlink" title="openssl生成私钥"></a>openssl生成私钥</h2><pre class="language-none"><code class="language-none">openssl genrsa -out rsa_private_key.pem 1024  </code></pre>
 
-<h2 id="openssl生成公钥"><a href="#openssl生成公钥" class="headerlink" title="openssl生成公钥"></a>openssl生成公钥</h2><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem  </span><br></pre></td></tr></tbody></table></figure>
+<h2 id="openssl生成公钥"><a href="#openssl生成公钥" class="headerlink" title="openssl生成公钥"></a>openssl生成公钥</h2><pre class="language-none"><code class="language-none">openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem  </code></pre>
 
-<h2 id="实现-RSA-加密解密"><a href="#实现-RSA-加密解密" class="headerlink" title="实现 RSA 加密解密"></a>实现 RSA 加密解密</h2><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">package main  </span><br><span class="line"></span><br><span class="line">import (  </span><br><span class="line">    "crypto/rand"  </span><br><span class="line">    "crypto/rsa"  </span><br><span class="line">    "crypto/x509"  </span><br><span class="line">    "encoding/base64"  </span><br><span class="line">    "encoding/pem"  </span><br><span class="line">    "errors"  </span><br><span class="line">    "fmt"  </span><br><span class="line">)  </span><br><span class="line"></span><br><span class="line">// 可通过openssl产生  </span><br><span class="line">//openssl genrsa -out rsa_private_key.pem 1024  </span><br><span class="line">var privateKey = []byte(`  </span><br><span class="line">-----BEGIN RSA PRIVATE KEY-----</span><br><span class="line">MIICXQIBAAKBgQDfw1/P15GQzGGYvNwVmXIGGxea8Pb2wJcF7ZW7tmFdLSjOItn9</span><br><span class="line">kvUsbQgS5yxx+f2sAv1ocxbPTsFdRc6yUTJdeQolDOkEzNP0B8XKm+Lxy4giwwR5</span><br><span class="line">LJQTANkqe4w/d9u129bRhTu/SUzSUIr65zZ/s6TUGQD6QzKY1Y8xS+FoQQIDAQAB</span><br><span class="line">AoGAbSNg7wHomORm0dWDzvEpwTqjl8nh2tZyksyf1I+PC6BEH8613k04UfPYFUg1</span><br><span class="line">0F2rUaOfr7s6q+BwxaqPtz+NPUotMjeVrEmmYM4rrYkrnd0lRiAxmkQUBlLrCBiF</span><br><span class="line">u+bluDkHXF7+TUfJm4AZAvbtR2wO5DUAOZ244FfJueYyZHECQQD+V5/WrgKkBlYy</span><br><span class="line">XhioQBXff7TLCrmMlUziJcQ295kIn8n1GaKzunJkhreoMbiRe0hpIIgPYb9E57tT</span><br><span class="line">/mP/MoYtAkEA4Ti6XiOXgxzV5gcB+fhJyb8PJCVkgP2wg0OQp2DKPp+5xsmRuUXv</span><br><span class="line">720oExv92jv6X65x631VGjDmfJNb99wq5QJBAMSHUKrBqqizfMdOjh7z5fLc6wY5</span><br><span class="line">M0a91rqoFAWlLErNrXAGbwIRf3LN5fvA76z6ZelViczY6sKDjOxKFVqL38ECQG0S</span><br><span class="line">pxdOT2M9BM45GJjxyPJ+qBuOTGU391Mq1pRpCKlZe4QtPHioyTGAAMd4Z/FX2MKb</span><br><span class="line">3in48c0UX5t3VjPsmY0CQQCc1jmEoB83JmTHYByvDpc8kzsD8+GmiPVrausrjj4p</span><br><span class="line">y2DQpGmUic2zqCxl6qXMpBGtFEhrUbKhOiVOJbRNGvWW</span><br><span class="line">-----END RSA PRIVATE KEY-----</span><br><span class="line">`)  </span><br><span class="line"></span><br><span class="line">//openssl  </span><br><span class="line">//openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem  </span><br><span class="line">var publicKey = []byte(`  </span><br><span class="line">-----BEGIN PUBLIC KEY-----</span><br><span class="line">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDfw1/P15GQzGGYvNwVmXIGGxea</span><br><span class="line">8Pb2wJcF7ZW7tmFdLSjOItn9kvUsbQgS5yxx+f2sAv1ocxbPTsFdRc6yUTJdeQol</span><br><span class="line">DOkEzNP0B8XKm+Lxy4giwwR5LJQTANkqe4w/d9u129bRhTu/SUzSUIr65zZ/s6TU</span><br><span class="line">GQD6QzKY1Y8xS+FoQQIDAQAB</span><br><span class="line">-----END PUBLIC KEY-----    </span><br><span class="line">`)  </span><br><span class="line"></span><br><span class="line">// 加密  </span><br><span class="line">func RsaEncrypt(origData []byte) ([]byte, error) {  </span><br><span class="line">    //解密pem格式的公钥  </span><br><span class="line">    block, _ := pem.Decode(publicKey)  </span><br><span class="line">    if block == nil {  </span><br><span class="line">        return nil, errors.New("public key error")  </span><br><span class="line">    }  </span><br><span class="line">    // 解析公钥  </span><br><span class="line">    pubInterface, err := x509.ParsePKIXPublicKey(block.Bytes)  </span><br><span class="line">    if err != nil {  </span><br><span class="line">        return nil, err  </span><br><span class="line">    }  </span><br><span class="line">    // 类型断言  </span><br><span class="line">    pub := pubInterface.(*rsa.PublicKey)  </span><br><span class="line">    //加密  </span><br><span class="line">    return rsa.EncryptPKCS1v15(rand.Reader, pub, origData)  </span><br><span class="line">}  </span><br><span class="line"></span><br><span class="line">// 解密  </span><br><span class="line">func RsaDecrypt(ciphertext []byte) ([]byte, error) {  </span><br><span class="line">    //解密  </span><br><span class="line">    block, _ := pem.Decode(privateKey)  </span><br><span class="line">    if block == nil {  </span><br><span class="line">        return nil, errors.New("private key error!")  </span><br><span class="line">    }  </span><br><span class="line">    //解析PKCS1格式的私钥  </span><br><span class="line">    priv, err := x509.ParsePKCS1PrivateKey(block.Bytes)  </span><br><span class="line">    if err != nil {  </span><br><span class="line">        return nil, err  </span><br><span class="line">    }  </span><br><span class="line">    // 解密  </span><br><span class="line">    return rsa.DecryptPKCS1v15(rand.Reader, priv, ciphertext)  </span><br><span class="line">}  </span><br><span class="line"></span><br><span class="line">func main() {  </span><br><span class="line">    data, _ := RsaEncrypt([]byte("hello world"))  </span><br><span class="line">    fmt.Println(base64.StdEncoding.EncodeToString(data))  </span><br><span class="line">    origData, _ := RsaDecrypt(data)  </span><br><span class="line">    fmt.Println(string(origData))  </span><br><span class="line">} </span><br></pre></td></tr></tbody></table></figure>
+<h2 id="实现-RSA-加密解密"><a href="#实现-RSA-加密解密" class="headerlink" title="实现 RSA 加密解密"></a>实现 RSA 加密解密</h2><pre class="language-none"><code class="language-none">package main  
+
+import (  
+    "crypto/rand"  
+    "crypto/rsa"  
+    "crypto/x509"  
+    "encoding/base64"  
+    "encoding/pem"  
+    "errors"  
+    "fmt"  
+)  
+
+// 可通过openssl产生  
+//openssl genrsa -out rsa_private_key.pem 1024  
+var privateKey = []byte(`  
+-----BEGIN RSA PRIVATE KEY-----
+MIICXQIBAAKBgQDfw1/P15GQzGGYvNwVmXIGGxea8Pb2wJcF7ZW7tmFdLSjOItn9
+kvUsbQgS5yxx+f2sAv1ocxbPTsFdRc6yUTJdeQolDOkEzNP0B8XKm+Lxy4giwwR5
+LJQTANkqe4w/d9u129bRhTu/SUzSUIr65zZ/s6TUGQD6QzKY1Y8xS+FoQQIDAQAB
+AoGAbSNg7wHomORm0dWDzvEpwTqjl8nh2tZyksyf1I+PC6BEH8613k04UfPYFUg1
+0F2rUaOfr7s6q+BwxaqPtz+NPUotMjeVrEmmYM4rrYkrnd0lRiAxmkQUBlLrCBiF
+u+bluDkHXF7+TUfJm4AZAvbtR2wO5DUAOZ244FfJueYyZHECQQD+V5/WrgKkBlYy
+XhioQBXff7TLCrmMlUziJcQ295kIn8n1GaKzunJkhreoMbiRe0hpIIgPYb9E57tT
+/mP/MoYtAkEA4Ti6XiOXgxzV5gcB+fhJyb8PJCVkgP2wg0OQp2DKPp+5xsmRuUXv
+720oExv92jv6X65x631VGjDmfJNb99wq5QJBAMSHUKrBqqizfMdOjh7z5fLc6wY5
+M0a91rqoFAWlLErNrXAGbwIRf3LN5fvA76z6ZelViczY6sKDjOxKFVqL38ECQG0S
+pxdOT2M9BM45GJjxyPJ+qBuOTGU391Mq1pRpCKlZe4QtPHioyTGAAMd4Z/FX2MKb
+3in48c0UX5t3VjPsmY0CQQCc1jmEoB83JmTHYByvDpc8kzsD8+GmiPVrausrjj4p
+y2DQpGmUic2zqCxl6qXMpBGtFEhrUbKhOiVOJbRNGvWW
+-----END RSA PRIVATE KEY-----
+`)  
+
+//openssl  
+//openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem  
+var publicKey = []byte(`  
+-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDfw1/P15GQzGGYvNwVmXIGGxea
+8Pb2wJcF7ZW7tmFdLSjOItn9kvUsbQgS5yxx+f2sAv1ocxbPTsFdRc6yUTJdeQol
+DOkEzNP0B8XKm+Lxy4giwwR5LJQTANkqe4w/d9u129bRhTu/SUzSUIr65zZ/s6TU
+GQD6QzKY1Y8xS+FoQQIDAQAB
+-----END PUBLIC KEY-----    
+`)  
+
+// 加密  
+func RsaEncrypt(origData []byte) ([]byte, error) {  
+    //解密pem格式的公钥  
+    block, _ := pem.Decode(publicKey)  
+    if block == nil {  
+        return nil, errors.New("public key error")  
+    }  
+    // 解析公钥  
+    pubInterface, err := x509.ParsePKIXPublicKey(block.Bytes)  
+    if err != nil {  
+        return nil, err  
+    }  
+    // 类型断言  
+    pub := pubInterface.(*rsa.PublicKey)  
+    //加密  
+    return rsa.EncryptPKCS1v15(rand.Reader, pub, origData)  
+}  
+
+// 解密  
+func RsaDecrypt(ciphertext []byte) ([]byte, error) {  
+    //解密  
+    block, _ := pem.Decode(privateKey)  
+    if block == nil {  
+        return nil, errors.New("private key error!")  
+    }  
+    //解析PKCS1格式的私钥  
+    priv, err := x509.ParsePKCS1PrivateKey(block.Bytes)  
+    if err != nil {  
+        return nil, err  
+    }  
+    // 解密  
+    return rsa.DecryptPKCS1v15(rand.Reader, priv, ciphertext)  
+}  
+
+func main() {  
+    data, _ := RsaEncrypt([]byte("hello world"))  
+    fmt.Println(base64.StdEncoding.EncodeToString(data))  
+    origData, _ := RsaDecrypt(data)  
+    fmt.Println(string(origData))  
+} </code></pre>
                 
             </div>
             <hr/>
@@ -1260,7 +1342,7 @@ openssl生成公钥1openssl rsa -in rsa_private_key.pem -pubout -o">
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

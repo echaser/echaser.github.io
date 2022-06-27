@@ -482,7 +482,7 @@ etcd是一个分布式一致性键值存储系统，用于共享配置和服务�
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.4k
+                    1.5k
                 </div>
                 
 
@@ -527,67 +527,337 @@ etcd是一个分布式一致性键值存储系统，用于共享配置和服务�
 </ul>
 <p>etcd是Go编写，并使用Raft一致性算法来管理高可用复制日志：</p>
 <h1 id="单服务器版"><a href="#单服务器版" class="headerlink" title="单服务器版"></a>单服务器版</h1><hr>
-<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir -p $GOPATH/src/github.com/coreos</span><br><span class="line">$ cd !$</span><br><span class="line">$ git clone https://github.com/coreos/etcd.git</span><br><span class="line">$ cd etcd</span><br><span class="line">$ ./build</span><br><span class="line">$ ./bin/etcd</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><pre class="language-none"><code class="language-none">$ mkdir -p $GOPATH/src/github.com/coreos
+$ cd !$
+$ git clone https://github.com/coreos/etcd.git
+$ cd etcd
+$ ./build
+$ ./bin/etcd</code></pre>
 
 <p>另外一种下载安装的方法：</p>
 <p>直接下载etcd二进制 （包含etcd、etcdctl）<br><a target="_blank" rel="noopener" href="https://github.com/coreos/etcd/releases">https://github.com/coreos/etcd/releases</a></p>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ cd $GOPATH</span><br><span class="line">$ ./bin/etcd</span><br><span class="line"></span><br><span class="line">$ cd $GOPATH</span><br><span class="line">$ ETCDCTL_API=3 ./bin/etcdctl put foo bar</span><br><span class="line"></span><br><span class="line"># 输出结果显示OK，表示安装成功</span><br><span class="line">OK</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><pre class="language-none"><code class="language-none">$ cd $GOPATH
+$ ./bin/etcd
 
-<h2 id="搭建本地集群"><a href="#搭建本地集群" class="headerlink" title="搭建本地集群"></a>搭建本地集群</h2><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ go get github.com/mattn/goreman</span><br><span class="line"></span><br><span class="line">$ cd $GOPATH/src/github.com/coreos/etcd</span><br><span class="line">$ goreman -f Procfile start</span><br></pre></td></tr></tbody></table></figure>
+$ cd $GOPATH
+$ ETCDCTL_API=3 ./bin/etcdctl put foo bar
+
+# 输出结果显示OK，表示安装成功
+OK</code></pre>
+
+<h2 id="搭建本地集群"><a href="#搭建本地集群" class="headerlink" title="搭建本地集群"></a>搭建本地集群</h2><pre class="language-none"><code class="language-none">$ go get github.com/mattn/goreman
+
+$ cd $GOPATH/src/github.com/coreos/etcd
+$ goreman -f Procfile start</code></pre>
 
 <p>查看本地集群的服务器列表</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ cd $GOPATH/src/github.com/coreos/etcd</span><br><span class="line"></span><br><span class="line">$ ./bin/etcdctl member list</span><br><span class="line"></span><br><span class="line"># 显示结果</span><br><span class="line"></span><br><span class="line">8211f1d0f64f3269: name=infra1 peerURLs=http://127.0.0.1:12380 clientURLs=http://127.0.0.1:2379 isLeader=false</span><br><span class="line">91bc3c398fb3c146: name=infra2 peerURLs=http://127.0.0.1:22380 clientURLs=http://127.0.0.1:22379 isLeader=true</span><br><span class="line">fd422379fda50e48: name=infra3 peerURLs=http://127.0.0.1:32380 clientURLs=http://127.0.0.1:32379 isLeader=false</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ cd $GOPATH/src/github.com/coreos/etcd
 
-<h3 id="存储数据"><a href="#存储数据" class="headerlink" title="存储数据"></a>存储数据</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">export ETCDCTL_API=3</span><br><span class="line"></span><br><span class="line">$ ./bin/etcdctl put foo "Hello World!"</span><br><span class="line"></span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">$ ./bin/etcdctl get foo</span><br><span class="line"></span><br><span class="line">foo</span><br><span class="line">Hello World!</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ ./bin/etcdctl  --write-out="json" get foo</span><br><span class="line"></span><br><span class="line">{"header":{"cluster_id":17237436991929493444,"member_id":9372538179322589801,"revision":2,"raft_term":2},"kvs":[{"key":"Zm9v","create_revision":2,"mod_revision":2,"version":1,"value":"SGVsbG8gV29ybGQh"}],"count":1}</span><br></pre></td></tr></tbody></table></figure>
+$ ./bin/etcdctl member list
 
-<h3 id="根据前缀查询"><a href="#根据前缀查询" class="headerlink" title="根据前缀查询"></a>根据前缀查询</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$ ./bin/etcdctl put web1 value1</span><br><span class="line">$ ./bin/etcdctl put web2 value2</span><br><span class="line">$ ./bin/etcdctl put web3 value3</span><br><span class="line"></span><br><span class="line">$ ./bin/etcdctl get web --prefix</span><br><span class="line"></span><br><span class="line">web1</span><br><span class="line">value1</span><br><span class="line">web2</span><br><span class="line">value2</span><br><span class="line">web3</span><br><span class="line">value3</span><br></pre></td></tr></tbody></table></figure>
+# 显示结果
 
-<h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ ./bin/etcdctl put key myvalue</span><br><span class="line">$ ./bin/etcdctl del key</span><br><span class="line">1</span><br><span class="line">$ ./bin/etcdctl get key</span><br><span class="line">// 查询结果为空</span><br><span class="line"></span><br><span class="line">$ ./bin/etcdctl put k1 value1</span><br><span class="line">$ ./bin/etcdctl put k2 value2</span><br><span class="line">$ ./bin/etcdctl del k --prefix</span><br><span class="line">2</span><br><span class="line">$ ./bin/etcdctl get k --prefix</span><br><span class="line">// 查询结果为空</span><br></pre></td></tr></tbody></table></figure>
+8211f1d0f64f3269: name=infra1 peerURLs=http://127.0.0.1:12380 clientURLs=http://127.0.0.1:2379 isLeader=false
+91bc3c398fb3c146: name=infra2 peerURLs=http://127.0.0.1:22380 clientURLs=http://127.0.0.1:22379 isLeader=true
+fd422379fda50e48: name=infra3 peerURLs=http://127.0.0.1:32380 clientURLs=http://127.0.0.1:32379 isLeader=false</code></pre>
 
-<h3 id="事务写入"><a href="#事务写入" class="headerlink" title="事务写入"></a>事务写入</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">$ ./bin/etcdctl put user1 bad</span><br><span class="line">OK</span><br><span class="line">$ ./bin/etcdctl txn --interactive</span><br><span class="line"></span><br><span class="line">compares:</span><br><span class="line">// 输入以下内容，输入结束按 两次回车</span><br><span class="line">value("user1") = "bad"      </span><br><span class="line"></span><br><span class="line">//如果 user1 = bad，则执行 get user1 </span><br><span class="line">success requests (get, put, del):</span><br><span class="line">get user1</span><br><span class="line"></span><br><span class="line">//如果 user1 != bad，则执行 put user1 good</span><br><span class="line">failure requests (get, put, del):</span><br><span class="line">put user1 good</span><br><span class="line"></span><br><span class="line">// 运行结果，执行 success</span><br><span class="line">SUCCESS</span><br><span class="line"></span><br><span class="line">user1</span><br><span class="line">bad</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ ./bin/etcdctl txn --interactive</span><br><span class="line">compares:</span><br><span class="line">value("user1") = "111"  </span><br><span class="line"></span><br><span class="line">// 如果 user1 = 111，则执行 get user1 </span><br><span class="line">success requests (get, put, del):</span><br><span class="line">get user1</span><br><span class="line"></span><br><span class="line">//如果 user1 != 111，则执行 put user1 2222</span><br><span class="line">failure requests (get, put, del):</span><br><span class="line">put user1 2222</span><br><span class="line"></span><br><span class="line">// 运行结果，执行 failure</span><br><span class="line">FAILURE</span><br><span class="line"></span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">$ ./bin/etcdctl get user1</span><br><span class="line">user1</span><br><span class="line">2222</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="存储数据"><a href="#存储数据" class="headerlink" title="存储数据"></a>存储数据</h3><pre class="language-none"><code class="language-none">export ETCDCTL_API=3
 
-<h3 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 当 stock1 的数值改变（ put 方法）的时候，watch 会收到通知</span><br><span class="line">$ ./bin/etcdctl watch stock1</span><br><span class="line"></span><br><span class="line">// 新打开终端</span><br><span class="line">$ export ETCDCTL_API=3</span><br><span class="line">$ ./bin/etcdctl put stock1 1000</span><br><span class="line"></span><br><span class="line">//在watch 终端显示</span><br><span class="line">PUT</span><br><span class="line">stock1</span><br><span class="line">1000</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ ./bin/etcdctl watch stock --prefix</span><br><span class="line">$ ./bin/etcdctl put stock1 10</span><br><span class="line">$ ./bin/etcdctl put stock2 20</span><br></pre></td></tr></tbody></table></figure>
+$ ./bin/etcdctl put foo "Hello World!"
 
-<h3 id="lease"><a href="#lease" class="headerlink" title="lease"></a>lease</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ ./bin/etcdctl lease grant 300</span><br><span class="line"># lease 326963a02758b527 granted with TTL(300s)</span><br><span class="line"></span><br><span class="line">$ ./bin/etcdctl put sample value --lease=326963a02758b527</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">$ ./bin/etcdctl get sample</span><br><span class="line"></span><br><span class="line">$ ./bin/etcdctl lease keep-alive 326963a02758b520</span><br><span class="line">$ ./bin/etcdctl lease revoke 326963a02758b527</span><br><span class="line">lease 326963a02758b527 revoked</span><br><span class="line"></span><br><span class="line"># or after 300 seconds</span><br><span class="line">$ ./bin/etcdctl get sample</span><br></pre></td></tr></tbody></table></figure>
+OK
 
-<h3 id="Distributed-locks"><a href="#Distributed-locks" class="headerlink" title="Distributed locks"></a>Distributed locks</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//第一终端</span><br><span class="line">$ ./bin/etcdctl lock mutex1</span><br><span class="line">mutex1/326963a02758b52d</span><br><span class="line"></span><br><span class="line"># 第二终端</span><br><span class="line">$ ./bin/etcdctl lock mutex1</span><br><span class="line"></span><br><span class="line">// 当第一个终端结束了，第二个终端会显示</span><br><span class="line">mutex1/326963a02758b531</span><br></pre></td></tr></tbody></table></figure>
+$ ./bin/etcdctl get foo
 
-<h3 id="Elections"><a href="#Elections" class="headerlink" title="Elections"></a>Elections</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ ./bin/etcdctl elect one p1</span><br><span class="line"></span><br><span class="line">one/326963a02758b539</span><br><span class="line">p1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># another client with the same name blocks</span><br><span class="line">$ ./bin/etcdctl elect one p2</span><br><span class="line"></span><br><span class="line">//结束第一终端，第二终端显示</span><br><span class="line">one/326963a02758b53e</span><br><span class="line">p2</span><br></pre></td></tr></tbody></table></figure>
+foo
+Hello World!
+
+
+$ ./bin/etcdctl  --write-out="json" get foo
+
+{"header":{"cluster_id":17237436991929493444,"member_id":9372538179322589801,"revision":2,"raft_term":2},"kvs":[{"key":"Zm9v","create_revision":2,"mod_revision":2,"version":1,"value":"SGVsbG8gV29ybGQh"}],"count":1}</code></pre>
+
+<h3 id="根据前缀查询"><a href="#根据前缀查询" class="headerlink" title="根据前缀查询"></a>根据前缀查询</h3><pre class="language-none"><code class="language-none">
+$ ./bin/etcdctl put web1 value1
+$ ./bin/etcdctl put web2 value2
+$ ./bin/etcdctl put web3 value3
+
+$ ./bin/etcdctl get web --prefix
+
+web1
+value1
+web2
+value2
+web3
+value3</code></pre>
+
+<h3 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h3><pre class="language-none"><code class="language-none">$ ./bin/etcdctl put key myvalue
+$ ./bin/etcdctl del key
+1
+$ ./bin/etcdctl get key
+// 查询结果为空
+
+$ ./bin/etcdctl put k1 value1
+$ ./bin/etcdctl put k2 value2
+$ ./bin/etcdctl del k --prefix
+2
+$ ./bin/etcdctl get k --prefix
+// 查询结果为空</code></pre>
+
+<h3 id="事务写入"><a href="#事务写入" class="headerlink" title="事务写入"></a>事务写入</h3><pre class="language-none"><code class="language-none">$ ./bin/etcdctl put user1 bad
+OK
+$ ./bin/etcdctl txn --interactive
+
+compares:
+// 输入以下内容，输入结束按 两次回车
+value("user1") = "bad"      
+
+//如果 user1 = bad，则执行 get user1 
+success requests (get, put, del):
+get user1
+
+//如果 user1 != bad，则执行 put user1 good
+failure requests (get, put, del):
+put user1 good
+
+// 运行结果，执行 success
+SUCCESS
+
+user1
+bad
+
+
+
+$ ./bin/etcdctl txn --interactive
+compares:
+value("user1") = "111"  
+
+// 如果 user1 = 111，则执行 get user1 
+success requests (get, put, del):
+get user1
+
+//如果 user1 != 111，则执行 put user1 2222
+failure requests (get, put, del):
+put user1 2222
+
+// 运行结果，执行 failure
+FAILURE
+
+OK
+
+$ ./bin/etcdctl get user1
+user1
+2222</code></pre>
+
+<h3 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h3><pre class="language-none"><code class="language-none">// 当 stock1 的数值改变（ put 方法）的时候，watch 会收到通知
+$ ./bin/etcdctl watch stock1
+
+// 新打开终端
+$ export ETCDCTL_API=3
+$ ./bin/etcdctl put stock1 1000
+
+//在watch 终端显示
+PUT
+stock1
+1000
+
+
+$ ./bin/etcdctl watch stock --prefix
+$ ./bin/etcdctl put stock1 10
+$ ./bin/etcdctl put stock2 20</code></pre>
+
+<h3 id="lease"><a href="#lease" class="headerlink" title="lease"></a>lease</h3><pre class="language-none"><code class="language-none">$ ./bin/etcdctl lease grant 300
+# lease 326963a02758b527 granted with TTL(300s)
+
+$ ./bin/etcdctl put sample value --lease=326963a02758b527
+OK
+
+$ ./bin/etcdctl get sample
+
+$ ./bin/etcdctl lease keep-alive 326963a02758b520
+$ ./bin/etcdctl lease revoke 326963a02758b527
+lease 326963a02758b527 revoked
+
+# or after 300 seconds
+$ ./bin/etcdctl get sample</code></pre>
+
+<h3 id="Distributed-locks"><a href="#Distributed-locks" class="headerlink" title="Distributed locks"></a>Distributed locks</h3><pre class="language-none"><code class="language-none">//第一终端
+$ ./bin/etcdctl lock mutex1
+mutex1/326963a02758b52d
+
+# 第二终端
+$ ./bin/etcdctl lock mutex1
+
+// 当第一个终端结束了，第二个终端会显示
+mutex1/326963a02758b531</code></pre>
+
+<h3 id="Elections"><a href="#Elections" class="headerlink" title="Elections"></a>Elections</h3><pre class="language-none"><code class="language-none">$ ./bin/etcdctl elect one p1
+
+one/326963a02758b539
+p1
+
+
+# another client with the same name blocks
+$ ./bin/etcdctl elect one p2
+
+//结束第一终端，第二终端显示
+one/326963a02758b53e
+p2</code></pre>
 
 <h3 id="Cluster-status"><a href="#Cluster-status" class="headerlink" title="Cluster status"></a>Cluster status</h3><p>集群状态</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ./bin/etcdctl --write-out=table endpoint status</span><br><span class="line"></span><br><span class="line">$ ./bin/etcdctl endpoint health</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ ./bin/etcdctl --write-out=table endpoint status
 
-<h3 id="Snapshot"><a href="#Snapshot" class="headerlink" title="Snapshot"></a>Snapshot</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">./bin/etcdctl snapshot save my.db</span><br><span class="line"></span><br><span class="line">Snapshot saved at my.db</span><br><span class="line"></span><br><span class="line">./bin/etcdctl --write-out=table snapshot status my.db</span><br></pre></td></tr></tbody></table></figure>
+$ ./bin/etcdctl endpoint health</code></pre>
 
-<h3 id="Member"><a href="#Member" class="headerlink" title="Member"></a>Member</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/etcdctl member list -w table</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Snapshot"><a href="#Snapshot" class="headerlink" title="Snapshot"></a>Snapshot</h3><pre class="language-none"><code class="language-none">./bin/etcdctl snapshot save my.db
+
+Snapshot saved at my.db
+
+./bin/etcdctl --write-out=table snapshot status my.db</code></pre>
+
+<h3 id="Member"><a href="#Member" class="headerlink" title="Member"></a>Member</h3><pre class="language-none"><code class="language-none">./bin/etcdctl member list -w table</code></pre>
 
 <h1 id="etcd-多台服务器集群"><a href="#etcd-多台服务器集群" class="headerlink" title="etcd 多台服务器集群"></a>etcd 多台服务器集群</h1><hr>
-<h2 id="下载安装-etcd"><a href="#下载安装-etcd" class="headerlink" title="下载安装 etcd"></a>下载安装 etcd</h2><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir -p $GOPATH/src/github.com/coreos</span><br><span class="line">$ cd !$</span><br><span class="line">$ git clone https://github.com/coreos/etcd.git</span><br><span class="line">$ cd etcd</span><br><span class="line">$ ./build</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="下载安装-etcd"><a href="#下载安装-etcd" class="headerlink" title="下载安装 etcd"></a>下载安装 etcd</h2><pre class="language-none"><code class="language-none">$ mkdir -p $GOPATH/src/github.com/coreos
+$ cd !$
+$ git clone https://github.com/coreos/etcd.git
+$ cd etcd
+$ ./build</code></pre>
 
 <h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><p>每个节点都要执行以下配置，HOST_1、HOST_2、HOST_3 分别设置为多台服务器的IP</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">TOKEN=token-01</span><br><span class="line">CLUSTER_STATE=new</span><br><span class="line">NAME_1=machine-1</span><br><span class="line">NAME_2=machine-2</span><br><span class="line">NAME_3=machine-3</span><br><span class="line">HOST_1=192.168.1.126</span><br><span class="line">HOST_2=192.168.1.119</span><br><span class="line">HOST_3=192.168.1.103</span><br><span class="line">CLUSTER=${NAME_1}=http://${HOST_1}:2380,${NAME_2}=http://${HOST_2}:2380,${NAME_3}=http://${HOST_3}:2380</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">TOKEN=token-01
+CLUSTER_STATE=new
+NAME_1=machine-1
+NAME_2=machine-2
+NAME_3=machine-3
+HOST_1=192.168.1.126
+HOST_2=192.168.1.119
+HOST_3=192.168.1.103
+CLUSTER=${NAME_1}=http://${HOST_1}:2380,${NAME_2}=http://${HOST_2}:2380,${NAME_3}=http://${HOST_3}:2380</code></pre>
 
 <p><strong>machine 1</strong> 执行如下命令</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ cd $GOPATH/src/github.com/coreos/etcd/bin</span><br><span class="line"></span><br><span class="line"># For machine 1</span><br><span class="line">THIS_NAME=${NAME_1}</span><br><span class="line">THIS_IP=${HOST_1}</span><br><span class="line">./etcd --data-dir=data.etcd --name ${THIS_NAME} --initial-advertise-peer-urls http://${THIS_IP}:2380 --listen-peer-urls http://${THIS_IP}:2380 --advertise-client-urls http://${THIS_IP}:2379 --listen-client-urls http://${THIS_IP}:2379 --initial-cluster ${CLUSTER} --initial-cluster-state ${CLUSTER_STATE} --initial-cluster-token ${TOKEN}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ cd $GOPATH/src/github.com/coreos/etcd/bin
+
+# For machine 1
+THIS_NAME=${NAME_1}
+THIS_IP=${HOST_1}
+./etcd --data-dir=data.etcd --name ${THIS_NAME} --initial-advertise-peer-urls http://${THIS_IP}:2380 --listen-peer-urls http://${THIS_IP}:2380 --advertise-client-urls http://${THIS_IP}:2379 --listen-client-urls http://${THIS_IP}:2379 --initial-cluster ${CLUSTER} --initial-cluster-state ${CLUSTER_STATE} --initial-cluster-token ${TOKEN}</code></pre>
 
 <p><strong>machine 2</strong> 执行如下命令</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ cd $GOPATH/src/github.com/coreos/etcd/bin</span><br><span class="line"></span><br><span class="line"># For machine 2</span><br><span class="line">THIS_NAME=${NAME_2}</span><br><span class="line">THIS_IP=${HOST_2}</span><br><span class="line">./etcd --data-dir=data.etcd --name ${THIS_NAME} --initial-advertise-peer-urls http://${THIS_IP}:2380 --listen-peer-urls http://${THIS_IP}:2380 --advertise-client-urls http://${THIS_IP}:2379 --listen-client-urls http://${THIS_IP}:2379 --initial-cluster ${CLUSTER} --initial-cluster-state ${CLUSTER_STATE} --initial-cluster-token ${TOKEN}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ cd $GOPATH/src/github.com/coreos/etcd/bin
+
+# For machine 2
+THIS_NAME=${NAME_2}
+THIS_IP=${HOST_2}
+./etcd --data-dir=data.etcd --name ${THIS_NAME} --initial-advertise-peer-urls http://${THIS_IP}:2380 --listen-peer-urls http://${THIS_IP}:2380 --advertise-client-urls http://${THIS_IP}:2379 --listen-client-urls http://${THIS_IP}:2379 --initial-cluster ${CLUSTER} --initial-cluster-state ${CLUSTER_STATE} --initial-cluster-token ${TOKEN}</code></pre>
 
 <p><strong>machine 3</strong> 执行如下命令</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ cd $GOPATH/src/github.com/coreos/etcd/bin</span><br><span class="line"></span><br><span class="line"># For machine 3</span><br><span class="line">THIS_NAME=${NAME_3}</span><br><span class="line">THIS_IP=${HOST_3}</span><br><span class="line">./etcd --data-dir=data.etcd --name ${THIS_NAME} --initial-advertise-peer-urls http://${THIS_IP}:2380 --listen-peer-urls http://${THIS_IP}:2380 --advertise-client-urls http://${THIS_IP}:2379 --listen-client-urls http://${THIS_IP}:2379 --initial-cluster ${CLUSTER} --initial-cluster-state ${CLUSTER_STATE} --initial-cluster-token ${TOKEN}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ cd $GOPATH/src/github.com/coreos/etcd/bin
+
+# For machine 3
+THIS_NAME=${NAME_3}
+THIS_IP=${HOST_3}
+./etcd --data-dir=data.etcd --name ${THIS_NAME} --initial-advertise-peer-urls http://${THIS_IP}:2380 --listen-peer-urls http://${THIS_IP}:2380 --advertise-client-urls http://${THIS_IP}:2379 --listen-client-urls http://${THIS_IP}:2379 --initial-cluster ${CLUSTER} --initial-cluster-state ${CLUSTER_STATE} --initial-cluster-token ${TOKEN}</code></pre>
 
 <p>检测服务器运行是否正常</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ cd $GOPATH/src/github.com/coreos/etcd/bin</span><br><span class="line"></span><br><span class="line">export ETCDCTL_API=3</span><br><span class="line">HOST_1=192.168.1.126</span><br><span class="line">HOST_2=192.168.1.119</span><br><span class="line">HOST_3=192.168.1.103</span><br><span class="line">ENDPOINTS=$HOST_1:2379,$HOST_2:2379,$HOST_3:2379</span><br><span class="line"></span><br><span class="line">./etcdctl --endpoints=$ENDPOINTS member list</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">$ cd $GOPATH/src/github.com/coreos/etcd/bin
 
-<h2 id="存储数据-1"><a href="#存储数据-1" class="headerlink" title="存储数据"></a>存储数据</h2><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./etcdctl --endpoints=$ENDPOINTS put foo "Hello World!"</span><br><span class="line"></span><br><span class="line">./etcdctl --endpoints=$ENDPOINTS get foo</span><br><span class="line">./etcdctl --endpoints=$ENDPOINTS --write-out="json" get foo</span><br></pre></td></tr></tbody></table></figure>
+export ETCDCTL_API=3
+HOST_1=192.168.1.126
+HOST_2=192.168.1.119
+HOST_3=192.168.1.103
+ENDPOINTS=$HOST_1:2379,$HOST_2:2379,$HOST_3:2379
 
-<h2 id="根据前缀查询-1"><a href="#根据前缀查询-1" class="headerlink" title="根据前缀查询"></a>根据前缀查询</h2><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">./etcdctl --endpoints=$ENDPOINTS put web1 value1</span><br><span class="line">./etcdctl --endpoints=$ENDPOINTS put web2 value2</span><br><span class="line">./etcdctl --endpoints=$ENDPOINTS put web3 value3</span><br><span class="line"></span><br><span class="line">./etcdctl --endpoints=$ENDPOINTS get web --prefix</span><br><span class="line"></span><br><span class="line">web1</span><br><span class="line">value1</span><br><span class="line">web2</span><br><span class="line">value2</span><br><span class="line">web3</span><br><span class="line">value3</span><br></pre></td></tr></tbody></table></figure>
+./etcdctl --endpoints=$ENDPOINTS member list</code></pre>
 
-<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">./etcdctl --endpoints=$ENDPOINTS put key myvalue</span><br><span class="line">./etcdctl --endpoints=$ENDPOINTS del key</span><br><span class="line"></span><br><span class="line">./etcdctl --endpoints=$ENDPOINTS put k1 value1</span><br><span class="line">./etcdctl --endpoints=$ENDPOINTS put k2 value2</span><br><span class="line">./etcdctl --endpoints=$ENDPOINTS del k --prefix</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="存储数据-1"><a href="#存储数据-1" class="headerlink" title="存储数据"></a>存储数据</h2><pre class="language-none"><code class="language-none">./etcdctl --endpoints=$ENDPOINTS put foo "Hello World!"
 
-<h2 id="事务写入-1"><a href="#事务写入-1" class="headerlink" title="事务写入"></a>事务写入</h2><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">$ ./etcdctl --endpoints=$ENDPOINTS put user1 bad</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">$ ./etcdctl --endpoints=$ENDPOINTS txn --interactive</span><br><span class="line"></span><br><span class="line">compares:</span><br><span class="line">// 输入以下内容，输入结束按 两次回车</span><br><span class="line">value("user1") = "bad"      </span><br><span class="line"></span><br><span class="line">//如果 user1 = bad，则执行 get user1 </span><br><span class="line">success requests (get, put, del):</span><br><span class="line">get user1</span><br><span class="line"></span><br><span class="line">//如果 user1 != bad，则执行 put user1 good</span><br><span class="line">failure requests (get, put, del):</span><br><span class="line">put user1 good</span><br><span class="line"></span><br><span class="line">// 运行结果，执行 success</span><br><span class="line">SUCCESS</span><br><span class="line"></span><br><span class="line">user1</span><br><span class="line">bad</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ ./etcdctl --endpoints=$ENDPOINTS txn --interactive</span><br><span class="line">compares:</span><br><span class="line">value("user1") = "111"  </span><br><span class="line"></span><br><span class="line">// 如果 user1 = 111，则执行 get user1 </span><br><span class="line">success requests (get, put, del):</span><br><span class="line">get user1</span><br><span class="line"></span><br><span class="line">//如果 user1 != 111，则执行 put user1 2222</span><br><span class="line">failure requests (get, put, del):</span><br><span class="line">put user1 2222</span><br><span class="line"></span><br><span class="line">// 运行结果，执行 failure</span><br><span class="line">FAILURE</span><br><span class="line"></span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">$ ./etcdctl --endpoints=$ENDPOINTS get user1</span><br><span class="line">user1</span><br><span class="line">2222</span><br></pre></td></tr></tbody></table></figure>
+./etcdctl --endpoints=$ENDPOINTS get foo
+./etcdctl --endpoints=$ENDPOINTS --write-out="json" get foo</code></pre>
 
-<h2 id="watch-1"><a href="#watch-1" class="headerlink" title="watch"></a>watch</h2><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 当 stock1 的数值改变（ put 方法）的时候，watch 会收到通知</span><br><span class="line">./etcdctl --endpoints=$ENDPOINTS watch stock1</span><br><span class="line"></span><br><span class="line">// 新打开终端</span><br><span class="line">$ cd $GOPATH/src/github.com/coreos/etcd/bin</span><br><span class="line"></span><br><span class="line">export ETCDCTL_API=3</span><br><span class="line">HOST_1=192.168.1.126</span><br><span class="line">HOST_2=192.168.1.119</span><br><span class="line">HOST_3=192.168.1.103</span><br><span class="line">ENDPOINTS=$HOST_1:2379,$HOST_2:2379,$HOST_3:2379</span><br><span class="line">./etcdctl --endpoints=$ENDPOINTS put stock1 1000</span><br><span class="line"></span><br><span class="line">./etcdctl --endpoints=$ENDPOINTS watch stock --prefix</span><br><span class="line"></span><br><span class="line">./etcdctl --endpoints=$ENDPOINTS put stock1 10</span><br><span class="line">./etcdctl --endpoints=$ENDPOINTS put stock2 20</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="根据前缀查询-1"><a href="#根据前缀查询-1" class="headerlink" title="根据前缀查询"></a>根据前缀查询</h2><pre class="language-none"><code class="language-none">./etcdctl --endpoints=$ENDPOINTS put web1 value1
+./etcdctl --endpoints=$ENDPOINTS put web2 value2
+./etcdctl --endpoints=$ENDPOINTS put web3 value3
+
+./etcdctl --endpoints=$ENDPOINTS get web --prefix
+
+web1
+value1
+web2
+value2
+web3
+value3</code></pre>
+
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><pre class="language-none"><code class="language-none">./etcdctl --endpoints=$ENDPOINTS put key myvalue
+./etcdctl --endpoints=$ENDPOINTS del key
+
+./etcdctl --endpoints=$ENDPOINTS put k1 value1
+./etcdctl --endpoints=$ENDPOINTS put k2 value2
+./etcdctl --endpoints=$ENDPOINTS del k --prefix</code></pre>
+
+<h2 id="事务写入-1"><a href="#事务写入-1" class="headerlink" title="事务写入"></a>事务写入</h2><pre class="language-none"><code class="language-none">$ ./etcdctl --endpoints=$ENDPOINTS put user1 bad
+OK
+
+$ ./etcdctl --endpoints=$ENDPOINTS txn --interactive
+
+compares:
+// 输入以下内容，输入结束按 两次回车
+value("user1") = "bad"      
+
+//如果 user1 = bad，则执行 get user1 
+success requests (get, put, del):
+get user1
+
+//如果 user1 != bad，则执行 put user1 good
+failure requests (get, put, del):
+put user1 good
+
+// 运行结果，执行 success
+SUCCESS
+
+user1
+bad
+
+
+
+$ ./etcdctl --endpoints=$ENDPOINTS txn --interactive
+compares:
+value("user1") = "111"  
+
+// 如果 user1 = 111，则执行 get user1 
+success requests (get, put, del):
+get user1
+
+//如果 user1 != 111，则执行 put user1 2222
+failure requests (get, put, del):
+put user1 2222
+
+// 运行结果，执行 failure
+FAILURE
+
+OK
+
+$ ./etcdctl --endpoints=$ENDPOINTS get user1
+user1
+2222</code></pre>
+
+<h2 id="watch-1"><a href="#watch-1" class="headerlink" title="watch"></a>watch</h2><pre class="language-none"><code class="language-none">// 当 stock1 的数值改变（ put 方法）的时候，watch 会收到通知
+./etcdctl --endpoints=$ENDPOINTS watch stock1
+
+// 新打开终端
+$ cd $GOPATH/src/github.com/coreos/etcd/bin
+
+export ETCDCTL_API=3
+HOST_1=192.168.1.126
+HOST_2=192.168.1.119
+HOST_3=192.168.1.103
+ENDPOINTS=$HOST_1:2379,$HOST_2:2379,$HOST_3:2379
+./etcdctl --endpoints=$ENDPOINTS put stock1 1000
+
+./etcdctl --endpoints=$ENDPOINTS watch stock --prefix
+
+./etcdctl --endpoints=$ENDPOINTS put stock1 10
+./etcdctl --endpoints=$ENDPOINTS put stock2 20</code></pre>
 
 <h2 id="更多操作"><a href="#更多操作" class="headerlink" title="更多操作"></a>更多操作</h2><p><a target="_blank" rel="noopener" href="https://coreos.com/etcd/docs/latest/">https://coreos.com/etcd/docs/latest/</a></p>
 
@@ -1362,7 +1632,7 @@ etcd是一个分布式一致性键值存储系统，用于共享配置和服务�
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

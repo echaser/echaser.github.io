@@ -503,7 +503,50 @@
                 <span id="more"></span>
 
 <h2 id="数字签名算法-DSA"><a href="#数字签名算法-DSA" class="headerlink" title="数字签名算法(DSA)"></a>数字签名算法(DSA)</h2><p>数字签名算法（DSA，Digital Signature Algorithm），是一种公开密钥算法，不能用于加密，只能用于数字签名。主要用作为接收者验证数字的完整性和数据发送者的身份，DSA算法的安全性基于解离散对数的困难性。</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    "crypto/dsa"</span><br><span class="line">    "crypto/rand"</span><br><span class="line">    "fmt"</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() {</span><br><span class="line">    var params dsa.Parameters</span><br><span class="line"></span><br><span class="line">    //生成参数 </span><br><span class="line">    if e := dsa.GenerateParameters(&amp;params, rand.Reader, dsa.L1024N160); e != nil {</span><br><span class="line">        fmt.Println(e)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    //生成私钥 </span><br><span class="line">    var priv dsa.PrivateKey</span><br><span class="line"></span><br><span class="line">    priv.Parameters = params</span><br><span class="line">    if e := dsa.GenerateKey(&amp;priv, rand.Reader); e != nil {</span><br><span class="line">        fmt.Println(e)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    //根据私钥生成公钥 </span><br><span class="line">    pub := priv.PublicKey</span><br><span class="line"></span><br><span class="line">    //消息 </span><br><span class="line">    message := []byte("hello world")</span><br><span class="line"></span><br><span class="line">    //使用私钥进行签名，产生整数对(r,s) </span><br><span class="line">    r, s, e := dsa.Sign(rand.Reader, &amp;priv, message)</span><br><span class="line">    if e != nil {</span><br><span class="line">        fmt.Println(e)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    //认证 </span><br><span class="line">    fmt.Printf("认证 %q (r:%s,s:%s)\n", message, r, s)</span><br><span class="line">    if dsa.Verify(&amp;pub, message, r, s) {</span><br><span class="line">        fmt.Println("认证正确！")</span><br><span class="line">    } else {</span><br><span class="line">        fmt.Println("认证失败！")</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">package main
+
+import (
+    "crypto/dsa"
+    "crypto/rand"
+    "fmt"
+)
+
+func main() {
+    var params dsa.Parameters
+
+    //生成参数 
+    if e := dsa.GenerateParameters(&amp;params, rand.Reader, dsa.L1024N160); e != nil {
+        fmt.Println(e)
+    }
+
+    //生成私钥 
+    var priv dsa.PrivateKey
+
+    priv.Parameters = params
+    if e := dsa.GenerateKey(&amp;priv, rand.Reader); e != nil {
+        fmt.Println(e)
+    }
+
+    //根据私钥生成公钥 
+    pub := priv.PublicKey
+
+    //消息 
+    message := []byte("hello world")
+
+    //使用私钥进行签名，产生整数对(r,s) 
+    r, s, e := dsa.Sign(rand.Reader, &amp;priv, message)
+    if e != nil {
+        fmt.Println(e)
+    }
+
+    //认证 
+    fmt.Printf("认证 %q (r:%s,s:%s)\n", message, r, s)
+    if dsa.Verify(&amp;pub, message, r, s) {
+        fmt.Println("认证正确！")
+    } else {
+        fmt.Println("认证失败！")
+    }
+}</code></pre>
 
 <h2 id="公钥加密算法-RSA"><a href="#公钥加密算法-RSA" class="headerlink" title="公钥加密算法(RSA)"></a>公钥加密算法(RSA)</h2><p>公钥加密算法于1987年首次公开，RSA是提出这个算法的三人姓氏开头字母组成，可用于加密，也可以用于数字签名。RSA的安全性基于大数分解的困难性。</p>
 <p>加密算法：</p>
@@ -521,7 +564,67 @@
 </ul>
 </li>
 </ul>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    "crypto"</span><br><span class="line">    "crypto/md5"</span><br><span class="line">    "crypto/rand"</span><br><span class="line">    "crypto/rsa"</span><br><span class="line">    "fmt"</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() {</span><br><span class="line">    //生成私钥 </span><br><span class="line">    priv, e := rsa.GenerateKey(rand.Reader, 1024)</span><br><span class="line">    if e != nil {</span><br><span class="line">        fmt.Println(e)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    //根据私钥产生公钥 </span><br><span class="line">    pub := &amp;priv.PublicKey</span><br><span class="line"></span><br><span class="line">    //明文 </span><br><span class="line">    plaintext := []byte("Hello world")</span><br><span class="line"></span><br><span class="line">    //加密生成密文 </span><br><span class="line">    fmt.Printf("%q\n加密:\n", plaintext)</span><br><span class="line">    ciphertext, e := rsa.EncryptOAEP(md5.New(), rand.Reader, pub, plaintext, nil)</span><br><span class="line">    if e != nil {</span><br><span class="line">        fmt.Println(e)</span><br><span class="line">    }</span><br><span class="line">    fmt.Printf("\t%x\n", ciphertext)</span><br><span class="line"></span><br><span class="line">    //解密得到明文 </span><br><span class="line">    fmt.Printf("解密:\n")</span><br><span class="line">    plaintext, e = rsa.DecryptOAEP(md5.New(), rand.Reader, priv, ciphertext, nil)</span><br><span class="line">    if e != nil {</span><br><span class="line">        fmt.Println(e)</span><br><span class="line">    }</span><br><span class="line">    fmt.Printf("\t%q\n", plaintext)</span><br><span class="line"></span><br><span class="line">    //消息先进行Hash处理 </span><br><span class="line">    h := md5.New()</span><br><span class="line">    h.Write(plaintext)</span><br><span class="line">    hashed := h.Sum(nil)</span><br><span class="line">    fmt.Printf("%q MD5 Hashed:\n\t%x\n", plaintext, hashed)</span><br><span class="line"></span><br><span class="line">    //签名 </span><br><span class="line">    opts := &amp;rsa.PSSOptions{SaltLength: rsa.PSSSaltLengthAuto, Hash: crypto.MD5}</span><br><span class="line">    sig, e := rsa.SignPSS(rand.Reader, priv, crypto.MD5, hashed, opts)</span><br><span class="line">    if e != nil {</span><br><span class="line">        fmt.Println(e)</span><br><span class="line">    }</span><br><span class="line">    fmt.Printf("签名:\n\t%x\n", sig)</span><br><span class="line"></span><br><span class="line">    //认证 </span><br><span class="line">    fmt.Printf("验证结果:")</span><br><span class="line">    if e := rsa.VerifyPSS(pub, crypto.MD5, hashed, sig, opts); e != nil {</span><br><span class="line">        fmt.Println("失败:", e)</span><br><span class="line">    } else {</span><br><span class="line">        fmt.Println("成功.")</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">package main
+
+import (
+    "crypto"
+    "crypto/md5"
+    "crypto/rand"
+    "crypto/rsa"
+    "fmt"
+)
+
+func main() {
+    //生成私钥 
+    priv, e := rsa.GenerateKey(rand.Reader, 1024)
+    if e != nil {
+        fmt.Println(e)
+    }
+
+    //根据私钥产生公钥 
+    pub := &amp;priv.PublicKey
+
+    //明文 
+    plaintext := []byte("Hello world")
+
+    //加密生成密文 
+    fmt.Printf("%q\n加密:\n", plaintext)
+    ciphertext, e := rsa.EncryptOAEP(md5.New(), rand.Reader, pub, plaintext, nil)
+    if e != nil {
+        fmt.Println(e)
+    }
+    fmt.Printf("\t%x\n", ciphertext)
+
+    //解密得到明文 
+    fmt.Printf("解密:\n")
+    plaintext, e = rsa.DecryptOAEP(md5.New(), rand.Reader, priv, ciphertext, nil)
+    if e != nil {
+        fmt.Println(e)
+    }
+    fmt.Printf("\t%q\n", plaintext)
+
+    //消息先进行Hash处理 
+    h := md5.New()
+    h.Write(plaintext)
+    hashed := h.Sum(nil)
+    fmt.Printf("%q MD5 Hashed:\n\t%x\n", plaintext, hashed)
+
+    //签名 
+    opts := &amp;rsa.PSSOptions{SaltLength: rsa.PSSSaltLengthAuto, Hash: crypto.MD5}
+    sig, e := rsa.SignPSS(rand.Reader, priv, crypto.MD5, hashed, opts)
+    if e != nil {
+        fmt.Println(e)
+    }
+    fmt.Printf("签名:\n\t%x\n", sig)
+
+    //认证 
+    fmt.Printf("验证结果:")
+    if e := rsa.VerifyPSS(pub, crypto.MD5, hashed, sig, opts); e != nil {
+        fmt.Println("失败:", e)
+    } else {
+        fmt.Println("成功.")
+    }
+}</code></pre>
 
 <h2 id="椭圆曲线加密算法"><a href="#椭圆曲线加密算法" class="headerlink" title="椭圆曲线加密算法"></a>椭圆曲线加密算法</h2><p>ECDSA的全名是Elliptic Curve DSA，即椭圆曲线DSA。它是Digital Signature Algorithm (DSA)应用了椭圆曲线加密算法的变种。椭圆曲线算法的原理很复杂，但是具有很好的公开密钥算法特性，通过公钥无法逆向获得私钥。</p>
 <ol>
@@ -531,7 +634,83 @@
 <li><p>验证过程<br>关于验证过程，这里不讨论它的算法细节。从宏观上看，消息的接收方从签名中分离出r和s，然后利用公开的密钥信息和s计算出r。如果计算出的r和接收到的r值相同，则表示验证成功。否则，表示验证失败。</p>
 </li>
 </ol>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    "fmt"</span><br><span class="line">    "crypto/ecdsa"</span><br><span class="line">    "crypto/elliptic"</span><br><span class="line">    "crypto/rand"</span><br><span class="line">    "crypto/sha256"</span><br><span class="line">    "math/big"</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() {</span><br><span class="line">    //明文 </span><br><span class="line">    message := []byte("Hello world")</span><br><span class="line"></span><br><span class="line">    key, err := NewSigningKey()</span><br><span class="line">    if err != nil {</span><br><span class="line">        return</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    signature, err := Sign(message, key)</span><br><span class="line"></span><br><span class="line">    fmt.Printf("签名后：%x\n", signature)</span><br><span class="line">    if err != nil {</span><br><span class="line">        return</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    if !Verify(message, signature, &amp;key.PublicKey) {</span><br><span class="line">        fmt.Println("验证失败！")</span><br><span class="line">        return</span><br><span class="line">    }else{</span><br><span class="line">        fmt.Println("验证成功！")</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">func NewSigningKey() (*ecdsa.PrivateKey, error) {</span><br><span class="line">    key, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)</span><br><span class="line">    return key, err</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">// Sign signs arbitrary data using ECDSA.</span><br><span class="line">func Sign(data []byte, privkey *ecdsa.PrivateKey) ([]byte, error) {</span><br><span class="line">    // hash message</span><br><span class="line">    digest := sha256.Sum256(data)</span><br><span class="line"></span><br><span class="line">    // sign the hash</span><br><span class="line">    r, s, err := ecdsa.Sign(rand.Reader, privkey, digest[:])</span><br><span class="line">    if err != nil {</span><br><span class="line">        return nil, err</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    // encode the signature {R, S}</span><br><span class="line">    // big.Int.Bytes() will need padding in the case of leading zero bytes</span><br><span class="line">    params := privkey.Curve.Params()</span><br><span class="line">    curveOrderByteSize := params.P.BitLen() / 8</span><br><span class="line">    rBytes, sBytes := r.Bytes(), s.Bytes()</span><br><span class="line">    signature := make([]byte, curveOrderByteSize*2)</span><br><span class="line">    copy(signature[curveOrderByteSize-len(rBytes):], rBytes)</span><br><span class="line">    copy(signature[curveOrderByteSize*2-len(sBytes):], sBytes)</span><br><span class="line"></span><br><span class="line">    return signature, nil</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">// Verify checks a raw ECDSA signature.</span><br><span class="line">// Returns true if it's valid and false if not.</span><br><span class="line">func Verify(data, signature []byte, pubkey *ecdsa.PublicKey) bool {</span><br><span class="line">    // hash message</span><br><span class="line">    digest := sha256.Sum256(data)</span><br><span class="line"></span><br><span class="line">    curveOrderByteSize := pubkey.Curve.Params().P.BitLen() / 8</span><br><span class="line"></span><br><span class="line">    r, s := new(big.Int), new(big.Int)</span><br><span class="line">    r.SetBytes(signature[:curveOrderByteSize])</span><br><span class="line">    s.SetBytes(signature[curveOrderByteSize:])</span><br><span class="line"></span><br><span class="line">    return ecdsa.Verify(pubkey, digest[:], r, s)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">package main
+
+import (
+    "fmt"
+    "crypto/ecdsa"
+    "crypto/elliptic"
+    "crypto/rand"
+    "crypto/sha256"
+    "math/big"
+)
+
+func main() {
+    //明文 
+    message := []byte("Hello world")
+
+    key, err := NewSigningKey()
+    if err != nil {
+        return
+    }
+
+    signature, err := Sign(message, key)
+
+    fmt.Printf("签名后：%x\n", signature)
+    if err != nil {
+        return
+    }
+
+    if !Verify(message, signature, &amp;key.PublicKey) {
+        fmt.Println("验证失败！")
+        return
+    }else{
+        fmt.Println("验证成功！")
+    }
+}
+
+func NewSigningKey() (*ecdsa.PrivateKey, error) {
+    key, err := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
+    return key, err
+}
+
+// Sign signs arbitrary data using ECDSA.
+func Sign(data []byte, privkey *ecdsa.PrivateKey) ([]byte, error) {
+    // hash message
+    digest := sha256.Sum256(data)
+
+    // sign the hash
+    r, s, err := ecdsa.Sign(rand.Reader, privkey, digest[:])
+    if err != nil {
+        return nil, err
+    }
+
+    // encode the signature {R, S}
+    // big.Int.Bytes() will need padding in the case of leading zero bytes
+    params := privkey.Curve.Params()
+    curveOrderByteSize := params.P.BitLen() / 8
+    rBytes, sBytes := r.Bytes(), s.Bytes()
+    signature := make([]byte, curveOrderByteSize*2)
+    copy(signature[curveOrderByteSize-len(rBytes):], rBytes)
+    copy(signature[curveOrderByteSize*2-len(sBytes):], sBytes)
+
+    return signature, nil
+}
+
+// Verify checks a raw ECDSA signature.
+// Returns true if it's valid and false if not.
+func Verify(data, signature []byte, pubkey *ecdsa.PublicKey) bool {
+    // hash message
+    digest := sha256.Sum256(data)
+
+    curveOrderByteSize := pubkey.Curve.Params().P.BitLen() / 8
+
+    r, s := new(big.Int), new(big.Int)
+    r.SetBytes(signature[:curveOrderByteSize])
+    s.SetBytes(signature[curveOrderByteSize:])
+
+    return ecdsa.Verify(pubkey, digest[:], r, s)
+}</code></pre>
                 
             </div>
             <hr/>
@@ -1283,7 +1462,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

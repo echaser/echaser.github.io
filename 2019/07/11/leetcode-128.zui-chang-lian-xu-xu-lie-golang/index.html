@@ -10,10 +10,11 @@
 给定一个未排序的整数数组，找出最长连续序列的长度。
 要求算法的时间复杂度为 O(n)。
 示例:
-12输入: [100, 4, 200, 1, 3, 2]输出: 4
+输入: [100, 4, 200, 1, 3, 2]
+输出: 4
 
 解释: 最长连续序列是 [1, 2, 3, 4]。它的长度为 4。
-1">
+fu">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -476,7 +477,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    134
+                    133
                 </div>
                 
 
@@ -511,10 +512,35 @@
 <p>给定一个未排序的整数数组，找出最长连续序列的长度。</p>
 <p>要求算法的时间复杂度为 O(n)。</p>
 <p>示例:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [100, 4, 200, 1, 3, 2]</span><br><span class="line">输出: 4</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">输入: [100, 4, 200, 1, 3, 2]
+输出: 4</code></pre>
 
 <p>解释: 最长连续序列是 [1, 2, 3, 4]。它的长度为 4。</p>
-<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">longestConsecutive</span><span class="params">(nums []<span class="type">int</span>)</span></span> <span class="type">int</span> {</span><br><span class="line">	<span class="keyword">if</span> <span class="built_in">len</span>(nums) &lt;= <span class="number">1</span> {</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">len</span>(nums)</span><br><span class="line">	}</span><br><span class="line">	sort.Ints(nums)</span><br><span class="line">	length := <span class="number">1</span></span><br><span class="line">	leng := <span class="number">1</span></span><br><span class="line">	first := nums[<span class="number">0</span>]</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">1</span>; i &lt; <span class="built_in">len</span>(nums); i++ {</span><br><span class="line">		<span class="keyword">if</span> nums[i] == first {</span><br><span class="line">			<span class="keyword">continue</span></span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">if</span> nums[i] == first+<span class="number">1</span> {</span><br><span class="line">			first = nums[i]</span><br><span class="line">			leng++</span><br><span class="line">		} <span class="keyword">else</span> {</span><br><span class="line">			<span class="keyword">if</span> leng &gt; length {</span><br><span class="line">				length = leng</span><br><span class="line">			}</span><br><span class="line">			first = nums[i]</span><br><span class="line">			leng = <span class="number">1</span></span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="type">int</span>(math.Max(<span class="type">float64</span>(length), <span class="type">float64</span>(leng)))</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">longestConsecutive</span><span class="token punctuation">(</span>nums <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
+	<span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span> <span class="token operator">&lt;=</span> <span class="token number">1</span> <span class="token punctuation">{</span>
+		<span class="token keyword">return</span> <span class="token function">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+	<span class="token punctuation">}</span>
+	sort<span class="token punctuation">.</span><span class="token function">Ints</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+	length <span class="token operator">:=</span> <span class="token number">1</span>
+	leng <span class="token operator">:=</span> <span class="token number">1</span>
+	first <span class="token operator">:=</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+	<span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token function">len</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> first <span class="token punctuation">{</span>
+			<span class="token keyword">continue</span>
+		<span class="token punctuation">}</span>
+		<span class="token keyword">if</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> first<span class="token operator">+</span><span class="token number">1</span> <span class="token punctuation">{</span>
+			first <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+			leng<span class="token operator">++</span>
+		<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+			<span class="token keyword">if</span> leng <span class="token operator">&gt;</span> length <span class="token punctuation">{</span>
+				length <span class="token operator">=</span> leng
+			<span class="token punctuation">}</span>
+			first <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+			leng <span class="token operator">=</span> <span class="token number">1</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> <span class="token function">int</span><span class="token punctuation">(</span>math<span class="token punctuation">.</span><span class="token function">Max</span><span class="token punctuation">(</span><span class="token function">float64</span><span class="token punctuation">(</span>length<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">float64</span><span class="token punctuation">(</span>leng<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span></code></pre>
                 
             </div>
             <hr/>
@@ -1282,7 +1308,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

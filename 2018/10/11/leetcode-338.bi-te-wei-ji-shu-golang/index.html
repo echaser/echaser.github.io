@@ -9,10 +9,12 @@
 
 给定一个非负整数 num。对于 0 ≤ i ≤ num 范围中的每个数字 i ，计算其二进制数中的 1 的数目并将它们作为数组返回。
 示例 1:
-12输入: 2输出: [0,1,1]
+输入: 2
+输出: [0,1,1]
 
 示例 2:
-12输入: 5输出: [0,1,1,2">
+输入: 5
+输出: [0,1,1,2,1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -479,7 +481,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    246
+                    244
                 </div>
                 
 
@@ -513,10 +515,12 @@
 
 <p>给定一个非负整数 num。对于 0 ≤ i ≤ num 范围中的每个数字 i ，计算其二进制数中的 1 的数目并将它们作为数组返回。</p>
 <p>示例 1:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 2</span><br><span class="line">输出: [0,1,1]</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">输入: 2
+输出: [0,1,1]</code></pre>
 
 <p>示例 2:</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 5</span><br><span class="line">输出: [0,1,1,2,1,2]</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">输入: 5
+输出: [0,1,1,2,1,2]</code></pre>
 
 <p><strong>进阶:</strong></p>
 <ul>
@@ -524,7 +528,38 @@
 <li>要求算法的空间复杂度为O(n)。</li>
 <li>你能进一步完善解法吗？要求在C++或任何其他语言中不使用任何内置函数（如 C++ 中的 __builtin_popcount）来执行此操作。</li>
 </ul>
-<figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">countBits</span><span class="params">(num <span class="type">int</span>)</span></span> []<span class="type">int</span> {</span><br><span class="line">	b := <span class="built_in">make</span>([]<span class="type">int</span>, <span class="number">0</span>)</span><br><span class="line">	i := <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> i &lt;= num {</span><br><span class="line">		<span class="keyword">if</span> i == <span class="number">0</span> {</span><br><span class="line">			b = <span class="built_in">append</span>(b, <span class="number">0</span>)</span><br><span class="line">		} <span class="keyword">else</span> <span class="keyword">if</span> i &lt;= <span class="number">2</span> {</span><br><span class="line">			b = <span class="built_in">append</span>(b, <span class="number">1</span>)</span><br><span class="line">		} <span class="keyword">else</span> {</span><br><span class="line">			count := <span class="number">0</span></span><br><span class="line">			by := dtob(i)</span><br><span class="line">			<span class="keyword">for</span> _, j := <span class="keyword">range</span> by {</span><br><span class="line">				<span class="keyword">if</span> j == <span class="number">1</span> {</span><br><span class="line">					count++</span><br><span class="line">				}</span><br><span class="line">			}</span><br><span class="line">			b = <span class="built_in">append</span>(b, count)</span><br><span class="line">		}</span><br><span class="line">		i++</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> b</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">dtob</span><span class="params">(num <span class="type">int</span>)</span></span> []<span class="type">int</span> {</span><br><span class="line">	a := <span class="built_in">make</span>([]<span class="type">int</span>, <span class="number">0</span>)</span><br><span class="line">	<span class="keyword">for</span> num != <span class="number">0</span> {</span><br><span class="line">		i := num % <span class="number">2</span></span><br><span class="line">		a = <span class="built_in">append</span>(a, i)</span><br><span class="line">		num = num / <span class="number">2</span></span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> a</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">func</span> <span class="token function">countBits</span><span class="token punctuation">(</span>num <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span> <span class="token punctuation">{</span>
+	b <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+	i <span class="token operator">:=</span> <span class="token number">0</span>
+	<span class="token keyword">for</span> i <span class="token operator">&lt;=</span> num <span class="token punctuation">{</span>
+		<span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+			b <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+		<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> i <span class="token operator">&lt;=</span> <span class="token number">2</span> <span class="token punctuation">{</span>
+			b <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+		<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+			count <span class="token operator">:=</span> <span class="token number">0</span>
+			by <span class="token operator">:=</span> <span class="token function">dtob</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+			<span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> j <span class="token operator">:=</span> <span class="token keyword">range</span> by <span class="token punctuation">{</span>
+				<span class="token keyword">if</span> j <span class="token operator">==</span> <span class="token number">1</span> <span class="token punctuation">{</span>
+					count<span class="token operator">++</span>
+				<span class="token punctuation">}</span>
+			<span class="token punctuation">}</span>
+			b <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> count<span class="token punctuation">)</span>
+		<span class="token punctuation">}</span>
+		i<span class="token operator">++</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> b
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">dtob</span><span class="token punctuation">(</span>num <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span> <span class="token punctuation">{</span>
+	a <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+	<span class="token keyword">for</span> num <span class="token operator">!=</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+		i <span class="token operator">:=</span> num <span class="token operator">%</span> <span class="token number">2</span>
+		a <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> i<span class="token punctuation">)</span>
+		num <span class="token operator">=</span> num <span class="token operator">/</span> <span class="token number">2</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> a
+<span class="token punctuation">}</span></code></pre>
                 
             </div>
             <hr/>
@@ -1296,7 +1331,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

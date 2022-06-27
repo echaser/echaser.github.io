@@ -475,7 +475,7 @@ SonarQube是一种自动代码审查工具，用于检测代码中的错误、�
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.4k
+                    1.5k
                 </div>
                 
 
@@ -509,41 +509,103 @@ SonarQube是一种自动代码审查工具，用于检测代码中的错误、�
 
 <p><a target="_blank" rel="noopener" href="http://www.sonarqube.org/"><em>SonarQube</em></a>是一种自动代码审查工具，用于检测代码中的错误、漏洞和代码异味。 它可以与现有的工作流程集成，以支持跨项目分支和拉取请求的持续代码检查。</p>
 <p>本文基于_Linux_操作系统，在_Docker_容器中部署_SonarQube_服务，并进行简单的配置和使用。_SonarQube_在<code>7.8</code>版本之后不再支持_Mysql_数据库，教程选用的是最新版本的<a target="_blank" rel="noopener" href="https://www.postgresql.org/"><em>Postgresql</em></a>数据库，_SonarQube_使用的版本是_8.8-community_。</p>
-<h4 id="1-安装Postgresql"><a href="#1-安装Postgresql" class="headerlink" title="1.安装Postgresql"></a>1.安装Postgresql</h4><h5 id="1-1-下载-PostgreSQL镜像"><a href="#1-1-下载-PostgreSQL镜像" class="headerlink" title="1.1 下载 PostgreSQL镜像"></a>1.1 下载 <a target="_blank" rel="noopener" href="https://hub.docker.com/_/postgres">PostgreSQL镜像</a></h5><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull postgres</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="1-安装Postgresql"><a href="#1-安装Postgresql" class="headerlink" title="1.安装Postgresql"></a>1.安装Postgresql</h4><h5 id="1-1-下载-PostgreSQL镜像"><a href="#1-1-下载-PostgreSQL镜像" class="headerlink" title="1.1 下载 PostgreSQL镜像"></a>1.1 下载 <a target="_blank" rel="noopener" href="https://hub.docker.com/_/postgres">PostgreSQL镜像</a></h5><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> pull postgres</code></pre>
 
-<h5 id="1-2-启动容器"><a href="#1-2-启动容器" class="headerlink" title="1.2 启动容器"></a>1.2 启动容器</h5><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 5432:5432 -v /data/postgres:/var/lib/postgresql/data -e POSTGRES_PASSWORD=123456 -e ALLOW_IP_RANGE=0.0.0.0/0 --name postgres postgres</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="1-2-启动容器"><a href="#1-2-启动容器" class="headerlink" title="1.2 启动容器"></a>1.2 启动容器</h5><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run -d -p <span class="token number">5432</span>:5432 -v /data/postgres:/var/lib/postgresql/data -e <span class="token assign-left variable">POSTGRES_PASSWORD</span><span class="token operator">=</span><span class="token number">123456</span> -e <span class="token assign-left variable">ALLOW_IP_RANGE</span><span class="token operator">=</span><span class="token number">0.0</span>.0.0/0 --name postgres postgres</code></pre>
 
 <p>参数说明：</p>
 <p>POSTGRES_PASSWORD 是数据库初始密码</p>
 <p>ALLOW_IP_RANGE=0.0.0.0/0 允许任何主机访问</p>
-<h5 id="1-3-进入postgres容器"><a href="#1-3-进入postgres容器" class="headerlink" title="1.3 进入postgres容器"></a>1.3 进入postgres容器</h5><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it postgres bash</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="1-3-进入postgres容器"><a href="#1-3-进入postgres容器" class="headerlink" title="1.3 进入postgres容器"></a>1.3 进入postgres容器</h5><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> <span class="token builtin class-name">exec</span> -it postgres <span class="token function">bash</span></code></pre>
 
 <p><code>注意:</code> 这里的<code>postgres</code>是<code>1.2</code>中<code>--name</code>的参数</p>
-<h5 id="1-4-使用默认用户postgres创建SonarQube数据库"><a href="#1-4-使用默认用户postgres创建SonarQube数据库" class="headerlink" title="1.4 使用默认用户postgres创建SonarQube数据库"></a>1.4 使用默认用户<code>postgres</code>创建<code>SonarQube</code>数据库</h5><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">切换postgres用户</span></span><br><span class="line">su postgres</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进入数据库</span></span><br><span class="line">psql</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建sonar数据库</span></span><br><span class="line">CREATE DATABASE sonar;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">退出数据库</span></span><br><span class="line">\q</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">退出postgres用户</span></span><br><span class="line">exit</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">退出容器</span></span><br><span class="line">exit</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="1-4-使用默认用户postgres创建SonarQube数据库"><a href="#1-4-使用默认用户postgres创建SonarQube数据库" class="headerlink" title="1.4 使用默认用户postgres创建SonarQube数据库"></a>1.4 使用默认用户<code>postgres</code>创建<code>SonarQube</code>数据库</h5><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 切换postgres用户</span>
+<span class="token function">su</span> postgres
+<span class="token comment"># 进入数据库</span>
+psql
+<span class="token comment"># 创建sonar数据库</span>
+CREATE DATABASE sonar<span class="token punctuation">;</span>
+<span class="token comment"># 退出数据库</span>
+<span class="token punctuation">\</span>q
+<span class="token comment"># 退出postgres用户</span>
+<span class="token builtin class-name">exit</span>
+<span class="token comment"># 退出容器</span>
+<span class="token builtin class-name">exit</span></code></pre>
 
-<h4 id="2-部署SonarQube"><a href="#2-部署SonarQube" class="headerlink" title="2. 部署SonarQube"></a>2. 部署SonarQube</h4><h5 id="2-1-下载SonarQube镜像"><a href="#2-1-下载SonarQube镜像" class="headerlink" title="2.1 下载SonarQube镜像"></a>2.1 下载<a target="_blank" rel="noopener" href="https://hub.docker.com/_/sonarqube">SonarQube镜像</a></h5><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull sonarqube:8.8-community</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="2-部署SonarQube"><a href="#2-部署SonarQube" class="headerlink" title="2. 部署SonarQube"></a>2. 部署SonarQube</h4><h5 id="2-1-下载SonarQube镜像"><a href="#2-1-下载SonarQube镜像" class="headerlink" title="2.1 下载SonarQube镜像"></a>2.1 下载<a target="_blank" rel="noopener" href="https://hub.docker.com/_/sonarqube">SonarQube镜像</a></h5><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> pull sonarqube:8.8-community</code></pre>
 
-<h5 id="2-2-创建Volume-可忽略此步骤"><a href="#2-2-创建Volume-可忽略此步骤" class="headerlink" title="2.2 创建Volume(可忽略此步骤)"></a>2.2 创建Volume(可忽略此步骤)</h5><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker volume create --name sonarqube_data</span><br><span class="line">docker volume create --name sonarqube_logs</span><br><span class="line">docker volume create --name sonarqube_extensions</span><br><span class="line">docker volume create --name sonarqube_conf</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="2-2-创建Volume-可忽略此步骤"><a href="#2-2-创建Volume-可忽略此步骤" class="headerlink" title="2.2 创建Volume(可忽略此步骤)"></a>2.2 创建Volume(可忽略此步骤)</h5><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> volume create --name sonarqube_data
+<span class="token function">docker</span> volume create --name sonarqube_logs
+<span class="token function">docker</span> volume create --name sonarqube_extensions
+<span class="token function">docker</span> volume create --name sonarqube_conf</code></pre>
 
-<h5 id="2-3-启动容器"><a href="#2-3-启动容器" class="headerlink" title="2.3 启动容器"></a>2.3 启动容器</h5><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name sonarqube \</span><br><span class="line">    -p 9000:9000 \</span><br><span class="line">    -e SONAR_JDBC_URL=jdbc:postgresql://192.168.14.5:5432/sonar \</span><br><span class="line">    -e SONAR_JDBC_USERNAME=postgres \</span><br><span class="line">    -e SONAR_JDBC_PASSWORD=123456 \</span><br><span class="line">    -v sonarqube_data:/opt/sonarqube/data \</span><br><span class="line">    -v sonarqube_extensions:/opt/sonarqube/extensions \</span><br><span class="line">    -v sonarqube_logs:/opt/sonarqube/logs \</span><br><span class="line">    -v sonarqube_conf:/opt/sonarqube/conf \</span><br><span class="line">    sonarqube:8.8-community</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="2-3-启动容器"><a href="#2-3-启动容器" class="headerlink" title="2.3 启动容器"></a>2.3 启动容器</h5><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run -d --name sonarqube <span class="token punctuation">\</span>
+    -p <span class="token number">9000</span>:9000 <span class="token punctuation">\</span>
+    -e <span class="token assign-left variable">SONAR_JDBC_URL</span><span class="token operator">=</span>jdbc:postgresql://192.168.14.5:5432/sonar <span class="token punctuation">\</span>
+    -e <span class="token assign-left variable">SONAR_JDBC_USERNAME</span><span class="token operator">=</span>postgres <span class="token punctuation">\</span>
+    -e <span class="token assign-left variable">SONAR_JDBC_PASSWORD</span><span class="token operator">=</span><span class="token number">123456</span> <span class="token punctuation">\</span>
+    -v sonarqube_data:/opt/sonarqube/data <span class="token punctuation">\</span>
+    -v sonarqube_extensions:/opt/sonarqube/extensions <span class="token punctuation">\</span>
+    -v sonarqube_logs:/opt/sonarqube/logs <span class="token punctuation">\</span>
+    -v sonarqube_conf:/opt/sonarqube/conf <span class="token punctuation">\</span>
+    sonarqube:8.8-community</code></pre>
 
 <p><code>docker logs \-f sonarqube</code> 查看日志发现报错</p>
 <p><img src="https://img-blog.csdnimg.cn/20210702112812512.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1Y2t5ZG9nNjEy,size_16,color_FFFFFF,t_70#pic_center" alt="错误日志"></p>
 <p>修改配置</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/sysctl.conf</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">vim</span> /etc/sysctl.conf</code></pre>
 
 <p>最后一行添加<code>vm.max_map_count=262144</code>，保存退出<br>加载使其生效</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -p</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">sysctl -p</code></pre>
 
 <p>重新启动容器</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start sonarqube</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> start sonarqube</code></pre>
 
 <p>浏览器访问<code>http://主机IP:9000</code>,使用默认账号(admin)密码(admin)登录，根据提示修改原始密码</p>
 <h4 id="3-配置SonalQube"><a href="#3-配置SonalQube" class="headerlink" title="3.配置SonalQube"></a>3.配置SonalQube</h4><h5 id="3-1-生成密钥"><a href="#3-1-生成密钥" class="headerlink" title="3.1 生成密钥"></a>3.1 生成密钥</h5><p>_Administration &gt; Security &gt; Users_，选择用户_Tokens_一栏，根据提示在_Generate Tokens_输入框中输入Token名称，点击_Generate_生成Token，点击_Copy_复制保存。</p>
 <p><img src="https://img-blog.csdnimg.cn/20210702113013570.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1Y2t5ZG9nNjEy,size_16,color_FFFFFF,t_70#pic_center" alt="找到Token生成"><br><img src="https://img-blog.csdnimg.cn/2021070211310418.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1Y2t5ZG9nNjEy,size_16,color_FFFFFF,t_70#pic_center" alt="生成Token"></p>
 <p>**<code>注意</code>**：这里的复制_Token_界面一旦关闭，无法再次查看_Token_内容，请妥善保存</p>
 <h5 id="3-2-用户Token"><a href="#3-2-用户Token" class="headerlink" title="3.2 用户Token"></a>3.2 用户Token</h5><p>_Token_可以调用_SonarQube_相关API，以进行调试及开发。</p>
-<h6 id="3-2-1-代码调试（以GO为例）"><a href="#3-2-1-代码调试（以GO为例）" class="headerlink" title="3.2.1 代码调试（以GO为例）"></a>3.2.1 代码调试（以GO为例）</h6><figure class="highlight go"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"io/ioutil"</span></span><br><span class="line">	<span class="string">"net/http"</span></span><br><span class="line">	<span class="string">"net/url"</span></span><br><span class="line">	<span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> createPro = <span class="string">"http://192.168.14.5:9000/api/projects/create"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">	v := url.Values{}</span><br><span class="line">	v.Add(<span class="string">"name"</span>, <span class="string">"test"</span>)</span><br><span class="line">	v.Add(<span class="string">"project"</span>, <span class="string">"test"</span>)</span><br><span class="line">	v.Add(<span class="string">"visibility"</span>, <span class="string">"public"</span>)</span><br><span class="line">	fmt.Println(v.Encode())</span><br><span class="line">	req, err := http.NewRequest(<span class="string">"POST"</span>, createPro, strings.NewReader(v.Encode()))</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> {</span><br><span class="line">		fmt.Println(err)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	}</span><br><span class="line">	<span class="comment">// 这里的username可直接使用生成的Token，无需密码；或直接用账号密码进行验证</span></span><br><span class="line">	req.SetBasicAuth(<span class="string">"3cf069236f72e95a64aad2b5714fb717ca080249"</span>, <span class="string">""</span>)</span><br><span class="line">	req.Header.Set(<span class="string">"Content-Type"</span>, <span class="string">"application/x-www-form-urlencoded"</span>)</span><br><span class="line">	resp, err := http.DefaultClient.Do(req)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> {</span><br><span class="line">		fmt.Println(err)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	}</span><br><span class="line">	fmt.Println(resp.StatusCode)</span><br><span class="line">	data, err := ioutil.ReadAll(resp.Body)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> {</span><br><span class="line">		fmt.Println(err)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">defer</span> resp.Body.Close()</span><br><span class="line">	fmt.Println(<span class="type">string</span>(data))</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h6 id="3-2-1-代码调试（以GO为例）"><a href="#3-2-1-代码调试（以GO为例）" class="headerlink" title="3.2.1 代码调试（以GO为例）"></a>3.2.1 代码调试（以GO为例）</h6><pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
+
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+	<span class="token string">"fmt"</span>
+	<span class="token string">"io/ioutil"</span>
+	<span class="token string">"net/http"</span>
+	<span class="token string">"net/url"</span>
+	<span class="token string">"strings"</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">var</span> createPro <span class="token operator">=</span> <span class="token string">"http://192.168.14.5:9000/api/projects/create"</span>
+
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+	v <span class="token operator">:=</span> url<span class="token punctuation">.</span>Values<span class="token punctuation">{</span><span class="token punctuation">}</span>
+	v<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span> <span class="token string">"test"</span><span class="token punctuation">)</span>
+	v<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token string">"project"</span><span class="token punctuation">,</span> <span class="token string">"test"</span><span class="token punctuation">)</span>
+	v<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token string">"visibility"</span><span class="token punctuation">,</span> <span class="token string">"public"</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>v<span class="token punctuation">.</span><span class="token function">Encode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	req<span class="token punctuation">,</span> err <span class="token operator">:=</span> http<span class="token punctuation">.</span><span class="token function">NewRequest</span><span class="token punctuation">(</span><span class="token string">"POST"</span><span class="token punctuation">,</span> createPro<span class="token punctuation">,</span> strings<span class="token punctuation">.</span><span class="token function">NewReader</span><span class="token punctuation">(</span>v<span class="token punctuation">.</span><span class="token function">Encode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+		<span class="token keyword">return</span>
+	<span class="token punctuation">}</span>
+	<span class="token comment">// 这里的username可直接使用生成的Token，无需密码；或直接用账号密码进行验证</span>
+	req<span class="token punctuation">.</span><span class="token function">SetBasicAuth</span><span class="token punctuation">(</span><span class="token string">"3cf069236f72e95a64aad2b5714fb717ca080249"</span><span class="token punctuation">,</span> <span class="token string">""</span><span class="token punctuation">)</span>
+	req<span class="token punctuation">.</span>Header<span class="token punctuation">.</span><span class="token function">Set</span><span class="token punctuation">(</span><span class="token string">"Content-Type"</span><span class="token punctuation">,</span> <span class="token string">"application/x-www-form-urlencoded"</span><span class="token punctuation">)</span>
+	resp<span class="token punctuation">,</span> err <span class="token operator">:=</span> http<span class="token punctuation">.</span>DefaultClient<span class="token punctuation">.</span><span class="token function">Do</span><span class="token punctuation">(</span>req<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+		<span class="token keyword">return</span>
+	<span class="token punctuation">}</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>resp<span class="token punctuation">.</span>StatusCode<span class="token punctuation">)</span>
+	data<span class="token punctuation">,</span> err <span class="token operator">:=</span> ioutil<span class="token punctuation">.</span><span class="token function">ReadAll</span><span class="token punctuation">(</span>resp<span class="token punctuation">.</span>Body<span class="token punctuation">)</span>
+	<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+		fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+		<span class="token keyword">return</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">defer</span> resp<span class="token punctuation">.</span>Body<span class="token punctuation">.</span><span class="token function">Close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">string</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span></code></pre>
 
 <h6 id="3-2-2-Postman调试"><a href="#3-2-2-Postman调试" class="headerlink" title="3.2.2 Postman调试"></a>3.2.2 Postman调试</h6><ol>
 <li><p>填写请求路径</p>
@@ -556,17 +618,26 @@ SonarQube是一种自动代码审查工具，用于检测代码中的错误、�
 </li>
 </ol>
 <h5 id="3-2-汉化-可选"><a href="#3-2-汉化-可选" class="headerlink" title="3.2 汉化(可选)"></a>3.2 汉化(可选)</h5><p><em>Administration &gt; Marketplace &gt; Plugins</em>,搜索_Chinese_，选择对应插件安装，稍等片刻即可安装成功，页面上方会出现_重启服务_和_重置_选择按钮，按需选择就行了，个人觉得英文界面好用一些<br><img src="https://img-blog.csdnimg.cn/20210702113350625.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1Y2t5ZG9nNjEy,size_16,color_FFFFFF,t_70#pic_center" alt="汉化"></p>
-<h4 id="4-SonarQube的使用"><a href="#4-SonarQube的使用" class="headerlink" title="4.SonarQube的使用"></a>4.SonarQube的使用</h4><h5 id="4-1-安装SonarScanner-其他安装方式请参照官方文档"><a href="#4-1-安装SonarScanner-其他安装方式请参照官方文档" class="headerlink" title="4.1 安装SonarScanner(其他安装方式请参照官方文档)"></a>4.1 安装SonarScanner(其他安装方式请参照<a target="_blank" rel="noopener" href="https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/"><em>官方文档</em></a>)</h5><h6 id="4-1-1-下载二进制安装包"><a href="#4-1-1-下载二进制安装包" class="headerlink" title="4.1.1 下载二进制安装包"></a>4.1.1 下载二进制安装包</h6><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="4-SonarQube的使用"><a href="#4-SonarQube的使用" class="headerlink" title="4.SonarQube的使用"></a>4.SonarQube的使用</h4><h5 id="4-1-安装SonarScanner-其他安装方式请参照官方文档"><a href="#4-1-安装SonarScanner-其他安装方式请参照官方文档" class="headerlink" title="4.1 安装SonarScanner(其他安装方式请参照官方文档)"></a>4.1 安装SonarScanner(其他安装方式请参照<a target="_blank" rel="noopener" href="https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/"><em>官方文档</em></a>)</h5><h6 id="4-1-1-下载二进制安装包"><a href="#4-1-1-下载二进制安装包" class="headerlink" title="4.1.1 下载二进制安装包"></a>4.1.1 下载二进制安装包</h6><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip</code></pre>
 
-<h6 id="4-1-2-解压"><a href="#4-1-2-解压" class="headerlink" title="4.1.2 解压"></a>4.1.2 解压</h6><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip sonar-scanner-cli-4.6.2.2472-linux.zip -d /usr/local/</span><br></pre></td></tr></tbody></table></figure>
+<h6 id="4-1-2-解压"><a href="#4-1-2-解压" class="headerlink" title="4.1.2 解压"></a>4.1.2 解压</h6><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">unzip</span> sonar-scanner-cli-4.6.2.2472-linux.zip -d /usr/local/</code></pre>
 
-<h6 id="4-1-3-添加到PATH（建立软连接）"><a href="#4-1-3-添加到PATH（建立软连接）" class="headerlink" title="4.1.3 添加到PATH（建立软连接）"></a>4.1.3 添加到PATH（建立软连接）</h6><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/local/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner /usr/bin/</span><br><span class="line"></span><br><span class="line">ln -s /usr/local/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner-debug /usr/bin/</span><br></pre></td></tr></tbody></table></figure>
+<h6 id="4-1-3-添加到PATH（建立软连接）"><a href="#4-1-3-添加到PATH（建立软连接）" class="headerlink" title="4.1.3 添加到PATH（建立软连接）"></a>4.1.3 添加到PATH（建立软连接）</h6><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">ln</span> -s /usr/local/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner /usr/bin/
+
+<span class="token function">ln</span> -s /usr/local/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner-debug /usr/bin/</code></pre>
 
 <p>测试安装是否成功</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sonar-scanner -h</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">sonar-scanner -h</code></pre>
 
 <p>输出如下信息，证明安装无误</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">INFO: </span><br><span class="line">INFO: usage: sonar-scanner [options]</span><br><span class="line">INFO: </span><br><span class="line">INFO: Options:</span><br><span class="line">INFO:  -D,--define &lt;arg&gt;     Define property</span><br><span class="line">INFO:  -h,--help             Display help information</span><br><span class="line">INFO:  -v,--version          Display version information</span><br><span class="line">INFO:  -X,--debug            Produce execution debug output</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">INFO: 
+INFO: usage: sonar-scanner <span class="token punctuation">[</span>options<span class="token punctuation">]</span>
+INFO: 
+INFO: Options:
+INFO:  -D,--define <span class="token operator">&lt;</span>arg<span class="token operator">&gt;</span>     Define property
+INFO:  -h,--help             Display <span class="token builtin class-name">help</span> information
+INFO:  -v,--version          Display version information
+INFO:  -X,--debug            Produce execution debug output</code></pre>
 
 <h5 id="4-2-生成扫描代码"><a href="#4-2-生成扫描代码" class="headerlink" title="4.2 生成扫描代码"></a>4.2 生成扫描代码</h5><h6 id="4-2-1-创建项目"><a href="#4-2-1-创建项目" class="headerlink" title="4.2.1 创建项目"></a>4.2.1 创建项目</h6><ol>
 <li><p>登录_SonarQube_服务界面，点击_Create new project &gt; Manually_或右上角_Add project &gt; Manually_</p>
@@ -579,17 +650,39 @@ SonarQube是一种自动代码审查工具，用于检测代码中的错误、�
 </li>
 </ol>
 <p><img src="https://img-blog.csdnimg.cn/20210702113834576.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x1Y2t5ZG9nNjEy,size_16,color_FFFFFF,t_70#pic_center" alt="生成扫描代码"></p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sonar-scanner \</span><br><span class="line">  -Dsonar.projectKey=test \</span><br><span class="line">  -Dsonar.sources=. \</span><br><span class="line">  -Dsonar.host.url=http://192.168.14.5:9000 \</span><br><span class="line">  -Dsonar.login=3cf069236f72e95a64aad2b5714fb717ca080249</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">sonar-scanner <span class="token punctuation">\</span>
+  -Dsonar.projectKey<span class="token operator">=</span>test <span class="token punctuation">\</span>
+  -Dsonar.sources<span class="token operator">=</span>. <span class="token punctuation">\</span>
+  -Dsonar.host.url<span class="token operator">=</span>http://192.168.14.5:9000 <span class="token punctuation">\</span>
+  -Dsonar.login<span class="token operator">=</span>3cf069236f72e95a64aad2b5714fb717ca080249</code></pre>
 
 <p>如果你想获取更详细的_Debug_信息，可在命令后面添加以下任一参数</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-X，--verbose, -Dsonar.verbose=true</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">-X，--verbose, -Dsonar.verbose<span class="token operator">=</span>true</code></pre>
 
 <p>更多参数请参照<a target="_blank" rel="noopener" href="https://docs.sonarqube.org/latest/analysis/analysis-parameters/"><em>官方文档</em></a></p>
 <p>参数解析：</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-Dsonar.projectKey 项目名称，扫描完毕后会将数据发送给对应的项目</span><br><span class="line"></span><br><span class="line">-Dsonar.sources 代码目录，默认值是`.`，表示当前目录，故该命令应在代码根目录下执行</span><br><span class="line"></span><br><span class="line">-Dsonar.host.url 服务器地址</span><br><span class="line"></span><br><span class="line">-Dsonar.login 登录Token</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">-Dsonar.projectKey 项目名称，扫描完毕后会将数据发送给对应的项目
+
+-Dsonar.sources 代码目录，默认值是<span class="token variable"><span class="token variable">`</span><span class="token builtin class-name">.</span><span class="token variable">`</span></span>，表示当前目录，故该命令应在代码根目录下执行
+
+-Dsonar.host.url 服务器地址
+
+-Dsonar.login 登录Token</code></pre>
 
 <h5 id="4-3-执行扫描"><a href="#4-3-执行扫描" class="headerlink" title="4.3 执行扫描"></a>4.3 执行扫描</h5><p>点击_Copy_复制扫描代码，在已安装_SonarScanner_的服务上的代码根目录执行<br>出现如下日志说明扫描完毕，此时可刷新管理界面或直接访问日志中的_<a target="_blank" rel="noopener" href="http://192.168.14.5:9000/dashboard/?id=test">http://192.168.14.5:9000/dashboard\?id=test</a>_ 查看扫描结果</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">INFO: Analysis report generated in 114ms, dir size=156 KB</span><br><span class="line">INFO: Analysis report compressed in 299ms, zip size=81 KB</span><br><span class="line">INFO: Analysis report uploaded in 174ms</span><br><span class="line">INFO: ANALYSIS SUCCESSFUL, you can browse http://192.168.14.5:9000/dashboard?id=test</span><br><span class="line">INFO: Note that you will be able to access the updated dashboard once the server has processed the submitted analysis report</span><br><span class="line">INFO: More about the report processing at http://192.168.14.5:9000/api/ce/task?id=AXplL1OzMN_oVHnT4W6t</span><br><span class="line">INFO: Analysis total time: 8.154 s</span><br><span class="line">INFO: ------------------------------------------------------------------------</span><br><span class="line">INFO: EXECUTION SUCCESS</span><br><span class="line">INFO: ------------------------------------------------------------------------</span><br><span class="line">INFO: Total time: 13.451s</span><br><span class="line">INFO: Final Memory: 13M/47M</span><br><span class="line">INFO: ------------------------------------------------------------------------</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-bash" data-language="bash"><code class="language-bash">INFO: Analysis report generated <span class="token keyword">in</span> 114ms, <span class="token function">dir</span> <span class="token assign-left variable">size</span><span class="token operator">=</span><span class="token number">156</span> KB
+INFO: Analysis report compressed <span class="token keyword">in</span> 299ms, <span class="token function">zip</span> <span class="token assign-left variable">size</span><span class="token operator">=</span><span class="token number">81</span> KB
+INFO: Analysis report uploaded <span class="token keyword">in</span> 174ms
+INFO: ANALYSIS SUCCESSFUL, you can browse http://192.168.14.5:9000/dashboard?id<span class="token operator">=</span>test
+INFO: Note that you will be able to access the updated dashboard once the server has processed the submitted analysis report
+INFO: More about the report processing at http://192.168.14.5:9000/api/ce/task?id<span class="token operator">=</span>AXplL1OzMN_oVHnT4W6t
+INFO: Analysis total time: <span class="token number">8.154</span> s
+INFO: ------------------------------------------------------------------------
+INFO: EXECUTION SUCCESS
+INFO: ------------------------------------------------------------------------
+INFO: Total time: <span class="token number">13</span>.451s
+INFO: Final Memory: 13M/47M
+INFO: ------------------------------------------------------------------------</code></pre>
 
 <p><em>本文是根据学习笔记整理而成，如有错误或不当之处，望各位读者海涵，同时欢迎各位留言或<a href="mailto:luckydog612@163.com">Email</a>批评指正，不胜感激。</em></p>
 
@@ -1366,7 +1459,7 @@ SonarQube是一种自动代码审查工具，用于检测代码中的错误、�
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

@@ -511,20 +511,81 @@
 <h2 id="区块"><a href="#区块" class="headerlink" title="区块"></a>区块</h2><p>比特币区块由区块头和该区块所包含的交易列表组成。区块头大小为80字节，其构成包括：</p>
 <p>　　 4字节：版本号<br>　　32字节：上一个区块的哈希值<br>　　32字节：交易列表的Merkle根哈希值<br>　　 4字节：当前时间戳<br>　　 4字节：当前难度值<br>　　 4字节：随机数Nonce值<br>此80字节长度的区块头，即为比特币Pow算法的输入字符串。交易列表附加在区块头之后，其中第一笔交易为矿工获得奖励和手续费的特殊交易。</p>
 <p>bitcoin-0.15.1源码中区块头和区块定义</p>
-<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CBlockHeader</span></span><br><span class="line">{</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//版本号</span></span><br><span class="line">    <span class="type">int32_t</span> nVersion;</span><br><span class="line">    <span class="comment">//上一个区块的哈希值</span></span><br><span class="line">    uint256 hashPrevBlock;</span><br><span class="line">    <span class="comment">//交易列表的Merkle根哈希值</span></span><br><span class="line">    uint256 hashMerkleRoot;</span><br><span class="line">    <span class="comment">//当前时间戳</span></span><br><span class="line">    <span class="type">uint32_t</span> nTime;</span><br><span class="line">    <span class="comment">//当前挖矿难度，nBits越小难度越大</span></span><br><span class="line">    <span class="type">uint32_t</span> nBits;</span><br><span class="line">    <span class="comment">//随机数Nonce值</span></span><br><span class="line">    <span class="type">uint32_t</span> nNonce;</span><br><span class="line">    <span class="comment">//其它代码略</span></span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CBlock</span> : <span class="keyword">public</span> CBlockHeader</span><br><span class="line">{</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//交易列表</span></span><br><span class="line">    std::vector&lt;CTransactionRef&gt; vtx;</span><br><span class="line">    <span class="comment">//其它代码略</span></span><br><span class="line">};</span><br><span class="line"><span class="comment">//代码位置src/primitives/block.h</span></span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-c++" data-language="c++"><code class="language-c++">class CBlockHeader
+{
+public:
+    //版本号
+    int32_t nVersion;
+    //上一个区块的哈希值
+    uint256 hashPrevBlock;
+    //交易列表的Merkle根哈希值
+    uint256 hashMerkleRoot;
+    //当前时间戳
+    uint32_t nTime;
+    //当前挖矿难度，nBits越小难度越大
+    uint32_t nBits;
+    //随机数Nonce值
+    uint32_t nNonce;
+    //其它代码略
+};
+
+class CBlock : public CBlockHeader
+{
+public:
+    //交易列表
+    std::vector&lt;CTransactionRef&gt; vtx;
+    //其它代码略
+};
+//代码位置src/primitives/block.h</code></pre>
 
 <h2 id="难度值"><a href="#难度值" class="headerlink" title="难度值"></a>难度值</h2><p>难度值（difficulty）是矿工们在挖矿时候的重要参考指标，它决定了矿工大约需要经过多少次哈希运算才能产生一个合法的区块。比特币的区块大约每10分钟生成一个，如果要在不同的全网算力条件下，新区块的产生保持都基本这个速率，难度值必须根据全网算力的变化进行调整。简单地说，难度值被设定在无论挖矿能力如何，新区块产生速率都保持在10分钟一个。</p>
 <p>难度的调整是在每个完整节点中独立自动发生的。每2016个区块，所有节点都会按统一的公式自动调整难度，这个公式是由最新2016个区块的花费时长与期望时长（期望时长为20160分钟即两周，是按每10分钟一个区块的产生速率计算出的总时长）比较得出的，根据实际时长与期望时长的比值，进行相应调整（或变难或变易）。也就是说，如果区块产生的速率比10分钟快则增加难度，比10分钟慢则降低难度。</p>
 <p>这个公式可以总结为如下形式：</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">新难度值 = 旧难度值 * ( 过去2016个区块花费时长 / 20160 分钟 )</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">新难度值 = 旧难度值 * ( 过去2016个区块花费时长 / 20160 分钟 )</code></pre>
 
 <p>工作量证明需要有一个目标值。比特币工作量证明的目标值（Target）的计算公式如下：</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">目标值 = 最大目标值 / 难度值</span><br><span class="line">其中最大目标值为一个恒定值：</span><br><span class="line">0x00000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-none"><code class="language-none">目标值 = 最大目标值 / 难度值
+其中最大目标值为一个恒定值：
+0x00000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</code></pre>
 
 <p>目标值的大小与难度值成反比。比特币工作量证明的达成就是矿工计算出来的区块哈希值必须小于目标值。</p>
 <p>比特币工作量证明的过程，就是通过不停的变换区块头（即尝试不同的nouce值）作为输入进行SHA256哈希运算，找出一个特定格式哈希值的过程（即要求有一定数量的前导0）。而要求的前导0的个数越多，代表难度越大。</p>
 <p>bitcoin-0.15.1源码中计算挖矿难度代码如下：</p>
-<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//nFirstBlockTime即前2016个块的第一个块的时间戳</span></span><br><span class="line"><span class="function"><span class="type">unsigned</span> <span class="type">int</span> <span class="title">CalculateNextWorkRequired</span><span class="params">(<span class="type">const</span> CBlockIndex* pindexLast, <span class="type">int64_t</span> nFirstBlockTime, <span class="type">const</span> Consensus::Params&amp; params)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">if</span> (params.fPowNoRetargeting)</span><br><span class="line">        <span class="keyword">return</span> pindexLast-&gt;nBits;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//计算生成这2016个块花费的时间</span></span><br><span class="line">    <span class="type">int64_t</span> nActualTimespan = pindexLast-&gt;<span class="built_in">GetBlockTime</span>() - nFirstBlockTime;</span><br><span class="line">    <span class="comment">//不小于3.5天</span></span><br><span class="line">    <span class="keyword">if</span> (nActualTimespan &lt; params.nPowTargetTimespan/<span class="number">4</span>)</span><br><span class="line">        nActualTimespan = params.nPowTargetTimespan/<span class="number">4</span>;</span><br><span class="line">    <span class="comment">//不大于56天</span></span><br><span class="line">    <span class="keyword">if</span> (nActualTimespan &gt; params.nPowTargetTimespan*<span class="number">4</span>)</span><br><span class="line">        nActualTimespan = params.nPowTargetTimespan*<span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Retarget</span></span><br><span class="line">    <span class="type">const</span> arith_uint256 bnPowLimit = <span class="built_in">UintToArith256</span>(params.powLimit);</span><br><span class="line">    arith_uint256 bnNew;</span><br><span class="line">    bnNew.<span class="built_in">SetCompact</span>(pindexLast-&gt;nBits);</span><br><span class="line">    <span class="comment">//计算前2016个块的难度总和</span></span><br><span class="line">    <span class="comment">//即单个块的难度*总时间</span></span><br><span class="line">    bnNew *= nActualTimespan;</span><br><span class="line">    <span class="comment">//计算新的难度</span></span><br><span class="line">    <span class="comment">//即2016个块的难度总和/14天的秒数</span></span><br><span class="line">    bnNew /= params.nPowTargetTimespan;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//bnNew越小，难度越大</span></span><br><span class="line">    <span class="comment">//bnNew越大，难度越小</span></span><br><span class="line">    <span class="comment">//要求新的难度，难度不低于参数定义的最小难度</span></span><br><span class="line">    <span class="keyword">if</span> (bnNew &gt; bnPowLimit)</span><br><span class="line">        bnNew = bnPowLimit;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> bnNew.<span class="built_in">GetCompact</span>();</span><br><span class="line">}</span><br><span class="line"><span class="comment">//代码位置src/pow.cpp</span></span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-c++" data-language="c++"><code class="language-c++">//nFirstBlockTime即前2016个块的第一个块的时间戳
+unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nFirstBlockTime, const Consensus::Params&amp; params)
+{
+    if (params.fPowNoRetargeting)
+        return pindexLast-&gt;nBits;
+
+    //计算生成这2016个块花费的时间
+    int64_t nActualTimespan = pindexLast-&gt;GetBlockTime() - nFirstBlockTime;
+    //不小于3.5天
+    if (nActualTimespan &lt; params.nPowTargetTimespan/4)
+        nActualTimespan = params.nPowTargetTimespan/4;
+    //不大于56天
+    if (nActualTimespan &gt; params.nPowTargetTimespan*4)
+        nActualTimespan = params.nPowTargetTimespan*4;
+
+    // Retarget
+    const arith_uint256 bnPowLimit = UintToArith256(params.powLimit);
+    arith_uint256 bnNew;
+    bnNew.SetCompact(pindexLast-&gt;nBits);
+    //计算前2016个块的难度总和
+    //即单个块的难度*总时间
+    bnNew *= nActualTimespan;
+    //计算新的难度
+    //即2016个块的难度总和/14天的秒数
+    bnNew /= params.nPowTargetTimespan;
+
+    //bnNew越小，难度越大
+    //bnNew越大，难度越小
+    //要求新的难度，难度不低于参数定义的最小难度
+    if (bnNew &gt; bnPowLimit)
+        bnNew = bnPowLimit;
+
+    return bnNew.GetCompact();
+}
+//代码位置src/pow.cpp</code></pre>
 
 <h2 id="工作量证明的过程"><a href="#工作量证明的过程" class="headerlink" title="工作量证明的过程"></a>工作量证明的过程</h2><p>我们可以把比特币矿工解这道工作量证明迷题的步骤大致归纳如下：</p>
 <ol>
@@ -537,10 +598,139 @@
 </ol>
 <p>Pow完成的区块向全网广播，其他节点将验证其是否符合规则，如果验证有效，其他节点将接收此区块，并附加在已有区块链之后。之后将进入下一轮挖矿。</p>
 <p>bitcoin-0.15.1源码中Pow算法实现：</p>
-<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">UniValue <span class="title">generateBlocks</span><span class="params">(std::shared_ptr&lt;CReserveScript&gt; coinbaseScript, <span class="type">int</span> nGenerate, <span class="type">uint64_t</span> nMaxTries, <span class="type">bool</span> keepScript)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> nInnerLoopCount = <span class="number">0x10000</span>;</span><br><span class="line">    <span class="type">int</span> nHeightEnd = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> nHeight = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    {   <span class="comment">// Don't keep cs_main locked</span></span><br><span class="line">        <span class="built_in">LOCK</span>(cs_main);</span><br><span class="line">        nHeight = chainActive.<span class="built_in">Height</span>();</span><br><span class="line">        nHeightEnd = nHeight+nGenerate;</span><br><span class="line">    }</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> nExtraNonce = <span class="number">0</span>;</span><br><span class="line">    <span class="function">UniValue <span class="title">blockHashes</span><span class="params">(UniValue::VARR)</span></span>;</span><br><span class="line">    <span class="keyword">while</span> (nHeight &lt; nHeightEnd)</span><br><span class="line">    {</span><br><span class="line">        <span class="function">std::unique_ptr&lt;CBlockTemplate&gt; <span class="title">pblocktemplate</span><span class="params">(BlockAssembler(Params()).CreateNewBlock(coinbaseScript-&gt;reserveScript))</span></span>;</span><br><span class="line">        <span class="keyword">if</span> (!pblocktemplate.<span class="built_in">get</span>())</span><br><span class="line">            <span class="keyword">throw</span> <span class="built_in">JSONRPCError</span>(RPC_INTERNAL_ERROR, <span class="string">"Couldn't create new block"</span>);</span><br><span class="line">        CBlock *pblock = &amp;pblocktemplate-&gt;block;</span><br><span class="line">        {</span><br><span class="line">            <span class="built_in">LOCK</span>(cs_main);</span><br><span class="line">            <span class="built_in">IncrementExtraNonce</span>(pblock, chainActive.<span class="built_in">Tip</span>(), nExtraNonce);</span><br><span class="line">        }</span><br><span class="line">        <span class="comment">//不断变更区块头中的随机数Nonce</span></span><br><span class="line">        <span class="comment">//对变更后的区块头做双重SHA256哈希运算</span></span><br><span class="line">        <span class="comment">//与当前难度的目标值做比对，如果小于目标难度，即Pow完成</span></span><br><span class="line">        <span class="comment">//uint64_t nMaxTries = 1000000;即重试100万次</span></span><br><span class="line">        <span class="keyword">while</span> (nMaxTries &gt; <span class="number">0</span> &amp;&amp; pblock-&gt;nNonce &lt; nInnerLoopCount &amp;&amp; !<span class="built_in">CheckProofOfWork</span>(pblock-&gt;<span class="built_in">GetHash</span>(), pblock-&gt;nBits, <span class="built_in">Params</span>().<span class="built_in">GetConsensus</span>())) {</span><br><span class="line">            ++pblock-&gt;nNonce;</span><br><span class="line">            --nMaxTries;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (nMaxTries == <span class="number">0</span>) {</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (pblock-&gt;nNonce == nInnerLoopCount) {</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        }</span><br><span class="line">        std::shared_ptr&lt;<span class="type">const</span> CBlock&gt; shared_pblock = std::<span class="built_in">make_shared</span>&lt;<span class="type">const</span> CBlock&gt;(*pblock);</span><br><span class="line">        <span class="keyword">if</span> (!<span class="built_in">ProcessNewBlock</span>(<span class="built_in">Params</span>(), shared_pblock, <span class="literal">true</span>, <span class="literal">nullptr</span>))</span><br><span class="line">            <span class="keyword">throw</span> <span class="built_in">JSONRPCError</span>(RPC_INTERNAL_ERROR, <span class="string">"ProcessNewBlock, block not accepted"</span>);</span><br><span class="line">        ++nHeight;</span><br><span class="line">        blockHashes.<span class="built_in">push_back</span>(pblock-&gt;<span class="built_in">GetHash</span>().<span class="built_in">GetHex</span>());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//mark script as important because it was used at least for one coinbase output if the script came from the wallet</span></span><br><span class="line">        <span class="keyword">if</span> (keepScript)</span><br><span class="line">        {</span><br><span class="line">            coinbaseScript-&gt;<span class="built_in">KeepScript</span>();</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> blockHashes;</span><br><span class="line">}</span><br><span class="line"><span class="comment">//代码位置src/rpc/mining.cpp</span></span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-c++" data-language="c++"><code class="language-c++">UniValue generateBlocks(std::shared_ptr&lt;CReserveScript&gt; coinbaseScript, int nGenerate, uint64_t nMaxTries, bool keepScript)
+{
+    static const int nInnerLoopCount = 0x10000;
+    int nHeightEnd = 0;
+    int nHeight = 0;
+
+    {   // Don't keep cs_main locked
+        LOCK(cs_main);
+        nHeight = chainActive.Height();
+        nHeightEnd = nHeight+nGenerate;
+    }
+    unsigned int nExtraNonce = 0;
+    UniValue blockHashes(UniValue::VARR);
+    while (nHeight &lt; nHeightEnd)
+    {
+        std::unique_ptr&lt;CBlockTemplate&gt; pblocktemplate(BlockAssembler(Params()).CreateNewBlock(coinbaseScript-&gt;reserveScript));
+        if (!pblocktemplate.get())
+            throw JSONRPCError(RPC_INTERNAL_ERROR, "Couldn't create new block");
+        CBlock *pblock = &amp;pblocktemplate-&gt;block;
+        {
+            LOCK(cs_main);
+            IncrementExtraNonce(pblock, chainActive.Tip(), nExtraNonce);
+        }
+        //不断变更区块头中的随机数Nonce
+        //对变更后的区块头做双重SHA256哈希运算
+        //与当前难度的目标值做比对，如果小于目标难度，即Pow完成
+        //uint64_t nMaxTries = 1000000;即重试100万次
+        while (nMaxTries &gt; 0 &amp;&amp; pblock-&gt;nNonce &lt; nInnerLoopCount &amp;&amp; !CheckProofOfWork(pblock-&gt;GetHash(), pblock-&gt;nBits, Params().GetConsensus())) {
+            ++pblock-&gt;nNonce;
+            --nMaxTries;
+        }
+        if (nMaxTries == 0) {
+            break;
+        }
+        if (pblock-&gt;nNonce == nInnerLoopCount) {
+            continue;
+        }
+        std::shared_ptr&lt;const CBlock&gt; shared_pblock = std::make_shared&lt;const CBlock&gt;(*pblock);
+        if (!ProcessNewBlock(Params(), shared_pblock, true, nullptr))
+            throw JSONRPCError(RPC_INTERNAL_ERROR, "ProcessNewBlock, block not accepted");
+        ++nHeight;
+        blockHashes.push_back(pblock-&gt;GetHash().GetHex());
+
+        //mark script as important because it was used at least for one coinbase output if the script came from the wallet
+        if (keepScript)
+        {
+            coinbaseScript-&gt;KeepScript();
+        }
+    }
+    return blockHashes;
+}
+//代码位置src/rpc/mining.cpp</code></pre>
 
 <p>另附bitcoin-0.15.1源码中生成铸币交易和创建新块：</p>
-<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::unique_ptr&lt;CBlockTemplate&gt; <span class="title">BlockAssembler::CreateNewBlock</span><span class="params">(<span class="type">const</span> CScript&amp; scriptPubKeyIn, <span class="type">bool</span> fMineWitnessTx)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="type">int64_t</span> nTimeStart = <span class="built_in">GetTimeMicros</span>();</span><br><span class="line"></span><br><span class="line">    <span class="built_in">resetBlock</span>();</span><br><span class="line"></span><br><span class="line">    pblocktemplate.<span class="built_in">reset</span>(<span class="keyword">new</span> <span class="built_in">CBlockTemplate</span>());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(!pblocktemplate.<span class="built_in">get</span>())</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    pblock = &amp;pblocktemplate-&gt;block; <span class="comment">// pointer for convenience</span></span><br><span class="line"></span><br><span class="line">    pblock-&gt;vtx.<span class="built_in">emplace_back</span>();</span><br><span class="line">    pblocktemplate-&gt;vTxFees.<span class="built_in">push_back</span>(<span class="number">-1</span>); <span class="comment">// updated at end</span></span><br><span class="line">    pblocktemplate-&gt;vTxSigOpsCost.<span class="built_in">push_back</span>(<span class="number">-1</span>); <span class="comment">// updated at end</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">LOCK2</span>(cs_main, mempool.cs);</span><br><span class="line">    CBlockIndex* pindexPrev = chainActive.<span class="built_in">Tip</span>();</span><br><span class="line">    nHeight = pindexPrev-&gt;nHeight + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//版本号</span></span><br><span class="line">    pblock-&gt;nVersion = <span class="built_in">ComputeBlockVersion</span>(pindexPrev, chainparams.<span class="built_in">GetConsensus</span>());</span><br><span class="line">    <span class="keyword">if</span> (chainparams.<span class="built_in">MineBlocksOnDemand</span>())</span><br><span class="line">        pblock-&gt;nVersion = gArgs.<span class="built_in">GetArg</span>(<span class="string">"-blockversion"</span>, pblock-&gt;nVersion);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//当前时间戳</span></span><br><span class="line">    pblock-&gt;nTime = <span class="built_in">GetAdjustedTime</span>();</span><br><span class="line">    <span class="type">const</span> <span class="type">int64_t</span> nMedianTimePast = pindexPrev-&gt;<span class="built_in">GetMedianTimePast</span>();</span><br><span class="line"></span><br><span class="line">    nLockTimeCutoff = (STANDARD_LOCKTIME_VERIFY_FLAGS &amp; LOCKTIME_MEDIAN_TIME_PAST)</span><br><span class="line">                       ? nMedianTimePast</span><br><span class="line">                       : pblock-&gt;<span class="built_in">GetBlockTime</span>();</span><br><span class="line">    fIncludeWitness = <span class="built_in">IsWitnessEnabled</span>(pindexPrev, chainparams.<span class="built_in">GetConsensus</span>()) &amp;&amp; fMineWitnessTx;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> nPackagesSelected = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> nDescendantsUpdated = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">addPackageTxs</span>(nPackagesSelected, nDescendantsUpdated);</span><br><span class="line"></span><br><span class="line">    <span class="type">int64_t</span> nTime1 = <span class="built_in">GetTimeMicros</span>();</span><br><span class="line"></span><br><span class="line">    nLastBlockTx = nBlockTx;</span><br><span class="line">    nLastBlockWeight = nBlockWeight;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建铸币交易</span></span><br><span class="line">    CMutableTransaction coinbaseTx;</span><br><span class="line">    coinbaseTx.vin.<span class="built_in">resize</span>(<span class="number">1</span>);</span><br><span class="line">    coinbaseTx.vin[<span class="number">0</span>].prevout.<span class="built_in">SetNull</span>();</span><br><span class="line">    coinbaseTx.vout.<span class="built_in">resize</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="comment">//挖矿奖励和手续费</span></span><br><span class="line">    coinbaseTx.vout[<span class="number">0</span>].scriptPubKey = scriptPubKeyIn;</span><br><span class="line">    coinbaseTx.vout[<span class="number">0</span>].nValue = nFees + <span class="built_in">GetBlockSubsidy</span>(nHeight, chainparams.<span class="built_in">GetConsensus</span>());</span><br><span class="line">    coinbaseTx.vin[<span class="number">0</span>].scriptSig = <span class="built_in">CScript</span>() &lt;&lt; nHeight &lt;&lt; OP_0;</span><br><span class="line">    <span class="comment">//第一笔交易即为矿工获得奖励和手续费的特殊交易</span></span><br><span class="line">    pblock-&gt;vtx[<span class="number">0</span>] = <span class="built_in">MakeTransactionRef</span>(std::<span class="built_in">move</span>(coinbaseTx));</span><br><span class="line">    pblocktemplate-&gt;vchCoinbaseCommitment = <span class="built_in">GenerateCoinbaseCommitment</span>(*pblock, pindexPrev, chainparams.<span class="built_in">GetConsensus</span>());</span><br><span class="line">    pblocktemplate-&gt;vTxFees[<span class="number">0</span>] = -nFees;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">LogPrintf</span>(<span class="string">"CreateNewBlock(): block weight: %u txs: %u fees: %ld sigops %d\n"</span>, <span class="built_in">GetBlockWeight</span>(*pblock), nBlockTx, nFees, nBlockSigOpsCost);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//上一个区块的哈希值</span></span><br><span class="line">    pblock-&gt;hashPrevBlock  = pindexPrev-&gt;<span class="built_in">GetBlockHash</span>();</span><br><span class="line">    <span class="built_in">UpdateTime</span>(pblock, chainparams.<span class="built_in">GetConsensus</span>(), pindexPrev);</span><br><span class="line">    <span class="comment">//当前挖矿难度</span></span><br><span class="line">    pblock-&gt;nBits          = <span class="built_in">GetNextWorkRequired</span>(pindexPrev, pblock, chainparams.<span class="built_in">GetConsensus</span>());</span><br><span class="line">    <span class="comment">//随机数Nonce值</span></span><br><span class="line">    pblock-&gt;nNonce         = <span class="number">0</span>;</span><br><span class="line">    pblocktemplate-&gt;vTxSigOpsCost[<span class="number">0</span>] = WITNESS_SCALE_FACTOR * <span class="built_in">GetLegacySigOpCount</span>(*pblock-&gt;vtx[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">    CValidationState state;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">TestBlockValidity</span>(state, chainparams, *pblock, pindexPrev, <span class="literal">false</span>, <span class="literal">false</span>)) {</span><br><span class="line">        <span class="keyword">throw</span> std::<span class="built_in">runtime_error</span>(<span class="built_in">strprintf</span>(<span class="string">"%s: TestBlockValidity failed: %s"</span>, __func__, <span class="built_in">FormatStateMessage</span>(state)));</span><br><span class="line">    }</span><br><span class="line">    <span class="type">int64_t</span> nTime2 = <span class="built_in">GetTimeMicros</span>();</span><br><span class="line"></span><br><span class="line">    <span class="built_in">LogPrint</span>(BCLog::BENCH, <span class="string">"CreateNewBlock() packages: %.2fms (%d packages, %d updated descendants), validity: %.2fms (total %.2fms)\n"</span>, <span class="number">0.001</span> * (nTime1 - nTimeStart), nPackagesSelected, nDescendantsUpdated, <span class="number">0.001</span> * (nTime2 - nTime1), <span class="number">0.001</span> * (nTime2 - nTimeStart));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> std::<span class="built_in">move</span>(pblocktemplate);</span><br><span class="line">}</span><br><span class="line"><span class="comment">//代码位置src/miner.cpp</span></span><br></pre></td></tr></tbody></table></figure>
+<pre class="language-c++" data-language="c++"><code class="language-c++">std::unique_ptr&lt;CBlockTemplate&gt; BlockAssembler::CreateNewBlock(const CScript&amp; scriptPubKeyIn, bool fMineWitnessTx)
+{
+    int64_t nTimeStart = GetTimeMicros();
+
+    resetBlock();
+
+    pblocktemplate.reset(new CBlockTemplate());
+
+    if(!pblocktemplate.get())
+        return nullptr;
+    pblock = &amp;pblocktemplate-&gt;block; // pointer for convenience
+
+    pblock-&gt;vtx.emplace_back();
+    pblocktemplate-&gt;vTxFees.push_back(-1); // updated at end
+    pblocktemplate-&gt;vTxSigOpsCost.push_back(-1); // updated at end
+
+    LOCK2(cs_main, mempool.cs);
+    CBlockIndex* pindexPrev = chainActive.Tip();
+    nHeight = pindexPrev-&gt;nHeight + 1;
+
+    //版本号
+    pblock-&gt;nVersion = ComputeBlockVersion(pindexPrev, chainparams.GetConsensus());
+    if (chainparams.MineBlocksOnDemand())
+        pblock-&gt;nVersion = gArgs.GetArg("-blockversion", pblock-&gt;nVersion);
+
+    //当前时间戳
+    pblock-&gt;nTime = GetAdjustedTime();
+    const int64_t nMedianTimePast = pindexPrev-&gt;GetMedianTimePast();
+
+    nLockTimeCutoff = (STANDARD_LOCKTIME_VERIFY_FLAGS &amp; LOCKTIME_MEDIAN_TIME_PAST)
+                       ? nMedianTimePast
+                       : pblock-&gt;GetBlockTime();
+    fIncludeWitness = IsWitnessEnabled(pindexPrev, chainparams.GetConsensus()) &amp;&amp; fMineWitnessTx;
+
+    int nPackagesSelected = 0;
+    int nDescendantsUpdated = 0;
+    addPackageTxs(nPackagesSelected, nDescendantsUpdated);
+
+    int64_t nTime1 = GetTimeMicros();
+
+    nLastBlockTx = nBlockTx;
+    nLastBlockWeight = nBlockWeight;
+
+    //创建铸币交易
+    CMutableTransaction coinbaseTx;
+    coinbaseTx.vin.resize(1);
+    coinbaseTx.vin[0].prevout.SetNull();
+    coinbaseTx.vout.resize(1);
+    //挖矿奖励和手续费
+    coinbaseTx.vout[0].scriptPubKey = scriptPubKeyIn;
+    coinbaseTx.vout[0].nValue = nFees + GetBlockSubsidy(nHeight, chainparams.GetConsensus());
+    coinbaseTx.vin[0].scriptSig = CScript() &lt;&lt; nHeight &lt;&lt; OP_0;
+    //第一笔交易即为矿工获得奖励和手续费的特殊交易
+    pblock-&gt;vtx[0] = MakeTransactionRef(std::move(coinbaseTx));
+    pblocktemplate-&gt;vchCoinbaseCommitment = GenerateCoinbaseCommitment(*pblock, pindexPrev, chainparams.GetConsensus());
+    pblocktemplate-&gt;vTxFees[0] = -nFees;
+
+    LogPrintf("CreateNewBlock(): block weight: %u txs: %u fees: %ld sigops %d\n", GetBlockWeight(*pblock), nBlockTx, nFees, nBlockSigOpsCost);
+
+    //上一个区块的哈希值
+    pblock-&gt;hashPrevBlock  = pindexPrev-&gt;GetBlockHash();
+    UpdateTime(pblock, chainparams.GetConsensus(), pindexPrev);
+    //当前挖矿难度
+    pblock-&gt;nBits          = GetNextWorkRequired(pindexPrev, pblock, chainparams.GetConsensus());
+    //随机数Nonce值
+    pblock-&gt;nNonce         = 0;
+    pblocktemplate-&gt;vTxSigOpsCost[0] = WITNESS_SCALE_FACTOR * GetLegacySigOpCount(*pblock-&gt;vtx[0]);
+
+    CValidationState state;
+    if (!TestBlockValidity(state, chainparams, *pblock, pindexPrev, false, false)) {
+        throw std::runtime_error(strprintf("%s: TestBlockValidity failed: %s", __func__, FormatStateMessage(state)));
+    }
+    int64_t nTime2 = GetTimeMicros();
+
+    LogPrint(BCLog::BENCH, "CreateNewBlock() packages: %.2fms (%d packages, %d updated descendants), validity: %.2fms (total %.2fms)\n", 0.001 * (nTime1 - nTimeStart), nPackagesSelected, nDescendantsUpdated, 0.001 * (nTime2 - nTime1), 0.001 * (nTime2 - nTimeStart));
+
+    return std::move(pblocktemplate);
+}
+//代码位置src/miner.cpp</code></pre>
 
 <p>参考资料：<br><a target="_blank" rel="noopener" href="https://github.com/bitcoin/bitcoin">https://github.com/bitcoin/bitcoin</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/taifei/article/details/78034400">https://blog.csdn.net/taifei/article/details/78034400</a></p>
@@ -1317,7 +1507,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             

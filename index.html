@@ -627,10 +627,12 @@ SonarQube是一种自动代码审查工具，用于检测代码中的错误、�
                             
                                 
 
-1vim /etc/yum.repos.d/mysql-community.repo
+vim /etc/yum.repos.d/mysql-community.repo
 
 将以下代码复制进去
-1234567# Enable to use MySQL 5.7[mysql57-community]name=MySQL 5.
+# Enable to use MySQL 5.7
+[mysql57-community]
+name=MySQL 5.7 Comm
                             
                         </div>
                         <div class="publish-info">
@@ -681,10 +683,10 @@ SonarQube是一种自动代码审查工具，用于检测代码中的错误、�
                             
                                 
 
-1. 安装相关依赖1yum -y install make gcc gcc-c++ kernel-devel m4 ncurses-devel openssl-devel
+1. 安装相关依赖yum -y install make gcc gcc-c++ kernel-devel m4 ncurses-devel openssl-devel
 
 注意：进行下面步骤之前一定要做的事情
-登陆RabbitMQ官网
+登陆RabbitMQ官网查
                             
                         </div>
                         <div class="publish-info">
@@ -736,7 +738,9 @@ SonarQube是一种自动代码审查工具，用于检测代码中的错误、�
                                 
 
 题目描述题目：输入数字n，按顺序打印从1到最大的n位十进制数。比如输入3，则打印出1,2,3一直到最大的3位数999。
-1234567891011121314151617181920212223242526272829303132333
+func Print1ToMaxOfDigits(n int) {
+	if n &lt;= 0 {
+		return
                             
                         </div>
                         <div class="publish-info">
@@ -788,7 +792,7 @@ SonarQube是一种自动代码审查工具，用于检测代码中的错误、�
                                 
 
 题目描述：题目：把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个递增排序的数组的一个旋转，输出旋转数组的最小元素。例如：数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。
-1注意
+注意：
                             
                         </div>
                         <div class="publish-info">
@@ -893,10 +897,11 @@ SonarQube是一种自动代码审查工具，用于检测代码中的错误、�
 给定一个未排序的整数数组，找出最长连续序列的长度。
 要求算法的时间复杂度为 O(n)。
 示例:
-12输入: [100, 4, 200, 1, 3, 2]输出: 4
+输入: [100, 4, 200, 1, 3, 2]
+输出: 4
 
 解释: 最长连续序列是 [1, 2, 3, 4]。它的长度为 4。
-1
+fu
                             
                         </div>
                         <div class="publish-info">
@@ -992,12 +997,14 @@ SonarQube是一种自动代码审查工具，用于检测代码中的错误、�
 
 请判断一个链表是否为回文链表。
 示例 1:
-12输入: 1-&gt;2输出: false
+输入: 1-&gt;2
+输出: false
 
 示例 2:
-12输入: 1-&gt;2-&gt;2-&gt;1输出: true
+输入: 1-&gt;2-&gt;2-&gt;1
+输出: true
 
-进阶：你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解
+进阶：你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此
                             
                         </div>
                         <div class="publish-info">
@@ -1258,7 +1265,7 @@ SonarQube是一种自动代码审查工具，用于检测代码中的错误、�
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">92k</span>
+                        class="white-color">92.1k</span>
             
             
             
