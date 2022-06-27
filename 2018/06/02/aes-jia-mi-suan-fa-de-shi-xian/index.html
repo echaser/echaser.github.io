@@ -542,67 +542,67 @@ CFB模式 全称Cipher Fee">
 </li>
 </ul>
 <h2 id="实现-AES-加密和解密"><a href="#实现-AES-加密和解密" class="headerlink" title="实现 AES 加密和解密"></a>实现 AES 加密和解密</h2><p>使用CBC模式+PKCS7 填充方式实现AES的加密和解密</p>
-<pre class="language-golang" data-language="golang"><code class="language-golang">package main
+<pre class="language-go" data-language="go"><code class="language-go"><span class="token keyword">package</span> main
 
-import (
-    "bytes"
-    "crypto/cipher"
-    "crypto/aes"
-    "encoding/base64"
-    "fmt"
-)
+<span class="token keyword">import</span> <span class="token punctuation">(</span>
+    <span class="token string">"bytes"</span>
+    <span class="token string">"crypto/cipher"</span>
+    <span class="token string">"crypto/aes"</span>
+    <span class="token string">"encoding/base64"</span>
+    <span class="token string">"fmt"</span>
+<span class="token punctuation">)</span>
 
-func PKCS7Padding(ciphertext []byte, blockSize int) []byte {
-    padding := blockSize - len(ciphertext) % blockSize
-    padtext := bytes.Repeat([]byte{byte(padding)}, padding)
-    return append(ciphertext, padtext...)
-}
+<span class="token keyword">func</span> <span class="token function">PKCS7Padding</span><span class="token punctuation">(</span>ciphertext <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> blockSize <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span> <span class="token punctuation">{</span>
+    padding <span class="token operator">:=</span> blockSize <span class="token operator">-</span> <span class="token function">len</span><span class="token punctuation">(</span>ciphertext<span class="token punctuation">)</span> <span class="token operator">%</span> blockSize
+    padtext <span class="token operator">:=</span> bytes<span class="token punctuation">.</span><span class="token function">Repeat</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">{</span><span class="token function">byte</span><span class="token punctuation">(</span>padding<span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">,</span> padding<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token function">append</span><span class="token punctuation">(</span>ciphertext<span class="token punctuation">,</span> padtext<span class="token operator">...</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
-func PKCS7UnPadding(origData []byte) []byte {
-    length := len(origData)
-    unpadding := int(origData[length-1])
-    return origData[:(length - unpadding)]
-}
+<span class="token keyword">func</span> <span class="token function">PKCS7UnPadding</span><span class="token punctuation">(</span>origData <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span> <span class="token punctuation">{</span>
+    length <span class="token operator">:=</span> <span class="token function">len</span><span class="token punctuation">(</span>origData<span class="token punctuation">)</span>
+    unpadding <span class="token operator">:=</span> <span class="token function">int</span><span class="token punctuation">(</span>origData<span class="token punctuation">[</span>length<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> origData<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">(</span>length <span class="token operator">-</span> unpadding<span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
 
-func AesEncrypt(origData, key []byte) ([]byte, error) {
-    block, err := aes.NewCipher(key)
-    if err != nil {
-        return nil, err
-    }
-    blockSize := block.BlockSize()
-    origData = PKCS7Padding(origData, blockSize)
-    blockMode := cipher.NewCBCEncrypter(block, key[:blockSize])
-    crypted := make([]byte, len(origData))
-    blockMode.CryptBlocks(crypted, origData)
-    return crypted, nil
-}
+<span class="token keyword">func</span> <span class="token function">AesEncrypt</span><span class="token punctuation">(</span>origData<span class="token punctuation">,</span> key <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    block<span class="token punctuation">,</span> err <span class="token operator">:=</span> aes<span class="token punctuation">.</span><span class="token function">NewCipher</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+    blockSize <span class="token operator">:=</span> block<span class="token punctuation">.</span><span class="token function">BlockSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    origData <span class="token operator">=</span> <span class="token function">PKCS7Padding</span><span class="token punctuation">(</span>origData<span class="token punctuation">,</span> blockSize<span class="token punctuation">)</span>
+    blockMode <span class="token operator">:=</span> cipher<span class="token punctuation">.</span><span class="token function">NewCBCEncrypter</span><span class="token punctuation">(</span>block<span class="token punctuation">,</span> key<span class="token punctuation">[</span><span class="token punctuation">:</span>blockSize<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    crypted <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> <span class="token function">len</span><span class="token punctuation">(</span>origData<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    blockMode<span class="token punctuation">.</span><span class="token function">CryptBlocks</span><span class="token punctuation">(</span>crypted<span class="token punctuation">,</span> origData<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> crypted<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
 
-func AesDecrypt(crypted, key []byte) ([]byte, error) {
-    block, err := aes.NewCipher(key)
-    if err != nil {
-        return nil, err
-    }
-    blockSize := block.BlockSize()
-    blockMode := cipher.NewCBCDecrypter(block, key[:blockSize])
-    origData := make([]byte, len(crypted))
-    blockMode.CryptBlocks(origData, crypted)
-    origData = PKCS7UnPadding(origData)
-    return origData, nil
-}
+<span class="token keyword">func</span> <span class="token function">AesDecrypt</span><span class="token punctuation">(</span>crypted<span class="token punctuation">,</span> key <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    block<span class="token punctuation">,</span> err <span class="token operator">:=</span> aes<span class="token punctuation">.</span><span class="token function">NewCipher</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+    blockSize <span class="token operator">:=</span> block<span class="token punctuation">.</span><span class="token function">BlockSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    blockMode <span class="token operator">:=</span> cipher<span class="token punctuation">.</span><span class="token function">NewCBCDecrypter</span><span class="token punctuation">(</span>block<span class="token punctuation">,</span> key<span class="token punctuation">[</span><span class="token punctuation">:</span>blockSize<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    origData <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">byte</span><span class="token punctuation">,</span> <span class="token function">len</span><span class="token punctuation">(</span>crypted<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    blockMode<span class="token punctuation">.</span><span class="token function">CryptBlocks</span><span class="token punctuation">(</span>origData<span class="token punctuation">,</span> crypted<span class="token punctuation">)</span>
+    origData <span class="token operator">=</span> <span class="token function">PKCS7UnPadding</span><span class="token punctuation">(</span>origData<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> origData<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
 
-func main() {
-    key := []byte("0123456789abcdef")
-    result, err := AesEncrypt([]byte("hello world"), key)
-    if err != nil {
-        panic(err)
-    }
-    fmt.Println(base64.StdEncoding.EncodeToString(result))
-    origData, err := AesDecrypt(result, key)
-    if err != nil {
-        panic(err)
-    }
-    fmt.Println(string(origData))
-}</code></pre>
+<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    key <span class="token operator">:=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">"0123456789abcdef"</span><span class="token punctuation">)</span>
+    result<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">AesEncrypt</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token function">byte</span><span class="token punctuation">(</span><span class="token string">"hello world"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> key<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>base64<span class="token punctuation">.</span>StdEncoding<span class="token punctuation">.</span><span class="token function">EncodeToString</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    origData<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">AesDecrypt</span><span class="token punctuation">(</span>result<span class="token punctuation">,</span> key<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token function">panic</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span><span class="token function">string</span><span class="token punctuation">(</span>origData<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span></code></pre>
 
 <p>运行结果：</p>
 <pre class="language-bash" data-language="bash"><code class="language-bash">$ go run aes.go
